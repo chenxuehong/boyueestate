@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:name=".common.MainApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.MainActivity">
+        <activity android:name=".ui.activity.MainActivity"
+            android:lauchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
