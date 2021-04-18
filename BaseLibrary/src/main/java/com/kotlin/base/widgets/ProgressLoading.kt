@@ -27,12 +27,12 @@ class ProgressLoading private constructor(context: Context, theme: Int) : Dialog
             mDialog.setContentView(R.layout.progress_dialog)
             mDialog.setCancelable(true)
             mDialog.setCanceledOnTouchOutside(false)
-            mDialog.window.attributes.gravity = Gravity.CENTER
+            mDialog.window?.attributes?.gravity = Gravity.CENTER
 
-            val lp = mDialog.window.attributes
-            lp.dimAmount = 0.2f
+            val lp = mDialog.window?.attributes
+            lp?.dimAmount = 0.2f
             //设置属性
-            mDialog.window.attributes = lp
+            mDialog.window?.attributes = lp
 
             //获取动画视图
             val loadingView = mDialog.find<ImageView>(R.id.iv_loading)

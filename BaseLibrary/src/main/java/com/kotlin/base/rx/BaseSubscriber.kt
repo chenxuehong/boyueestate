@@ -26,9 +26,6 @@ open class BaseSubscriber<T>(val baseView: BaseView) : Observer<T> {
         baseView.hideLoading()
         if (e is BaseException) {
             baseView.onError(e.msg)
-        } else if (e is DataNullException){
-            baseView.onDataIsNull()
         }
-
     }
 }
