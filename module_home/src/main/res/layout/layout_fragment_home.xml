@@ -1,8 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:background="@color/main_color"
+       android:orientation="horizontal">
+       <FrameLayout
+           android:layout_width="@dimen/dp_60"
+           android:layout_height="@dimen/dp_44">
 
+       </FrameLayout>
+       <com.google.android.material.tabs.TabLayout
+           android:id="@+id/home_tabLayout"
+           android:layout_width="0dp"
+           android:layout_weight="1"
+           android:layout_height="@dimen/dp_44"
+           app:tabGravity="center"
+           app:tabMode="fixed"
+           app:tabSelectedTextColor="@color/common_white"
+           app:tabTextAppearance="@style/TabLayoutTextStyle"
+           app:tabTextColor="@color/color_999999" />
+       <FrameLayout
+           android:id="@+id/home_fl_add"
+           android:layout_width="@dimen/dp_60"
+           android:layout_height="@dimen/dp_44">
+
+           <ImageView
+               android:layout_gravity="center"
+               android:src="@drawable/add"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"/>
+       </FrameLayout>
+   </LinearLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/home_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>
