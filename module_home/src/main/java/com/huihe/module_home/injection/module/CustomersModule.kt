@@ -1,7 +1,6 @@
-package com.kotlin.goods.injection.module
-
-import com.kotlin.goods.service.CustomersService
-import com.kotlin.goods.service.impl.CustomersServiceImpl
+package com.huihe.module_home.injection.module
+import com.huihe.module_home.service.CustomersService
+import com.huihe.module_home.service.impl.CustomersServiceImpl
 import dagger.Module
 import dagger.Provides
 
@@ -12,8 +11,8 @@ import dagger.Provides
 class CustomersModule {
 
     @Provides
-    fun provideCustomerservice(goodsService: CustomersServiceImpl): CustomersService {
-        return goodsService
+    fun provideCustomerservice(customersService: CustomersServiceImpl): CustomersService {
+        return customersService
     }
 
 }

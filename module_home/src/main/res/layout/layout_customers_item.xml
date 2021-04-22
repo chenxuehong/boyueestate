@@ -1,11 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
-    <ImageView
-        android:layout_width="@dimen/dp_95"
-        android:layout_height="@dimen/dp_95"/>
+    android:layout_height="@dimen/dp_164">
 
-</android.support.constraint.ConstraintLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/item_customers_cv_cover"
+        style="@style/WrapWrap"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardBackgroundColor="@color/common_white"
+        app:cardCornerRadius="@dimen/common_radius"
+        app:cardElevation="2.0dip">
+        <ImageView
+            android:id="@+id/item_customers_iv_cover"
+            android:layout_width="@dimen/dp_120"
+            android:layout_height="@dimen/dp_120" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/item_customers_tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginRight="@dimen/dp_16"
+        android:text="岭南路-110弄-18甲-0601南路-110弄-18甲-0601南路-110弄-18甲-0601"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_16"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textStyle="bold"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/item_customers_cv_cover"
+        app:layout_constraintTop_toTopOf="@id/item_customers_cv_cover" />
+
+    <TextView
+        android:id="@+id/item_customers_tv_childTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginRight="@dimen/dp_16"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_marginTop="@dimen/dp_6"
+        android:text="岭南路-110弄-18甲-0601岭南路-110弄-18甲-0601岭南路-110弄-18甲-0601"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/item_customers_cv_cover"
+        app:layout_constraintTop_toBottomOf="@id/item_customers_tv_title" />
+
+    <TextView
+        android:id="@+id/item_customers_tv_createUser"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_6"
+        android:text="岭南路-110弄-18甲-0601"
+        android:layout_marginRight="@dimen/dp_16"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/item_customers_cv_cover"
+        app:layout_constraintTop_toBottomOf="@id/item_customers_tv_childTitle" />
+
+    <TextView
+        android:id="@+id/item_customers_tv_latestFollowTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_6"
+        android:text="岭南路-110弄-18甲-0601"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/sp_14"
+        android:layout_marginRight="@dimen/dp_16"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/item_customers_cv_cover"
+        app:layout_constraintTop_toBottomOf="@id/item_customers_tv_createUser" />
+    <TextView
+        android:id="@+id/item_customers_tv_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_6"
+        android:text="岭南路-110弄-18甲-0601"
+        android:layout_marginRight="@dimen/dp_16"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/item_customers_cv_cover"
+        app:layout_constraintTop_toBottomOf="@id/item_customers_tv_latestFollowTime" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/line"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

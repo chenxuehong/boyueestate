@@ -1,9 +1,9 @@
-package com.kotlin.goods.service.impl
-
+package com.huihe.module_home.service.impl
 import com.huihe.module_home.data.protocol.Customer
+import com.huihe.module_home.data.protocol.CustomerWrapper
 import com.huihe.module_home.data.repository.CustomersRepository
+import com.huihe.module_home.service.CustomersService
 import com.kotlin.base.ext.convert
-import com.kotlin.goods.service.CustomersService
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -15,22 +15,21 @@ class CustomersServiceImpl @Inject constructor(): CustomersService {
     @Inject
     lateinit var repository: CustomersRepository
 
-    override fun getMoreCustomersList(dataType: Int): Observable<MutableList<Customer>?> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun getMoreCustomersList(
-        myHouse: Int,
-        hasKey: Int,
-        hasSole: Int,
-        myMaintain: Int,
-        isCirculation: Int,
-        entrustHouse: Int,
-        myCollect: Int,
-        floorageRanges: Map<String, String>,
-        roomNumRanges: Map<String, String>
-    ): Observable<MutableList<Customer>?> {
+        pageNo: Int?,
+        pageSize: Int?,
+        myHouse: Int?,
+        hasKey: Int?,
+        hasSole: Int?,
+        myMaintain: Int?,
+        isCirculation: Int?,
+        entrustHouse: Int?,
+        myCollect: Int?,
+        floorageRanges: Map<String, String>?,
+        roomNumRanges: Map<String, String>?
+    ): Observable<CustomerWrapper?> {
         return repository.getMoreCustomersList(
+            pageNo,pageSize,
             myHouse, hasKey,hasSole,
             myMaintain,isCirculation,entrustHouse,
             myCollect,floorageRanges,roomNumRanges).convert()

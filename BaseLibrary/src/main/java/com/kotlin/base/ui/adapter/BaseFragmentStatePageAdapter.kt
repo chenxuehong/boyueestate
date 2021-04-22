@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 
 class BaseFragmentStatePageAdapter : FragmentStatePagerAdapter {
 
-    private var titles: MutableList<String>?=null
+    private var titles: MutableList<String>? = null
     private var fragments: List<Fragment>? = null
 
     constructor(
@@ -22,11 +22,9 @@ class BaseFragmentStatePageAdapter : FragmentStatePagerAdapter {
         this.fragments = fragments
     }
 
-    override fun getItem(i: Int): Fragment? {
+    override fun getItem(i: Int): Fragment {
 
-        return if (fragments != null) {
-            fragments!![i]
-        } else null
+        return fragments!![i]
     }
 
     override fun getCount(): Int {

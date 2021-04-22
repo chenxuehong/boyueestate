@@ -1,6 +1,7 @@
-package com.kotlin.goods.service
+package com.huihe.module_home.service
 
 import com.huihe.module_home.data.protocol.Customer
+import com.huihe.module_home.data.protocol.CustomerWrapper
 import io.reactivex.Observable
 
 /*
@@ -15,16 +16,19 @@ interface CustomersService {
     房型    一室  二室  三室  四室  五室  五室以上（多选）
      */
 
-    fun getMoreCustomersList(myHouse: Int?, hasKey: Int?, hasSole: Int?,
-                         myMaintain: Int?, isCirculation: Int?,
-                         entrustHouse: Int? ,myCollect: Int?,
-                         floorageRanges: Map<String,String>?,
-                         roomNumRanges: Map<String,String>?): Observable<MutableList<Customer>?>
+    fun getMoreCustomersList(
+        pageNo: Int? = null, pageSize: Int? = null,
+        myHouse: Int?, hasKey: Int?, hasSole: Int?,
+        myMaintain: Int?, isCirculation: Int?,
+        entrustHouse: Int?, myCollect: Int?,
+        floorageRanges: Map<String, String>?,
+        roomNumRanges: Map<String, String>?
+    ): Observable<CustomerWrapper?>
 
     /**
      * 获取房源列表 更多
      *  状态 :全部  有效  他售  我售 暂缓    新上 ：今日新上 三日新上   一周新上  类型：出售  出租  租售
      */
-    fun getMoreCustomersList(dataType: Int): Observable<MutableList<Customer>?>
+//    fun getMoreCustomersList(dataType: Int): Observable<MutableList<Customer>?>
 
 }

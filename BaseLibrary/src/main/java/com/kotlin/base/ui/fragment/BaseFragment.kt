@@ -1,6 +1,6 @@
 package com.kotlin.base.ui.fragment
 
-import com.trello.rxlifecycle4.components.support.RxFragment
+import com.trello.rxlifecycle3.components.support.RxFragment
 
 /*
     Fragment基类，业务无关

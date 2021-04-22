@@ -1,6 +1,6 @@
 package com.kotlin.base.injection.module
 
-import com.trello.rxlifecycle4.LifecycleProvider
+import com.trello.rxlifecycle3.LifecycleProvider
 import dagger.Module
 import dagger.Provides
 

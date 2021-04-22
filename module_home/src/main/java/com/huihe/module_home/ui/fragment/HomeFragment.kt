@@ -34,7 +34,7 @@ class HomeFragment : BaseFragment() {
         titles.add("二手房")
         titles.add("地图找房")
         fragments.add(CustomersFragment())
-        fragments.add(CustomersMapFragment())
+        fragments.add(CustomersFragment())
         home_viewPager.adapter = BaseFragmentStatePageAdapter(
             childFragmentManager,
             titles,

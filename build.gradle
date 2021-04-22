@@ -1,9 +1,9 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.compile_sdk_version = 27
+    ext.compile_sdk_version = 28
     ext.min_sdk_version = 15
-    ext.target_sdk_version = 27
+    ext.target_sdk_version = 28
     ext.android_support_version = "27.1.0"
     ext.kotlin_version = '1.3.50'
     ext.anko_version = '0.10.8'
@@ -15,7 +15,7 @@ buildscript {
 
     ext.dagger_version = '2.15'
 
-    ext.rx_lifecycle_version = '4.0.2'
+    ext.rx_lifecycle_version = '3.1.0'
 
     ext.glide_version = "3.7.0"
 

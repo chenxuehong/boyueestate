@@ -1,19 +1,22 @@
 package com.huihe.module_home.presenter
 
 import com.huihe.module_home.data.protocol.Customer
+import com.huihe.module_home.data.protocol.CustomerWrapper
 import com.huihe.module_home.presenter.view.SecondHandHouseView
+import com.huihe.module_home.service.CustomersService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber
-import com.kotlin.goods.service.CustomersService
 import javax.inject.Inject
 
 class CustomersPresenter @Inject constructor() : BasePresenter<SecondHandHouseView>() {
 
     @Inject
-    lateinit var goodsService: CustomersService
+    lateinit var customersService: CustomersService
 
     fun getMoreCustomersList(
+        pageNo: Int?=null,
+        pageSize: Int?=null,
         myHouse: Int?=null,
         hasKey: Int?=null,
         hasSole: Int?=null,
@@ -27,18 +30,14 @@ class CustomersPresenter @Inject constructor() : BasePresenter<SecondHandHouseVi
         if (!checkNetWork()) {
             return
         }
-        mView.showLoading()
-        goodsService.getMoreCustomersList(
+        customersService?.getMoreCustomersList(
+            pageNo,pageSize,
             myHouse, hasKey,hasSole,
             myMaintain,isCirculation,entrustHouse,
             myCollect,floorageRanges,roomNumRanges)
-            .execute(object : BaseSubscriber<MutableList<Customer>?>(mView) {
-                override fun onNext(t: MutableList<Customer>?) {
-                    if (t?.size!! >0){
-                        mView.onGetHouseListResult(t)
-                    }else{
-                        mView.onDataIsNull()
-                    }
+            .execute(object : BaseSubscriber<CustomerWrapper?>(mView) {
+                override fun onNext(t: CustomerWrapper?) {
+                    mView.onGetHouseListResult(t?.list)
                 }
             }, lifecycleProvider)
 

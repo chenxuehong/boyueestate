@@ -3,7 +3,7 @@ package com.kotlin.base.presenter
 import android.content.Context
 import com.kotlin.base.presenter.view.BaseView
 import com.kotlin.base.utils.NetWorkUtils
-import com.trello.rxlifecycle4.LifecycleProvider
+import com.trello.rxlifecycle3.LifecycleProvider
 import javax.inject.Inject
 
 /*
