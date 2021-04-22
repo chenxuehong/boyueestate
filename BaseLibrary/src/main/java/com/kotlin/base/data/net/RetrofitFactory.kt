@@ -34,8 +34,8 @@ class RetrofitFactory private constructor(){
                 .newBuilder()
                 .addHeader("Content_Type","application/json")
                 .addHeader("charset","UTF-8")
-                .addHeader("H-User-Token","eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIxIiwiZGVwdElkIjoiMzMiLCJub3dNaWxsaXMiOjE2MTkwMTQ5MDE1NTl9.bUvWy6U7p7YTOJL83ChpriXvdx4nrQ-Y86l81-CiRhI")
-//                .addHeader("H-User-Token",AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN))
+//                .addHeader("H-User-Token","eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIxIiwiZGVwdElkIjoiMzMiLCJub3dNaWxsaXMiOjE2MTkwMTQ5MDE1NTl9.bUvWy6U7p7YTOJL83ChpriXvdx4nrQ-Y86l81-CiRhI")
+                .addHeader(BaseConstant.KEY_SP_TOKEN,AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN))
                 .build()
             chain.proceed(request)
         }

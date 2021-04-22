@@ -11,7 +11,11 @@
         android:name=".common.MainApplication"
         android:networkSecurityConfig="@xml/network"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.MainActivity">
+        <activity android:name=".ui.activity.MainActivity"/>
+
+        <activity android:name=".ui.activity.SplashActivity"
+            android:fitsSystemWindows="true"
+            android:theme="@style/Theme.welcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

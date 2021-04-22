@@ -118,11 +118,7 @@ fun TextView.setTextStyle(content: String, drawables: List<Drawable>?) {
     var i = 0;
     drawables?.forEach {
         // 替换0,1的字符
-        if (it != null) {
-            spanText.setSpan(ImageSpan(it), i, 1 + i, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
-        } else {
-            spanText.setSpan("", i, 1 + i, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
-        }
+        spanText.setSpan(ImageSpan(it), i, 1 + i, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
         i++
     }
     text = spanText

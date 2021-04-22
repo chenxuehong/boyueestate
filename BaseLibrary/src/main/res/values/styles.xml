@@ -15,6 +15,11 @@
         <item name="android:windowBackground">@color/common_black</item>
     </style>
 
+    <style name="Theme.welcome" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+    </style>
+
     <!-- 多状态视图样式-->
     <style name="MultiStateStyle">
         <item name="android:layout_width">match_parent</item>

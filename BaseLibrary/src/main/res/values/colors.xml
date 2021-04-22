@@ -24,4 +24,5 @@
     <color name="color_999999">#999999</color>
     <color name="color_333333">#333333</color>
     <color name="line">#eeeeee</color>
+    <color name="login_et_enter_bg">#bab5eb</color>
 </resources>
