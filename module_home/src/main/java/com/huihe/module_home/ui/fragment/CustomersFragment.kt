@@ -5,29 +5,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder
-import cn.bingoogolapple.refreshlayout.BGARefreshLayout
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.Customer
+import com.huihe.module_home.data.protocol.ISearchResult
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.CustomersPresenter
 import com.huihe.module_home.presenter.view.SecondHandHouseView
 import com.huihe.module_home.ui.adpter.SecondHandHouseAdapter
+import com.huihe.module_home.ui.widget.ISearchResultListener
+import com.huihe.module_home.ui.widget.SearchResultViewController
+import com.huihe.module_home.ui.widget.SearchType
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import kotlinx.android.synthetic.main.fragment_secondhandhouse.*
-import org.jetbrains.anko.support.v4.toast
+
 
 class CustomersFragment : BaseMvpFragment<CustomersPresenter>(), SecondHandHouseView,
-    BGARefreshLayout.BGARefreshLayoutDelegate {
+    ISearchResultListener {
 
     private var mCurrentPage: Int = 1
     private var mPageSize: Int = 30
     private var hasMoreData = true
     private var mGoodsAdapter: SecondHandHouseAdapter? = null
+    private val headers = arrayOf("区域", "楼层", "价格", "更多", "排序")
+    private val citys =
+        arrayOf("不限", "武汉", "北京", "上海", "成都", "广州", "深圳", "重庆", "天津", "西安", "南京", "杭州")
+    private val popupViews = mutableListOf<View>()
 
     init {
         hasMoreData = true
@@ -63,18 +69,66 @@ class CustomersFragment : BaseMvpFragment<CustomersPresenter>(), SecondHandHouse
 
         mGoodsAdapter?.setOnItemClickListener(object :
             BaseRecyclerViewAdapter.OnItemClickListener<Customer> {
-            override fun onItemClick(item: Customer, position: Int) {
+            override fun onItemClick(view: View,item: Customer, position: Int) {
 //                startActivity<GoodsDetailActivity>(GoodsConstant.KEY_GOODS_ID to item.id)
             }
         })
+        var init = SearchResultViewController.init(context!!, dropDownMenu.isShowing)
+        var inflate = View.inflate(context, R.layout.layout_alertview, null)
+        dropDownMenu.setDropDownMenu(headers.asList(), init.getAllViews(this), inflate)
+
+    }
+
+    override fun onSearchResult(iSearchResult: ISearchResult?, floorsType: SearchType) {
+        when(floorsType){
+            SearchType.AreaType->{
+
+            }
+            SearchType.FloorsType->{
+
+            }
+            SearchType.PriceType->{
+
+            }
+            SearchType.MoreType->{
+
+            }
+            SearchType.SortType->{
+
+            }
+        }
+        if (dropDownMenu.isShowing) {
+            dropDownMenu.closeMenu()
+        }
+    }
+
+    override fun onDestroyView() {
+        //退出activity前关闭菜单
+        if (dropDownMenu.isShowing) {
+            dropDownMenu.closeMenu()
+        }
+        SearchResultViewController.detach()
+        super.onDestroyView()
     }
 
     private fun initRefreshLayout() {
-        customers_mBGARefreshLayout.setDelegate(this)
-        val viewHolder = BGANormalRefreshViewHolder(context, true)
-        viewHolder.setLoadMoreBackgroundColorRes(R.color.common_bg)
-        viewHolder.setRefreshViewBackgroundColorRes(R.color.common_bg)
-        customers_mBGARefreshLayout.setRefreshViewHolder(viewHolder)
+        customers_mBGARefreshLayout.setOnRefreshListener {
+            if (hasMoreData) {
+                mCurrentPage = 1
+                loadData()
+            } else {
+                customers_mBGARefreshLayout?.finishRefreshWithNoMoreData()
+            }
+        }
+
+        customers_mBGARefreshLayout.setOnLoadMoreListener {
+            if (hasMoreData) {
+                mCurrentPage++
+                loadData()
+            } else {
+                customers_mBGARefreshLayout?.finishLoadMoreWithNoMoreData()
+            }
+        }
     }
 
     private fun initData() {
@@ -94,31 +148,9 @@ class CustomersFragment : BaseMvpFragment<CustomersPresenter>(), SecondHandHouse
         customers_mMultiStateView?.viewState = MultiStateView.VIEW_STATE_ERROR
     }
 
-    /*
-        上拉加载更多
-     */
-    override fun onBGARefreshLayoutBeginLoadingMore(refreshLayout: BGARefreshLayout?): Boolean {
-        return if (hasMoreData) {
-            mCurrentPage++
-            loadData()
-            true
-        } else {
-            toast("没有更多数据了!")
-            false
-        }
-    }
-
-    /*
-        下拉加载第一页
-     */
-    override fun onBGARefreshLayoutBeginRefreshing(refreshLayout: BGARefreshLayout?) {
-        mCurrentPage = 1
-        loadData()
-    }
-
     override fun onGetHouseListResult(result: MutableList<Customer>?) {
-        customers_mBGARefreshLayout?.endRefreshing()
-        customers_mBGARefreshLayout?.endLoadingMore()
+        customers_mBGARefreshLayout?.finishLoadMore()
+        customers_mBGARefreshLayout?.finishRefresh()
         hasMoreData = if (result != null) (result.size <= mPageSize) else false
         if (result != null && result.size > 0) {
             if (mCurrentPage == 1) {

@@ -20,14 +20,14 @@
         android:layout_marginRight="@dimen/dp_80"
         android:src="@drawable/clear_pw"
         android:layout_gravity="center_vertical|right"
-        android:layout_width="@dimen/dp_40"
-        android:layout_height="@dimen/dp_40"/>
+        android:layout_width="@dimen/dp_25"
+        android:layout_height="@dimen/dp_25"/>
 
     <ImageView
         android:id="@+id/layout_edit_inputview_iv_see"
         android:layout_marginRight="@dimen/dp_20"
-        android:src="@drawable/see"
+        android:src="@drawable/hide_pw"
         android:layout_gravity="center_vertical|right"
-        android:layout_width="@dimen/dp_40"
-        android:layout_height="@dimen/dp_40"/>
+        android:layout_width="@dimen/dp_25"
+        android:layout_height="@dimen/dp_25"/>
 </FrameLayout>

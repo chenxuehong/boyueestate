@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.FrameLayout
 import com.kotlin.base.common.AppManager
+import com.kotlin.base.ext.hideKeyboard
 import com.kotlin.base.utils.GlideUtils
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import org.jetbrains.anko.find
@@ -48,27 +49,25 @@ open class BaseActivity : RxAppCompatActivity() {
         if (ev?.action == MotionEvent.ACTION_DOWN) {
             var view = currentFocus
             if (isShouldHideKeyboard(view, ev)) {
-
-                var imm: InputMethodManager =
-                    getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+                hideKeyboard(view)
             }
+            return super.dispatchTouchEvent(ev)
         }
-        return super.dispatchTouchEvent(ev)
+        if (window.superDispatchTouchEvent(ev)) {
+            return true
+        }
+        return onTouchEvent(ev)
     }
 
     private fun isShouldHideKeyboard(view: View?, ev: MotionEvent): Boolean {
         if (view is EditText) {
             var l: IntArray = intArrayOf(0, 0)
-            view.getLocationInWindow(l)
+            view.getLocationOnScreen(l)
             var left = l[0]
             var top = l[1]
-            var bottom = top + view.height
-            var right = left + view.width
-            return !(ev.x>left&&
-                    ev.x<right&&
-                    ev.y>top&&
-                    ev.y<bottom)
+
+            return (ev.getX() < left || (ev.getX() > left + view.getWidth())
+                    || ev.getY() < top || (ev.getY() > top + view.getHeight()))
         }
         return false
     }

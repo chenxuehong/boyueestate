@@ -1,8 +1,5 @@
 package com.kotlin.base.rx
 
-import android.util.Log
-import android.widget.Toast
-import com.kotlin.base.common.BaseApplication
 import com.kotlin.base.common.ResultCode
 import com.kotlin.base.data.protocol.BaseResp
 import io.reactivex.Observable
@@ -17,7 +14,7 @@ class BaseFunc<T> : Function<BaseResp<T>, Observable<T>> {
             return Observable.error(BaseException(t.status, t.msg))
         }
 
-        if (t.data == null){
+        if (t.data == null) {
             return Observable.error(DataNullException())
         }
         return Observable.just(t.data)

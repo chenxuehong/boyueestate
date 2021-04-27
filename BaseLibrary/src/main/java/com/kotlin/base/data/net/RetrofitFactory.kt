@@ -1,6 +1,5 @@
 package com.kotlin.base.data.net
 
-import android.util.Log
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.utils.AppPrefsUtils
 import okhttp3.Interceptor

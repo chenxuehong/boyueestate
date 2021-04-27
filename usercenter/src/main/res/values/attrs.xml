@@ -2,7 +2,8 @@
 <resources>
     <declare-styleable name="EditInputView">
         <attr name="hint" format="string"/>
+        <attr name="textColor" format="color"/>
         <attr name="textSize" format="dimension"/>
-        <attr name="inputType" format="string"/>
+        <attr name="isPassInput" format="boolean"/>
     </declare-styleable>
 </resources>

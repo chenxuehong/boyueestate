@@ -3,9 +3,14 @@ package com.kotlin.base.common
 import android.content.Context
 import androidx.multidex.MultiDexApplication
 import com.alibaba.android.arouter.launcher.ARouter
+import com.kotlin.base.R
 import com.kotlin.base.injection.component.AppComponent
 import com.kotlin.base.injection.component.DaggerAppComponent
 import com.kotlin.base.injection.module.AppModule
+import com.scwang.smart.refresh.footer.ClassicsFooter
+import com.scwang.smart.refresh.header.ClassicsHeader
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
+
 
 /*
     Application 基类
@@ -13,6 +18,18 @@ import com.kotlin.base.injection.module.AppModule
 open class BaseApplication : MultiDexApplication() {
 
     lateinit var appComponent: AppComponent
+
+    //static 代码段可以防止内存泄露
+    init {
+        //设置全局的Header构建器
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
+            layout.setPrimaryColorsId(R.color.main_color, R.color.common_white)//全局设置主题颜色
+            ClassicsHeader(context)
+        };
+        //设置全局的Footer构建器
+        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
+            ClassicsFooter(context).setDrawableSize(context.resources.getDimension(R.dimen.dp_15)) }
+    }
 
     override fun onCreate() {
         super.onCreate()

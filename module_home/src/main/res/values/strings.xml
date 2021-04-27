@@ -4,4 +4,10 @@
     <string name="customers_childTitle">%sm² %s %s/%s</string>
     <string name="createUser">%s  %s</string>
     <string name="latestFollowTime">最后跟进: %s</string>
+    <string name="max_value">最大值</string>
+    <string name="min_value">最小值</string>
+    <string name="floor_btn">确认</string>
+    <string name="dao">—</string>
+    <string name="floor">层</string>
+    <string name="wan">万</string>
 </resources>

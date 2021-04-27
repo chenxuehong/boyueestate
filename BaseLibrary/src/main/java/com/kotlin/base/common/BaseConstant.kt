@@ -13,5 +13,6 @@ class BaseConstant{
         const val TABLE_PREFS = "estate"
         //Token Key
         const val KEY_SP_TOKEN = "H-User-Token"
+        const val KEY_SP_USER_INFO = "userInfo"
     }
 }

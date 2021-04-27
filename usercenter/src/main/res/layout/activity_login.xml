@@ -2,17 +2,86 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@color/main_color"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ConstraintLayout_inputview"
         android:layout_width="match_parent"
         android:layout_marginLeft="@dimen/dp_30"
         android:layout_marginRight="@dimen/dp_30"
         android:background="@drawable/login_et_enter"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_height="@dimen/dp_200">
-
-        
+        android:layout_height="@dimen/dp_180">
+        <com.huihe.usercenter.ui.widget.EditInputView
+            android:id="@+id/mMobileEt"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:background="@drawable/login_et_input"
+            android:layout_marginTop="@dimen/dp_20"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:hint="@string/account_enter_tip"
+            app:textSize="@dimen/sp_18"
+            app:isPassInput="false"
+            app:textColor="@color/common_black"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"/>
+        <com.huihe.usercenter.ui.widget.EditInputView
+            android:id="@+id/mPwdEt"
+            android:layout_margin="@dimen/dp_20"
+            android:background="@drawable/login_et_input"
+            app:isPassInput="true"
+            app:layout_constraintTop_toBottomOf="@id/mMobileEt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:hint="@string/password_enter_tip"
+            app:textSize="@dimen/sp_18"
+            app:textColor="@color/common_black"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <LinearLayout
+        android:layout_marginBottom="@dimen/dp_40"
+        app:layout_constraintBottom_toTopOf="@id/ConstraintLayout_inputview"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:layout_marginRight="@dimen/dp_30"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/iv_left_splash"
+            android:layout_width="@dimen/dp_120"
+            android:src="@drawable/splash"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:textSize="@dimen/sp_24"
+            android:text="@string/login_top_title"
+            android:textColor="@color/common_white"
+            android:textStyle="bold"
+            android:layout_marginLeft="@dimen/dp_24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/mloginBtn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/login_btn_selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="@dimen/dp_200"
+        android:textSize="@dimen/sp_22"
+        android:enabled="false"
+        android:text="@string/login"
+        android:textColor="@color/main_color"
+        android:layout_marginBottom="@dimen/dp_60"
+        android:layout_height="@dimen/dp_50"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

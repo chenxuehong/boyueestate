@@ -1,13 +1,14 @@
 package com.kotlin.base.ui.adapter
 
 import android.content.Context
-import android.view.ViewGroup
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
 /*
     RecyclerViewAdapter基类
  */
-abstract class BaseRecyclerViewAdapter<T, VH : RecyclerView.ViewHolder>(var mContext: Context) : RecyclerView.Adapter<VH>() {
+abstract class BaseRecyclerViewAdapter<T, VH : RecyclerView.ViewHolder>(var mContext: Context) :
+    RecyclerView.Adapter<VH>() {
 
     //ItemClick事件
     var mItemClickListener: OnItemClickListener<T>? = null
@@ -26,8 +27,7 @@ abstract class BaseRecyclerViewAdapter<T, VH : RecyclerView.ViewHolder>(var mCon
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         holder.itemView.setOnClickListener {
-            if (mItemClickListener != null)
-                mItemClickListener!!.onItemClick(dataList[position], position)
+            mItemClickListener?.onItemClick(holder.itemView,dataList[position], position)
         }
     }
 
@@ -39,7 +39,7 @@ abstract class BaseRecyclerViewAdapter<T, VH : RecyclerView.ViewHolder>(var mCon
         ItemClick事件声明
      */
     interface OnItemClickListener<in T> {
-        fun onItemClick(item: T, position: Int)
+        fun onItemClick(view:View,item: T, position: Int)
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener<T>) {

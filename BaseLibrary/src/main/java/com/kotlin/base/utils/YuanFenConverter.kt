@@ -92,7 +92,8 @@ object YuanFenConverter {
         if (!amount.matches(CURRENCY_FEN_REGEX.toRegex())) {
             throw Exception("Invalid format")
         }
-        return BigDecimal.valueOf(java.lang.Long.valueOf(amount)!!).divide(BigDecimal(100)).toString()
+        return BigDecimal.valueOf(java.lang.Long.valueOf(amount)!!).divide(BigDecimal(100))
+            .toString()
     }
 
     /*
@@ -117,15 +118,42 @@ object YuanFenConverter {
         } else if (length - index == 2) {
             amLong = java.lang.Long.valueOf(currency.substring(0, index + 2).replace(".", "") + 0)
         } else {
-            amLong = java.lang.Long.valueOf(currency.substring(0, index + 1).replace(".", "") + "00")
+            amLong =
+                java.lang.Long.valueOf(currency.substring(0, index + 1).replace(".", "") + "00")
         }
         return amLong!!.toString()
     }
 
     /*
+        保留一位小数
+     */
+    fun getRoundFloor(amount: BigDecimal?): String? {
+        return amount?.setScale(1, BigDecimal.ROUND_FLOOR)?.toString()
+    }
+
+    /*
+        转换为万/m2
+     */
+    fun changeYM(amount: BigDecimal?, floorage: String): String {
+
+        var amount = amount?.div(floorage!!.toBigDecimal())
+        if (amount!! >= BigDecimal(10000)) {
+            var newAmount = BigDecimal(amount.toDouble() / 10000)
+            return StringBuffer(
+                newAmount.setScale(
+                    2,
+                    BigDecimal.ROUND_FLOOR
+                )!!.toString()
+            ).append("万").toString()
+        } else {
+            return amount!!.setScale(2, BigDecimal.ROUND_FLOOR)!!.toString()
+        }
+    }
+
+    /*
         分 转换为 元，带单位
      */
-    fun changeF2YWithUnit(amount:Long):String{
+    fun changeF2YWithUnit(amount: Long): String {
         return "¥${YuanFenConverter.changeF2Y(amount)}"
     }
 }

@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.huihe.module_home.R
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.adapter.BaseFragmentStatePageAdapter
 import com.kotlin.base.ui.fragment.BaseFragment
+import com.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.layout_fragment_home.*
-
+@Route(path = RouterPath.HomeCenter.PATH_HOME)
 class HomeFragment : BaseFragment() {
 
     override fun onCreateView(

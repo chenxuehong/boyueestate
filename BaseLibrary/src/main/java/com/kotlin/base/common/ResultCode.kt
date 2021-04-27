@@ -6,5 +6,6 @@ package com.kotlin.base.common
 class ResultCode {
     companion object {
         const val SUCCESS = 200
+        const val LOGIN_OVER_TIME = 500
     }
 }

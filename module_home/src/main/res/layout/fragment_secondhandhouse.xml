@@ -1,22 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/MatchMatch.Vertical.Common">
+<com.kennyc.view.MultiStateView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/customers_mMultiStateView"
+    style="@style/MultiStateStyle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/customers_mBGARefreshLayout"
+        style="@style/MatchMatch">
 
-    <com.kennyc.view.MultiStateView
-        android:id="@+id/customers_mMultiStateView"
-        android:layout_width="match_parent"
-        style="@style/MultiStateStyle"
-        android:layout_height="match_parent">
-        <cn.bingoogolapple.refreshlayout.BGARefreshLayout
-            android:id="@+id/customers_mBGARefreshLayout"
-            style="@style/MatchMatch">
+        <FrameLayout
+            style="@style/MatchMatch"
+            android:orientation="vertical">
+
             <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="@dimen/dp_48"
                 android:id="@+id/customers_mRecyclerView"
-                style="@style/commonRecyclerView"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-        </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+                style="@style/commonRecyclerView" />
+            <com.yyydjk.library.DropDownMenu
+                android:id="@+id/dropDownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:ddmenuMenuHeightPercent="0.5"
+                app:ddmaskColor="@color/mask_color"
+                app:ddmenuBackgroundColor="@color/white"
+                app:ddmenuSelectedIcon="@drawable/drop_down_selected_icon"
+                app:ddmenuTextSize="13sp"
+                app:ddmenuUnselectedIcon="@drawable/drop_down_unselected_icon"
+                app:ddtextSelectedColor="@color/drop_down_selected"
+                app:ddtextUnselectedColor="@color/drop_down_unselected" />
+        </FrameLayout>
 
-    </com.kennyc.view.MultiStateView>
-</LinearLayout>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+</com.kennyc.view.MultiStateView>

@@ -1,15 +1,11 @@
 package com.kotlin.base.ext
 
+import android.content.Context
 import android.graphics.drawable.AnimationDrawable
-import android.graphics.drawable.Drawable
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ImageSpan
 import android.view.View
-import android.widget.Button
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.R
 import com.kotlin.base.data.protocol.BaseResp
@@ -75,7 +71,7 @@ fun View.onClick(method: () -> Unit): View {
 /*
     扩展Button可用性
  */
-fun Button.enable(et: EditText, method: () -> Boolean) {
+fun View.enable(et: EditText, method: () -> Boolean) {
     val btn = this
     et.addTextChangedListener(object : DefaultTextWatcher() {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -108,18 +104,11 @@ fun View.setVisible(visible: Boolean) {
     this.visibility = if (visible) View.VISIBLE else View.GONE
 }
 
-fun View.postTaskDelayed(action: Runnable, delayMillis: Long) {
-    this.removeCallbacks(action)
-    this.postDelayed(action,delayMillis)
-}
-
-fun TextView.setTextStyle(content: String, drawables: List<Drawable>?) {
-    val spanText = SpannableString(content)
-    var i = 0;
-    drawables?.forEach {
-        // 替换0,1的字符
-        spanText.setSpan(ImageSpan(it), i, 1 + i, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
-        i++
+//隐藏虚拟键盘
+fun Context.hideKeyboard(v: View) {
+    var imm: InputMethodManager =
+        getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    if (imm.isActive) {
+        imm.hideSoftInputFromWindow(v.applicationWindowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
-    text = spanText
 }
