@@ -1,13 +1,16 @@
 package com.huihe.module_home.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.Customer
+import com.huihe.module_home.data.protocol.FloorResult
 import com.huihe.module_home.data.protocol.ISearchResult
+import com.huihe.module_home.data.protocol.PriceResult
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.CustomersPresenter
@@ -26,6 +29,7 @@ import kotlinx.android.synthetic.main.fragment_secondhandhouse.*
 class CustomersFragment : BaseMvpFragment<CustomersPresenter>(), SecondHandHouseView,
     ISearchResultListener {
 
+    private val TAG: String? = CustomersFragment::class.java.simpleName
     private var mCurrentPage: Int = 1
     private var mPageSize: Int = 30
     private var hasMoreData = true
@@ -69,7 +73,7 @@ class CustomersFragment : BaseMvpFragment<CustomersPresenter>(), SecondHandHouse
 
         mGoodsAdapter?.setOnItemClickListener(object :
             BaseRecyclerViewAdapter.OnItemClickListener<Customer> {
-            override fun onItemClick(view: View,item: Customer, position: Int) {
+            override fun onItemClick(view: View, item: Customer, position: Int) {
 //                startActivity<GoodsDetailActivity>(GoodsConstant.KEY_GOODS_ID to item.id)
             }
         })
@@ -79,21 +83,36 @@ class CustomersFragment : BaseMvpFragment<CustomersPresenter>(), SecondHandHouse
 
     }
 
-    override fun onSearchResult(iSearchResult: ISearchResult?, floorsType: SearchType) {
-        when(floorsType){
-            SearchType.AreaType->{
+    override fun onSearchResult(iSearchResult: ISearchResult?,showTip: String, floorsType: SearchType) {
+        dropDownMenu.setTabText(showTip)
+        when (floorsType) {
+            SearchType.AreaType -> {
 
             }
-            SearchType.FloorsType->{
+            SearchType.FloorsType -> {
+
+                if (iSearchResult != null){
+                    var floorResult = iSearchResult as FloorResult
+                    Log.i(
+                        TAG,
+                        "floorResult : floorLess =" + floorResult.floorLess + ",floorMore=" + floorResult.floorMore
+                    )
+                }
+            }
+            SearchType.PriceType -> {
+                if (iSearchResult != null) {
+                    var priceResult = iSearchResult as PriceResult
+                    Log.i(
+                        TAG,
+                        "priceResult : priceLess =" + priceResult.priceLess + ",priceMore=" + priceResult.priceMore
+                    )
+                }
 
             }
-            SearchType.PriceType->{
+            SearchType.MoreType -> {
 
             }
-            SearchType.MoreType->{
-
-            }
-            SearchType.SortType->{
+            SearchType.SortType -> {
 
             }
         }

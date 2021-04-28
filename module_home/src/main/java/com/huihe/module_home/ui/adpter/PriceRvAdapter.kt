@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.module_home.R
-
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
-import kotlinx.android.synthetic.main.layout_floor_item.view.*
 import kotlinx.android.synthetic.main.layout_price_item.view.*
 
 class PriceRvAdapter(context: Context) :

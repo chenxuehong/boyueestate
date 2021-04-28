@@ -221,6 +221,12 @@ object DateUtils {
         return date
     }
 
+    @Throws(ParseException::class)
+    fun stringToString(strTime: String, fromFormatType: String, toFormatType: String): String {
+        var date = stringToDate(strTime, fromFormatType)
+        return dateToString(date,toFormatType)
+    }
+
     // long转换为Date类型
     // currentTime要转换的long类型的时间
     // formatType要转换的时间格式yyyy-MM-dd HH:mm:ss//yyyy年MM月dd日 HH时mm分ss秒

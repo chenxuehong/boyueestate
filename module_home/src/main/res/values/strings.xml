@@ -6,8 +6,12 @@
     <string name="latestFollowTime">最后跟进: %s</string>
     <string name="max_value">最大值</string>
     <string name="min_value">最小值</string>
-    <string name="floor_btn">确认</string>
+    <string name="floor_btn">@string/sure</string>
     <string name="dao">—</string>
     <string name="floor">层</string>
     <string name="wan">万</string>
+    <string name="minfloor_maxfloor">%s-%s</string>
+    <string name="minprice_maxprice">%s-%s万</string>
+    <string name="reset">重置</string>
+    <string name="sure">确认</string>
 </resources>

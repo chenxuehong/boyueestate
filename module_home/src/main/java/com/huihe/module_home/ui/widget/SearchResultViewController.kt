@@ -39,7 +39,7 @@ class SearchResultViewController : ISearchView {
                 inflate.initPriceView(mContext!!, mListener)
             }
             SearchType.MoreType -> {
-                inflate = View.inflate(mContext, R.layout.activity_album_select, null)
+                inflate = View.inflate(mContext, R.layout.layout_search_by_more, null)
                 inflate.initMoreView(mContext!!, mListener)
             }
             else// 排序

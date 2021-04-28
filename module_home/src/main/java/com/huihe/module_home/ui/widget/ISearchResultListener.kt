@@ -6,6 +6,7 @@ import com.huihe.module_home.data.protocol.ISearchResult
 interface ISearchResultListener {
     fun onSearchResult(
         iSearchResult: ISearchResult?,
+        showTip: String,
         floorsType: SearchType
     )
 }

@@ -14,7 +14,8 @@ import com.kotlin.base.ext.hideKeyboard
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 
 private val floors =
-    mutableListOf<String>("5以下", "5-10", "10-15", "15-20", "20-25", "25-30", "30以上")
+    mutableListOf<String>("不限","5以下", "5-10", "10-15", "15-20", "20-25", "25-30", "30以上")
+private var title = "楼层"
 private var maxFloor = "100"
 private var minFloor = "1"
 
@@ -35,6 +36,13 @@ fun View.initFloorsView(
             if (floorRanges?.size == 2) {
                 mListener?.onSearchResult(
                     FloorResult(floorRanges[0], floorRanges[1]),
+                    floor,
+                    SearchType.FloorsType
+                )
+            }else{
+                mListener?.onSearchResult(
+                    null,
+                    title,
                     SearchType.FloorsType
                 )
             }
@@ -54,6 +62,9 @@ fun View.initFloorsView(
         if (floorRanges?.size == 2) {
             mListener?.onSearchResult(
                 FloorResult(floorRanges[0], floorRanges[1]),
+                String.format(mContext.resources.getString(R.string.minfloor_maxfloor),
+                    etMinValue.text.toString().trim(),
+                    etMaxValue.text.toString().trim()),
                 SearchType.FloorsType
             )
         }
@@ -69,11 +80,14 @@ private fun View.isBtnEnable(etMinValue:EditText,etMaxValue:EditText): Boolean {
             etMaxValue.text.isNullOrEmpty().not()
 }
 
-private fun getFloorRanges(floor: String, position: Int, length: Int): MutableList<String> {
+private fun getFloorRanges(floor: String, position: Int, length: Int): MutableList<String>? {
     var startFloor = minFloor
     var endFloor = maxFloor
     when (position) {
         0 -> {
+          return null
+        }
+        1 -> {
             startFloor = minFloor
             endFloor = "5"
         }
