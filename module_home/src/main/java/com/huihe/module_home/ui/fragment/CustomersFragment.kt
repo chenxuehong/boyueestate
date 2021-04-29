@@ -15,6 +15,7 @@ import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.CustomersPresenter
 import com.huihe.module_home.presenter.view.SecondHandHouseView
+import com.huihe.module_home.ui.activity.HouseDetailActivity
 import com.huihe.module_home.ui.adpter.SecondHandHouseAdapter
 import com.huihe.module_home.ui.widget.ISearchResultListener
 import com.huihe.module_home.ui.widget.SearchResultViewController
@@ -23,7 +24,9 @@ import com.kennyc.view.MultiStateView
 import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
+import com.kotlin.provider.constant.HomeConstant
 import kotlinx.android.synthetic.main.fragment_secondhandhouse.*
+import org.jetbrains.anko.support.v4.startActivity
 
 
 class CustomersFragment : BaseMvpFragment<CustomersPresenter>(), SecondHandHouseView,
@@ -74,7 +77,7 @@ class CustomersFragment : BaseMvpFragment<CustomersPresenter>(), SecondHandHouse
         mGoodsAdapter?.setOnItemClickListener(object :
             BaseRecyclerViewAdapter.OnItemClickListener<Customer> {
             override fun onItemClick(view: View, item: Customer, position: Int) {
-//                startActivity<GoodsDetailActivity>(GoodsConstant.KEY_GOODS_ID to item.id)
+                startActivity<HouseDetailActivity>(HomeConstant.KEY_HOUSE_ID to item.id)
             }
         })
         var init = SearchResultViewController.init(context!!, dropDownMenu.isShowing)

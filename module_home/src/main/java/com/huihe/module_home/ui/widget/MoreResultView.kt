@@ -9,5 +9,5 @@ fun View.initMoreView(
     mListener: ISearchResultListener?
 ) {
 
-    rvMore.layoutManager = Gr
+
 }

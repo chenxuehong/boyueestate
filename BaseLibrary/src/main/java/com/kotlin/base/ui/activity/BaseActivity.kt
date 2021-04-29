@@ -34,7 +34,7 @@ open class BaseActivity : RxAppCompatActivity() {
     val contentView: View
         get() {
             val content = find<FrameLayout>(android.R.id.content)
-            return content.getChildAt(0)
+            return content
         }
 
     override fun onTrimMemory(level: Int) {

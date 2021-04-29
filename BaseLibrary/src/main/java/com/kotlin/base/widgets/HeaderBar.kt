@@ -2,6 +2,7 @@ package com.kotlin.base.widgets
 
 import android.app.Activity
 import android.content.Context
+import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
@@ -25,7 +26,9 @@ class HeaderBar @JvmOverloads constructor(
     private var titleText:String? = null
     //右侧文字
     private var rightText:String? = null
-
+    private var rightTitleLayout:Int
+    private val NO_RIGHT_TITLE_LAYOUT = -1
+    private lateinit var mRightTitleView:View
     init {
         //获取自定义属性
         val typedArray = context.obtainStyledAttributes(attrs,R.styleable.HeaderBar)
@@ -34,6 +37,7 @@ class HeaderBar @JvmOverloads constructor(
 
         titleText = typedArray.getString(R.styleable.HeaderBar_titleText)
         rightText = typedArray.getString(R.styleable.HeaderBar_rightText)
+        rightTitleLayout = typedArray.getResourceId(R.styleable.HeaderBar_rightTitleLayout,NO_RIGHT_TITLE_LAYOUT)
 
         initView()
         typedArray.recycle()
@@ -52,10 +56,16 @@ class HeaderBar @JvmOverloads constructor(
             mTitleTv.text = it
         }
 
-        //右侧文字不为空，设置值
-        rightText?.let {
-            mRightTv.text = it
-            mRightTv.visibility = View.VISIBLE
+        if(rightTitleLayout != NO_RIGHT_TITLE_LAYOUT){
+
+            mRightVS.layoutResource = rightTitleLayout
+            mRightTitleView = mRightVS.inflate()
+        }else{
+            //右侧文字不为空，设置值
+            rightText?.let {
+                mRightTv.text = it
+                mRightTv.visibility = View.VISIBLE
+            }
         }
 
         //返回图标默认实现（关闭Activity）
@@ -86,5 +96,9 @@ class HeaderBar @JvmOverloads constructor(
      */
     fun getRightText():String{
         return mRightTv.text.toString()
+    }
+
+    fun getRightContentView():View{
+        return mRightTitleView
     }
 }

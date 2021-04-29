@@ -5,6 +5,7 @@
         <attr name="isShowBack" format="boolean"/>
         <attr name="titleText" format="string"/>
         <attr name="rightText" format="string"/>
+        <attr name="rightTitleLayout" format="reference"/>
     </declare-styleable>
 
     <!-- LabelText自定义属性 -->

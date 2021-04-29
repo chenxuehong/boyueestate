@@ -8,6 +8,7 @@ import java.util.*
 class SearchResultViewController : ISearchView {
 
     private var mListener: ISearchResultListener? = null
+
     override fun getAllViews(listener: ISearchResultListener): MutableList<View> {
         mListener = listener
         // 区域
@@ -44,7 +45,7 @@ class SearchResultViewController : ISearchView {
             }
             else// 排序
             -> {
-                inflate = View.inflate(mContext, R.layout.activity_album_select, null)
+                inflate = View.inflate(mContext, R.layout.layout_search_by_sort, null)
                 inflate.initSortView(mContext!!, mListener)
             }
         }

@@ -1,6 +1,5 @@
 package com.huihe.module_home.service
 
-import com.huihe.module_home.data.protocol.Customer
 import com.huihe.module_home.data.protocol.CustomerWrapper
 import io.reactivex.Observable
 

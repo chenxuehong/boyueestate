@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.kotlin.base.widgets.HeaderBar
+        android:id="@+id/house_detail_titleBar"
+        app:isShowBack="true"
+        android:layout_width="match_parent"
+        app:titleText="@string/house_detail"
+        app:rightTitleLayout="@layout/layout_right_title_house_detail"
+        android:background="@color/main_color"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints" />
+
+   <androidx.recyclerview.widget.RecyclerView
+       android:id="@+id/house_detail_rvList"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
