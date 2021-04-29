@@ -1,6 +1,6 @@
 package com.huihe.module_home.data.protocol
 
-data class CustomerWrapper(
-    val list:MutableList<Customer>,
+data class HouseWrapper(
+    val list:MutableList<House>,
     val totalCount:Int
 )

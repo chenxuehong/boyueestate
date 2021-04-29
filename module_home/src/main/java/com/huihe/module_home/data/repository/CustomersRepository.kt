@@ -1,8 +1,7 @@
 package com.huihe.module_home.data.repository
 
-import com.huihe.module_home.data.api.CustomersApi
-import com.huihe.module_home.data.protocol.Customer
-import com.huihe.module_home.data.protocol.CustomerWrapper
+import com.huihe.module_home.data.api.HouseApi
+import com.huihe.module_home.data.protocol.HouseWrapper
 import com.huihe.module_home.data.protocol.GetHouseListReq
 import com.kotlin.base.data.net.RetrofitFactory
 import com.kotlin.base.data.protocol.BaseResp
@@ -11,7 +10,7 @@ import javax.inject.Inject
 
 class CustomersRepository @Inject constructor() {
 
-    fun getMoreCustomersList(
+    fun getHouseList(
         pageNo: Int?,
         pageSize: Int?,
         myHouse: Int?,
@@ -23,15 +22,28 @@ class CustomersRepository @Inject constructor() {
         myCollect: Int?,
         floorageRanges: Map<String, String>?,
         roomNumRanges: Map<String, String>?
-    ): Observable<BaseResp<CustomerWrapper?>> {
-        return RetrofitFactory.instance.create(CustomersApi::class.java)
-            .getMoreCustomersList(
+    ): Observable<BaseResp<HouseWrapper?>> {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .getHouseList(
                 GetHouseListReq(
                     pageNo,pageSize,
                     myHouse, hasKey,hasSole,
                     myMaintain,isCirculation,entrustHouse,
                     myCollect,floorageRanges,roomNumRanges
                 )
+            )
+    }
+
+    fun getHouseList(
+        pageNo: Int?,
+        pageSize: Int?,
+        dataType: Int?
+    ): Observable<BaseResp<HouseWrapper?>> {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .getHouseList(
+                pageNo,
+                pageSize,
+                dataType
             )
     }
 }

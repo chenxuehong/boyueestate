@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.Customer
+import com.huihe.module_home.data.protocol.House
 import com.huihe.module_home.data.protocol.FloorResult
 import com.huihe.module_home.data.protocol.ISearchResult
 import com.huihe.module_home.data.protocol.PriceResult
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
-import com.huihe.module_home.presenter.CustomersPresenter
+import com.huihe.module_home.presenter.HousePresenter
 import com.huihe.module_home.presenter.view.SecondHandHouseView
 import com.huihe.module_home.ui.adpter.SecondHandHouseAdapter
 import com.huihe.module_home.ui.widget.ISearchResultListener
@@ -26,10 +26,10 @@ import com.kotlin.base.ui.fragment.BaseMvpFragment
 import kotlinx.android.synthetic.main.fragment_secondhandhouse.*
 
 
-class CustomersFragment : BaseMvpFragment<CustomersPresenter>(), SecondHandHouseView,
+class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     ISearchResultListener {
 
-    private val TAG: String? = CustomersFragment::class.java.simpleName
+    private val TAG: String? = HouseFragment::class.java.simpleName
     private var mCurrentPage: Int = 1
     private var mPageSize: Int = 30
     private var hasMoreData = true
@@ -72,8 +72,8 @@ class CustomersFragment : BaseMvpFragment<CustomersPresenter>(), SecondHandHouse
         customers_mRecyclerView.adapter = mGoodsAdapter
 
         mGoodsAdapter?.setOnItemClickListener(object :
-            BaseRecyclerViewAdapter.OnItemClickListener<Customer> {
-            override fun onItemClick(view: View, item: Customer, position: Int) {
+            BaseRecyclerViewAdapter.OnItemClickListener<House> {
+            override fun onItemClick(view: View, item: House, position: Int) {
 //                startActivity<GoodsDetailActivity>(GoodsConstant.KEY_GOODS_ID to item.id)
             }
         })
@@ -131,15 +131,7 @@ class CustomersFragment : BaseMvpFragment<CustomersPresenter>(), SecondHandHouse
     }
 
     private fun initRefreshLayout() {
-        customers_mBGARefreshLayout.setOnRefreshListener {
-            if (hasMoreData) {
-                mCurrentPage = 1
-                loadData()
-            } else {
-                customers_mBGARefreshLayout?.finishRefreshWithNoMoreData()
-            }
-        }
-
+        customers_mBGARefreshLayout.setEnableRefresh(false)
         customers_mBGARefreshLayout.setOnLoadMoreListener {
             if (hasMoreData) {
                 mCurrentPage++
@@ -156,7 +148,7 @@ class CustomersFragment : BaseMvpFragment<CustomersPresenter>(), SecondHandHouse
     }
 
     private fun loadData() {
-        mPresenter?.getMoreCustomersList(mCurrentPage, mPageSize)
+        mPresenter?.getHouseList(mCurrentPage, mPageSize)
     }
 
     override fun onDataIsNull() {
@@ -167,7 +159,7 @@ class CustomersFragment : BaseMvpFragment<CustomersPresenter>(), SecondHandHouse
         customers_mMultiStateView?.viewState = MultiStateView.VIEW_STATE_ERROR
     }
 
-    override fun onGetHouseListResult(result: MutableList<Customer>?) {
+    override fun onGetHouseListResult(result: MutableList<House>?) {
         customers_mBGARefreshLayout?.finishLoadMore()
         customers_mBGARefreshLayout?.finishRefresh()
         hasMoreData = if (result != null) (result.size <= mPageSize) else false

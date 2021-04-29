@@ -1,20 +1,19 @@
 package com.huihe.module_home.presenter
 
-import com.huihe.module_home.data.protocol.Customer
-import com.huihe.module_home.data.protocol.CustomerWrapper
+import com.huihe.module_home.data.protocol.HouseWrapper
 import com.huihe.module_home.presenter.view.SecondHandHouseView
-import com.huihe.module_home.service.CustomersService
+import com.huihe.module_home.service.HouseService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber
 import javax.inject.Inject
 
-class CustomersPresenter @Inject constructor() : BasePresenter<SecondHandHouseView>() {
+class HousePresenter @Inject constructor() : BasePresenter<SecondHandHouseView>() {
 
     @Inject
-    lateinit var customersService: CustomersService
+    lateinit var customersService: HouseService
 
-    fun getMoreCustomersList(
+    fun getHouseList(
         pageNo: Int?=null,
         pageSize: Int?=null,
         myHouse: Int?=null,
@@ -30,13 +29,32 @@ class CustomersPresenter @Inject constructor() : BasePresenter<SecondHandHouseVi
         if (!checkNetWork()) {
             return
         }
-        customersService?.getMoreCustomersList(
+        customersService?.getHouseList(
             pageNo,pageSize,
             myHouse, hasKey,hasSole,
             myMaintain,isCirculation,entrustHouse,
             myCollect,floorageRanges,roomNumRanges)
-            .execute(object : BaseSubscriber<CustomerWrapper?>(mView) {
-                override fun onNext(t: CustomerWrapper?) {
+            .execute(object : BaseSubscriber<HouseWrapper?>(mView) {
+                override fun onNext(t: HouseWrapper?) {
+                    mView.onGetHouseListResult(t?.list)
+                }
+            }, lifecycleProvider)
+
+    }
+    fun getHouseListByStatus(
+        pageNo: Int?=null,
+        pageSize: Int?=null,
+        dataType: Int?=null
+    ) {
+        if (!checkNetWork()) {
+            return
+        }
+        customersService?.getHouseList(
+            pageNo,
+            pageSize,
+            dataType)
+            .execute(object : BaseSubscriber<HouseWrapper?>(mView) {
+                override fun onNext(t: HouseWrapper?) {
                     mView.onGetHouseListResult(t?.list)
                 }
             }, lifecycleProvider)

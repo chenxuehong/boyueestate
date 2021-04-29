@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.Customer
+import com.huihe.module_home.data.protocol.House
 import com.kotlin.base.ext.loadUrl
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.utils.DateUtils
@@ -16,7 +16,7 @@ import com.kotlin.base.utils.YuanFenConverter
 import kotlinx.android.synthetic.main.layout_customers_item.view.*
 
 
-class SecondHandHouseAdapter (context: Context) : BaseRecyclerViewAdapter<Customer, SecondHandHouseAdapter.ViewHolder>(context) {
+class SecondHandHouseAdapter (context: Context) : BaseRecyclerViewAdapter<House, SecondHandHouseAdapter.ViewHolder>(context) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(mContext)

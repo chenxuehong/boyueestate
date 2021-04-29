@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.huihe.module_home.R
-import com.huihe.module_home.presenter.CustomersMapPresenter
+import com.huihe.module_home.presenter.HouseMapPresenter
 import com.huihe.module_home.presenter.view.FindHouseByMapView
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 
-class CustomersMapFragment :BaseMvpFragment<CustomersMapPresenter>(),FindHouseByMapView {
+class HouseMapFragment :BaseMvpFragment<HouseMapPresenter>(),FindHouseByMapView {
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -2,7 +2,7 @@ package com.huihe.module_home.data.protocol
 
 import java.math.BigDecimal
 
-data class Customer(
+data class House(
     val id:String?,
     val coverImageUrl:String?,
     val price: BigDecimal?,
