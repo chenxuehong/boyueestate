@@ -19,7 +19,6 @@ import com.huihe.module_home.ui.activity.HouseDetailActivity
 import com.huihe.module_home.ui.adpter.SecondHandHouseAdapter
 import com.huihe.module_home.ui.widget.ISearchResultListener
 import com.huihe.module_home.ui.widget.SearchResultViewController
-import com.huihe.module_home.ui.widget.SearchType
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
@@ -81,18 +80,17 @@ class CustomersFragment : BaseMvpFragment<CustomersPresenter>(), SecondHandHouse
             }
         })
         var init = SearchResultViewController.init(context!!, dropDownMenu.isShowing)
-        var inflate = View.inflate(context, R.layout.layout_alertview, null)
-        dropDownMenu.setDropDownMenu(headers.asList(), init.getAllViews(this), inflate)
+        dropDownMenu.setDropDownMenu(headers.asList(), init.getAllViews(this), customers_mMultiStateView)
 
     }
 
-    override fun onSearchResult(iSearchResult: ISearchResult?,showTip: String, floorsType: SearchType) {
+    override fun onSearchResult(iSearchResult: ISearchResult?,showTip: String, floorsType: Int) {
         dropDownMenu.setTabText(showTip)
         when (floorsType) {
-            SearchType.AreaType -> {
+            CustomersModule.SearchType.AreaType -> {
 
             }
-            SearchType.FloorsType -> {
+            CustomersModule.SearchType.FloorsType -> {
 
                 if (iSearchResult != null){
                     var floorResult = iSearchResult as FloorResult
@@ -102,7 +100,7 @@ class CustomersFragment : BaseMvpFragment<CustomersPresenter>(), SecondHandHouse
                     )
                 }
             }
-            SearchType.PriceType -> {
+            CustomersModule.SearchType.PriceType -> {
                 if (iSearchResult != null) {
                     var priceResult = iSearchResult as PriceResult
                     Log.i(
@@ -112,10 +110,10 @@ class CustomersFragment : BaseMvpFragment<CustomersPresenter>(), SecondHandHouse
                 }
 
             }
-            SearchType.MoreType -> {
+            CustomersModule.SearchType.MoreType -> {
 
             }
-            SearchType.SortType -> {
+            CustomersModule.SearchType.SortType -> {
 
             }
         }

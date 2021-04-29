@@ -5,5 +5,5 @@ import android.view.View
 interface ISearchView {
 
     fun getAllViews(listener: ISearchResultListener): List<View>
-    fun getView(type: SearchType): View
+    fun getView(type: Int): View
 }

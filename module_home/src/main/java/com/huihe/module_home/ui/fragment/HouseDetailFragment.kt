@@ -12,6 +12,7 @@ import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HouseDetailPresenter
 import com.huihe.module_home.presenter.view.HouseDetailView
+import com.huihe.module_home.ui.adpter.HouseDetailTvAdapter
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import kotlinx.android.synthetic.main.fragment_house_detail.*
@@ -47,7 +48,9 @@ class HouseDetailFragment : BaseMvpFragment<HouseDetailPresenter>(), HouseDetail
             Toast.makeText(context,"点击右标题",Toast.LENGTH_LONG).show()
         }
         house_detail_rvList.layoutManager = LinearLayoutManager(context)
-//        house_detail_rvList.adapter =
+        var houseDetailTvAdapter = HouseDetailTvAdapter(context)
+        house_detail_rvList.adapter = houseDetailTvAdapter
+        
     }
 
     override fun onGetHouseDetailResult() {
