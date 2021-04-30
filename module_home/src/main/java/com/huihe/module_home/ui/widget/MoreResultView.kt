@@ -83,4 +83,5 @@ fun View.initMoreView(
     btnMoreSure.setOnClickListener {
 //        mListener?.onSearchResult()
     }
+
 }

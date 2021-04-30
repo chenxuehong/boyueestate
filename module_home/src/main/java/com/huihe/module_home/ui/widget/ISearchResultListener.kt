@@ -7,6 +7,6 @@ interface ISearchResultListener {
     fun onSearchResult(
         iSearchResult: ISearchResult?,
         showTip: String,
-        floorsType: SearchType
+        type: Int
     )
 }

@@ -3,6 +3,7 @@ package com.huihe.module_home.data.repository
 import com.huihe.module_home.data.api.HouseApi
 import com.huihe.module_home.data.protocol.HouseWrapper
 import com.huihe.module_home.data.protocol.GetHouseListReq
+import com.huihe.module_home.data.protocol.HouseDetail
 import com.kotlin.base.data.net.RetrofitFactory
 import com.kotlin.base.data.protocol.BaseResp
 import io.reactivex.Observable
@@ -44,6 +45,13 @@ class CustomersRepository @Inject constructor() {
                 pageNo,
                 pageSize,
                 dataType
+            )
+    }
+
+    fun getHouseDetailById(id: String?):  Observable<BaseResp<HouseDetail?>> {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .getHouseDetailById(
+                id
             )
     }
 }

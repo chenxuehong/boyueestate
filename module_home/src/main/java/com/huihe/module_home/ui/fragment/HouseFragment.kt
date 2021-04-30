@@ -15,15 +15,17 @@ import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HousePresenter
 import com.huihe.module_home.presenter.view.SecondHandHouseView
+import com.huihe.module_home.ui.activity.HouseDetailActivity
 import com.huihe.module_home.ui.adpter.SecondHandHouseAdapter
 import com.huihe.module_home.ui.widget.ISearchResultListener
 import com.huihe.module_home.ui.widget.SearchResultViewController
-import com.huihe.module_home.ui.widget.SearchType
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
+import com.kotlin.provider.constant.HomeConstant
 import kotlinx.android.synthetic.main.fragment_secondhandhouse.*
+import org.jetbrains.anko.support.v4.startActivity
 
 
 class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
@@ -72,24 +74,24 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
         customers_mRecyclerView.adapter = mGoodsAdapter
 
         mGoodsAdapter?.setOnItemClickListener(object :
+
             BaseRecyclerViewAdapter.OnItemClickListener<House> {
             override fun onItemClick(view: View, item: House, position: Int) {
-//                startActivity<GoodsDetailActivity>(GoodsConstant.KEY_GOODS_ID to item.id)
+                startActivity<HouseDetailActivity>(HomeConstant.KEY_HOUSE_ID to item.id)
             }
         })
         var init = SearchResultViewController.init(context!!, dropDownMenu.isShowing)
-        var inflate = View.inflate(context, R.layout.layout_alertview, null)
-        dropDownMenu.setDropDownMenu(headers.asList(), init.getAllViews(this), inflate)
+        dropDownMenu.setDropDownMenu(headers.asList(), init.getAllViews(this), customers_mMultiStateView)
 
     }
 
-    override fun onSearchResult(iSearchResult: ISearchResult?,showTip: String, floorsType: SearchType) {
+    override fun onSearchResult(iSearchResult: ISearchResult?,showTip: String, floorsType: Int) {
         dropDownMenu.setTabText(showTip)
         when (floorsType) {
-            SearchType.AreaType -> {
+            CustomersModule.SearchType.AreaType -> {
 
             }
-            SearchType.FloorsType -> {
+            CustomersModule.SearchType.FloorsType -> {
 
                 if (iSearchResult != null){
                     var floorResult = iSearchResult as FloorResult
@@ -99,7 +101,7 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
                     )
                 }
             }
-            SearchType.PriceType -> {
+            CustomersModule.SearchType.PriceType -> {
                 if (iSearchResult != null) {
                     var priceResult = iSearchResult as PriceResult
                     Log.i(
@@ -109,10 +111,10 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
                 }
 
             }
-            SearchType.MoreType -> {
+            CustomersModule.SearchType.MoreType -> {
 
             }
-            SearchType.SortType -> {
+            CustomersModule.SearchType.SortType -> {
 
             }
         }

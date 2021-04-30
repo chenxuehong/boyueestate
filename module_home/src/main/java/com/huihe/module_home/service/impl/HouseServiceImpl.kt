@@ -1,5 +1,6 @@
 package com.huihe.module_home.service.impl
 import com.huihe.module_home.data.protocol.House
+import com.huihe.module_home.data.protocol.HouseDetail
 import com.huihe.module_home.data.protocol.HouseWrapper
 import com.huihe.module_home.data.repository.CustomersRepository
 import com.huihe.module_home.service.HouseService
@@ -41,6 +42,10 @@ class HouseServiceImpl @Inject constructor(): HouseService {
         dataType: Int?
     ): Observable<HouseWrapper?> {
         return repository.getHouseList(pageNo,pageSize,dataType).convert()
+    }
+
+    override fun getHouseDetailById(id: String?): Observable<HouseDetail?> {
+        return repository.getHouseDetailById(id).convert()
     }
 
 }

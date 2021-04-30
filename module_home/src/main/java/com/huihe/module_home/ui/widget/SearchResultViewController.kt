@@ -3,48 +3,50 @@ package com.huihe.module_home.ui.widget
 import android.content.Context
 import android.view.View
 import com.huihe.module_home.R
+import com.huihe.module_home.injection.module.CustomersModule
 import java.util.*
 
 class SearchResultViewController : ISearchView {
 
     private var mListener: ISearchResultListener? = null
+
     override fun getAllViews(listener: ISearchResultListener): MutableList<View> {
         mListener = listener
         // 区域
-        popupViews!!.add(getView(SearchType.AreaType))
+        popupViews!!.add(getView(CustomersModule.SearchType.AreaType))
         // 楼层
-        popupViews!!.add(getView(SearchType.FloorsType))
+        popupViews!!.add(getView(CustomersModule.SearchType.FloorsType))
         // 价格
-        popupViews!!.add(getView(SearchType.PriceType))
+        popupViews!!.add(getView(CustomersModule.SearchType.PriceType))
         // 更多
-        popupViews!!.add(getView(SearchType.MoreType))
+        popupViews!!.add(getView(CustomersModule.SearchType.MoreType))
         // 排序
-        popupViews!!.add(getView(SearchType.SortType))
+        popupViews!!.add(getView(CustomersModule.SearchType.SortType))
         return popupViews!!
     }
 
-    override fun getView(searchType: SearchType): View {
+    override fun getView(searchType:Int): View {
         var inflate: View? = null
         when (searchType) {
-            SearchType.AreaType -> {
-                inflate = View.inflate(mContext, R.layout.activity_album_select, null)
+            CustomersModule.SearchType.AreaType -> {
+                inflate = View.inflate(mContext, R.layout.layout_search_by_floors, null)
                 inflate.initAreaView(mContext!!, mListener)
             }
-            SearchType.FloorsType -> {
+            CustomersModule.SearchType.FloorsType -> {
                 inflate = View.inflate(mContext, R.layout.layout_search_by_floors, null)
                 inflate.initFloorsView(mContext!!, mListener)
             }
-            SearchType.PriceType -> {
+            CustomersModule.SearchType.PriceType -> {
                 inflate = View.inflate(mContext, R.layout.layout_search_by_price, null)
                 inflate.initPriceView(mContext!!, mListener)
             }
-            SearchType.MoreType -> {
+            CustomersModule.SearchType.MoreType -> {
                 inflate = View.inflate(mContext, R.layout.layout_search_by_more, null)
                 inflate.initMoreView(mContext!!, mListener)
             }
             else// 排序
             -> {
-                inflate = View.inflate(mContext, R.layout.activity_album_select, null)
+                inflate = View.inflate(mContext, R.layout.layout_search_by_sort, null)
                 inflate.initSortView(mContext!!, mListener)
             }
         }

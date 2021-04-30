@@ -14,4 +14,6 @@
     <string name="minprice_maxprice">%s-%s万</string>
     <string name="reset">重置</string>
     <string name="sure">确认</string>
+    <string name="house_detail">房源详情</string>
+    <string name="house_detail_right_title">更多</string>
 </resources>

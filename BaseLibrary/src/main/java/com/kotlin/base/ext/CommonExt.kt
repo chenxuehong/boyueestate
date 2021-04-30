@@ -2,7 +2,9 @@ package com.kotlin.base.ext
 
 import android.content.Context
 import android.graphics.drawable.AnimationDrawable
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
@@ -111,4 +113,11 @@ fun Context.hideKeyboard(v: View) {
     if (imm.isActive) {
         imm.hideSoftInputFromWindow(v.applicationWindowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
+}
+
+/**
+ * @desc 填充器
+ */
+fun initInflater(context:Context,layoutRes:Int,parent:ViewGroup):View{
+   return LayoutInflater.from(context).inflate(layoutRes,parent,false)
 }

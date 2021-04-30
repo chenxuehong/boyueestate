@@ -2,6 +2,7 @@ package com.huihe.module_home.data.api
 
 import com.huihe.module_home.data.protocol.HouseWrapper
 import com.huihe.module_home.data.protocol.GetHouseListReq
+import com.huihe.module_home.data.protocol.HouseDetail
 import com.kotlin.base.data.protocol.BaseResp
 import io.reactivex.Observable
 import retrofit2.http.Body
@@ -24,4 +25,9 @@ interface HouseApi{
         @Query("pageSize") pageSize:Int?,
         @Query("dataType") dataType:Int?
         ): Observable<BaseResp<HouseWrapper?>>
+
+    @GET("house")
+    fun getHouseDetailById(
+        @Query("id") id:String?
+        ): Observable<BaseResp<HouseDetail?>>
 }
