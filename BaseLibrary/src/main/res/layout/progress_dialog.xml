@@ -10,4 +10,13 @@
             android:layout_gravity="center"
             android:background="@drawable/progress_dialog_anim"/>
 
+    <TextView
+        android:id="@+id/tv_loading_tip"
+        android:layout_marginTop="@dimen/dp_16"
+        android:gravity="center"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/white"
+        android:text="@string/srl_footer_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

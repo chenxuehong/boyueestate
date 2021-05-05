@@ -96,9 +96,9 @@ class MoreSearchAdapter(mContext: Context, var mColumnNum: Int) :
 
     private fun removeOtherItemFromCheckList(item: MoreSearchBean) {
         var iterator = checkedList.iterator()
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             var searchBean = iterator.next()
-            if (searchBean.title==item.title && searchBean.content != item.content){
+            if (searchBean.title == item.title && searchBean.content != item.content) {
                 iterator.remove()
                 continue
             }
@@ -107,9 +107,9 @@ class MoreSearchAdapter(mContext: Context, var mColumnNum: Int) :
 
     private fun removeItemByContent(content: String) {
         var iterator = checkedList.iterator()
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             var searchBean = iterator.next()
-            if (searchBean.content==content){
+            if (searchBean.content == content) {
                 iterator.remove()
                 break
             }
@@ -138,6 +138,10 @@ class MoreSearchAdapter(mContext: Context, var mColumnNum: Int) :
     fun resetData() {
         checkedList.clear()
         notifyDataSetChanged()
+    }
+
+    fun getCheckedData(): MutableList<MoreSearchBean> {
+        return checkedList
     }
 
     inner class TitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

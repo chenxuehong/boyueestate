@@ -25,8 +25,10 @@ class CustomersModule {
         HouseDetailType.BANNER,
         HouseDetailType.BASIC_INFO,
         HouseDetailType.ITEM_DETAIL_INFO,
+        HouseDetailType.ITEM_REWARKS_INFO,
         HouseDetailType.ITEM_OWNER_INFO,
         HouseDetailType.ITEM_PHOTO,
+        HouseDetailType.ITEM_REFERURL,
         HouseDetailType.MAP
     )
 
@@ -35,9 +37,11 @@ class CustomersModule {
            const val  BANNER = 1
            const val  BASIC_INFO = 2
            const val  ITEM_DETAIL_INFO = 3
-           const val  ITEM_OWNER_INFO = 4
-           const val  ITEM_PHOTO = 5
-           const val  MAP = 6
+           const val  ITEM_REWARKS_INFO = 4
+           const val  ITEM_OWNER_INFO = 5
+           const val  ITEM_PHOTO = 6
+           const val  ITEM_REFERURL = 7
+           const val  MAP = 8
         }
     }
 

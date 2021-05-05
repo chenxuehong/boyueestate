@@ -57,8 +57,12 @@ class SecondHandHouseAdapter (context: Context) : BaseRecyclerViewAdapter<House,
         holder.itemView.item_customers_tv_sprice.text = "$argePrice${"万/m²"}"
         var split = customer?.label?.split(";")
 
-        holder.itemView.item_customers_tags.tags = if (split!=null && split.size>5) split?.subList(0,4) else split
+        holder.itemView.item_customers_tags.tags = if (split!=null && split.size>5) split?.subList(0,4) else getNotNullData(split)
 
+    }
+
+    private fun getNotNullData(split: List<String>?): List<String>{
+        return split ?: mutableListOf()
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)

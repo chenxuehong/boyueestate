@@ -21,6 +21,7 @@
             android:id="@+id/btnMoreReset"
             android:layout_marginLeft="@dimen/dp_16"
             android:text="@string/reset"
+            android:textColor="@color/color_999999"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_50"/>
@@ -29,6 +30,7 @@
             android:layout_marginLeft="@dimen/dp_16"
             android:layout_marginRight="@dimen/dp_16"
             android:text="@string/sure"
+            android:textColor="@color/color_333333"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_50"/>

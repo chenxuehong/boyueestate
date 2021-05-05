@@ -7,7 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.FloorResult
+import com.huihe.module_home.data.protocol.FloorReq
+import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.ui.adpter.FloorsRvAdapter
 import com.kotlin.base.ext.enable
 import com.kotlin.base.ext.hideKeyboard
@@ -35,15 +36,15 @@ fun View.initFloorsView(
             var floorRanges = getFloorRanges(floor, position, floorsRvAdapter.dataList.size)
             if (floorRanges?.size == 2) {
                 mListener?.onSearchResult(
-                    FloorResult(floorRanges[0], floorRanges[1]),
+                    FloorReq(floorRanges[0], floorRanges[1]),
                     floor,
-                    SearchType.FloorsType
+                    CustomersModule.SearchType.FloorsType
                 )
             }else{
                 mListener?.onSearchResult(
                     null,
                     title,
-                    SearchType.FloorsType
+                    CustomersModule.SearchType.FloorsType
                 )
             }
         }
@@ -61,11 +62,11 @@ fun View.initFloorsView(
         )
         if (floorRanges?.size == 2) {
             mListener?.onSearchResult(
-                FloorResult(floorRanges[0], floorRanges[1]),
+                FloorReq(floorRanges[0], floorRanges[1]),
                 String.format(mContext.resources.getString(R.string.minfloor_maxfloor),
                     etMinValue.text.toString().trim(),
                     etMaxValue.text.toString().trim()),
-                SearchType.FloorsType
+                CustomersModule.SearchType.FloorsType
             )
         }
     }

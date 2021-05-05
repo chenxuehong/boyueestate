@@ -1,5 +1,6 @@
 package com.huihe.usercenter.presenter
 
+import com.huihe.usercenter.R
 import com.huihe.usercenter.presenter.view.LoginView
 import com.huihe.usercenter.service.UserService
 import com.kotlin.base.ext.execute
@@ -19,7 +20,7 @@ class LoginPresenter @Inject constructor():BasePresenter<LoginView>(){
         if (!checkNetWork()) {
             return
         }
-        mView.showLoading()
+        mView.showLoading(context.resources.getString(R.string.srl_header_loading))
         userService.login(account,password).execute(object : BaseSubscriber<String>(mView){
 
             override fun onNext(t: String) {

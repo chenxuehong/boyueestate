@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvHouseDetailTitle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingLeft="@dimen/dp_15"
+        android:text="房源详情"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/sp_15"
+        android:layout_width="match_parent"
+        android:textColor="@color/color_333333"
+        android:layout_height="@dimen/dp_35"/>
+    <View
+        android:id="@+id/tvHouseDetailLine"
+        app:layout_constraintTop_toBottomOf="@id/tvHouseDetailTitle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0_5"
+        android:background="@color/line"/>
+    <TextView
+        android:id="@+id/tvHouseDetailRightTitle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="房源编号"
+        android:paddingLeft="@dimen/dp_15"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@id/tvHouseDetailLine"
+        android:layout_width="0dp"
+        android:textSize="@dimen/sp_15"
+        android:textColor="@color/color_666666"
+        app:layout_constraintRight_toLeftOf="@id/tvHouseDetailRightContent"
+        android:layout_height="@dimen/dp_35"/>
+
+    <TextView
+        android:id="@+id/tvHouseDetailRightContent"
+        app:layout_constraintLeft_toRightOf="@id/tvHouseDetailRightTitle"
+        android:text="编号"
+        android:gravity="center_vertical"
+        android:paddingRight="@dimen/dp_15"
+        android:textSize="@dimen/sp_15"
+        android:paddingLeft="@dimen/dp_15"
+        android:textColor="@color/color_999999"
+        app:layout_constraintTop_toBottomOf="@id/tvHouseDetailLine"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_35"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

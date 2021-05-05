@@ -9,5 +9,5 @@
             style="@style/WrapWrap"
             android:textSize="@dimen/text_large_size"
             android:gravity="center"
-            android:text="@string/coming_soon_tip"/>
+            android:text="@string/no_data_tip"/>
 </LinearLayout>

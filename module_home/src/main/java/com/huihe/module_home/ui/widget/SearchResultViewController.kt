@@ -3,13 +3,13 @@ package com.huihe.module_home.ui.widget
 import android.content.Context
 import android.view.View
 import com.huihe.module_home.R
+import com.huihe.module_home.data.protocol.AreaBean
 import com.huihe.module_home.injection.module.CustomersModule
 import java.util.*
 
 class SearchResultViewController : ISearchView {
 
     private var mListener: ISearchResultListener? = null
-
     override fun getAllViews(listener: ISearchResultListener): MutableList<View> {
         mListener = listener
         // 区域
@@ -26,10 +26,10 @@ class SearchResultViewController : ISearchView {
     }
 
     override fun getView(searchType:Int): View {
-        var inflate: View? = null
+        var inflate: View
         when (searchType) {
             CustomersModule.SearchType.AreaType -> {
-                inflate = View.inflate(mContext, R.layout.layout_search_by_floors, null)
+                inflate = View.inflate(mContext, R.layout.layout_search_by_area, null)
                 inflate.initAreaView(mContext!!, mListener)
             }
             CustomersModule.SearchType.FloorsType -> {

@@ -1,33 +1,40 @@
 package com.huihe.module_home.data.api
 
-import com.huihe.module_home.data.protocol.HouseWrapper
-import com.huihe.module_home.data.protocol.GetHouseListReq
-import com.huihe.module_home.data.protocol.HouseDetail
+import com.huihe.module_home.data.protocol.*
 import com.kotlin.base.data.protocol.BaseResp
 import io.reactivex.Observable
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
-interface HouseApi{
+interface HouseApi {
     /*
           房源列表
        */
     @POST("house/list")
     fun getHouseList(
         @Body req: GetHouseListReq
-        ): Observable<BaseResp<HouseWrapper?>>
+    ): Observable<BaseResp<HouseWrapper?>>
 
     @GET("dicts/dataType")
     fun getHouseList(
-        @Query("pageNo") pageNo:Int?,
-        @Query("pageSize") pageSize:Int?,
-        @Query("dataType") dataType:Int?
-        ): Observable<BaseResp<HouseWrapper?>>
+        @Query("pageNo") pageNo: Int?,
+        @Query("pageSize") pageSize: Int?,
+        @Query("dataType") dataType: Int?
+    ): Observable<BaseResp<HouseWrapper?>>
 
-    @GET("house")
+    @GET("house/{id}")
     fun getHouseDetailById(
-        @Query("id") id:String?
-        ): Observable<BaseResp<HouseDetail?>>
+        @Path("id") id:String?
+    ): Observable<BaseResp<HouseDetail?>>
+
+
+    @GET("house/{id}/relationPeople")
+    fun getHouseDetailRelationPeople(
+        @Path("id") id:String?
+    ): Observable<BaseResp<OwnerInfo?>>
+
+    @GET("villages")
+    fun getVillages(
+        @Query("latitude") latitude: Double?,
+        @Query("longitude") longitude: Double?
+    ): Observable<BaseResp<AreaBeanWrapper?>>
 }

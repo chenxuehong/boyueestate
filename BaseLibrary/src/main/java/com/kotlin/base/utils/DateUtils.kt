@@ -1,5 +1,6 @@
 package com.kotlin.base.utils
 
+import android.text.TextUtils
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -223,6 +224,9 @@ object DateUtils {
 
     @Throws(ParseException::class)
     fun stringToString(strTime: String, fromFormatType: String, toFormatType: String): String {
+        if (TextUtils.isEmpty(strTime)){
+            return ""
+        }
         var date = stringToDate(strTime, fromFormatType)
         return dateToString(date,toFormatType)
     }

@@ -60,6 +60,9 @@ abstract class BaseMvpActivity<T : BasePresenter<*>> : BaseActivity(), BaseView 
         mLoadingDialog.showLoading()
     }
 
+    override fun showLoading(tip: String) {
+        mLoadingDialog.showLoading(tip)
+    }
     /*
         隐藏加载框，默认实现
      */

@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.drawable.AnimationDrawable
 import android.view.Gravity
 import android.widget.ImageView
+import android.widget.TextView
 import com.kotlin.base.R
 import org.jetbrains.anko.find
 
@@ -16,7 +17,7 @@ class ProgressLoading private constructor(context: Context, theme: Int) : Dialog
     companion object {
         private lateinit var mDialog: ProgressLoading
         private var animDrawable: AnimationDrawable? = null
-
+        private var loadingTipView: TextView?=null
         /*
             创建加载对话框
          */
@@ -36,6 +37,7 @@ class ProgressLoading private constructor(context: Context, theme: Int) : Dialog
 
             //获取动画视图
             val loadingView = mDialog.find<ImageView>(R.id.iv_loading)
+            loadingTipView = mDialog.find<TextView>(R.id.tv_loading_tip)
             animDrawable = loadingView.background as AnimationDrawable
 
             return mDialog
@@ -47,6 +49,15 @@ class ProgressLoading private constructor(context: Context, theme: Int) : Dialog
      */
     fun showLoading() {
         super.show()
+        animDrawable?.start()
+    }
+
+    /*
+        显示加载对话框，动画开始
+     */
+    fun showLoading(tip:String) {
+        super.show()
+        loadingTipView?.text = tip
         animDrawable?.start()
     }
 

@@ -1,21 +1,19 @@
 package com.huihe.module_home.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.House
-import com.huihe.module_home.data.protocol.FloorResult
-import com.huihe.module_home.data.protocol.ISearchResult
-import com.huihe.module_home.data.protocol.PriceResult
+import com.huihe.module_home.data.protocol.*
+import com.huihe.module_home.ext.getConvertData
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HousePresenter
 import com.huihe.module_home.presenter.view.SecondHandHouseView
 import com.huihe.module_home.ui.activity.HouseDetailActivity
+import com.huihe.module_home.ui.adpter.RvAreaDistrictAdapter
 import com.huihe.module_home.ui.adpter.SecondHandHouseAdapter
 import com.huihe.module_home.ui.widget.ISearchResultListener
 import com.huihe.module_home.ui.widget.SearchResultViewController
@@ -25,6 +23,8 @@ import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.provider.constant.HomeConstant
 import kotlinx.android.synthetic.main.fragment_secondhandhouse.*
+import kotlinx.android.synthetic.main.layout_refresh.view.*
+import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.support.v4.startActivity
 
 
@@ -36,10 +36,15 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     private var mPageSize: Int = 30
     private var hasMoreData = true
     private var mGoodsAdapter: SecondHandHouseAdapter? = null
+    private lateinit var layoutRefreshContentView: View
+    private lateinit var mSearchResultViewController: SearchResultViewController
     private val headers = arrayOf("区域", "楼层", "价格", "更多", "排序")
-    private val citys =
-        arrayOf("不限", "武汉", "北京", "上海", "成都", "广州", "深圳", "重庆", "天津", "西安", "南京", "杭州")
-    private val popupViews = mutableListOf<View>()
+    private var mFloorRanges: MutableList<FloorReq>? = null
+    private var mPriceRanges: MutableList<PriceReq>? = null
+    private var sortReq: SortReq? = SortReq()
+    private var moreReq: MoreReq? = MoreReq()
+    private var villageIds: MutableList<String>? = null
+    private var mRvAreaDistrictAdapter: RvAreaDistrictAdapter? = null
 
     init {
         hasMoreData = true
@@ -69,9 +74,12 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     }
 
     private fun initView() {
-        customers_mRecyclerView.layoutManager = LinearLayoutManager(context)
+        layoutRefreshContentView =
+            LayoutInflater.from(context).inflate(R.layout.layout_refresh, null)
+        layoutRefreshContentView?.customers_mRecyclerView?.layoutManager =
+            LinearLayoutManager(context)
         mGoodsAdapter = SecondHandHouseAdapter(context!!)
-        customers_mRecyclerView.adapter = mGoodsAdapter
+        layoutRefreshContentView?.customers_mRecyclerView?.adapter = mGoodsAdapter
 
         mGoodsAdapter?.setOnItemClickListener(object :
 
@@ -80,101 +88,154 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
                 startActivity<HouseDetailActivity>(HomeConstant.KEY_HOUSE_ID to item.id)
             }
         })
-        var init = SearchResultViewController.init(context!!, dropDownMenu.isShowing)
-        dropDownMenu.setDropDownMenu(headers.asList(), init.getAllViews(this), customers_mMultiStateView)
-
+        mSearchResultViewController =
+            SearchResultViewController.init(context!!, dropDownMenu.isShowing)
+        dropDownMenu.setDropDownMenu(
+            headers.asList(),
+            mSearchResultViewController.getAllViews(this),
+            layoutRefreshContentView
+        )
     }
 
-    override fun onSearchResult(iSearchResult: ISearchResult?,showTip: String, floorsType: Int) {
+    override fun onSearchResult(iSearchResult: ISearchResult?, showTip: String, floorsType: Int) {
+        showLoading()
         dropDownMenu.setTabText(showTip)
+        resetData()
         when (floorsType) {
             CustomersModule.SearchType.AreaType -> {
-
+                if (iSearchResult != null) {
+                    var areaReq = iSearchResult as AreaReq
+                    villageIds = areaReq.villageIds
+                }
             }
             CustomersModule.SearchType.FloorsType -> {
-
-                if (iSearchResult != null){
-                    var floorResult = iSearchResult as FloorResult
-                    Log.i(
-                        TAG,
-                        "floorResult : floorLess =" + floorResult.floorLess + ",floorMore=" + floorResult.floorMore
+                if (iSearchResult != null) {
+                    mFloorRanges = mutableListOf()
+                    var floorResult = iSearchResult as FloorReq
+                    mFloorRanges?.add(
+                        FloorReq(
+                            floorResult.floorMore!!,
+                            floorResult.floorLess!!
+                        )
                     )
+                } else {
+                    mFloorRanges = null
                 }
             }
             CustomersModule.SearchType.PriceType -> {
                 if (iSearchResult != null) {
-                    var priceResult = iSearchResult as PriceResult
-                    Log.i(
-                        TAG,
-                        "priceResult : priceLess =" + priceResult.priceLess + ",priceMore=" + priceResult.priceMore
-                    )
+                    mPriceRanges = mutableListOf()
+                    var priceResult = iSearchResult as PriceReq
+                    mPriceRanges?.add(PriceReq(priceResult.priceMore!!, priceResult.priceLess!!))
+                } else {
+                    mPriceRanges = null
                 }
 
             }
             CustomersModule.SearchType.MoreType -> {
-
+                if (iSearchResult != null) {
+                    moreReq = iSearchResult as MoreReq
+                } else {
+                    moreReq = null
+                }
             }
             CustomersModule.SearchType.SortType -> {
-
+                sortReq = SortReq()
+                if (iSearchResult != null) {
+                    sortReq = iSearchResult as SortReq
+                }
             }
         }
-        if (dropDownMenu.isShowing) {
-            dropDownMenu.closeMenu()
-        }
+        loadData()
+        dropDownMenu.closeMenu()
+    }
+
+    private fun resetData() {
+        mCurrentPage = 1
     }
 
     override fun onDestroyView() {
         //退出activity前关闭菜单
-        if (dropDownMenu.isShowing) {
-            dropDownMenu.closeMenu()
-        }
+        dropDownMenu?.closeMenu()
         SearchResultViewController.detach()
         super.onDestroyView()
     }
 
     private fun initRefreshLayout() {
-        customers_mBGARefreshLayout.setEnableRefresh(false)
-        customers_mBGARefreshLayout.setOnLoadMoreListener {
-            if (hasMoreData) {
-                mCurrentPage++
-                loadData()
-            } else {
-                customers_mBGARefreshLayout?.finishLoadMoreWithNoMoreData()
-            }
+        layoutRefreshContentView?.customers_mBGARefreshLayout.setEnableRefresh(false)
+        layoutRefreshContentView?.customers_mBGARefreshLayout.setOnLoadMoreListener {
+            mCurrentPage++
+            loadData()
         }
     }
 
     private fun initData() {
-        customers_mMultiStateView?.startLoading()
+        layoutRefreshContentView?.customers_mMultiStateView?.startLoading()
         loadData()
     }
 
     private fun loadData() {
-        mPresenter?.getHouseList(mCurrentPage, mPageSize)
+        mPresenter?.getHouseList(
+            pageNo = mCurrentPage,
+            floorRanges = mFloorRanges,
+            priceRanges = mPriceRanges,
+            sortReq = sortReq,
+            moreReq = moreReq,
+            villageIds = villageIds
+        )
+    }
+
+    override fun onGetAreaBeanListResult(areaBeans: MutableList<AreaBean>?) {
+        var data = getConvertData(areaBeans)
+        mRvAreaDistrictAdapter?.setData(data)
+    }
+
+    override fun startLoad(adapter: RvAreaDistrictAdapter?) {
+        mRvAreaDistrictAdapter = adapter
+        mPresenter?.getVillages()
     }
 
     override fun onDataIsNull() {
-        customers_mMultiStateView?.viewState = MultiStateView.VIEW_STATE_EMPTY
+        layoutRefreshContentView?.customers_mMultiStateView?.viewState =
+            MultiStateView.VIEW_STATE_EMPTY
     }
 
     override fun onError(text: String) {
-        customers_mMultiStateView?.viewState = MultiStateView.VIEW_STATE_ERROR
+        layoutRefreshContentView?.customers_mMultiStateView?.viewState =
+            MultiStateView.VIEW_STATE_ERROR
     }
 
     override fun onGetHouseListResult(result: MutableList<House>?) {
-        customers_mBGARefreshLayout?.finishLoadMore()
-        customers_mBGARefreshLayout?.finishRefresh()
+        layoutRefreshContentView?.customers_mBGARefreshLayout?.finishRefresh()
+        layoutRefreshContentView?.customers_mBGARefreshLayout?.finishLoadMore()
         hasMoreData = if (result != null) (result.size <= mPageSize) else false
+
         if (result != null && result.size > 0) {
             if (mCurrentPage == 1) {
+                layoutRefreshContentView?.customers_mBGARefreshLayout?.resetNoMoreData()
                 mGoodsAdapter?.setData(result)
             } else {
                 mGoodsAdapter?.dataList?.addAll(result)
                 mGoodsAdapter?.notifyDataSetChanged()
             }
-            customers_mMultiStateView?.viewState = MultiStateView.VIEW_STATE_CONTENT
+            layoutRefreshContentView?.customers_mMultiStateView?.viewState =
+                MultiStateView.VIEW_STATE_CONTENT
         } else {
-            onDataIsNull()
+            if (mCurrentPage == 1) {
+                layoutRefreshContentView?.customers_mBGARefreshLayout?.finishRefreshWithNoMoreData()
+                onDataIsNull()
+            } else {
+                layoutRefreshContentView?.customers_mBGARefreshLayout?.finishLoadMoreWithNoMoreData()
+                layoutRefreshContentView?.customers_mMultiStateView?.viewState =
+                    MultiStateView.VIEW_STATE_CONTENT
+            }
+        }
+        if (!hasMoreData){
+            if (mCurrentPage == 1) {
+                layoutRefreshContentView?.customers_mBGARefreshLayout?.finishRefreshWithNoMoreData()
+            }else{
+                layoutRefreshContentView?.customers_mBGARefreshLayout?.finishLoadMoreWithNoMoreData()
+            }
         }
     }
 }

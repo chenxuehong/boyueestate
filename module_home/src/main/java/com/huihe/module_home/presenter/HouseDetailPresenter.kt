@@ -1,30 +1,39 @@
 package com.huihe.module_home.presenter
 
+import android.annotation.SuppressLint
 import com.huihe.module_home.data.protocol.HouseDetail
+import com.huihe.module_home.data.protocol.OwnerInfo
 import com.huihe.module_home.presenter.view.HouseDetailView
 import com.huihe.module_home.service.HouseService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber
+import io.reactivex.Observable
+import io.reactivex.functions.Function
 import javax.inject.Inject
 
-class HouseDetailPresenter @Inject constructor() : BasePresenter<HouseDetailView>(){
+class HouseDetailPresenter @Inject constructor() : BasePresenter<HouseDetailView>() {
 
     @Inject
     lateinit var mHouseService: HouseService
 
-    fun getHouseDetailById(id:String?){
+    @SuppressLint("CheckResult")
+    fun getHouseDetailById(id: String?) {
         if (!checkNetWork()) {
             return
         }
         mHouseService.getHouseDetailById(id)
-            .execute(object :BaseSubscriber<HouseDetail?>(mView){
-                override fun onNext(t: HouseDetail?) {
+            .compose(lifecycleProvider.bindToLifecycle())
+            .flatMap(Function<HouseDetail?, Observable<OwnerInfo?>> {
+                mView?.onGetHouseDetailResult(it)
+                return@Function mHouseService.getHouseDetailRelationPeople(id)
+            })
+            .execute(object : BaseSubscriber<OwnerInfo?>(mView) {
+                override fun onNext(t: OwnerInfo?) {
                     super.onNext(t)
-                    var house = t?.data
-                   mView?.onGetHouseDetailResult(house)
+                    mView?.onGetOwnerResult(t)
                 }
-            },lifecycleProvider)
+            }, lifecycleProvider)
     }
 
 }

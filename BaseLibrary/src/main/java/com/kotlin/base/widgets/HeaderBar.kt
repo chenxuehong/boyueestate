@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.kotlin.base.R
 import com.kotlin.base.ext.onClick
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.layout_header_bar.view.*
  */
 class HeaderBar @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr) {
+) : RelativeLayout(context, attrs, defStyleAttr) {
 
     //是否显示"返回"图标
     private var isShowBack = true
@@ -39,8 +40,8 @@ class HeaderBar @JvmOverloads constructor(
         rightText = typedArray.getString(R.styleable.HeaderBar_rightText)
         rightTitleLayout = typedArray.getResourceId(R.styleable.HeaderBar_rightTitleLayout,NO_RIGHT_TITLE_LAYOUT)
 
-        initView()
         typedArray.recycle()
+        initView()
     }
 
     /*

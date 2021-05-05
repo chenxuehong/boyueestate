@@ -7,7 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.PriceResult
+import com.huihe.module_home.data.protocol.PriceReq
+import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.ui.adpter.PriceRvAdapter
 import com.kotlin.base.ext.enable
 import com.kotlin.base.ext.hideKeyboard
@@ -45,12 +46,12 @@ fun View.initPriceView(
             etMaxValue.text.toString().trim()
         )
         mListener?.onSearchResult(
-            PriceResult(priceRanges[0], priceRanges[1]),
+            PriceReq(priceRanges[0], priceRanges[1]),
             String.format(
                 mContext.resources.getString(R.string.minprice_maxprice),
                 etMinValue.text.toString().trim(),
                 etMaxValue.text.toString().trim()
-            ), SearchType.PriceType
+            ), CustomersModule.SearchType.PriceType
         )
     }
     rvSearch.layoutManager = LinearLayoutManager(mContext)
@@ -64,15 +65,15 @@ fun View.initPriceView(
                 var floorRanges = getPriceRanges(item, position, priceRvAdapter.dataList.size)
                 if (floorRanges?.size == 2) {
                     mListener?.onSearchResult(
-                        PriceResult(floorRanges[0], floorRanges[1]),
+                        PriceReq(floorRanges[0], floorRanges[1]),
                         item,
-                        SearchType.PriceType
+                        CustomersModule.SearchType.PriceType
                     )
                 } else {
                     mListener?.onSearchResult(
                         null,
                         title,
-                        SearchType.PriceType
+                        CustomersModule.SearchType.PriceType
                     )
                 }
             }

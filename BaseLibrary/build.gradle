@@ -74,7 +74,7 @@ dependencies {
     api 'com.ashokvarma.android:bottom-navigation-bar:2.0.4'
 
     //Banner
-    api 'com.youth.banner:banner:1.4.10'
+    api 'com.youth.banner:banner:2.1.0'
 
     //最新版本
 

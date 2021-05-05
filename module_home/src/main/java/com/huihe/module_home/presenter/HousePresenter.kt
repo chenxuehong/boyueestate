@@ -1,6 +1,6 @@
 package com.huihe.module_home.presenter
 
-import com.huihe.module_home.data.protocol.HouseWrapper
+import com.huihe.module_home.data.protocol.*
 import com.huihe.module_home.presenter.view.SecondHandHouseView
 import com.huihe.module_home.service.HouseService
 import com.kotlin.base.ext.execute
@@ -14,26 +14,27 @@ class HousePresenter @Inject constructor() : BasePresenter<SecondHandHouseView>(
     lateinit var customersService: HouseService
 
     fun getHouseList(
-        pageNo: Int?=null,
-        pageSize: Int?=null,
-        myHouse: Int?=null,
-        hasKey: Int?=null,
-        hasSole: Int?=null,
-        myMaintain: Int?=null,
-        isCirculation: Int?=null,
-        entrustHouse: Int?=null,
-        myCollect: Int?=null,
-        floorageRanges: Map<String, String>?=null,
-        roomNumRanges: Map<String, String>?=null
+        pageNo: Int? = 1,
+        pageSize: Int? = 30,
+        sortReq: SortReq? = null,
+        floorRanges :MutableList<FloorReq>?=null,
+        roomNumRanges: String?=null,
+        priceRanges:MutableList<PriceReq>?=null,
+        moreReq: MoreReq? = null,
+        villageIds:  MutableList<String>? =null
     ) {
         if (!checkNetWork()) {
             return
         }
         customersService?.getHouseList(
-            pageNo,pageSize,
-            myHouse, hasKey,hasSole,
-            myMaintain,isCirculation,entrustHouse,
-            myCollect,floorageRanges,roomNumRanges)
+            pageNo, pageSize,
+            sortReq,
+            floorRanges,
+            roomNumRanges,
+            priceRanges,
+            moreReq,
+            villageIds
+        )
             .execute(object : BaseSubscriber<HouseWrapper?>(mView) {
                 override fun onNext(t: HouseWrapper?) {
                     mView.onGetHouseListResult(t?.list)
@@ -41,10 +42,11 @@ class HousePresenter @Inject constructor() : BasePresenter<SecondHandHouseView>(
             }, lifecycleProvider)
 
     }
+
     fun getHouseListByStatus(
-        pageNo: Int?=null,
-        pageSize: Int?=null,
-        dataType: Int?=null
+        pageNo: Int? = 1,
+        pageSize: Int? = 30,
+        dataType: Int? = 0
     ) {
         if (!checkNetWork()) {
             return
@@ -52,10 +54,30 @@ class HousePresenter @Inject constructor() : BasePresenter<SecondHandHouseView>(
         customersService?.getHouseList(
             pageNo,
             pageSize,
-            dataType)
+            dataType
+        )
             .execute(object : BaseSubscriber<HouseWrapper?>(mView) {
                 override fun onNext(t: HouseWrapper?) {
                     mView.onGetHouseListResult(t?.list)
+                }
+            }, lifecycleProvider)
+
+    }
+
+    fun getVillages(
+        latitude: Double?= null,
+        longitude: Double?= null
+    ) {
+        if (!checkNetWork()) {
+            return
+        }
+        customersService?.getVillages(
+            latitude,
+            longitude
+        )
+            .execute(object : BaseSubscriber<AreaBeanWrapper?>(mView) {
+                override fun onNext(t: AreaBeanWrapper?) {
+                    mView.onGetAreaBeanListResult(t?.list)
                 }
             }, lifecycleProvider)
 
