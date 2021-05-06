@@ -1,10 +1,6 @@
 package com.huihe.module_home.injection.component
 import com.huihe.module_home.injection.module.CustomersModule
-
-import com.huihe.module_home.ui.fragment.HouseFragment
-import com.huihe.module_home.ui.fragment.HouseMapFragment
-
-import com.huihe.module_home.ui.fragment.HouseDetailFragment
+import com.huihe.module_home.ui.fragment.*
 
 import com.kotlin.base.injection.PerComponentScope
 import com.kotlin.base.injection.component.ActivityComponent
@@ -20,4 +16,7 @@ interface CustomersComponent {
     fun inject(fragment: HouseFragment)
     fun inject(fragment: HouseMapFragment)
     fun inject(fragment: HouseDetailFragment)
+    fun inject(fragment: HouseFollowFragment)
+    fun inject(fragment: HouseTakeLookFragment)
+    fun inject(fragment: HouseLogFragment)
 }

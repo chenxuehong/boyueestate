@@ -5,11 +5,11 @@ import java.math.BigDecimal
 data class ItemHouseDetail(
     val bannerList: MutableList<HouseDetail.ImagUrlsBean>? = null,
     val basicInfo: BasicInfo? = null,
-    val detailInfoList: MutableList<DetailInfo>? = null,
+    val detailInfoList: MutableList<DetailInfo> = mutableListOf(),
     val rewarks: String? = null,
-    val ownerInfoList: MutableList<OwnerInfo>? = null,
-    val imagUrls: MutableList<HouseDetail.ImagUrlsBean>? = null,
-    val referUrls: MutableList<HouseDetail.ReferUrlsBean>? = null,
+    val ownerInfoList: MutableList<OwnerInfo> = mutableListOf(),
+    val imagUrls: MutableList<HouseDetail.ImagUrlsBean> = mutableListOf(),
+    val referUrls: MutableList<HouseDetail.ReferUrlsBean> = mutableListOf(),
     val mapInfo: MapInfo? = null
 ) {
     data class BasicInfo(

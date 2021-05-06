@@ -273,9 +273,9 @@ fun getConvertHouseDetailData(houseDetail: HouseDetail?): MutableList<ItemHouseD
             )
         ),
         ItemHouseDetail(
-            imagUrls = imagUrls),
+            imagUrls =imagUrls!!),
         ItemHouseDetail(
-            referUrls = referUrls),
+            referUrls = referUrls!!),
         ItemHouseDetail(
             mapInfo = ItemHouseDetail.MapInfo(
                 houseDetail?.villageInfoResponse?.latitude,

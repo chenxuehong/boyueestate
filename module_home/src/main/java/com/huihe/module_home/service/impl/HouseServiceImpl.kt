@@ -41,7 +41,7 @@ class HouseServiceImpl @Inject constructor(): HouseService {
         return repository.getHouseList(pageNo,pageSize,dataType).convert()
     }
 
-    override fun getVillages(latitude: Double?, longitude: Double?): Observable<AreaBeanWrapper?> {
+    override fun getVillages(latitude: Double?, longitude: Double?): Observable<AreaBeanRep?> {
         return repository.getVillages(latitude,longitude).convert()
     }
 
@@ -51,5 +51,22 @@ class HouseServiceImpl @Inject constructor(): HouseService {
 
     override fun getHouseDetailRelationPeople(id: String?): Observable<OwnerInfo?> {
         return repository.getHouseDetailRelationPeople(id).convert()
+    }
+
+    override fun reqCollection(id: String?): Observable<Any?> {
+        return repository.reqCollection(id).convert()
+    }
+
+    override fun reqDeleteCollection(id: String?): Observable<Any?> {
+        return repository.reqDeleteCollection(id).convert()
+    }
+
+    override fun setHouseInfo(
+        id: String?,
+        hFlag: Int?,
+        isCirculation: Int?,
+        ownerTel: String?
+    ): Observable<SetHouseInfoRep?> {
+        return repository.setHouseInfo(id,hFlag,isCirculation).convert()
     }
 }

@@ -17,4 +17,36 @@
     <string name="house_detail">房源详情</string>
     <string name="house_detail_right_title">更多</string>
     <string name="more_result_numSelected">%s项选中</string>
+    <string name="house_owners">房源相关人</string>
+    <string name="photo_refs">图片相关</string>
+    <string name="house_photo">房屋图片</string>
+    <string name="refer_photo">产权图片</string>
+    <string name="community_location">小区位置</string>
+    <string name="supporting_facility">配套设施</string>
+    <string name="house_follow">房源跟进</string>
+    <string name="take_look">带看</string>
+    <string name="log">日志</string>
+    <string name="new_insert">新增</string>
+
+    <string name="more_update">修改</string>
+    <string name="more_house_photo">上传房屋图</string>
+    <string name="more_refers">上传产权图</string>
+    <string name="more_update_status">修改状态</string>
+    <string name="more_circulate">流通</string>
+    <string name="more_edit_info">编辑信息</string>
+    <string name="more_new_phone">新增电话</string>
+    <string name="more_customer">客户档案</string>
+    <string name="more_share">分享</string>
+
+    <string name="heSold">他售</string>
+    <string name="selfSold">我售</string>
+    <string name="effective">有效</string>
+    <string name="defer">暂缓</string>
+
+    <string name="Circulate">流通</string>
+    <string name="NoCirculate">不流通</string>
+
+    <string name="input_phone_tip">请输入有效的电话号码</string>
+    <string name="cancel">取消</string>
+
 </resources>

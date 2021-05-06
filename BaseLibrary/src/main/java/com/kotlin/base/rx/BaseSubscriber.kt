@@ -14,7 +14,6 @@ open class BaseSubscriber<T>(val baseView: BaseView) : Observer<T> {
     override fun onSubscribe(p0: Disposable) {
     }
 
-
     override fun onComplete() {
         baseView.hideLoading()
     }

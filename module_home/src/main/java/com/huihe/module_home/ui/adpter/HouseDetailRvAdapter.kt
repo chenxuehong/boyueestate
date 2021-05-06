@@ -1,30 +1,50 @@
 package com.huihe.module_home.ui.adpter
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import co.lujun.androidtagview.TagContainerLayout
+import com.example.zhouwei.library.CustomPopWindow
+import com.example.zhouwei.library.CustomPopWindow.PopupWindowBuilder
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.HouseDetail
 import com.huihe.module_home.data.protocol.ItemHouseDetail
 import com.huihe.module_home.injection.module.CustomersModule
+import com.huihe.module_home.ui.activity.HouseDetailActivity
+import com.huihe.module_home.ui.activity.HouseFollowActivity
+import com.huihe.module_home.ui.activity.HouseLogActivity
+import com.huihe.module_home.ui.activity.HouseTakeLookActivity
+import com.huihe.module_home.ui.holder.*
+import com.kotlin.base.ext.callPhone
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.utils.YuanFenConverter
+import com.kotlin.base.widgets.GridDividerItemDecoration
+import com.kotlin.provider.constant.HomeConstant
 import com.youth.banner.Banner
 import com.youth.banner.config.IndicatorConfig
 import com.youth.banner.indicator.CircleIndicator
 import kotlinx.android.synthetic.main.layout_house_detail_banner_item.view.*
 import kotlinx.android.synthetic.main.layout_house_rewarks_info_item.view.*
+import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.toast
+
 
 class HouseDetailRvAdapter(mContext: Context?) :
     BaseRecyclerViewAdapter<ItemHouseDetail, RecyclerView.ViewHolder>(mContext!!) {
 
-    var banner:Banner<HouseDetail.ImagUrlsBean,ImageAdapter>?=null
+    var banner: Banner<HouseDetail.ImagUrlsBean, ImageAdapter>? = null
+    var callPopWindow:CustomPopWindow?=null
+    var mId:String?=""
     override fun getItemViewType(position: Int): Int {
         when (position) {
             0 -> {
@@ -102,13 +122,18 @@ class HouseDetailRvAdapter(mContext: Context?) :
                     parent
                 )
             )
-            CustomersModule.HouseDetailType.ITEM_REFERURL -> holder = ItemPhotoHolder(
+            CustomersModule.HouseDetailType.ITEM_REFERURL -> holder = ItemRefeurlHolder(
                 initInflater(
                     mContext,
-                    R.layout.layout_house_photo_item,
+                    R.layout.layout_house_referurl_item,
                     parent
                 )
             )
+
+            else -> {
+                holder =
+                    MapHolder(initInflater(mContext, R.layout.layout_house_detail_map_item, parent))
+            }
         }
         return holder
     }
@@ -134,10 +159,10 @@ class HouseDetailRvAdapter(mContext: Context?) :
                 initOwnerInfoList(holder, itemHouseDetail)
             }
             CustomersModule.HouseDetailType.ITEM_PHOTO -> {
-
+                initPhotos(holder, itemHouseDetail)
             }
             CustomersModule.HouseDetailType.ITEM_REFERURL -> {
-
+                initReferurl(holder, itemHouseDetail)
             }
         }
     }
@@ -180,8 +205,10 @@ class HouseDetailRvAdapter(mContext: Context?) :
             indicator = CircleIndicator(mContext)
             setIndicatorSelectedColorRes(R.color.main_color)
             setIndicatorGravity(IndicatorConfig.Direction.CENTER)
-            setBannerGalleryEffect(mContext.resources.getDimensionPixelOffset(R.dimen.dp_6),
-                mContext.resources.getDimensionPixelOffset(R.dimen.dp_6))
+            setBannerGalleryEffect(
+                mContext.resources.getDimensionPixelOffset(R.dimen.dp_6),
+                mContext.resources.getDimensionPixelOffset(R.dimen.dp_6)
+            )
             setBannerRound(6f)
         }
     }
@@ -208,59 +235,106 @@ class HouseDetailRvAdapter(mContext: Context?) :
         basicHolder.tvOwnerName.text = itemHouseDetail?.basicInfo?.ownerName
 
         basicHolder.tvTel.onClick {
-
+            showTelListDialog(itemHouseDetail?.basicInfo?.ownerTel,basicHolder.tvTel)
         }
         basicHolder.tvFollow.onClick {
-
+            var intent = Intent(mContext, HouseFollowActivity::class.java)
+            intent.putExtra(HomeConstant.KEY_HOUSE_ID,mId)
+            mContext.startActivity(intent)
         }
         basicHolder.tvTakeLook.onClick {
-
+            var intent = Intent(mContext, HouseTakeLookActivity::class.java)
+            intent.putExtra(HomeConstant.KEY_HOUSE_ID,mId)
+            mContext.startActivity(intent)
         }
         basicHolder.tvLog.onClick {
-
+            var intent = Intent(mContext, HouseLogActivity::class.java)
+            intent.putExtra(HomeConstant.KEY_HOUSE_ID,mId)
+            mContext.startActivity(intent)
         }
+    }
+
+    private fun showTelListDialog(ownerTel: String?, view: View) {
+        var split = ownerTel?.split(";")?: mutableListOf()
+        split = split?.toMutableList()
+        if (split?.isEmpty()){
+            (mContext as Activity).toast("暂无电话")
+            return
+        }
+        val contentView =
+            LayoutInflater.from(mContext).inflate(R.layout.layout_tel_dialog, null, false)
+        var telRvAdapter = TelRvAdapter(mContext)
+        telRvAdapter.setOnItemClickListener(object :BaseRecyclerViewAdapter.OnItemClickListener<String>{
+            override fun onItemClick(view: View, tel: String, position: Int) {
+                callPhone(mContext,tel)
+            }
+        })
+        (contentView as RecyclerView).apply {
+            layoutManager = LinearLayoutManager(mContext)
+            adapter = telRvAdapter
+        }
+        telRvAdapter.setData(
+            split
+        )
+        callPopWindow = PopupWindowBuilder(mContext)
+            .setView(contentView)
+            .enableBackgroundDark(true) //弹出popWindow时，背景是否变暗
+            .setBgDarkAlpha(0.7f) // 控制亮度
+            .setFocusable(true)
+            .setOutsideTouchable(true)
+            .create()
+            .showAsDropDown(view, 0, 10)
+    }
+
+
+    private fun initPhotos(holder: RecyclerView.ViewHolder, itemHouseDetail: ItemHouseDetail) {
+        var viewHolder = holder as ItemPhotoHolder
+        var imagUrls = itemHouseDetail.imagUrls
+        var houseDetailPhotoRvAdapter = HouseDetailPhotoRvAdapter(mContext)
+        var linearLayoutManager = GridLayoutManager(mContext, 4)
+        viewHolder.mRvHousePhoto.apply {
+            layoutManager = linearLayoutManager
+            isNestedScrollingEnabled = false
+            adapter = houseDetailPhotoRvAdapter
+            if (itemDecorationCount == 0)
+                addItemDecoration(
+                    GridDividerItemDecoration(
+                        mContext,
+                        mContext.resources.getDimensionPixelSize(R.dimen.dp_15),
+                        true
+                    )
+                )
+        }
+        houseDetailPhotoRvAdapter.setData(imagUrls)
+    }
+
+    private fun initReferurl(holder: RecyclerView.ViewHolder, itemHouseDetail: ItemHouseDetail) {
+        var viewHolder = holder as ItemRefeurlHolder
+        var imagUrls = itemHouseDetail.imagUrls
+        var houseDetailPhotoRvAdapter = HouseDetailPhotoRvAdapter(mContext)
+        var linearLayoutManager = GridLayoutManager(mContext, 4)
+        viewHolder.mRvHousePhoto.apply {
+            layoutManager = linearLayoutManager
+            isNestedScrollingEnabled = false
+            adapter = houseDetailPhotoRvAdapter
+            if (itemDecorationCount == 0)
+                addItemDecoration(
+                    GridDividerItemDecoration(
+                        mContext,
+                        mContext.resources.getDimensionPixelSize(R.dimen.dp_15),
+                        true
+                    )
+                )
+        }
+        houseDetailPhotoRvAdapter.setData(imagUrls)
+
     }
 
     private fun getNotNullData(split: List<String>?): List<String> {
         return split ?: mutableListOf()
     }
 
-    internal inner class BannerHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView)
-
-    internal inner class HouseBasicInfoHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
-        var tvTitle: TextView = itemView.findViewById<TextView>(R.id.tvHouseDetailTitle)
-        var tvPrice: TextView = itemView.findViewById<TextView>(R.id.tvHouseDetailPrice)
-        var tvArgePrice: TextView = itemView.findViewById<TextView>(R.id.tvHouseDetailArgePrice)
-        var tvFloorage: TextView = itemView.findViewById<TextView>(R.id.tvHouseDetailFloorageValue)
-        var tvHShape: TextView = itemView.findViewById<TextView>(R.id.tvHouseDetailHShapeValue)
-        var tags: TagContainerLayout =
-            itemView.findViewById<TagContainerLayout>(R.id.houseDetailTags)
-        var tvTel: TextView = itemView.findViewById<TextView>(R.id.tvHouseDetailTel)
-        var tvFollow: TextView = itemView.findViewById<TextView>(R.id.tvHouseDetailFollow)
-        var tvTakeLook: TextView = itemView.findViewById<TextView>(R.id.tvHouseDetailTakeLook)
-        var tvLog: TextView = itemView.findViewById<TextView>(R.id.tvHouseDetailLog)
-        var tvOwnerName: TextView =
-            itemView.findViewById<TextView>(R.id.tvHouseDetailOwnerNameValue)
-    }
-
-    internal inner class ItemHouseDetailHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView)
-
-    internal inner class ItemHouseRewarksHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView)
-
-    internal inner class ItemHouseOwnerInfoHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView)
-
-    internal inner class ItemPhotoHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView)
-
-    internal inner class MapHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView)
-
-   fun onStart() {
+    fun onStart() {
         //开始轮播
         banner?.start()
     }
@@ -273,6 +347,14 @@ class HouseDetailRvAdapter(mContext: Context?) :
     fun onDestroy() {
         //销毁
         banner?.destroy()
+        try {
+            callPopWindow?.dissmiss()
+        } catch (e: Exception) {
+        }
+    }
+
+    fun setId(id: String?) {
+        mId =id
     }
 
 }

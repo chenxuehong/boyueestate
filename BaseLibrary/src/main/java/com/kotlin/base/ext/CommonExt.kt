@@ -1,7 +1,9 @@
 package com.kotlin.base.ext
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -118,6 +120,13 @@ fun Context.hideKeyboard(v: View) {
 /**
  * @desc 填充器
  */
-fun initInflater(context:Context,layoutRes:Int,parent:ViewGroup):View{
-   return LayoutInflater.from(context).inflate(layoutRes,parent,false)
+fun initInflater(context: Context, layoutRes: Int, parent: ViewGroup): View {
+    return LayoutInflater.from(context).inflate(layoutRes, parent, false)
+}
+
+fun callPhone(context: Context, phoneNum: String) {
+    var intent = Intent(Intent.ACTION_DIAL);
+    var data = Uri.parse("tel:${phoneNum}");
+    intent.setData(data);
+    context.startActivity(intent);
 }

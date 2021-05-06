@@ -20,7 +20,7 @@ import org.jetbrains.anko.dimen
 class RoundRectImageView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr:Int = 0): ImageView(context,attrs,defStyleAttr) {
     val radius = dimen(R.dimen.common_radius).toFloat()
     //设置圆角为左上和右上
-    private val radiusArray:FloatArray = floatArrayOf(radius,radius,radius,radius,0.0f,0.0f,0.0f,0.0f)
+    private val radiusArray:FloatArray = floatArrayOf(radius,radius,radius,radius,radius,radius,radius,radius)
 
 
     /*

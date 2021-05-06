@@ -36,5 +36,18 @@ interface HouseApi {
     fun getVillages(
         @Query("latitude") latitude: Double?,
         @Query("longitude") longitude: Double?
-    ): Observable<BaseResp<AreaBeanWrapper?>>
+    ): Observable<BaseResp<AreaBeanRep?>>
+
+    @POST("house/{id}/collection")
+    fun reqCollection(
+        @Path("id") id:String?
+    ): Observable<BaseResp<Any?>>
+
+    @DELETE("house/{id}/collection")
+    fun reqDeleteCollection(
+        @Path("id") id:String?
+    ): Observable<BaseResp<Any?>>
+
+    @POST("house")
+    fun setHouseInfo( @Body req:SetHouseInfoReq): Observable<BaseResp<SetHouseInfoRep?>>
 }

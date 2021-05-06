@@ -31,7 +31,7 @@ interface HouseService {
     fun getVillages(
         latitude: Double?= null,
         longitude: Double?= null
-    ): Observable<AreaBeanWrapper?>
+    ): Observable<AreaBeanRep?>
 
     /**
      * 获取房源详情信息
@@ -44,4 +44,17 @@ interface HouseService {
     fun getHouseDetailRelationPeople(
         id: String? = null
     ): Observable<OwnerInfo?>
+
+    fun reqCollection(
+        id: String?): Observable<Any?>
+
+    fun reqDeleteCollection(
+        id: String?): Observable<Any?>
+
+    fun setHouseInfo(
+        id: String?,
+        hFlag: Int?,
+        isCirculation: Int?,
+        ownerTel: String?
+    ): Observable<SetHouseInfoRep?>
 }

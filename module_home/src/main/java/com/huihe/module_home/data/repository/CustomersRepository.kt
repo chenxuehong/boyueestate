@@ -67,7 +67,7 @@ class CustomersRepository @Inject constructor() {
             )
     }
 
-    fun getVillages(latitude: Double?, longitude: Double?): Observable<BaseResp<AreaBeanWrapper?>> {
+    fun getVillages(latitude: Double?, longitude: Double?): Observable<BaseResp<AreaBeanRep?>> {
         return RetrofitFactory.instance.create(HouseApi::class.java)
             .getVillages(
                 latitude,
@@ -80,5 +80,25 @@ class CustomersRepository @Inject constructor() {
             .getHouseDetailRelationPeople(
                id
             )
+    }
+
+    fun reqCollection(id:String?): Observable<BaseResp<Any?>> {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .reqCollection(id)
+    }
+
+    fun reqDeleteCollection(id: String?):  Observable<BaseResp<Any?>> {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .reqDeleteCollection(id)
+    }
+
+    fun setHouseInfo(
+        id: String?,
+        hFlag: Int?=null,
+        circulation: Int?=null,
+        ownerTel: String?=null
+    ): Observable<BaseResp<SetHouseInfoRep?>> {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .setHouseInfo(SetHouseInfoReq(id,hFlag,circulation,ownerTel))
     }
 }

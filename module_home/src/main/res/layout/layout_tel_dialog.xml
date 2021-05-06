@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.recyclerview.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="@dimen/dp_100"
+    android:background="@drawable/common_white_radius_bg"
+    android:padding="@dimen/dp_10"
+    android:layout_height="wrap_content">
+
+</androidx.recyclerview.widget.RecyclerView>

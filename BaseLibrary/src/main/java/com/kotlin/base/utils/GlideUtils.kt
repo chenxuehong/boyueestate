@@ -3,20 +3,17 @@ package com.kotlin.base.utils
 import android.content.Context
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.GlideDrawable
-import com.bumptech.glide.request.animation.GlideAnimation
-import com.bumptech.glide.request.target.SimpleTarget
 import com.kotlin.base.R
 
 /*
     Glide工具类
  */
 object GlideUtils {
-    fun loadImage(context: Context, url: String, imageView: ImageView) {
+    fun loadImage(context: Context, url: Any, imageView: ImageView) {
         Glide.with(context).load(url).centerCrop().into(imageView)
     }
 
-    fun loadImageFitCenter(context: Context, url: String, imageView: ImageView) {
+    fun loadImageFitCenter(context: Context, url: Any, imageView: ImageView) {
         Glide.with(context).load(url).fitCenter().into(imageView)
     }
 

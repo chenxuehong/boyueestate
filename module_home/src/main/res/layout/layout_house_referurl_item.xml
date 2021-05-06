@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/house_detail_tv_photoRefs"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/refer_photo"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/sp_15"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_height="@dimen/dp_35"/>
+
+    <View
+        android:id="@+id/house_detail_viewLine"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/house_detail_tv_photoRefs"
+        android:layout_width="match_parent"
+        android:background="@color/line"
+        android:layout_height="@dimen/dp_0_5"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/house_detail_rvHousePhoto"
+        app:layout_constraintTop_toBottomOf="@id/house_detail_viewLine"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

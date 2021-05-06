@@ -28,7 +28,7 @@ class HouseDetailOwnerRvAdapter(mContext: Context) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         super.onBindViewHolder(holder, position)
         var detailInfo = dataList[position]
-        holder.itemView.tvHouseDetailTitle.text = "房源相关人"
+        holder.itemView.tvHouseDetailTitle.text = mContext.resources.getString(R.string.house_owners)
         holder.itemView.tvHouseDetailRightTitle.text = detailInfo.leftTitle
         holder.itemView.tvHouseDetailRightContent.text = detailInfo.content
         holder.itemView.tvHouseDetailTitle.setVisible(position==0)
