@@ -84,6 +84,10 @@
     <string name="room">室</string>
     <string name="hall">厅</string>
     <string name="defend">卫</string>
+    <string name="Mortgage_or_not">是否抵押</string>
+    <string name="Mortgaged_or_not">是否有抵押</string>
+    <string name="orientation">房屋朝向</string>
+    <string name="At_least_five">满五唯一</string>
 
 
 </resources>
