@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import com.kotlin.base.common.AppManager
 import com.kotlin.base.ext.hideKeyboard
+import com.kotlin.base.ui.fragment.BaseFragment
 import com.kotlin.base.utils.GlideUtils
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import org.jetbrains.anko.find
@@ -70,5 +71,13 @@ open class BaseActivity : RxAppCompatActivity() {
                     || ev.getY() < top || (ev.getY() > top + view.getHeight()))
         }
         return false
+    }
+
+    fun setFragment(fragment:BaseFragment,args: Bundle){
+        fragment.arguments = args
+        supportFragmentManager.beginTransaction().replace(
+            contentView.id,
+            fragment
+        ).commitAllowingStateLoss()
     }
 }

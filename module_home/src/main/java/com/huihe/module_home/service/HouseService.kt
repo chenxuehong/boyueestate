@@ -19,7 +19,7 @@ interface HouseService {
         roomNumRanges: String?,
         priceRanges: MutableList<PriceReq>?,
         moreReq: MoreReq?,
-        villageIds:  MutableList<String>?
+        villageIds: MutableList<String>?
     ): Observable<HouseWrapper?>
 
     fun getHouseList(
@@ -29,8 +29,8 @@ interface HouseService {
     ): Observable<HouseWrapper?>
 
     fun getVillages(
-        latitude: Double?= null,
-        longitude: Double?= null
+        latitude: Double? = null,
+        longitude: Double? = null
     ): Observable<AreaBeanRep?>
 
     /**
@@ -46,15 +46,18 @@ interface HouseService {
     ): Observable<OwnerInfo?>
 
     fun reqCollection(
-        id: String?): Observable<Any?>
+        id: String?
+    ): Observable<Any?>
 
     fun reqDeleteCollection(
-        id: String?): Observable<Any?>
+        id: String?
+    ): Observable<Any?>
 
     fun setHouseInfo(
-        id: String?,
-        hFlag: Int?,
-        isCirculation: Int?,
-        ownerTel: String?
+        req: SetHouseInfoReq
     ): Observable<SetHouseInfoRep?>
+
+    fun getUploadToken(): Observable<String?>
+    fun postHouseImage( req: SetHouseInfoReq): Observable<String?>
+    fun postReferImage( req: SetHouseInfoReq): Observable<String?>
 }

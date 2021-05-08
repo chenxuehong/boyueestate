@@ -92,7 +92,7 @@ data class HouseDetail (
     val orientation: String? = null,
     val ownerLowPrice: String? = null,
     val ownerName: String? = null,
-    val ownerTel: String? = null,
+    var ownerTel: String? = null,
     val price: BigDecimal =BigDecimal(0),
     val propertyRightUserSize: String? = null,
     val referUrl: String? = null,

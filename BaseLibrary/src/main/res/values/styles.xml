@@ -138,4 +138,11 @@
         <item name="android:textColor">@color/text_light_dark</item>
     </style>
 
+    <!-- 自定义标签内容字体样式 -->
+    <style name="LineStyle">
+        <item name="android:background">@color/line</item>
+        <item name="android:layout_height">@dimen/dp_0_5</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
 </resources>

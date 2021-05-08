@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.kotlin.base.widgets.HeaderBar
+            android:id="@+id/set_houseinfo_titleBar"
+            style="@style/MatchWrap"
+            android:background="@color/main_color"
+            app:isShowBack="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleText="@string/Alter" />
+
+        <com.kotlin.base.widgets.NecessaryTitleSelectView
+            android:id="@+id/nsvTransaction_type"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            style="@style/MatchWrap"
+            app:leftTitleText="@string/transaction_type"
+            app:isNecessary="true"
+            app:isShowLine="true"
+            app:tipContentText="@string/select_transaction_type"
+            app:layout_constraintTop_toBottomOf="@id/set_houseinfo_titleBar"
+            android:layout_height="@dimen/dp_40"/>
+
+        <com.kotlin.base.widgets.NecessaryTitleSelectView
+            android:id="@+id/nsvVillage"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            style="@style/MatchWrap"
+            app:leftTitleText="@string/Village"
+            app:isNecessary="true"
+            app:isShowLine="true"
+            app:tipContentText="@string/select_Village"
+            app:layout_constraintTop_toBottomOf="@id/nsvTransaction_type"
+            android:layout_height="@dimen/dp_40"/>
+        <com.kotlin.base.widgets.NecessaryTitleInputView
+            android:id="@+id/nivSalePrice"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:leftTitleText="@string/solePrice"
+            app:isNecessary="true"
+            app:isShowLine="true"
+            app:tipContentText="@string/solePrice_input_tip"
+            app:layout_constraintTop_toBottomOf="@id/nsvVillage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"/>
+
+        <com.kotlin.base.widgets.NecessaryTitleInputView
+            android:id="@+id/nivrent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:leftTitleText="@string/rent"
+            app:isNecessary="true"
+            app:isShowLine="true"
+            app:tipContentText="@string/input_rent"
+            app:layout_constraintTop_toBottomOf="@id/nivSalePrice"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"/>
+
+        <com.kotlin.base.widgets.NecessaryTitleInputView
+            android:id="@+id/nivbuy_price"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:leftTitleText="@string/buy_price"
+            app:isNecessary="true"
+            app:isShowLine="true"
+            app:tipContentText="@string/input_buy_price"
+            app:layout_constraintTop_toBottomOf="@id/nivrent"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

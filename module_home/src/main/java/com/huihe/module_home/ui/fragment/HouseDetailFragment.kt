@@ -1,6 +1,9 @@
 package com.huihe.module_home.ui.fragment
 
+import android.Manifest
+import android.net.Uri
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +14,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.qqtheme.framework.picker.SinglePicker
+import com.bigkoo.alertview.AlertView
 import com.example.zhouwei.library.CustomPopWindow
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.HouseDetail
@@ -22,16 +26,32 @@ import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HouseDetailPresenter
 import com.huihe.module_home.presenter.view.HouseDetailView
+import com.huihe.module_home.ui.activity.SetHouseInfoActivity
+import com.huihe.module_home.ui.activity.SetOwnerInfoActivity
 import com.huihe.module_home.ui.adpter.HouseDetailRvAdapter
 import com.huihe.module_home.ui.adpter.MoreRvAdapter
+import com.jph.takephoto.compress.CompressConfig
+import com.jph.takephoto.model.TResult
+import com.kennyc.view.MultiStateView
+import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.onClick
+import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
+import com.kotlin.base.ui.fragment.BaseTakePhotoFragment
 import com.kotlin.base.utils.DensityUtils
+import com.kotlin.base.utils.LogUtils
 import com.kotlin.provider.constant.HomeConstant
+import com.qiniu.android.http.ResponseInfo
+import com.qiniu.android.storage.UpCompletionHandler
+import com.qiniu.android.storage.UploadManager
+import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.fragment_house_detail.*
+import kotlinx.android.synthetic.main.layout_refresh.view.*
 import kotlinx.android.synthetic.main.layout_right_title_house_detail.*
+import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
+import org.json.JSONObject
 import top.limuyang2.ldialog.LDialog
 import top.limuyang2.ldialog.base.BaseLDialog
 import top.limuyang2.ldialog.base.ViewHandlerListener
@@ -40,9 +60,10 @@ import top.limuyang2.ldialog.base.ViewHolder
 /**
  * 房源详情
  */
-class HouseDetailFragment : BaseMvpFragment<HouseDetailPresenter>(), HouseDetailView {
+class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), HouseDetailView {
 
     lateinit var houseDetailTvAdapter: HouseDetailRvAdapter
+     var mLocalFilResult: TResult?=null
     var id: String? = null
     var houseDetail: HouseDetail? = null
     var rightContentView: View? = null
@@ -53,6 +74,11 @@ class HouseDetailFragment : BaseMvpFragment<HouseDetailPresenter>(), HouseDetail
     var mMoreList: MutableList<String>? = null
     var updateStatusPicker: SinglePicker<String>? = null
     var mCirculatePicker: SinglePicker<String>? = null
+    val request_code_get_house_picture: Int = 100
+    val request_code_get_refer_picture: Int = 101
+    var requestCode: Int = request_code_get_house_picture
+    var imageUser:Int = 0
+    lateinit var mUploadManager: UploadManager
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -107,7 +133,7 @@ class HouseDetailFragment : BaseMvpFragment<HouseDetailPresenter>(), HouseDetail
             context!!.resources.getString(R.string.more_customer),
             context!!.resources.getString(R.string.more_share)
         )
-
+        mUploadManager = UploadManager()
     }
 
     private fun showMoreDialog(ivHouseDetailMore: TextView) {
@@ -142,13 +168,15 @@ class HouseDetailFragment : BaseMvpFragment<HouseDetailPresenter>(), HouseDetail
     private fun doItemClicked(item: String) {
         when (item) {
             context!!.resources.getString(R.string.more_update) -> {
-
+                startActivity<SetHouseInfoActivity>(HomeConstant.KEY_HOUSE_ID to id)
             }
             context!!.resources.getString(R.string.more_house_photo) -> {
-
+                requestCode = request_code_get_house_picture
+                showSetImageUerDialog()
             }
             context!!.resources.getString(R.string.more_refers) -> {
-
+                requestCode = request_code_get_refer_picture
+                showAlertView()
             }
             context!!.resources.getString(R.string.more_update_status) -> {
                 showUpdateStatusDialog()
@@ -157,7 +185,7 @@ class HouseDetailFragment : BaseMvpFragment<HouseDetailPresenter>(), HouseDetail
                 showCirculateSelectDialog()
             }
             context!!.resources.getString(R.string.more_edit_info) -> {
-
+                startActivity<SetOwnerInfoActivity>(HomeConstant.KEY_HOUSE_ID to id)
             }
             context!!.resources.getString(R.string.more_new_phone) -> {
                 showNewPhoneDialog()
@@ -172,6 +200,33 @@ class HouseDetailFragment : BaseMvpFragment<HouseDetailPresenter>(), HouseDetail
         mMorePopWindow?.dissmiss()
     }
 
+    private fun showSetImageUerDialog() {
+        LDialog.init(childFragmentManager)
+            .setLayoutRes(R.layout.layout_set_imageuser_dialog)
+            .setBackgroundDrawableRes(R.drawable.new_phone_dialog_bg)
+            .setGravity(Gravity.CENTER)
+            .setWidthScale(0.75f)
+            .setViewHandlerListener(object : ViewHandlerListener() {
+                override fun convertView(holder: ViewHolder, dialog: BaseLDialog<*>) {
+                    holder.getView<TextView>(R.id.tvSetImageUserYes).onClick {
+                        dialog.dismiss()
+                        imageUser = 1
+                        showAlertView()
+                    }
+                    holder.getView<TextView>(R.id.tvSetImageUserNo).onClick {
+                        imageUser = 0
+                        showAlertView()
+                        dialog.dismiss()
+
+                    }
+                    holder.getView<ImageView>(R.id.ivSetImageUserClose).onClick {
+                        dialog.dismiss()
+                    }
+                }
+            }).show()
+
+    }
+
     private fun showNewPhoneDialog() {
         LDialog.init(childFragmentManager)
             .setLayoutRes(R.layout.layout_phone_dialog)
@@ -183,15 +238,21 @@ class HouseDetailFragment : BaseMvpFragment<HouseDetailPresenter>(), HouseDetail
             .setViewHandlerListener(object : ViewHandlerListener() {
                 override fun convertView(holder: ViewHolder, dialog: BaseLDialog<*>) {
                     val etPhone = holder.getView<EditText>(R.id.etPhoneContent)
+
                     holder.getView<TextView>(R.id.tvPhoneCancel).setOnClickListener {
-                        mPresenter?.setHouseInfo(
-                            id,
-                            ownerTel = etPhone.text.toString().trim()
-                        )
                         dialog.dismiss()
                     }
                     holder.getView<TextView>(R.id.tvPhoneInsert).setOnClickListener {
+                        if (TextUtils.isEmpty(etPhone.text.toString().trim())) {
+                            toast(resources.getString(R.string.input_phone_tip))
+                            return@setOnClickListener
+                        }
+                        val tel = getTel(etPhone.text.toString().trim())
                         dialog.dismiss()
+                        mPresenter?.setHouseInfo(
+                            id,
+                            ownerTel = tel
+                        )
                     }
                 }
             })
@@ -259,10 +320,30 @@ class HouseDetailFragment : BaseMvpFragment<HouseDetailPresenter>(), HouseDetail
     override fun onHouseStatus(t: SetHouseInfoRep?) {
         mCirculatePicker?.dismiss()
         updateStatusPicker?.dismiss()
-        toast("修改成功")
+        mPresenter.getHouseDetailById(id)
+    }
+
+    override fun onGetUploadTokenResult(result: String?) {
+        mUploadManager.put(mLocalFilResult?.image?.originalPath,null,result,
+            { key, info, response ->
+                var mRemoteFileUrl = response?.get("hash") as String
+
+                LogUtils.d("test", mRemoteFileUrl)
+                if (requestCode == request_code_get_house_picture){
+                    mPresenter.setHouseInfo(id,imageUser = imageUser)
+                    mPresenter.postHouseImage(id=id,imagUrl = mRemoteFileUrl)
+                }else if (requestCode == request_code_get_refer_picture){
+                    mPresenter.postReferImage(id=id,referUrl = mRemoteFileUrl,houseCode = houseDetail?.houseCode)
+                }
+            },null)
+    }
+
+    override fun onUploadSuccessResult(result: String?) {
+
     }
 
     private fun initData() {
+        house_detail_mMultiStateView?.startLoading()
         mPresenter?.getHouseDetailById(id)
     }
 
@@ -284,6 +365,8 @@ class HouseDetailFragment : BaseMvpFragment<HouseDetailPresenter>(), HouseDetail
                 R.drawable.star_common
             }
         )
+        house_detail_mMultiStateView?.viewState =
+            MultiStateView.VIEW_STATE_CONTENT
         requestCollecting = false
     }
 
@@ -301,6 +384,12 @@ class HouseDetailFragment : BaseMvpFragment<HouseDetailPresenter>(), HouseDetail
                 R.drawable.star_common
             }
         )
+    }
+
+    override fun takeSuccess(result: TResult?) {
+        super.takeSuccess(result)
+        this.mLocalFilResult = result
+        mPresenter.getUploadToken()
     }
 
     override fun onStart() {
@@ -324,4 +413,14 @@ class HouseDetailFragment : BaseMvpFragment<HouseDetailPresenter>(), HouseDetail
         }
     }
 
+    private fun getTel(tel: String?): String {
+        var ownerTel = houseDetail?.ownerTel
+        var sb = StringBuffer()
+        if (!TextUtils.isEmpty(ownerTel)) {
+            sb.append(ownerTel).append("*").append(tel)
+        } else {
+            sb.append(tel)
+        }
+        return sb.toString().trim()
+    }
 }

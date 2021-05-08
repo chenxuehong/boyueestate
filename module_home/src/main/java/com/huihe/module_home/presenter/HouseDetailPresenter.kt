@@ -3,6 +3,7 @@ package com.huihe.module_home.presenter
 import com.huihe.module_home.data.protocol.HouseDetail
 import com.huihe.module_home.data.protocol.OwnerInfo
 import com.huihe.module_home.data.protocol.SetHouseInfoRep
+import com.huihe.module_home.data.protocol.SetHouseInfoReq
 import com.huihe.module_home.presenter.view.HouseDetailView
 import com.huihe.module_home.service.HouseService
 import com.kotlin.base.ext.execute
@@ -62,15 +63,65 @@ class HouseDetailPresenter @Inject constructor() : BasePresenter<HouseDetailView
 
     fun setHouseInfo(
         id: String?,
-        hFlag: Int?=null,
-        isCirculation: Int?=null,
-        ownerTel: String?=null
+        hFlag: Int? = null,
+        isCirculation: Int? = null,
+        ownerTel: String? = null,
+        imageUser: Int? = null
     ) {
-        mHouseService.setHouseInfo(id,hFlag,isCirculation,ownerTel)
+        mView?.showLoading("正在修改")
+        mHouseService.setHouseInfo(
+            SetHouseInfoReq(
+                id,
+                hFlag,
+                circulation = isCirculation,
+                ownerTel = ownerTel,
+                imageUser = imageUser
+            )
+        )
             .execute(object : BaseSubscriber<SetHouseInfoRep?>(mView) {
                 override fun onNext(t: SetHouseInfoRep?) {
                     super.onNext(t)
                     mView?.onHouseStatus(t)
+                }
+            }, lifecycleProvider)
+    }
+
+    fun getUploadToken() {
+        mView?.showLoading("正在上传...")
+        mHouseService.getUploadToken()
+            .execute(object : BaseSubscriber<String?>(mView) {
+                override fun onNext(t: String?) {
+                    super.onNext(t)
+                    mView?.onGetUploadTokenResult(t)
+                }
+            }, lifecycleProvider)
+    }
+
+    fun postHouseImage(
+        id: String?,
+        imagUrl: String? = null
+    ) {
+        mHouseService.postHouseImage(
+            SetHouseInfoReq(id = id,imagUrl = imagUrl))
+            .execute(object : BaseSubscriber<String?>(mView) {
+                override fun onNext(t: String?) {
+                    super.onNext(t)
+                    mView?.onUploadSuccessResult(t)
+                }
+            }, lifecycleProvider)
+    }
+
+    fun postReferImage(
+        id: String?,
+        houseCode: String? = null,
+        referUrl: String? = null
+    ) {
+        mHouseService.postReferImage(
+            SetHouseInfoReq(id = id,houseCode = houseCode,referUrl = referUrl))
+            .execute(object : BaseSubscriber<String?>(mView) {
+                override fun onNext(t: String?) {
+                    super.onNext(t)
+                    mView?.onUploadSuccessResult(t)
                 }
             }, lifecycleProvider)
     }

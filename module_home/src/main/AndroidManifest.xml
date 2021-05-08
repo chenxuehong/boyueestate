@@ -6,5 +6,7 @@
         <activity android:name=".ui.activity.HouseFollowActivity"/>
         <activity android:name=".ui.activity.HouseTakeLookActivity"/>
         <activity android:name=".ui.activity.HouseLogActivity"/>
+        <activity android:name=".ui.activity.SetHouseInfoActivity"/>
+        <activity android:name=".ui.activity.SetOwnerInfoActivity"/>
     </application>
 </manifest>

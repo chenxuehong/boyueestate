@@ -13,4 +13,11 @@
         <attr name="labelText" format="string"/>
         <attr name="contentText" format="string"/>
     </declare-styleable>
+    <!--NecessaryTitleInputView-->
+    <declare-styleable name="NecessaryTitleView">
+        <attr name="leftTitleText" format="string"/>
+        <attr name="tipContentText" format="string"/>
+        <attr name="isShowLine" format="boolean"/>
+        <attr name="isNecessary" format="boolean"/>
+    </declare-styleable>
 </resources>

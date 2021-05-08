@@ -4,6 +4,7 @@ import com.huihe.module_home.data.api.HouseApi
 import com.huihe.module_home.data.protocol.*
 import com.kotlin.base.data.net.RetrofitFactory
 import com.kotlin.base.data.protocol.BaseResp
+import com.kotlin.provider.data.api.UploadApi
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -78,27 +79,39 @@ class CustomersRepository @Inject constructor() {
     fun getHouseDetailRelationPeople(id: String?): Observable<BaseResp<OwnerInfo?>> {
         return RetrofitFactory.instance.create(HouseApi::class.java)
             .getHouseDetailRelationPeople(
-               id
+                id
             )
     }
 
-    fun reqCollection(id:String?): Observable<BaseResp<Any?>> {
+    fun reqCollection(id: String?): Observable<BaseResp<Any?>> {
         return RetrofitFactory.instance.create(HouseApi::class.java)
             .reqCollection(id)
     }
 
-    fun reqDeleteCollection(id: String?):  Observable<BaseResp<Any?>> {
+    fun reqDeleteCollection(id: String?): Observable<BaseResp<Any?>> {
         return RetrofitFactory.instance.create(HouseApi::class.java)
             .reqDeleteCollection(id)
     }
 
     fun setHouseInfo(
-        id: String?,
-        hFlag: Int?=null,
-        circulation: Int?=null,
-        ownerTel: String?=null
+        req: SetHouseInfoReq
     ): Observable<BaseResp<SetHouseInfoRep?>> {
         return RetrofitFactory.instance.create(HouseApi::class.java)
-            .setHouseInfo(SetHouseInfoReq(id,hFlag,circulation,ownerTel))
+            .setHouseInfo(req)
+    }
+
+    fun getUploadToken(): Observable<BaseResp<String?>> {
+        return RetrofitFactory.instance.create(UploadApi::class.java)
+            .getUploadToken()
+    }
+
+    fun postHouseImage(req:SetHouseInfoReq): Observable<BaseResp<String?>> {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .postHouseImage(req)
+    }
+
+    fun postReferImage(req:SetHouseInfoReq): Observable<BaseResp<String?>> {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .postReferImage(req)
     }
 }

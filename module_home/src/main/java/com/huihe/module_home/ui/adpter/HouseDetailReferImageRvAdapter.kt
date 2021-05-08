@@ -12,8 +12,8 @@ import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.utils.GlideUtils
 import com.kotlin.base.widgets.RoundRectImageView
 
-class HouseDetailPhotoRvAdapter(mContext: Context) :
-    BaseRecyclerViewAdapter<HouseDetail.ImagUrlsBean, HouseDetailPhotoRvAdapter.ViewHolder>(
+class HouseDetailReferImageRvAdapter(mContext: Context) :
+    BaseRecyclerViewAdapter<HouseDetail.ReferUrlsBean, HouseDetailReferImageRvAdapter.ViewHolder>(
         mContext
     ) {
     override fun onCreateViewHolder(

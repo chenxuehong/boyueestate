@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.kotlin.base.widgets.RoundRectImageView
+<ImageView
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:scaleType="fitXY"
     android:layout_height="@dimen/dp_80">
 
-</com.kotlin.base.widgets.RoundRectImageView>
+</ImageView>

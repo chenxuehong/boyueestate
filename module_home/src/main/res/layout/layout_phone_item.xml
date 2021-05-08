@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/set_owner_info_tv_OwnerPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_40"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_15"
+        android:text="@string/OwnerPhone"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_15"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <EditText
+        android:id="@+id/set_owner_info_et_OwnerPhone"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:background="@null"
+        android:gravity="right|center_vertical"
+        android:inputType="phone"
+        android:hint="@string/inputOwnerPhone"
+        android:paddingRight="@dimen/dp_15"
+        android:textColor="@color/color_666666"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/set_owner_info_tv_OwnerPhone"
+        app:layout_constraintRight_toRightOf="parent" />
+    <View
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/set_owner_info_tv_OwnerPhone"
+        android:layout_width="match_parent"
+        android:background="@color/line"
+        android:layout_height="@dimen/dp_0_5"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

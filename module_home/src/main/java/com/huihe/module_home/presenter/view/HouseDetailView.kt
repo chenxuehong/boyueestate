@@ -11,4 +11,6 @@ interface HouseDetailView :BaseView{
     fun onGetOwnerResult(ownerInfo: OwnerInfo?)
     fun onReqCollectionResult(isInsert: Boolean?)
     fun onHouseStatus(t: SetHouseInfoRep?)
+    fun onGetUploadTokenResult(result: String?)
+    fun onUploadSuccessResult(result: String?)
 }

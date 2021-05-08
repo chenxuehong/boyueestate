@@ -255,7 +255,7 @@ class HouseDetailRvAdapter(mContext: Context?) :
     }
 
     private fun showTelListDialog(ownerTel: String?, view: View) {
-        var split = ownerTel?.split(";")?: mutableListOf()
+        var split = ownerTel?.split("*")?: mutableListOf()
         split = split?.toMutableList()
         if (split?.isEmpty()){
             (mContext as Activity).toast("暂无电话")
@@ -310,13 +310,13 @@ class HouseDetailRvAdapter(mContext: Context?) :
 
     private fun initReferurl(holder: RecyclerView.ViewHolder, itemHouseDetail: ItemHouseDetail) {
         var viewHolder = holder as ItemRefeurlHolder
-        var imagUrls = itemHouseDetail.imagUrls
-        var houseDetailPhotoRvAdapter = HouseDetailPhotoRvAdapter(mContext)
+        var imagUrls = itemHouseDetail.referUrls
+        var houseDetailReferImageRvAdapter = HouseDetailReferImageRvAdapter(mContext)
         var linearLayoutManager = GridLayoutManager(mContext, 4)
         viewHolder.mRvHousePhoto.apply {
             layoutManager = linearLayoutManager
             isNestedScrollingEnabled = false
-            adapter = houseDetailPhotoRvAdapter
+            adapter = houseDetailReferImageRvAdapter
             if (itemDecorationCount == 0)
                 addItemDecoration(
                     GridDividerItemDecoration(
@@ -326,7 +326,7 @@ class HouseDetailRvAdapter(mContext: Context?) :
                     )
                 )
         }
-        houseDetailPhotoRvAdapter.setData(imagUrls)
+        houseDetailReferImageRvAdapter.setData(imagUrls)
 
     }
 

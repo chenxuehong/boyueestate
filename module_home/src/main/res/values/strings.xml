@@ -49,4 +49,41 @@
     <string name="input_phone_tip">请输入有效的电话号码</string>
     <string name="cancel">取消</string>
 
+    <string name="OwnerInfo">业主信息</string>
+    <string name="OwnerNick">业主姓名</string>
+    <string name="OwnerPhone">业主电话</string>
+    <string name="inputOwnerNick">请输入业主姓名</string>
+    <string name="inputOwnerPhone">请输入业主电话</string>
+    <string name="finish">完成</string>
+    <string name="prompt">提示</string>
+    <string name="setImageUserTip">此次上传是否设置本人为图片人?</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="Alter">修改</string>
+    <string name="solePrice">售价</string>
+    <string name="solePrice_input_tip">请输入 售价</string>
+    <string name="transaction_type">交易类型</string>
+    <string name="select_transaction_type">请选择 交易类型</string>
+    <string name="Village">小区</string>
+    <string name="select_Village">请选择 小区</string>
+    <string name="rent">租价</string>
+    <string name="input_rent">请输入 租价</string>
+    <string name="buy_price">买入价</string>
+    <string name="input_buy_price">请输入 买入价</string>
+
+    <string name="reserve_price">房东底价</string>
+    <string name="input_reserve_price">请输入 房东底价</string>
+    <string name="unit_price">单价</string>
+    <string name="input_unit_price">请输入 单价</string>
+
+    <string name="building">座栋</string>
+    <string name="rNumber">房号</string>
+    <string name="groundFloor">楼层</string>
+    <string name="totalFloors">总楼层</string>
+    <string name="floorage">建筑面积</string>
+    <string name="room">室</string>
+    <string name="hall">厅</string>
+    <string name="defend">卫</string>
+
+
 </resources>

@@ -48,6 +48,12 @@ interface HouseApi {
         @Path("id") id:String?
     ): Observable<BaseResp<Any?>>
 
-    @POST("house")
+    @PATCH("house")
     fun setHouseInfo( @Body req:SetHouseInfoReq): Observable<BaseResp<SetHouseInfoRep?>>
+
+    @POST("house/houseImage")
+    fun postHouseImage( @Body req:SetHouseInfoReq): Observable<BaseResp<String?>>
+
+    @POST("house/referImage")
+    fun postReferImage( @Body req:SetHouseInfoReq): Observable<BaseResp<String?>>
 }

@@ -62,11 +62,20 @@ class HouseServiceImpl @Inject constructor(): HouseService {
     }
 
     override fun setHouseInfo(
-        id: String?,
-        hFlag: Int?,
-        isCirculation: Int?,
-        ownerTel: String?
+        req: SetHouseInfoReq
     ): Observable<SetHouseInfoRep?> {
-        return repository.setHouseInfo(id,hFlag,isCirculation).convert()
+        return repository.setHouseInfo(req).convert()
+    }
+
+    override fun getUploadToken(): Observable<String?> {
+        return repository.getUploadToken().convert()
+    }
+
+    override fun postHouseImage(req: SetHouseInfoReq): Observable<String?> {
+        return repository.postHouseImage(req).convert()
+    }
+
+    override fun postReferImage(req: SetHouseInfoReq): Observable<String?> {
+        return repository.postReferImage(req).convert()
     }
 }
