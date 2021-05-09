@@ -73,7 +73,7 @@ data class HouseDetail (
     val decorat: String? = null,
     val entrustUser: String? = null,
     val floor: Int = 0,
-    val floorage: Int = 0,
+    val floorage: Float ?= null,
     val hFlag: Int = 0,
     val hNum: String? = null,
     val hShape: String? = null,

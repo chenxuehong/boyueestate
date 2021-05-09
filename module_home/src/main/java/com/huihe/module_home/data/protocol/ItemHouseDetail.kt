@@ -3,6 +3,7 @@ package com.huihe.module_home.data.protocol
 import java.math.BigDecimal
 
 data class ItemHouseDetail(
+    val houseCode:String?=null,
     val bannerList: MutableList<HouseDetail.ImagUrlsBean>? = null,
     val basicInfo: BasicInfo? = null,
     val detailInfoList: MutableList<DetailInfo> = mutableListOf(),
@@ -17,7 +18,7 @@ data class ItemHouseDetail(
         var building: String?,
         var hNum: String?,
         var price: BigDecimal?,
-        var floorage: Int?,
+        var floorage: Float?,
         var hShape: String?,
         var label: String?,
         var ownerTel: String?,

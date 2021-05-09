@@ -15,6 +15,7 @@ class NecessaryTitleSelectView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
+     var isNecessary =false
     init {
 
         var obtainStyledAttributes =
@@ -25,16 +26,15 @@ class NecessaryTitleSelectView @JvmOverloads constructor(
             obtainStyledAttributes.getString(R.styleable.NecessaryTitleView_tipContentText)
         var isShowLine =
             obtainStyledAttributes.getBoolean(R.styleable.NecessaryTitleView_isShowLine, false)
-        var isNecessary = obtainStyledAttributes.getBoolean(
+        isNecessary = obtainStyledAttributes.getBoolean(
             R.styleable.NecessaryTitleView_isNecessary,
             false
         )
         obtainStyledAttributes.recycle()
-        initView(isNecessary, titleText, tipContentText, isShowLine)
+        initView(titleText, tipContentText, isShowLine)
     }
 
     private fun initView(
-        isNecessary: Boolean,
         titleText: String?,
         tipContentText: String?,
         isShowLine: Boolean
@@ -54,6 +54,10 @@ class NecessaryTitleSelectView @JvmOverloads constructor(
 
     fun setContent(content:String){
         tvNecessaryTitleSelectviewContent.setText(content)
+    }
+
+    fun getTipContentText():String{
+       return tvNecessaryTitleSelectviewContent.hint.toString().trim()
     }
 
     fun getContent():String?{

@@ -22,8 +22,7 @@
         app:layout_constraintLeft_toRightOf="@id/tvNecessaryTitleInputviewTitle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="@dimen/dp_15"
+        app:layout_constraintRight_toLeftOf="@id/tvNecessaryTitleInputviewContentUnit"
         android:hint="请输入建筑面积"
         android:gravity="right|center_vertical"
         android:lines="1"
@@ -31,6 +30,21 @@
         android:background="@null"
         android:textColor="@color/color_999999"
         android:layout_width="0dp"
+        android:layout_marginRight="@dimen/dp_15"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tvNecessaryTitleInputviewContentUnit"
+        app:layout_constraintLeft_toRightOf="@id/etNecessaryTitleInputviewContent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="@dimen/dp_15"
+        android:text="元"
+        android:textColor="@color/color_666666"
+        android:visibility="gone"
+        android:textSize="@dimen/sp_14"
+        android:gravity="center"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <View
         android:id="@+id/vNecessaryTitleInputviewline"

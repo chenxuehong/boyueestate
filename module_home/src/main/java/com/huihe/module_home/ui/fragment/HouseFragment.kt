@@ -208,7 +208,7 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     override fun onGetHouseListResult(result: MutableList<House>?) {
         layoutRefreshContentView?.customers_mBGARefreshLayout?.finishRefresh()
         layoutRefreshContentView?.customers_mBGARefreshLayout?.finishLoadMore()
-        hasMoreData = if (result != null) (result.size <= mPageSize) else false
+        hasMoreData = if (result != null) (result.size >= mPageSize) else false
 
         if (result != null && result.size > 0) {
             if (mCurrentPage == 1) {

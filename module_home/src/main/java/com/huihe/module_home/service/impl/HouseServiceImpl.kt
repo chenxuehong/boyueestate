@@ -1,4 +1,5 @@
 package com.huihe.module_home.service.impl
+
 import com.huihe.module_home.data.protocol.*
 import com.huihe.module_home.data.repository.CustomersRepository
 import com.huihe.module_home.service.HouseService
@@ -9,7 +10,7 @@ import javax.inject.Inject
 /*
     商品 业务层 实现类
  */
-class HouseServiceImpl @Inject constructor(): HouseService {
+class HouseServiceImpl @Inject constructor() : HouseService {
 
     @Inject
     lateinit var repository: CustomersRepository
@@ -30,7 +31,8 @@ class HouseServiceImpl @Inject constructor(): HouseService {
             floorRanges,
             priceRanges,
             moreReq,
-            villageIds).convert()
+            villageIds
+        ).convert()
     }
 
     override fun getHouseList(
@@ -38,11 +40,11 @@ class HouseServiceImpl @Inject constructor(): HouseService {
         pageSize: Int?,
         dataType: Int?
     ): Observable<HouseWrapper?> {
-        return repository.getHouseList(pageNo,pageSize,dataType).convert()
+        return repository.getHouseList(pageNo, pageSize, dataType).convert()
     }
 
     override fun getVillages(latitude: Double?, longitude: Double?): Observable<AreaBeanRep?> {
-        return repository.getVillages(latitude,longitude).convert()
+        return repository.getVillages(latitude, longitude).convert()
     }
 
     override fun getHouseDetailById(id: String?): Observable<HouseDetail?> {
@@ -67,6 +69,12 @@ class HouseServiceImpl @Inject constructor(): HouseService {
         return repository.setHouseInfo(req).convert()
     }
 
+    override fun putHouseInfo(
+        req: SetHouseInfoReq
+    ): Observable<SetHouseInfoRep?> {
+        return repository.putHouseInfo(req).convert()
+    }
+
     override fun getUploadToken(): Observable<String?> {
         return repository.getUploadToken().convert()
     }
@@ -78,4 +86,28 @@ class HouseServiceImpl @Inject constructor(): HouseService {
     override fun postReferImage(req: SetHouseInfoReq): Observable<String?> {
         return repository.postReferImage(req).convert()
     }
+
+    override fun getCustomerProfile(id: String?): Observable<CustomerProfileInfo?> {
+        return repository.getCustomerProfile(id).convert()
+    }
+
+    override fun getHouseFollowList(
+        pageNo: Int?,
+        pageSize: Int?,
+        houseCode: String?
+    ): Observable<FollowRep?> {
+        return repository.getHouseFollowList(pageNo,pageSize,houseCode).convert()
+    }
+
+    override fun addFollowContent(
+        houseId: String?,
+        followContent: String?
+    ): Observable<FollowRep.FollowBean?> {
+        return repository.addFollowContent(houseId,followContent).convert()
+    }
+
+    override fun getTakeLookRecord(page: Int?, limit: Int?, code: String?) : Observable<HouseTakeLookRep?>{
+        return repository.getTakeLookRecord(page,limit,code).convert()
+    }
+
 }

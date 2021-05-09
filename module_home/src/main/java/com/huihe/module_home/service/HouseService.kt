@@ -57,7 +57,15 @@ interface HouseService {
         req: SetHouseInfoReq
     ): Observable<SetHouseInfoRep?>
 
+    fun putHouseInfo(
+        req: SetHouseInfoReq
+    ): Observable<SetHouseInfoRep?>
+
     fun getUploadToken(): Observable<String?>
     fun postHouseImage( req: SetHouseInfoReq): Observable<String?>
     fun postReferImage( req: SetHouseInfoReq): Observable<String?>
+    fun getCustomerProfile(id: String?):Observable<CustomerProfileInfo?>
+    fun getHouseFollowList(pageNo: Int?, pageSize: Int?, houseCode: String?):Observable<FollowRep?>
+    fun addFollowContent(houseId: String?, followContent: String?):Observable<FollowRep.FollowBean?>
+    fun getTakeLookRecord(page:Int?,limit:Int?,code:String?):Observable<HouseTakeLookRep?>
 }

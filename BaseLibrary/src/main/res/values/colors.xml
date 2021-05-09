@@ -26,6 +26,7 @@
     <color name="color_666666">#666666</color>
     <color name="login_et_input_bg">@color/common_white</color>
     <color name="line">#eeeeee</color>
+    <color name="color_f7f7f7">#f7f7f7</color>
     <color name="login_et_enter_bg">#bab5eb</color>
     <color name="drop_down_selected">#443DDD</color>
     <color name="drop_down_unselected">#333333</color>

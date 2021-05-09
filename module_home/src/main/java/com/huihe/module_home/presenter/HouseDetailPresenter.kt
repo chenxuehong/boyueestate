@@ -23,16 +23,16 @@ class HouseDetailPresenter @Inject constructor() : BasePresenter<HouseDetailView
         if (!checkNetWork()) {
             return
         }
-        mHouseService.getHouseDetailById(id)
+        mHouseService.getHouseDetailRelationPeople(id)
             .compose(lifecycleProvider.bindToLifecycle())
-            .flatMap(Function<HouseDetail?, Observable<OwnerInfo?>> {
-                mView?.onGetHouseDetailResult(it)
-                return@Function mHouseService.getHouseDetailRelationPeople(id)
+            .flatMap(Function<OwnerInfo?, Observable<HouseDetail?>>{
+                mView?.onGetOwnerResult(it)
+                return@Function mHouseService.getHouseDetailById(id)
             })
-            .execute(object : BaseSubscriber<OwnerInfo?>(mView) {
-                override fun onNext(t: OwnerInfo?) {
+            .execute(object : BaseSubscriber<HouseDetail?>(mView) {
+                override fun onNext(t: HouseDetail?) {
                     super.onNext(t)
-                    mView?.onGetOwnerResult(t)
+                    mView?.onGetHouseDetailResult(t)
                 }
             }, lifecycleProvider)
     }

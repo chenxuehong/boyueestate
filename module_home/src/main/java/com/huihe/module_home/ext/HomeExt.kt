@@ -1,7 +1,11 @@
 package com.huihe.module_home.ext
 
 import android.content.Context
+import android.text.TextUtils
 import android.widget.Button
+import cn.qqtheme.framework.entity.City
+import cn.qqtheme.framework.entity.County
+import cn.qqtheme.framework.entity.Province
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.AreaBean
 import com.huihe.module_home.data.protocol.AreaBeanConvertModel
@@ -33,6 +37,85 @@ fun getConvertData(data: MutableList<AreaBean>?): MutableList<AreaBeanConvertMod
         }
     }
     return dataList
+}
+
+fun getConvertProvinceList(data: MutableList<AreaBean>?): ArrayList<Province> {
+    var dataList: ArrayList<Province> = ArrayList()
+    data?.apply {
+        forEach { item ->
+            var hasItem = hasProvinceItem(item, dataList)
+            if (hasItem == null) {
+                val cities = mutableListOf<City>()
+                addCityList(cities, item)
+                var province = Province(
+                    item.districtId!!,
+                    item.districtName!!
+                )
+                province.cities = cities
+                dataList?.add(province)
+            } else {
+                var cities = hasItem.cities
+                addCityList(cities, item)
+            }
+        }
+    }
+    return dataList
+}
+
+fun addCityList(cities: MutableList<City>, item: AreaBean) {
+    var hasCityItem = hasCityItem(item, cities)
+    if (hasCityItem == null) {
+        var counties = mutableListOf<County>()
+        addCountyItem(item, counties)
+        var city =
+            City(item.zoneId, item.zoneName)
+        city.counties = counties
+        city.provinceId = item.districtId
+        cities?.add(city)
+    } else {
+        var counties = hasCityItem.counties
+        addCountyItem(item, counties)
+        var city =
+            City(item.zoneId, item.zoneName)
+        city.counties = counties
+        cities?.add(city)
+    }
+}
+
+fun addCountyItem(item: AreaBean, counties: MutableList<County>) {
+    var hasDistrictItem = hasCountyItem(item, counties)
+    if (hasDistrictItem == null) {
+        var county = County(item.id, item.name)
+        county.cityId = item.zoneId
+        counties?.add(county)
+    }
+}
+
+fun hasCountyItem(areaBean: AreaBean, counties: MutableList<County>): County? {
+    counties?.forEach { item ->
+        if (item?.areaId?.equals(areaBean?.id)!!) {
+            return item
+        }
+    }
+    return null
+}
+
+fun hasCityItem(areaBean: AreaBean, cities: MutableList<City>): City? {
+    cities?.forEach { item ->
+        if (item?.areaId.equals(areaBean?.zoneId)) {
+            return item
+        }
+    }
+    return null
+}
+
+fun hasProvinceItem(areaBean: AreaBean, dataList: MutableList<Province>): Province? {
+    dataList?.forEach { item ->
+        if (areaBean?.districtId?.equals(item?.areaId)!!) {
+            return item
+        }
+    }
+    return null
 }
 
 fun hasItem(
@@ -169,74 +252,93 @@ fun getConvertHouseDetailData(houseDetail: HouseDetail?): MutableList<ItemHouseD
         // 轮播图
         ItemHouseDetail(bannerList = imagUrls),
         // 基础信息
-        ItemHouseDetail( basicInfo = ItemHouseDetail.BasicInfo(
-            houseDetail?.villageInfoResponse?.name,
-            houseDetail?.building,
-            houseDetail?.hNum,
-            houseDetail?.price,
-            houseDetail?.floorage,
-            houseDetail?.hShape,
-            houseDetail?.label,
-            houseDetail?.ownerTel,
-            houseDetail?.ownerName
-        )),
+        ItemHouseDetail(
+            houseCode = houseDetail?.houseCode,
+            basicInfo = ItemHouseDetail.BasicInfo(
+                houseDetail?.villageInfoResponse?.name,
+                houseDetail?.building,
+                houseDetail?.hNum,
+                houseDetail?.price,
+                houseDetail?.floorage,
+                houseDetail?.hShape,
+                houseDetail?.label,
+                houseDetail?.ownerTel,
+                houseDetail?.ownerName
+            )
+        ),
         // 房源详情
         ItemHouseDetail(
             detailInfoList = mutableListOf(
                 ItemHouseDetail.DetailInfo(
                     "房源编号",
-                    houseDetail?.houseCode),
+                    houseDetail?.houseCode
+                ),
                 ItemHouseDetail.DetailInfo(
                     "楼层",
-                    "${houseDetail?.floor}/${houseDetail?.totalFloor}"),
+                    "${houseDetail?.floor}/${houseDetail?.totalFloor}"
+                ),
                 ItemHouseDetail.DetailInfo(
                     "房龄",
-                    houseDetail?.housePropertyYear),
+                    houseDetail?.housePropertyYear
+                ),
                 ItemHouseDetail.DetailInfo(
                     "建筑面积",
-                    "${houseDetail?.floorage}"),
+                    "${houseDetail?.floorage}"
+                ),
                 ItemHouseDetail.DetailInfo(
                     "是否抵押",
-                    houseDetail?.loanState),
+                    houseDetail?.loanState
+                ),
                 ItemHouseDetail.DetailInfo(
                     "房东底价",
-                    houseDetail?.ownerLowPrice),
+                    houseDetail?.ownerLowPrice
+                ),
                 ItemHouseDetail.DetailInfo(
                     "产权人数",
-                    houseDetail?.propertyRightUserSize),
+                    houseDetail?.propertyRightUserSize
+                ),
                 ItemHouseDetail.DetailInfo(
                     "房屋朝向",
-                    houseDetail?.orientation),
+                    houseDetail?.orientation
+                ),
                 ItemHouseDetail.DetailInfo(
                     "买入价",
-                    houseDetail?.buyPrice),
+                    houseDetail?.buyPrice
+                ),
                 ItemHouseDetail.DetailInfo(
                     "梯户",
-                    "${houseDetail?.stairs}梯${houseDetail?.houseHolds}户"),
+                    "${houseDetail?.stairs ?: "0"}梯${houseDetail?.houseHolds ?: "0"}户"
+                ),
                 ItemHouseDetail.DetailInfo(
                     "看房时间",
-                    houseDetail?.seeTime),
+                    houseDetail?.seeTime
+                ),
                 ItemHouseDetail.DetailInfo(
                     "对口学区",
-                    houseDetail?.villageInfoResponse?.schoolDistrictName),
+                    houseDetail?.villageInfoResponse?.schoolDistrictName
+                ),
                 ItemHouseDetail.DetailInfo(
                     "是否满五唯一",
-                    houseDetail?.isOnlyHouse),
+                    houseDetail?.isOnlyHouse
+                ),
                 ItemHouseDetail.DetailInfo(
                     "装修情况",
-                    houseDetail?.decorat)
+                    houseDetail?.decorat
+                )
             )
         ),
         // 备注
-        ItemHouseDetail(rewarks=houseDetail?.remarks),
+        ItemHouseDetail(rewarks = houseDetail?.remarks),
         // 房源相关人
         ItemHouseDetail(
             ownerInfoList = mutableListOf(
                 ItemHouseDetail.OwnerInfo(
                     "录入人",
-                    "${ownerInfo?.createUserName} ${DateUtils.stringToString(ownerInfo?.createTime!!,
+                    "${ownerInfo?.createUserName} ${DateUtils.stringToString(
+                        ownerInfo?.createTime!!,
                         DateUtils.datePattern,
-                        DateUtils.FORMAT_SHORT)}"
+                        DateUtils.FORMAT_SHORT
+                    )}"
                 ),
                 ItemHouseDetail.OwnerInfo(
                     "维护人",
@@ -273,14 +375,17 @@ fun getConvertHouseDetailData(houseDetail: HouseDetail?): MutableList<ItemHouseD
             )
         ),
         ItemHouseDetail(
-            imagUrls =imagUrls!!),
+            imagUrls = imagUrls!!
+        ),
         ItemHouseDetail(
-            referUrls = referUrls!!),
+            referUrls = referUrls!!
+        ),
         ItemHouseDetail(
             mapInfo = ItemHouseDetail.MapInfo(
                 houseDetail?.villageInfoResponse?.latitude,
                 houseDetail?.villageInfoResponse?.longitude
-            ))
+            )
+        )
     )
     return houseList
 }

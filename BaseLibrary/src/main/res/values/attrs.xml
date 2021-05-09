@@ -19,5 +19,16 @@
         <attr name="tipContentText" format="string"/>
         <attr name="isShowLine" format="boolean"/>
         <attr name="isNecessary" format="boolean"/>
+        <attr name="unit" format="string"/>
+        <attr name="inputType">
+            <flag name="text" value="0x00000001" />
+            <flag name="numberDecimal" value="0x00002002" />
+            <flag name="phone" value="0x00000003" />
+            <flag name="number" value="0x00000002" />
+            <flag name="textPassword" value="0x00000081" />
+            <flag name="datetime" value="0x00000004" />
+            <flag name="date" value="0x00000014" />
+            <flag name="time" value="0x00000024" />
+        </attr>
     </declare-styleable>
 </resources>

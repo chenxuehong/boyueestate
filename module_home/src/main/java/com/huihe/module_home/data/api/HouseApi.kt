@@ -23,13 +23,13 @@ interface HouseApi {
 
     @GET("house/{id}")
     fun getHouseDetailById(
-        @Path("id") id:String?
+        @Path("id") id: String?
     ): Observable<BaseResp<HouseDetail?>>
 
 
     @GET("house/{id}/relationPeople")
     fun getHouseDetailRelationPeople(
-        @Path("id") id:String?
+        @Path("id") id: String?
     ): Observable<BaseResp<OwnerInfo?>>
 
     @GET("villages")
@@ -40,20 +40,45 @@ interface HouseApi {
 
     @POST("house/{id}/collection")
     fun reqCollection(
-        @Path("id") id:String?
+        @Path("id") id: String?
     ): Observable<BaseResp<Any?>>
 
     @DELETE("house/{id}/collection")
     fun reqDeleteCollection(
-        @Path("id") id:String?
+        @Path("id") id: String?
     ): Observable<BaseResp<Any?>>
 
     @PATCH("house")
-    fun setHouseInfo( @Body req:SetHouseInfoReq): Observable<BaseResp<SetHouseInfoRep?>>
+    fun setHouseInfo(@Body req: SetHouseInfoReq): Observable<BaseResp<SetHouseInfoRep?>>
+
+    @PUT("house")
+    fun putHouseInfo(@Body req: SetHouseInfoReq): Observable<BaseResp<SetHouseInfoRep?>>
 
     @POST("house/houseImage")
-    fun postHouseImage( @Body req:SetHouseInfoReq): Observable<BaseResp<String?>>
+    fun postHouseImage(@Body req: SetHouseInfoReq): Observable<BaseResp<String?>>
 
     @POST("house/referImage")
-    fun postReferImage( @Body req:SetHouseInfoReq): Observable<BaseResp<String?>>
+    fun postReferImage(@Body req: SetHouseInfoReq): Observable<BaseResp<String?>>
+
+    @GET("house/{id}/profile")
+    fun getCustomerProfile(@Path("id") id: String?): Observable<BaseResp<CustomerProfileInfo?>>
+
+    @GET("house/follow/list")
+    fun getHouseFollowList(
+        @Query("page")   page: Int?,
+        @Query("pageSize")  pageSize: Int?,
+        @Query("houseCode")   houseCode: String?
+    ): Observable<BaseResp<FollowRep?>>
+
+    @POST("house/follow")
+    fun addFollowContent(
+       @Body req :FollowReq
+    ): Observable<BaseResp<FollowRep.FollowBean?>>
+
+    @GET("take/look")
+    fun getTakeLookRecord(
+        @Query("page")    page: Int?,
+        @Query("limit")    limit: Int?,
+        @Query("code")   code: String?
+    ): Observable<BaseResp<HouseTakeLookRep?>>
 }

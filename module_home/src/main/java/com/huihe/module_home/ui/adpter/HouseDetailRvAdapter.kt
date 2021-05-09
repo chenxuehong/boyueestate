@@ -6,9 +6,6 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,10 +15,9 @@ import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.HouseDetail
 import com.huihe.module_home.data.protocol.ItemHouseDetail
 import com.huihe.module_home.injection.module.CustomersModule
-import com.huihe.module_home.ui.activity.HouseDetailActivity
 import com.huihe.module_home.ui.activity.HouseFollowActivity
 import com.huihe.module_home.ui.activity.HouseLogActivity
-import com.huihe.module_home.ui.activity.HouseTakeLookActivity
+import com.huihe.module_home.ui.activity.HouseTakeLookRecordActivity
 import com.huihe.module_home.ui.holder.*
 import com.kotlin.base.ext.callPhone
 import com.kotlin.base.ext.initInflater
@@ -35,7 +31,6 @@ import com.youth.banner.config.IndicatorConfig
 import com.youth.banner.indicator.CircleIndicator
 import kotlinx.android.synthetic.main.layout_house_detail_banner_item.view.*
 import kotlinx.android.synthetic.main.layout_house_rewarks_info_item.view.*
-import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.toast
 
 
@@ -239,12 +234,13 @@ class HouseDetailRvAdapter(mContext: Context?) :
         }
         basicHolder.tvFollow.onClick {
             var intent = Intent(mContext, HouseFollowActivity::class.java)
+            intent.putExtra(HomeConstant.KEY_HOUSE_CODE,itemHouseDetail.houseCode)
             intent.putExtra(HomeConstant.KEY_HOUSE_ID,mId)
             mContext.startActivity(intent)
         }
         basicHolder.tvTakeLook.onClick {
-            var intent = Intent(mContext, HouseTakeLookActivity::class.java)
-            intent.putExtra(HomeConstant.KEY_HOUSE_ID,mId)
+            var intent = Intent(mContext, HouseTakeLookRecordActivity::class.java)
+            intent.putExtra(HomeConstant.KEY_HOUSE_CODE,itemHouseDetail.houseCode)
             mContext.startActivity(intent)
         }
         basicHolder.tvLog.onClick {

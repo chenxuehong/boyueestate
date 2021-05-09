@@ -100,6 +100,13 @@ class CustomersRepository @Inject constructor() {
             .setHouseInfo(req)
     }
 
+    fun putHouseInfo(
+        req: SetHouseInfoReq
+    ): Observable<BaseResp<SetHouseInfoRep?>> {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .putHouseInfo(req)
+    }
+
     fun getUploadToken(): Observable<BaseResp<String?>> {
         return RetrofitFactory.instance.create(UploadApi::class.java)
             .getUploadToken()
@@ -113,5 +120,25 @@ class CustomersRepository @Inject constructor() {
     fun postReferImage(req:SetHouseInfoReq): Observable<BaseResp<String?>> {
         return RetrofitFactory.instance.create(HouseApi::class.java)
             .postReferImage(req)
+    }
+
+    fun getCustomerProfile(id: String?): Observable<BaseResp<CustomerProfileInfo?>> {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .getCustomerProfile(id)
+    }
+
+    fun getHouseFollowList(page: Int?, pageSize: Int?, houseCode: String?):  Observable<BaseResp<FollowRep?>> {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .getHouseFollowList(page,pageSize,houseCode)
+    }
+
+    fun addFollowContent(houseId: String?, followContent: String?): Observable<BaseResp<FollowRep.FollowBean?>> {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .addFollowContent(FollowReq(houseId,followContent))
+    }
+
+    fun getTakeLookRecord(page: Int?, limit: Int?, code: String?):  Observable<BaseResp<HouseTakeLookRep?>> {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .getTakeLookRecord(page,limit,code)
     }
 }

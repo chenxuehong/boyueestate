@@ -1,7 +1,6 @@
 package com.huihe.module_home.ui.fragment
 
-import android.Manifest
-import android.net.Uri
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.Gravity
@@ -14,8 +13,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.qqtheme.framework.picker.SinglePicker
-import com.bigkoo.alertview.AlertView
 import com.example.zhouwei.library.CustomPopWindow
+import com.google.gson.Gson
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.HouseDetail
 import com.huihe.module_home.data.protocol.ItemHouseDetail
@@ -26,32 +25,25 @@ import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HouseDetailPresenter
 import com.huihe.module_home.presenter.view.HouseDetailView
+import com.huihe.module_home.ui.activity.CustomerProfileActivity
 import com.huihe.module_home.ui.activity.SetHouseInfoActivity
 import com.huihe.module_home.ui.activity.SetOwnerInfoActivity
 import com.huihe.module_home.ui.adpter.HouseDetailRvAdapter
 import com.huihe.module_home.ui.adpter.MoreRvAdapter
-import com.jph.takephoto.compress.CompressConfig
 import com.jph.takephoto.model.TResult
 import com.kennyc.view.MultiStateView
-import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
-import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.ui.fragment.BaseTakePhotoFragment
 import com.kotlin.base.utils.DensityUtils
 import com.kotlin.base.utils.LogUtils
 import com.kotlin.provider.constant.HomeConstant
-import com.qiniu.android.http.ResponseInfo
-import com.qiniu.android.storage.UpCompletionHandler
 import com.qiniu.android.storage.UploadManager
-import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.fragment_house_detail.*
-import kotlinx.android.synthetic.main.layout_refresh.view.*
 import kotlinx.android.synthetic.main.layout_right_title_house_detail.*
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
-import org.json.JSONObject
 import top.limuyang2.ldialog.LDialog
 import top.limuyang2.ldialog.base.BaseLDialog
 import top.limuyang2.ldialog.base.ViewHandlerListener
@@ -63,9 +55,10 @@ import top.limuyang2.ldialog.base.ViewHolder
 class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), HouseDetailView {
 
     lateinit var houseDetailTvAdapter: HouseDetailRvAdapter
-     var mLocalFilResult: TResult?=null
+    var mLocalFilResult: TResult? = null
     var id: String? = null
     var houseDetail: HouseDetail? = null
+    var ownerInfo: OwnerInfo? = null
     var rightContentView: View? = null
     var isCollect = false
     var requestCollecting = true
@@ -76,8 +69,9 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
     var mCirculatePicker: SinglePicker<String>? = null
     val request_code_get_house_picture: Int = 100
     val request_code_get_refer_picture: Int = 101
+    var REQUEST_CODE_PUTHOUSE_INFO: Int = 102
     var requestCode: Int = request_code_get_house_picture
-    var imageUser:Int = 0
+    var imageUser: Int = 0
     lateinit var mUploadManager: UploadManager
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -168,7 +162,9 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
     private fun doItemClicked(item: String) {
         when (item) {
             context!!.resources.getString(R.string.more_update) -> {
-                startActivity<SetHouseInfoActivity>(HomeConstant.KEY_HOUSE_ID to id)
+                val intent = Intent(context, SetHouseInfoActivity::class.java)
+                intent.putExtra(HomeConstant.KEY_HOUSE_DETAIL, Gson().toJson(houseDetail))
+                startActivityForResult(intent, REQUEST_CODE_PUTHOUSE_INFO)
             }
             context!!.resources.getString(R.string.more_house_photo) -> {
                 requestCode = request_code_get_house_picture
@@ -191,7 +187,7 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
                 showNewPhoneDialog()
             }
             context!!.resources.getString(R.string.more_customer) -> {
-
+                startActivity<CustomerProfileActivity>(HomeConstant.KEY_HOUSE_ID to id)
             }
             context!!.resources.getString(R.string.more_share) -> {
 
@@ -277,7 +273,7 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
                 }
             )
         };
-        mCirculatePicker?.show();
+        mCirculatePicker?.show()
     }
 
     private fun showUpdateStatusDialog() {
@@ -324,18 +320,30 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
     }
 
     override fun onGetUploadTokenResult(result: String?) {
-        mUploadManager.put(mLocalFilResult?.image?.originalPath,null,result,
+        mUploadManager.put(mLocalFilResult?.image?.originalPath, null, result,
             { key, info, response ->
                 var mRemoteFileUrl = response?.get("hash") as String
 
                 LogUtils.d("test", mRemoteFileUrl)
-                if (requestCode == request_code_get_house_picture){
-                    mPresenter.setHouseInfo(id,imageUser = imageUser)
-                    mPresenter.postHouseImage(id=id,imagUrl = mRemoteFileUrl)
-                }else if (requestCode == request_code_get_refer_picture){
-                    mPresenter.postReferImage(id=id,referUrl = mRemoteFileUrl,houseCode = houseDetail?.houseCode)
+                if (requestCode == request_code_get_house_picture) {
+                    mPresenter.setHouseInfo(id, imageUser = imageUser)
+                    mPresenter.postHouseImage(id = id, imagUrl = mRemoteFileUrl)
+                } else if (requestCode == request_code_get_refer_picture) {
+                    mPresenter.postReferImage(
+                        id = id,
+                        referUrl = mRemoteFileUrl,
+                        houseCode = houseDetail?.houseCode
+                    )
                 }
-            },null)
+            }, null
+        )
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (REQUEST_CODE_PUTHOUSE_INFO == requestCode) {
+            mPresenter?.getHouseDetailById(id)
+        }
     }
 
     override fun onUploadSuccessResult(result: String?) {
@@ -349,10 +357,7 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
 
     override fun onGetHouseDetailResult(houseDetail: HouseDetail?) {
         this.houseDetail = houseDetail
-    }
-
-    override fun onGetOwnerResult(ownerInfo: OwnerInfo?) {
-        houseDetail?.ownerInfo = ownerInfo
+        houseDetail?.ownerInfo = this.ownerInfo
         var data: MutableList<ItemHouseDetail> = getConvertHouseDetailData(houseDetail)
         houseDetailTvAdapter.setId(houseDetail?.id)
         houseDetailTvAdapter?.setData(data)
@@ -368,6 +373,10 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
         house_detail_mMultiStateView?.viewState =
             MultiStateView.VIEW_STATE_CONTENT
         requestCollecting = false
+    }
+
+    override fun onGetOwnerResult(ownerInfo: OwnerInfo?) {
+        this.ownerInfo = ownerInfo
     }
 
     override fun onError(text: String) {

@@ -30,7 +30,7 @@ class HouseDetailOwnerRvAdapter(mContext: Context) :
         var detailInfo = dataList[position]
         holder.itemView.tvHouseDetailTitle.text = mContext.resources.getString(R.string.house_owners)
         holder.itemView.tvHouseDetailRightTitle.text = detailInfo.leftTitle
-        holder.itemView.tvHouseDetailRightContent.text = detailInfo.content
+        holder.itemView.tvHouseDetailRightContent.text = detailInfo.content?:""
         holder.itemView.tvHouseDetailTitle.setVisible(position==0)
     }
 

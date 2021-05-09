@@ -1,7 +1,7 @@
 package com.huihe.module_home.data.protocol
 
 data class SetHouseInfoReq(
-    val id:String?=null,
+    var id:String?=null,
     val hFlag:Int?=null,
     val circulation:Int?=null,
     val ownerTel:String?=null,
@@ -9,5 +9,30 @@ data class SetHouseInfoReq(
     val imageUser: Int?=null,
     val imagUrl: String?=null,
     val houseCode: String?=null,
-    val referUrl: String?=null
+    val referUrl: String?=null,
+
+    var transactionType: Int?=null,
+    var villageId: String?=null,
+    var price: String?=null,
+    var rent: String?=null,
+    var buyPrice: String?=null,
+    var ownerLowPrice: String?=null,
+    var unitPrice: String?=null,
+    var building: String?=null,
+    var hNum: String?=null,
+    var floor: String?=null,
+    var totalFloor: String?=null,
+    var floorage: String?=null,
+    var hShape: String?=null,
+    var loanState: String?=null,
+    var orientation: String?=null,
+    var isOnlyHouse: String?=null,
+    var stairs: String?=null,
+    var houseHolds: String?=null,
+    var seeTime: String?=null,
+    var housePropertyYear: String?=null,
+    var decorat: String?=null,
+    var propertyRightUserSize: String?=null,
+    var soldReason: String?=null,
+    var remarks: String?=null
 )

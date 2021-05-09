@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvHouseFollowUserDeptName"
+        android:text="管理员(阳城)"
+        android:textSize="@dimen/sp_13"
+        android:gravity="center_vertical"
+        android:layout_marginRight="@dimen/dp_15"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:textColor="@color/color_999999"
+        android:lines="1"
+        android:ellipsize="end"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"/>
+    <TextView
+        android:id="@+id/tvHouseFollowContent"
+        android:text="体重一直下"
+        android:textSize="@dimen/sp_15"
+        android:gravity="center_vertical"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_marginRight="@dimen/dp_15"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:textColor="@color/color_333333"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"/>
+    <TextView
+        android:id="@+id/tvHouseFollowCreateTime"
+        android:text="2021-03-20 17:44:33"
+        android:textSize="@dimen/sp_15"
+        android:gravity="center_vertical"
+        android:layout_marginRight="@dimen/dp_15"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:textColor="@color/color_999999"
+        android:lines="1"
+        android:ellipsize="end"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/line"/>
+</LinearLayout>

@@ -1,6 +1,7 @@
 package com.huihe.module_home.ui.adpter
 
 import android.content.Context
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +31,7 @@ class HouseDetailRvItemAdapter(mContext: Context) :
         var detailInfo = dataList[position]
         holder.itemView.tvHouseDetailTitle.text = "房源详情"
         holder.itemView.tvHouseDetailRightTitle.text = detailInfo.leftTitle
-        holder.itemView.tvHouseDetailRightContent.text = detailInfo.content
+        holder.itemView.tvHouseDetailRightContent.text = detailInfo.content?:""
         holder.itemView.tvHouseDetailTitle.setVisible(position==0)
     }
 
