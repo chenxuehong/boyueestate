@@ -11,13 +11,16 @@ import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HouseTakeLookPresenter
 import com.huihe.module_home.presenter.view.HouseTakeLookView
+import com.huihe.module_home.ui.activity.HouseTakeLookRecordInsertActivity
 import com.huihe.module_home.ui.adpter.HouseTakeLookRecordRvAdapter
 import com.kennyc.view.MultiStateView
+import com.kotlin.base.ext.onClick
 import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.provider.constant.HomeConstant
 import kotlinx.android.synthetic.main.fragment_house_take_look_record.*
+import org.jetbrains.anko.support.v4.startActivity
 
 class HouseTakeLookRecordFragment : BaseMvpFragment<HouseTakeLookPresenter>(),HouseTakeLookView {
 
@@ -75,6 +78,9 @@ class HouseTakeLookRecordFragment : BaseMvpFragment<HouseTakeLookPresenter>(),Ho
 
             }
         })
+        house_take_look_titleBar?.onClick {
+            startActivity<HouseTakeLookRecordInsertActivity>(HomeConstant.KEY_HOUSE_CODE to houseCode)
+        }
     }
 
     private fun initData() {

@@ -8,9 +8,10 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 /*
-    商品 业务层 实现类
+    房源 业务层 实现类
  */
 class HouseServiceImpl @Inject constructor() : HouseService {
+
 
     @Inject
     lateinit var repository: CustomersRepository
@@ -110,4 +111,11 @@ class HouseServiceImpl @Inject constructor() : HouseService {
         return repository.getTakeLookRecord(page,limit,code).convert()
     }
 
+    override fun addTakeLookRecord(
+        houseCodeList: MutableList<String>?,
+        evaluate: String?,
+        customerCode: String?
+    ): Observable<HouseTakeLookRep.HouseTakeLook?> {
+        return repository.addHouseTakeLookRecord(houseCodeList,evaluate,customerCode).convert()
+    }
 }

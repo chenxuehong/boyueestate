@@ -115,6 +115,9 @@
     <string name="follow_content">跟进内容</string>
     <string name="follow_content_input">请输入 跟进内容</string>
     <string name="takelook_house">带看房源</string>
+    <string name="takelook_house_input">请选择 带看房源</string>
+    <string name="customer_evaluation">客户评价</string>
+    <string name="customer_evaluation_input">请输入 客户评价</string>
 
 
 </resources>

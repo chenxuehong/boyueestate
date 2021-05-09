@@ -141,4 +141,9 @@ class CustomersRepository @Inject constructor() {
         return RetrofitFactory.instance.create(HouseApi::class.java)
             .getTakeLookRecord(page,limit,code)
     }
+
+    fun addHouseTakeLookRecord(houseCodeList: MutableList<String>?, evaluate: String?, customerCode: String?): Observable<BaseResp<HouseTakeLookRep.HouseTakeLook?>> {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .addHouseTakeLookRecord(AddTakeLookRecordReq(houseCodeList,evaluate,customerCode))
+    }
 }

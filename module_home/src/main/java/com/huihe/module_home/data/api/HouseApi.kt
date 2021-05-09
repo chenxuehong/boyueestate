@@ -81,4 +81,8 @@ interface HouseApi {
         @Query("limit")    limit: Int?,
         @Query("code")   code: String?
     ): Observable<BaseResp<HouseTakeLookRep?>>
+
+    @POST("take/look")
+    fun addHouseTakeLookRecord(
+        @Body req: AddTakeLookRecordReq): Observable<BaseResp<HouseTakeLookRep.HouseTakeLook?>>
 }
