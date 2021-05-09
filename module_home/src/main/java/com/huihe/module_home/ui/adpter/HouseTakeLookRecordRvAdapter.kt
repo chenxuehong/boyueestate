@@ -23,7 +23,7 @@ class HouseTakeLookRecordRvAdapter(mContext: Context) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         super.onBindViewHolder(holder, position)
         var houseTakeLook = dataList[position]
-        holder.itemView.tvHouseLookUserDeptName.text = "${houseTakeLook.takeLookUser?:""}(${houseTakeLook.deptName})"
+        holder.itemView.tvHouseLookUserDeptName.text = "${houseTakeLook.takeLookUser?:""}(${houseTakeLook.deptName?:""})"
         holder.itemView.tvHouseLookContent.text = houseTakeLook.evaluate
         holder.itemView.tvHouseLookCreateTime.text = houseTakeLook.createDate
     }
