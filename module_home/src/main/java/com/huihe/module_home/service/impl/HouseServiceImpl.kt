@@ -12,7 +12,6 @@ import javax.inject.Inject
  */
 class HouseServiceImpl @Inject constructor() : HouseService {
 
-
     @Inject
     lateinit var repository: CustomersRepository
 
@@ -117,5 +116,17 @@ class HouseServiceImpl @Inject constructor() : HouseService {
         customerCode: String?
     ): Observable<HouseTakeLookRep.HouseTakeLook?> {
         return repository.addHouseTakeLookRecord(houseCodeList,evaluate,customerCode).convert()
+    }
+
+    override fun getHouseLog(page: Int, size: Int, houseCode: String?) :Observable<HouseLogRep?>{
+        return repository.getHouseLog(page,size,houseCode).convert()
+    }
+
+    override fun getHousePhoneLog(
+        page: Int,
+        size: Int,
+        houseCode: String?
+    ): Observable<HouseLogRep?> {
+        return repository.getHousePhoneLog(page,size,houseCode).convert()
     }
 }

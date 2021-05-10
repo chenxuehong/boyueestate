@@ -11,6 +11,7 @@ import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HouseTakeLookPresenter
 import com.huihe.module_home.presenter.view.HouseTakeLookView
+import com.huihe.module_home.ui.activity.HouseDetailActivity
 import com.huihe.module_home.ui.activity.HouseTakeLookRecordInsertActivity
 import com.huihe.module_home.ui.adpter.HouseTakeLookRecordRvAdapter
 import com.kennyc.view.MultiStateView
@@ -22,7 +23,8 @@ import com.kotlin.provider.constant.HomeConstant
 import kotlinx.android.synthetic.main.fragment_house_take_look_record.*
 import org.jetbrains.anko.support.v4.startActivity
 
-class HouseTakeLookRecordFragment : BaseMvpFragment<HouseTakeLookPresenter>(),HouseTakeLookView {
+class HouseTakeLookRecordFragment : BaseMvpFragment<HouseTakeLookPresenter>(),HouseTakeLookView,
+    HouseTakeLookRecordRvAdapter.OnSeeDetailListener<HouseTakeLookRep.HouseTakeLook> {
 
     private var mCurrentPage: Int = 1
     private var mPageSize: Int = 30
@@ -67,17 +69,8 @@ class HouseTakeLookRecordFragment : BaseMvpFragment<HouseTakeLookPresenter>(),Ho
     private fun initView() {
         house_take_look_record_rvList.layoutManager = LinearLayoutManager(context)
         mHouseTakeLookRvAdapter =
-            HouseTakeLookRecordRvAdapter(context!!)
+            HouseTakeLookRecordRvAdapter(context!!,this)
         house_take_look_record_rvList.adapter = mHouseTakeLookRvAdapter
-        mHouseTakeLookRvAdapter?.setOnItemClickListener(object :BaseRecyclerViewAdapter.OnItemClickListener<HouseTakeLookRep.HouseTakeLook>{
-            override fun onItemClick(
-                view: View,
-                item: HouseTakeLookRep.HouseTakeLook,
-                position: Int
-            ) {
-
-            }
-        })
         house_take_look_titleBar?.onClick {
             startActivity<HouseTakeLookRecordInsertActivity>(HomeConstant.KEY_HOUSE_CODE to houseCode)
         }
@@ -135,5 +128,9 @@ class HouseTakeLookRecordFragment : BaseMvpFragment<HouseTakeLookPresenter>(),Ho
                 chouse_take_look_record_mBGARefreshLayout?.finishLoadMoreWithNoMoreData()
             }
         }
+    }
+
+    override fun onSeeDetail(item: HouseTakeLookRep.HouseTakeLook, position: Int) {
+        startActivity<HouseDetailActivity>(HomeConstant.KEY_HOUSE_ID to item.id)
     }
 }

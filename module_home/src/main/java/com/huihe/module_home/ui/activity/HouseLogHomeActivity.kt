@@ -1,22 +1,22 @@
 package com.huihe.module_home.ui.activity
 
 import android.os.Bundle
-import com.huihe.module_home.ui.fragment.HouseLogFragment
+import com.huihe.module_home.ui.fragment.HouseLogHomeFragment
 import com.kotlin.base.ui.activity.BaseActivity
 import com.kotlin.provider.constant.HomeConstant
 
-class HouseLogActivity : BaseActivity() {
+class HouseLogHomeActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var extras = intent.extras
-        var id = extras.getString(HomeConstant.KEY_HOUSE_ID)
-        var houseLogFragment = HouseLogFragment()
+        var code = extras.getString(HomeConstant.KEY_HOUSE_CODE)
+        var fragment = HouseLogHomeFragment()
         val args = Bundle()
-        args.putString(HomeConstant.KEY_HOUSE_ID,id)
-        houseLogFragment.arguments = args
+        args.putString(HomeConstant.KEY_HOUSE_CODE, code)
+        fragment.arguments = args
         supportFragmentManager.beginTransaction().replace(
             contentView.id,
-            houseLogFragment
+            fragment
         ).commitAllowingStateLoss()
     }
 }

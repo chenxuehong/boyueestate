@@ -21,6 +21,7 @@
             android:layout_weight="1"
             android:layout_height="@dimen/dp_40"/>
         <TextView
+            android:id="@+id/tvHouseLookDetail"
             android:text="@string/takelook_house"
             android:textColor="@color/main_color"
             android:textSize="@dimen/sp_13"

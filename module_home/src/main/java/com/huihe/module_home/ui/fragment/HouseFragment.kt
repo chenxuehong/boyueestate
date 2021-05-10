@@ -45,11 +45,12 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     private var moreReq: MoreReq? = MoreReq()
     private var villageIds: MutableList<String>? = null
     private var mRvAreaDistrictAdapter: RvAreaDistrictAdapter? = null
-
+    private var isHouseSelect:Boolean=false
     init {
         hasMoreData = true
     }
 
+    val RESULT_CODE_GET_HOUSE_CODE:Int=1000
     override fun injectComponent() {
         DaggerCustomersComponent.builder().activityComponent(mActivityComponent).customersModule(
             CustomersModule()
@@ -68,6 +69,7 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        isHouseSelect = arguments?.getBoolean(HomeConstant.KEY_IS_HOUSE_SELECT,false)?:false
         initView()
         initRefreshLayout()
         initData()
@@ -85,7 +87,11 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
 
             BaseRecyclerViewAdapter.OnItemClickListener<House> {
             override fun onItemClick(view: View, item: House, position: Int) {
-                startActivity<HouseDetailActivity>(HomeConstant.KEY_HOUSE_ID to item.id)
+                if (isHouseSelect){
+                    finishForSetResultStr(HomeConstant.KEY_HOUSE_CODE,item.houseCode!!,RESULT_CODE_GET_HOUSE_CODE)
+                }else{
+                    startActivity<HouseDetailActivity>(HomeConstant.KEY_HOUSE_ID to item.id)
+                }
             }
         })
         mSearchResultViewController =

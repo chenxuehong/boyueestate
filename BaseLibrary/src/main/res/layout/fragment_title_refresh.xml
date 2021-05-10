@@ -5,10 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.kotlin.base.widgets.HeaderBar
-        android:id="@+id/house_log_titleBar"
+        android:id="@+id/refreshTitleBar"
         app:isShowBack="true"
         android:layout_width="match_parent"
-        app:titleText="@string/log"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -16,20 +15,20 @@
         android:layout_height="wrap_content" />
 
     <com.kennyc.view.MultiStateView
-        android:id="@+id/house_log_mMultiStateView"
+        android:id="@+id/refreshTitle_mMultiStateView"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/house_log_titleBar"
+        app:layout_constraintTop_toBottomOf="@id/refreshTitleBar"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         style="@style/MultiStateStyle">
         <com.scwang.smart.refresh.layout.SmartRefreshLayout
-            android:id="@+id/house_log_mBGARefreshLayout"
+            android:id="@+id/refreshTitle_mBGARefreshLayout"
             style="@style/MatchMatch">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/house_log_mRecyclerView"
+                android:id="@+id/refreshTitle_mRecyclerView"
                 style="@style/commonRecyclerView" />
 
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>

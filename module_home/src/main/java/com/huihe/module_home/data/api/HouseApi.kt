@@ -85,4 +85,17 @@ interface HouseApi {
     @POST("take/look")
     fun addHouseTakeLookRecord(
         @Body req: AddTakeLookRecordReq): Observable<BaseResp<HouseTakeLookRep.HouseTakeLook?>>
+
+    @GET("house/log/list")
+    fun getHouseLog(
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+        @Query("houseCode") houseCode: String?): Observable<BaseResp<HouseLogRep?>>
+
+    @GET("house/phone/log/list")
+    fun getHousePhoneLog(
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+        @Query("houseCode") houseCode: String?
+    ): Observable<BaseResp<HouseLogRep?>>
 }
