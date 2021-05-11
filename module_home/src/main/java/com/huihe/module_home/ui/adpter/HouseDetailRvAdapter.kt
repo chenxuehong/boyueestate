@@ -32,6 +32,7 @@ import com.youth.banner.indicator.CircleIndicator
 import com.youth.banner.indicator.RectangleIndicator
 import kotlinx.android.synthetic.main.layout_house_detail_banner_item.view.*
 import kotlinx.android.synthetic.main.layout_house_rewarks_info_item.view.*
+import kotlinx.android.synthetic.main.layout_tel_dialog.view.*
 import org.jetbrains.anko.toast
 
 
@@ -270,7 +271,7 @@ class HouseDetailRvAdapter(mContext: Context?) :
                 callPhone(mContext, tel)
             }
         })
-        (contentView as RecyclerView).apply {
+        (contentView.rvTelDialog).apply {
             layoutManager = LinearLayoutManager(mContext)
             adapter = telRvAdapter
         }

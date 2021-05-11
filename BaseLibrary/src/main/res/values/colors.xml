@@ -31,4 +31,5 @@
     <color name="login_et_enter_bg">#bab5eb</color>
     <color name="drop_down_selected">#443DDD</color>
     <color name="drop_down_unselected">#333333</color>
+    <color name="tao_bg_color">#99673AB7</color>
 </resources>

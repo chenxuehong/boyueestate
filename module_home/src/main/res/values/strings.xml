@@ -119,6 +119,9 @@
     <string name="customer_evaluation">客户评价</string>
     <string name="customer_evaluation_input">请输入 客户评价</string>
     <string name="phone_log">电话日志</string>
+    <string name="house_num">房源数量</string>
+    <string name="setTop">置顶</string>
+    <string name="tao">淘</string>
 
 
 </resources>

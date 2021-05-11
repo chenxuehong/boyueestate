@@ -42,6 +42,7 @@ import com.kotlin.provider.constant.HomeConstant
 import com.qiniu.android.storage.UploadManager
 import kotlinx.android.synthetic.main.fragment_house_detail.*
 import kotlinx.android.synthetic.main.layout_right_title_house_detail.*
+import kotlinx.android.synthetic.main.layout_tel_dialog.view.*
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 import top.limuyang2.ldialog.LDialog
@@ -140,7 +141,7 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
                 doItemClicked(item)
             }
         })
-        (contentView as RecyclerView).apply {
+        (contentView.rvTelDialog).apply {
             layoutManager = LinearLayoutManager(context)
             adapter = moreRvAdapter
         }
@@ -154,8 +155,8 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
             .create()
             .showAsDropDown(
                 ivHouseDetailMore,
-                DensityUtils.dp2px(context, 6f),
-                DensityUtils.dp2px(context, 6f)
+                DensityUtils.dp2px(context, -50f),
+                DensityUtils.dp2px(context, 0f)
             )
     }
 

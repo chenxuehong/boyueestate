@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/item_customers_house_iv_cover"
+        android:layout_width="@dimen/dp_120"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="@dimen/dp_120" />
+    <TextView
+        android:id="@+id/item_customers_house_tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginRight="@dimen/dp_97"
+        android:text="岭南路-110弄-18甲-0601南路-110弄-18甲-0601南路-110弄-18甲-0601"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_16"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textStyle="bold"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/item_customers_house_iv_cover"
+        app:layout_constraintTop_toTopOf="@id/item_customers_house_iv_cover" />
+
+    <TextView
+        android:id="@+id/item_customers_house_tv_childTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginRight="@dimen/dp_97"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_marginTop="@dimen/dp_6"
+        android:text="岭南路-110弄-18甲-0601岭南路-110弄-18甲-0601岭南路-110弄-18甲-0601"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/item_customers_house_iv_cover"
+        app:layout_constraintTop_toBottomOf="@id/item_customers_house_tv_title" />
+
+
+    <TextView
+        android:id="@+id/item_customers_house_tv_latestFollowTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_24"
+        android:text="岭南路-110弄-18甲-0601"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/sp_14"
+        android:layout_marginRight="@dimen/dp_16"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/item_customers_house_iv_cover"
+        app:layout_constraintTop_toBottomOf="@id/item_customers_house_tv_childTitle" />
+    <TextView
+        android:id="@+id/item_customers_house_tv_total_price"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/item_customers_house_iv_cover"
+        android:layout_marginTop="@dimen/dp_3"
+        android:layout_marginRight="@dimen/dp_16"
+        android:layout_width="@dimen/dp_70"
+        android:textSize="@dimen/sp_16"
+        android:gravity="right"
+        android:text="100万"
+        android:lines="1"
+        android:textStyle="bold"
+        android:textColor="@color/common_red"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/item_customers_house_tv_sprice"
+        app:layout_constraintRight_toRightOf="parent"
+        android:gravity="right"
+        app:layout_constraintTop_toBottomOf="@id/item_customers_house_tv_total_price"
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_16"
+        android:layout_width="@dimen/dp_80"
+        android:lines="1"
+        android:textSize="@dimen/sp_15"
+        android:text="10.7万/m2"
+        android:textStyle="bold"
+        android:textColor="@color/color_333333"
+        android:layout_height="wrap_content"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/line"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

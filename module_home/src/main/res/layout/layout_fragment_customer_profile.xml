@@ -6,10 +6,14 @@
     android:orientation="vertical">
 
     <com.kotlin.base.widgets.HeaderBar
-        android:id="@+id/set_houseinfo_titleBar"
+        android:id="@+id/customerProfileTitleBar"
         style="@style/MatchWrap"
         android:background="@color/main_color"
         app:isShowBack="true"
         app:titleText="@string/more_customer" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/customerProfileExListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>
