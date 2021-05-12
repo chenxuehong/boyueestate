@@ -88,8 +88,11 @@
     <string name="floorage">建筑面积</string>
     <string name="floorage_input">请输入 建筑面积</string>
     <string name="room">室</string>
+    <string name="room_input">请输入 室</string>
     <string name="hall">厅</string>
+    <string name="hall_input">请输入 厅</string>
     <string name="defend">卫</string>
+    <string name="defend_input">请输入 卫</string>
     <string name="Mortgage_or_not">是否抵押</string>
     <string name="Mortgaged_or_not">是否有抵押</string>
     <string name="orientation">房屋朝向</string>
@@ -124,6 +127,16 @@
     <string name="setTop">置顶</string>
     <string name="tao">淘</string>
     <string name="near">周边</string>
+    <string name="insert_house">新增房源</string>
+    <string name="scan">扫一扫</string>
+    <string name="nick">姓名</string>
+    <string name="nick_input">请输入 姓名</string>
+    <string name="phone">电话</string>
+    <string name="phone1">电话1</string>
+    <string name="phone2">电话2</string>
+    <string name="phone_input">请输入 电话</string>
+    <string name="phone1_input">请输入 电话1</string>
+    <string name="phone2_input">请输入 电话2</string>
 
 
 </resources>

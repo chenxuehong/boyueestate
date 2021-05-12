@@ -80,4 +80,11 @@ open class BaseActivity : RxAppCompatActivity() {
             fragment
         ).commitAllowingStateLoss()
     }
+
+    fun setFragment(fragment:BaseFragment){
+        supportFragmentManager.beginTransaction().replace(
+            contentView.id,
+            fragment
+        ).commitAllowingStateLoss()
+    }
 }

@@ -23,11 +23,11 @@ import kotlinx.android.synthetic.main.fragment_house_near.*
 import kotlinx.android.synthetic.main.layout_window_mark.view.*
 
 
-class HouseNearFragment() : BaseFragment() {
+class HouseNearFragment : BaseFragment() {
 
     lateinit var mapInfo: ItemHouseDetail.MapInfo
     val titles: MutableList<String> = mutableListOf("交通", "教育", "医疗", "生活", "附近")
-    val searchKeyWords: MutableList<String> = mutableListOf("交通", "教育", "医疗", "生活", "小区")
+    val searchKeyWords: MutableList<String> = mutableListOf("公交", "教育", "医疗", "生活", "小区")
     val fragments: MutableList<Fragment> = mutableListOf()
     var mPoiSearch: PoiSearch? = null
     var mListenerList: MutableList<MyOnGetPoiSearchResultListener> = mutableListOf()

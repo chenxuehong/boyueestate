@@ -77,17 +77,25 @@ abstract class BaseTakePhotoFragment<T : BasePresenter<*>> : BaseMvpFragment<T>(
         AlertView("选择图片", "", "取消", null, arrayOf("拍照", "相册"), context,
             AlertView.Style.ActionSheet, OnItemClickListener { _, position ->
                 mTakePhoto.onEnableCompress(CompressConfig.ofDefaultConfig(), false)
-                RxPermissions(activity!!).request(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA).subscribe(Consumer<Boolean>{
-                    if (it){
-                        when (position) {
-                            0 -> {
+                when (position) {
+                    0 -> {
+                        RxPermissions(activity!!).request(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA).subscribe(Consumer<Boolean>{
+                            if (it){
                                 createTempFile()
                                 mTakePhoto.onPickFromCapture(Uri.fromFile(mTempFile))
                             }
-                            1 -> mTakePhoto.onPickFromGallery()
-                        }
+                        })
+
                     }
-                })
+                    1 -> {
+                        RxPermissions(activity!!).request(Manifest.permission.CAMERA).subscribe(Consumer<Boolean>{
+                            if (it){
+                                mTakePhoto.onPickFromGallery()
+                            }
+                        })
+                    }
+                }
+
             }
 
         ).show()

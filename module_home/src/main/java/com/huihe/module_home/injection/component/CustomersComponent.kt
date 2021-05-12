@@ -25,4 +25,5 @@ interface CustomersComponent {
     fun inject(fragment: HouseTakeLookRecordInsertFragment)
     fun inject(fragment: HouseLogFragment)
     fun inject(fragment: HousePhoneLogFragment)
+    fun inject(fragment: AddHouseFragment)
 }

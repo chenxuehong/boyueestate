@@ -71,4 +71,5 @@ interface HouseService {
     fun addTakeLookRecord(houseCodeList: MutableList<String>?=null, evaluate: String?=null ,customerCode: String?=null):Observable<HouseTakeLookRep.HouseTakeLook?>
     fun getHouseLog(page: Int, size: Int, houseCode: String?):Observable<HouseLogRep?>
     fun getHousePhoneLog(page: Int, size: Int, houseCode: String?):Observable<HouseLogRep?>
+    fun addHouseInfo(req: AddHouseInfoReq):Observable<SetHouseInfoRep?>
 }

@@ -25,6 +25,7 @@ class HouseNearRvAdapter(mContext: Context) :
         super.onBindViewHolder(holder, position)
         var poiInfo = dataList[position]
         holder.itemView.tvNearTitle.text = poiInfo?.name?:""
+        holder.itemView.tvNearContent.text = poiInfo?.address?:""
     }
 
     inner class ViewHolder(itemView: View) :

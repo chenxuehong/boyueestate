@@ -129,4 +129,9 @@ class HouseServiceImpl @Inject constructor() : HouseService {
     ): Observable<HouseLogRep?> {
         return repository.getHousePhoneLog(page,size,houseCode).convert()
     }
+
+    override fun addHouseInfo(req: AddHouseInfoReq):Observable<SetHouseInfoRep?> {
+        return repository.addHouseInfo(req).convert()
+    }
+
 }

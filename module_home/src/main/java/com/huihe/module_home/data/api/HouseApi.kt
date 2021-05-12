@@ -65,32 +65,34 @@ interface HouseApi {
 
     @GET("house/follow/list")
     fun getHouseFollowList(
-        @Query("page")   page: Int?,
-        @Query("pageSize")  pageSize: Int?,
-        @Query("houseCode")   houseCode: String?
+        @Query("page") page: Int?,
+        @Query("pageSize") pageSize: Int?,
+        @Query("houseCode") houseCode: String?
     ): Observable<BaseResp<FollowRep?>>
 
     @POST("house/follow")
     fun addFollowContent(
-       @Body req :FollowReq
+        @Body req: FollowReq
     ): Observable<BaseResp<FollowRep.FollowBean?>>
 
     @GET("take/look")
     fun getTakeLookRecord(
-        @Query("page")    page: Int?,
-        @Query("limit")    limit: Int?,
-        @Query("code")   code: String?
+        @Query("page") page: Int?,
+        @Query("limit") limit: Int?,
+        @Query("code") code: String?
     ): Observable<BaseResp<HouseTakeLookRep?>>
 
     @POST("take/look")
     fun addHouseTakeLookRecord(
-        @Body req: AddTakeLookRecordReq): Observable<BaseResp<HouseTakeLookRep.HouseTakeLook?>>
+        @Body req: AddTakeLookRecordReq
+    ): Observable<BaseResp<HouseTakeLookRep.HouseTakeLook?>>
 
     @GET("house/log/list")
     fun getHouseLog(
         @Query("page") page: Int,
         @Query("size") size: Int,
-        @Query("houseCode") houseCode: String?): Observable<BaseResp<HouseLogRep?>>
+        @Query("houseCode") houseCode: String?
+    ): Observable<BaseResp<HouseLogRep?>>
 
     @GET("house/phone/log/list")
     fun getHousePhoneLog(
@@ -98,4 +100,7 @@ interface HouseApi {
         @Query("size") size: Int,
         @Query("houseCode") houseCode: String?
     ): Observable<BaseResp<HouseLogRep?>>
+
+    @POST("house")
+    fun addHouseInfo(@Body req: AddHouseInfoReq): Observable<BaseResp<SetHouseInfoRep?>>
 }

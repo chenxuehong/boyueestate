@@ -15,6 +15,7 @@ import com.huihe.module_home.presenter.view.SecondHandHouseView
 import com.huihe.module_home.ui.activity.HouseDetailActivity
 import com.huihe.module_home.ui.adpter.RvAreaDistrictAdapter
 import com.huihe.module_home.ui.adpter.SecondHandHouseAdapter
+import com.huihe.module_home.ui.inter.RefreshListener
 import com.huihe.module_home.ui.widget.ISearchResultListener
 import com.huihe.module_home.ui.widget.SearchResultViewController
 import com.kennyc.view.MultiStateView
@@ -29,7 +30,7 @@ import org.jetbrains.anko.support.v4.startActivity
 
 
 class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
-    ISearchResultListener {
+    ISearchResultListener, RefreshListener {
 
     private val TAG: String? = HouseFragment::class.java.simpleName
     private var mCurrentPage: Int = 1
@@ -243,5 +244,9 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
                 layoutRefreshContentView?.customers_mBGARefreshLayout?.finishLoadMoreWithNoMoreData()
             }
         }
+    }
+
+    override fun refreshData() {
+        loadData()
     }
 }

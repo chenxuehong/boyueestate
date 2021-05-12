@@ -156,4 +156,9 @@ class CustomersRepository @Inject constructor() {
         return RetrofitFactory.instance.create(HouseApi::class.java)
             .getHousePhoneLog(page,size,houseCode)
     }
+
+    fun addHouseInfo(req: AddHouseInfoReq): Observable<BaseResp<SetHouseInfoRep?>>  {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .addHouseInfo(req)
+    }
 }
