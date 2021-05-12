@@ -6,5 +6,6 @@ class HomeConstant {
         const val KEY_HOUSE_DETAIL = "HOUSE_DETAIL"
         const val KEY_HOUSE_CODE = "houseCode"
         const val KEY_FOLLOW_BEAN = "FollowBean"
+        const val KEY_MAP_BEAN = "MapBean"
     }
 }

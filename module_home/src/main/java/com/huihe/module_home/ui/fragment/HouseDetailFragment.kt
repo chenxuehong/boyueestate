@@ -112,9 +112,11 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
             ivHouseDetailMore.onClick {
                 showMoreDialog(ivHouseDetailMore)
             }
+            ivHouseDetailMore.isEnabled = false
         }
         house_detail_rvList.layoutManager = LinearLayoutManager(context)
         houseDetailTvAdapter = HouseDetailRvAdapter(context)
+        houseDetailTvAdapter.setRecyclerview(house_detail_rvList)
         house_detail_rvList.adapter = houseDetailTvAdapter
         mMoreList = mutableListOf(
             context!!.resources.getString(R.string.more_update),
@@ -373,6 +375,7 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
         house_detail_mMultiStateView?.viewState =
             MultiStateView.VIEW_STATE_CONTENT
         requestCollecting = false
+        ivHouseDetailMore.isEnabled = true
     }
 
     override fun onGetOwnerResult(ownerInfo: OwnerInfo?) {
@@ -402,17 +405,16 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
     }
 
     override fun onStart() {
-        super.onStart()
         houseDetailTvAdapter?.onStart()
+        super.onStart()
     }
 
     override fun onStop() {
-        super.onStop()
         houseDetailTvAdapter?.onStop()
+        super.onStop()
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         houseDetailTvAdapter?.onDestroy()
         try {
             mMorePopWindow?.dissmiss()
@@ -420,6 +422,7 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
             mCirculatePicker?.dismiss()
         } catch (e: Exception) {
         }
+        super.onDestroy()
     }
 
     private fun getTel(tel: String?): String {
@@ -431,5 +434,15 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
             sb.append(tel)
         }
         return sb.toString().trim()
+    }
+
+    override fun onResume() {
+        houseDetailTvAdapter?.onResume()
+        super.onResume()
+    }
+
+    override fun onPause() {
+        houseDetailTvAdapter?.onPause()
+        super.onPause()
     }
 }

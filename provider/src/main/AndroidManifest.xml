@@ -1,2 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kotlin.provider" />
+    package="com.kotlin.provider" >
+
+    <application>
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="8kutsdYWk96syU2PY8KZKWwZvImyt3Cr" />
+    </application>
+
+</manifest>

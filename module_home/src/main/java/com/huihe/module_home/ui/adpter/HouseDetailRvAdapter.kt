@@ -3,20 +3,26 @@ package com.huihe.module_home.ui.adpter
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.baidu.mapapi.map.*
+import com.baidu.mapapi.model.LatLng
 import com.example.zhouwei.library.CustomPopWindow
 import com.example.zhouwei.library.CustomPopWindow.PopupWindowBuilder
+import com.google.gson.Gson
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.HouseDetail
 import com.huihe.module_home.data.protocol.ItemHouseDetail
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.ui.activity.HouseFollowActivity
 import com.huihe.module_home.ui.activity.HouseLogActivity
+import com.huihe.module_home.ui.activity.HouseNearActivity
 import com.huihe.module_home.ui.activity.HouseTakeLookRecordActivity
 import com.huihe.module_home.ui.holder.*
 import com.kotlin.base.ext.callPhone
@@ -30,6 +36,7 @@ import com.youth.banner.Banner
 import com.youth.banner.config.IndicatorConfig
 import com.youth.banner.indicator.CircleIndicator
 import kotlinx.android.synthetic.main.layout_house_detail_banner_item.view.*
+import kotlinx.android.synthetic.main.layout_house_detail_map_item.view.*
 import kotlinx.android.synthetic.main.layout_house_rewarks_info_item.view.*
 import org.jetbrains.anko.toast
 
@@ -38,8 +45,14 @@ class HouseDetailRvAdapter(mContext: Context?) :
     BaseRecyclerViewAdapter<ItemHouseDetail, RecyclerView.ViewHolder>(mContext!!) {
 
     var banner: Banner<HouseDetail.ImagUrlsBean, ImageAdapter>? = null
-    var callPopWindow:CustomPopWindow?=null
-    var mId:String?=""
+    var callPopWindow: CustomPopWindow? = null
+    var mId: String? = ""
+    var houseDetailMapview: MapView? = null
+    var mhouseDetailRvlist: RecyclerView?=null
+    var hasLoadMap=false
+    init {
+        hasLoadMap = false
+    }
     override fun getItemViewType(position: Int): Int {
         when (position) {
             0 -> {
@@ -159,7 +172,62 @@ class HouseDetailRvAdapter(mContext: Context?) :
             CustomersModule.HouseDetailType.ITEM_REFERURL -> {
                 initReferurl(holder, itemHouseDetail)
             }
+            CustomersModule.HouseDetailType.MAP -> {
+                initMap(holder, itemHouseDetail)
+            }
         }
+    }
+
+    private fun initMap(holder: RecyclerView.ViewHolder, itemHouseDetail: ItemHouseDetail) {
+        if (hasLoadMap){
+            return
+        }
+        var mapInfo = itemHouseDetail.mapInfo
+        if (mapInfo?.latitude == null || mapInfo?.longitude == null) {
+//           Log.i()
+            return
+        }
+        houseDetailMapview = holder.itemView.house_detail_mapView
+        var mBaiduMap = houseDetailMapview?.map
+        mBaiduMap?.mapType = BaiduMap.MAP_TYPE_NORMAL
+
+        val cenpt = LatLng(mapInfo?.latitude!!, mapInfo?.longitude!!)
+        //定义地图状态
+        val mMapStatus: MapStatus = MapStatus.Builder()
+            .target(cenpt)
+            .zoom(17.2f)
+            .build()
+
+        //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
+        val mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus)
+        //改变地图状态
+        mBaiduMap?.setMapStatus(mMapStatusUpdate)
+
+        val optons = MarkerOptions()
+        val latLng = LatLng(mapInfo?.latitude!!, mapInfo?.longitude!!)
+        val bitmap = BitmapDescriptorFactory
+            .fromResource(R.drawable.location)
+        optons.position(latLng)
+            .icon(bitmap)
+        var addOverlay = mBaiduMap?.addOverlay(optons)
+        val bundle = Bundle()
+        bundle.putString("villageName", mapInfo?.villageName?:"")
+        addOverlay?.extraInfo = bundle
+
+        houseDetailMapview?.removeViewAt(2)
+        holder.itemView.house_detail_maplayout.setScrollView(mhouseDetailRvlist)
+        mBaiduMap?.setOnMarkerClickListener {
+            val extraInfo: Bundle = it.extraInfo
+            val content = extraInfo.getInt("villageName")
+            Toast.makeText(mContext, content, Toast.LENGTH_SHORT).show()
+            true
+        }
+        holder.itemView.house_detail_map_right_title.onClick {
+            val intent = Intent(mContext,HouseNearActivity::class.java)
+            intent.putExtra(HomeConstant.KEY_MAP_BEAN,Gson().toJson(mapInfo))
+            mContext.startActivity(intent)
+        }
+        hasLoadMap = true
     }
 
     private fun initDetailInfoList(
@@ -230,39 +298,40 @@ class HouseDetailRvAdapter(mContext: Context?) :
         basicHolder.tvOwnerName.text = itemHouseDetail?.basicInfo?.ownerName
 
         basicHolder.tvTel.onClick {
-            showTelListDialog(itemHouseDetail?.basicInfo?.ownerTel,basicHolder.tvTel)
+            showTelListDialog(itemHouseDetail?.basicInfo?.ownerTel, basicHolder.tvTel)
         }
         basicHolder.tvFollow.onClick {
             var intent = Intent(mContext, HouseFollowActivity::class.java)
-            intent.putExtra(HomeConstant.KEY_HOUSE_CODE,itemHouseDetail.houseCode)
-            intent.putExtra(HomeConstant.KEY_HOUSE_ID,mId)
+            intent.putExtra(HomeConstant.KEY_HOUSE_CODE, itemHouseDetail.houseCode)
+            intent.putExtra(HomeConstant.KEY_HOUSE_ID, mId)
             mContext.startActivity(intent)
         }
         basicHolder.tvTakeLook.onClick {
             var intent = Intent(mContext, HouseTakeLookRecordActivity::class.java)
-            intent.putExtra(HomeConstant.KEY_HOUSE_CODE,itemHouseDetail.houseCode)
+            intent.putExtra(HomeConstant.KEY_HOUSE_CODE, itemHouseDetail.houseCode)
             mContext.startActivity(intent)
         }
         basicHolder.tvLog.onClick {
             var intent = Intent(mContext, HouseLogActivity::class.java)
-            intent.putExtra(HomeConstant.KEY_HOUSE_ID,mId)
+            intent.putExtra(HomeConstant.KEY_HOUSE_ID, mId)
             mContext.startActivity(intent)
         }
     }
 
     private fun showTelListDialog(ownerTel: String?, view: View) {
-        var split = ownerTel?.split("*")?: mutableListOf()
+        var split = ownerTel?.split("*") ?: mutableListOf()
         split = split?.toMutableList()
-        if (split?.isEmpty()){
+        if (split?.isEmpty()) {
             (mContext as Activity).toast("暂无电话")
             return
         }
         val contentView =
             LayoutInflater.from(mContext).inflate(R.layout.layout_tel_dialog, null, false)
         var telRvAdapter = TelRvAdapter(mContext)
-        telRvAdapter.setOnItemClickListener(object :BaseRecyclerViewAdapter.OnItemClickListener<String>{
+        telRvAdapter.setOnItemClickListener(object :
+            BaseRecyclerViewAdapter.OnItemClickListener<String> {
             override fun onItemClick(view: View, tel: String, position: Int) {
-                callPhone(mContext,tel)
+                callPhone(mContext, tel)
             }
         })
         (contentView as RecyclerView).apply {
@@ -340,17 +409,30 @@ class HouseDetailRvAdapter(mContext: Context?) :
         banner?.stop()
     }
 
+    fun onPause() {
+        houseDetailMapview?.onPause()
+    }
+
+    fun onResume() {
+        houseDetailMapview?.onResume()
+    }
+
     fun onDestroy() {
         //销毁
         banner?.destroy()
         try {
+            houseDetailMapview?.onDestroy()
             callPopWindow?.dissmiss()
         } catch (e: Exception) {
         }
     }
 
     fun setId(id: String?) {
-        mId =id
+        mId = id
+    }
+
+    fun setRecyclerview(houseDetailRvlist: RecyclerView?) {
+        mhouseDetailRvlist= houseDetailRvlist
     }
 
 }

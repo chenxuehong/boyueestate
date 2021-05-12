@@ -383,7 +383,8 @@ fun getConvertHouseDetailData(houseDetail: HouseDetail?): MutableList<ItemHouseD
         ItemHouseDetail(
             mapInfo = ItemHouseDetail.MapInfo(
                 houseDetail?.villageInfoResponse?.latitude,
-                houseDetail?.villageInfoResponse?.longitude
+                houseDetail?.villageInfoResponse?.longitude,
+                houseDetail?.villageInfoResponse?.name
             )
         )
     )

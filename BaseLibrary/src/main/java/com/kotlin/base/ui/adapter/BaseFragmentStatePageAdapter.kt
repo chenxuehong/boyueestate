@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 
-class BaseFragmentStatePageAdapter : FragmentStatePagerAdapter {
+open class BaseFragmentStatePageAdapter : FragmentStatePagerAdapter {
 
     private var titles: MutableList<String>? = null
     private var fragments: List<Fragment>? = null

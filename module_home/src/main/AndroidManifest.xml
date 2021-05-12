@@ -10,7 +10,9 @@
         <activity android:name=".ui.activity.CustomerProfileActivity"/>
         <activity android:name=".ui.activity.AddFollowActivity"/>
         <activity android:name=".ui.activity.HouseTakeLookRecordInsertActivity"/>
+        <activity android:name=".ui.activity.HouseNearActivity"/>
         <activity android:name=".ui.activity.SetOwnerInfoActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+
     </application>
 </manifest>

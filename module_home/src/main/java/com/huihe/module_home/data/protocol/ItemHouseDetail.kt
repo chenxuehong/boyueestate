@@ -37,6 +37,7 @@ data class ItemHouseDetail(
 
    data class MapInfo(
        var latitude: Double?,
-       var longitude: Double?
+       var longitude: Double?,
+       var villageName: String?
    )
 }
