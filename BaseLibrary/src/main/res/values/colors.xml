@@ -22,6 +22,7 @@
     <color name="text_normal">#666666</color>
     <color name="transparent">#00000000</color>
     <color name="color_999999">#999999</color>
+    <color name="color_66999999">#66999999</color>
     <color name="color_333333">#333333</color>
     <color name="color_666666">#666666</color>
     <color name="login_et_input_bg">@color/common_white</color>
@@ -30,4 +31,5 @@
     <color name="login_et_enter_bg">#bab5eb</color>
     <color name="drop_down_selected">#443DDD</color>
     <color name="drop_down_unselected">#333333</color>
+    <color name="tao_bg_color">#99673AB7</color>
 </resources>

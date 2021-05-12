@@ -1,5 +1,6 @@
 package com.kotlin.base.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -78,5 +79,12 @@ abstract class BaseMvpFragment<T : BasePresenter<*>> : BaseFragment(), BaseView 
      */
     override fun onError(text:String) {
         toast(text)
+    }
+
+    fun finishForSetResultStr(key:String,value:String, resultCode:Int){
+        var intent = Intent()
+        intent.putExtra(key,value)
+        activity?.setResult(resultCode,intent)
+        activity?.finish()
     }
 }

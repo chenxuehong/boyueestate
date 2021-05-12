@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.net.Uri
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -129,4 +130,11 @@ fun callPhone(context: Context, phoneNum: String) {
     var data = Uri.parse("tel:${phoneNum}");
     intent.setData(data);
     context.startActivity(intent);
+}
+
+fun getFirstChar(str:String?):String{
+    if (TextUtils.isEmpty(str)){
+       return ""
+    }
+    return str?.subSequence(0,1).toString()
 }

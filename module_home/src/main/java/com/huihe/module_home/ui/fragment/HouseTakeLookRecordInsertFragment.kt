@@ -1,5 +1,6 @@
 package com.huihe.module_home.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import android.text.TextUtils
@@ -8,18 +9,24 @@ import android.view.View
 import android.view.ViewGroup
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.HouseTakeLookRep
+import com.huihe.module_home.ext.getString
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HouseTakeLookRecordInsertPresenter
 import com.huihe.module_home.presenter.view.HouseTakeLookRecordInsertView
+import com.huihe.module_home.ui.activity.HouseSelectActivity
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseMvpFragment
+import com.kotlin.provider.constant.HomeConstant
 import kotlinx.android.synthetic.main.fragment_house_take_look_record_insert.*
 import org.jetbrains.anko.support.v4.toast
 
 class HouseTakeLookRecordInsertFragment : BaseMvpFragment<HouseTakeLookRecordInsertPresenter>(),
     HouseTakeLookRecordInsertView {
 
+    var REQUEST_CODE_SELECT_HOUSE: Int = 10001
+    var houseCode:String?=null
+    var houseCodeList=mutableListOf<String>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,17 +45,23 @@ class HouseTakeLookRecordInsertFragment : BaseMvpFragment<HouseTakeLookRecordIns
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        houseCodeList.clear()
         initView()
     }
 
     private fun initView() {
         nsvTakeLookInsert_house.onClick {
             // 选择房源
+            val intent = Intent(context, HouseSelectActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE_SELECT_HOUSE)
         }
         tvTakeLookInsert.onClick {
             if (checkInput()) {
+                TODO()
+                houseCodeList.add(houseCode!!)
                 mPresenter.addHouseTakeLookRecord(
-                    evaluate = EtTakeLookInsertEvaluation.text.toString().trim()
+                    evaluate = EtTakeLookInsertEvaluation.text.toString().trim(),
+                    houseCodeList = houseCodeList
                 )
             }
         }
@@ -58,6 +71,17 @@ class HouseTakeLookRecordInsertFragment : BaseMvpFragment<HouseTakeLookRecordIns
             resources.getString(R.string.customer_evaluation)
         )
         tvTakeLookEvaluation.text = Html.fromHtml(customer_evaluation)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (REQUEST_CODE_SELECT_HOUSE == requestCode) {
+            houseCode = data?.getStringExtra(HomeConstant.KEY_HOUSE_CODE)
+            if (!TextUtils.isEmpty(houseCode)){
+                houseCodeList.add(houseCode!!)
+                nsvTakeLookInsert_house.setContent( houseCodeList.getString(","))
+            }
+        }
     }
 
     private fun checkInput(): Boolean {
@@ -73,6 +97,6 @@ class HouseTakeLookRecordInsertFragment : BaseMvpFragment<HouseTakeLookRecordIns
     }
 
     override fun onAddHouseTakeLookResult(t: HouseTakeLookRep.HouseTakeLook?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 }

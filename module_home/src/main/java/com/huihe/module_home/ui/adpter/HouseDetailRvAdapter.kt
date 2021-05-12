@@ -21,8 +21,11 @@ import com.huihe.module_home.data.protocol.HouseDetail
 import com.huihe.module_home.data.protocol.ItemHouseDetail
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.ui.activity.HouseFollowActivity
-import com.huihe.module_home.ui.activity.HouseLogActivity
+
 import com.huihe.module_home.ui.activity.HouseNearActivity
+
+import com.huihe.module_home.ui.activity.HouseLogHomeActivity
+
 import com.huihe.module_home.ui.activity.HouseTakeLookRecordActivity
 import com.huihe.module_home.ui.holder.*
 import com.kotlin.base.ext.callPhone
@@ -30,14 +33,16 @@ import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.utils.YuanFenConverter
-import com.kotlin.base.widgets.GridDividerItemDecoration
+import com.kotlin.base.widgets.GridViewItemDecoration
 import com.kotlin.provider.constant.HomeConstant
 import com.youth.banner.Banner
 import com.youth.banner.config.IndicatorConfig
 import com.youth.banner.indicator.CircleIndicator
+import com.youth.banner.indicator.RectangleIndicator
 import kotlinx.android.synthetic.main.layout_house_detail_banner_item.view.*
 import kotlinx.android.synthetic.main.layout_house_detail_map_item.view.*
 import kotlinx.android.synthetic.main.layout_house_rewarks_info_item.view.*
+import kotlinx.android.synthetic.main.layout_tel_dialog.view.*
 import org.jetbrains.anko.toast
 
 
@@ -47,12 +52,14 @@ class HouseDetailRvAdapter(mContext: Context?) :
     var banner: Banner<HouseDetail.ImagUrlsBean, ImageAdapter>? = null
     var callPopWindow: CustomPopWindow? = null
     var mId: String? = ""
+
     var houseDetailMapview: MapView? = null
     var mhouseDetailRvlist: RecyclerView?=null
     var hasLoadMap=false
     init {
         hasLoadMap = false
     }
+
     override fun getItemViewType(position: Int): Int {
         when (position) {
             0 -> {
@@ -172,9 +179,11 @@ class HouseDetailRvAdapter(mContext: Context?) :
             CustomersModule.HouseDetailType.ITEM_REFERURL -> {
                 initReferurl(holder, itemHouseDetail)
             }
+
             CustomersModule.HouseDetailType.MAP -> {
                 initMap(holder, itemHouseDetail)
             }
+
         }
     }
 
@@ -265,14 +274,14 @@ class HouseDetailRvAdapter(mContext: Context?) :
             bannerHolder.itemView.houseDetailBanner as Banner<HouseDetail.ImagUrlsBean, ImageAdapter>?
         bannerHolder.itemView.houseDetailBanner?.apply {
             adapter = ImageAdapter(mContext, itemHouseDetail.bannerList)
-            indicator = CircleIndicator(mContext)
-            setIndicatorSelectedColorRes(R.color.main_color)
+            indicator = RectangleIndicator(mContext)
+            setIndicatorSelectedColorRes(R.color.white)
             setIndicatorGravity(IndicatorConfig.Direction.CENTER)
-            setBannerGalleryEffect(
+            setBannerGalleryMZ(
                 mContext.resources.getDimensionPixelOffset(R.dimen.dp_6),
-                mContext.resources.getDimensionPixelOffset(R.dimen.dp_6)
+                0.8f
             )
-            setBannerRound(6f)
+            setBannerRound(mContext.resources.getDimension(R.dimen.dp_10))
         }
     }
 
@@ -312,8 +321,8 @@ class HouseDetailRvAdapter(mContext: Context?) :
             mContext.startActivity(intent)
         }
         basicHolder.tvLog.onClick {
-            var intent = Intent(mContext, HouseLogActivity::class.java)
-            intent.putExtra(HomeConstant.KEY_HOUSE_ID, mId)
+            var intent = Intent(mContext, HouseLogHomeActivity::class.java)
+            intent.putExtra(HomeConstant.KEY_HOUSE_CODE, itemHouseDetail.houseCode)
             mContext.startActivity(intent)
         }
     }
@@ -334,7 +343,7 @@ class HouseDetailRvAdapter(mContext: Context?) :
                 callPhone(mContext, tel)
             }
         })
-        (contentView as RecyclerView).apply {
+        (contentView.rvTelDialog).apply {
             layoutManager = LinearLayoutManager(mContext)
             adapter = telRvAdapter
         }
@@ -363,10 +372,9 @@ class HouseDetailRvAdapter(mContext: Context?) :
             adapter = houseDetailPhotoRvAdapter
             if (itemDecorationCount == 0)
                 addItemDecoration(
-                    GridDividerItemDecoration(
-                        mContext,
-                        mContext.resources.getDimensionPixelSize(R.dimen.dp_15),
-                        true
+                    GridViewItemDecoration(
+                        4,
+                        mContext.resources.getDimensionPixelOffset(R.dimen.dp_15)
                     )
                 )
         }
@@ -384,10 +392,9 @@ class HouseDetailRvAdapter(mContext: Context?) :
             adapter = houseDetailReferImageRvAdapter
             if (itemDecorationCount == 0)
                 addItemDecoration(
-                    GridDividerItemDecoration(
-                        mContext,
-                        mContext.resources.getDimensionPixelSize(R.dimen.dp_15),
-                        true
+                    GridViewItemDecoration(
+                        4,
+                        mContext.resources.getDimensionPixelOffset(R.dimen.dp_15)
                     )
                 )
         }

@@ -5,12 +5,16 @@
         <activity android:name=".ui.activity.HouseDetailActivity"/>
         <activity android:name=".ui.activity.HouseFollowActivity"/>
         <activity android:name=".ui.activity.HouseTakeLookRecordActivity"/>
-        <activity android:name=".ui.activity.HouseLogActivity"/>
+        <activity android:name=".ui.activity.HouseLogHomeActivity"/>
         <activity android:name=".ui.activity.SetHouseInfoActivity"/>
         <activity android:name=".ui.activity.CustomerProfileActivity"/>
         <activity android:name=".ui.activity.AddFollowActivity"/>
         <activity android:name=".ui.activity.HouseTakeLookRecordInsertActivity"/>
+
         <activity android:name=".ui.activity.HouseNearActivity"/>
+
+        <activity android:name=".ui.activity.HouseSelectActivity"/>
+
         <activity android:name=".ui.activity.SetOwnerInfoActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
 

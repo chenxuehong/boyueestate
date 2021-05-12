@@ -23,7 +23,7 @@ open class BaseApplication : MultiDexApplication() {
     init {
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
-            layout.setPrimaryColorsId(R.color.main_color, R.color.common_white)//全局设置主题颜色
+            layout.setPrimaryColorsId(R.color.common_white, R.color.main_color)//全局设置主题颜色
             ClassicsHeader(context)
         };
         //设置全局的Footer构建器

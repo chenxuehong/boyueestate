@@ -78,6 +78,13 @@ class HeaderBar @JvmOverloads constructor(
 
     }
 
+    fun setTitle(title:String){
+        mTitleTv.text = title
+    }
+
+    fun setRightTitle(title: String){
+        mRightTv.text = title
+    }
     /*
         获取左侧视图
      */

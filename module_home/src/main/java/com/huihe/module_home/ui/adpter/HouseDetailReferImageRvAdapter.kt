@@ -34,7 +34,7 @@ class HouseDetailReferImageRvAdapter(mContext: Context) :
         super.onBindViewHolder(holder, position)
         var imagUrlsBean = dataList[position]
         var viewHolder = holder as ViewHolder
-        GlideUtils.loadImage(mContext,imagUrlsBean?.url!!,viewHolder.itemView as ImageView)
+        GlideUtils.loadImageDefault(mContext,imagUrlsBean?.url!!,viewHolder.itemView as ImageView)
     }
 
     inner class ViewHolder(itemView: View) :

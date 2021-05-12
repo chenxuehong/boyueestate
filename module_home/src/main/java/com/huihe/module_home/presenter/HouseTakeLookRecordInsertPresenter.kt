@@ -13,10 +13,11 @@ class HouseTakeLookRecordInsertPresenter @Inject constructor(): BasePresenter<Ho
     @Inject
     lateinit var service: HouseService
 
-    fun addHouseTakeLookRecord(houseCodeList:MutableList<String>?=null,evaluate:String?=null){
+    fun addHouseTakeLookRecord(houseCodeList:MutableList<String>?=null,evaluate:String?=null,customerCode:String?=null){
         service?.addTakeLookRecord(
             houseCodeList= houseCodeList,
-            evaluate =  evaluate
+            evaluate =  evaluate,
+            customerCode = customerCode
         ).execute(object :BaseSubscriber<HouseTakeLookRep.HouseTakeLook?>(mView){
             override fun onNext(t: HouseTakeLookRep.HouseTakeLook?) {
                 super.onNext(t)
