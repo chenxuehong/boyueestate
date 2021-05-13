@@ -134,4 +134,8 @@ class HouseServiceImpl @Inject constructor() : HouseService {
         return repository.addHouseInfo(req).convert()
     }
 
+    override fun getMapRoomList(req: HouseMapReq): Observable<MutableList<MapAreaRep>?> {
+        return repository.getMapRoomList(req).convert()
+    }
+
 }

@@ -71,14 +71,7 @@ class HouseNearFragment : BaseFragment() {
 //           Log.i()
             return
         }
-        var mLocationClient = LocationClient(context);
-        //声明LocationClient类
-//        mLocationClient.registerLocationListener(myListener);
-        var option = LocationClientOption()
-        option.setIsNeedLocationPoiList(true);
-        //可选，是否需要周边POI信息，默认为不需要，即参数为false
-        //如果开发者需要获得周边POI信息，此处必须为true
-        mLocationClient.setLocOption(option);
+
 
         var mBaiduMap = house_near_MapView?.map
         mBaiduMap?.mapType = BaiduMap.MAP_TYPE_NORMAL

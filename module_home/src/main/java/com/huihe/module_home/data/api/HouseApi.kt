@@ -103,4 +103,7 @@ interface HouseApi {
 
     @POST("house")
     fun addHouseInfo(@Body req: AddHouseInfoReq): Observable<BaseResp<SetHouseInfoRep?>>
+
+    @POST("map/room")
+    fun getMapRoomList(@Body req: HouseMapReq): Observable<BaseResp<MutableList<MapAreaRep>?>>
 }

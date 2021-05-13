@@ -72,4 +72,5 @@ interface HouseService {
     fun getHouseLog(page: Int, size: Int, houseCode: String?):Observable<HouseLogRep?>
     fun getHousePhoneLog(page: Int, size: Int, houseCode: String?):Observable<HouseLogRep?>
     fun addHouseInfo(req: AddHouseInfoReq):Observable<SetHouseInfoRep?>
+    fun getMapRoomList(req: HouseMapReq):Observable<MutableList<MapAreaRep>?>
 }

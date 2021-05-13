@@ -161,4 +161,9 @@ class CustomersRepository @Inject constructor() {
         return RetrofitFactory.instance.create(HouseApi::class.java)
             .addHouseInfo(req)
     }
+
+    fun getMapRoomList(req: HouseMapReq): Observable<BaseResp<MutableList<MapAreaRep>?>> {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .getMapRoomList(req)
+    }
 }

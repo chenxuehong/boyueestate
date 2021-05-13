@@ -38,7 +38,7 @@
        </FrameLayout>
    </LinearLayout>
 
-    <androidx.viewpager.widget.ViewPager
+    <com.kotlin.base.widgets.NoScrollViewPager
         android:id="@+id/home_viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

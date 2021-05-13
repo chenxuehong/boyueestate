@@ -202,6 +202,10 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
         mPresenter?.getVillages()
     }
 
+    override fun getModuleType(): Int {
+       return SearchResultViewController.MODULE_HOUSE_FRAGMENT
+    }
+
     override fun onDataIsNull() {
         layoutRefreshContentView?.customers_mMultiStateView?.viewState =
             MultiStateView.VIEW_STATE_EMPTY

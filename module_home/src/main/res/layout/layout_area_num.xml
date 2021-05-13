@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_80"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/common_red_cycle_bg"
+    android:layout_height="@dimen/dp_80" >
+    <TextView
+        android:id="@+id/tvAreaTitle"
+        android:textSize="@dimen/sp_15"
+        android:gravity="center"
+        android:text="小区"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tvAreaNum"
+        android:layout_marginTop="@dimen/dp_6"
+        android:text="1套"
+        android:textSize="@dimen/sp_15"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

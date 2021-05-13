@@ -1,8 +1,9 @@
 package com.huihe.module_home.presenter.view
 
+import com.huihe.module_home.data.protocol.MapAreaRep
 import com.kotlin.base.presenter.view.BaseView
 
 interface FindHouseByMapView : BaseView {
 
-    fun onGetHouseMapResult()
+    fun onGetHouseMapResult(t: MutableList<MapAreaRep>?)
 }

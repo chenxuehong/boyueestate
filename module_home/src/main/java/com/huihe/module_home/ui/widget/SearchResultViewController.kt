@@ -12,6 +12,7 @@ class SearchResultViewController : ISearchView {
     private var mListener: ISearchResultListener? = null
     override fun getAllViews(listener: ISearchResultListener): MutableList<View> {
         mListener = listener
+        popupViews?.clear()
         // 区域
         popupViews!!.add(getView(CustomersModule.SearchType.AreaType))
         // 楼层
@@ -20,8 +21,11 @@ class SearchResultViewController : ISearchView {
         popupViews!!.add(getView(CustomersModule.SearchType.PriceType))
         // 更多
         popupViews!!.add(getView(CustomersModule.SearchType.MoreType))
-        // 排序
-        popupViews!!.add(getView(CustomersModule.SearchType.SortType))
+        var moduleType = mListener?.getModuleType()
+        if (MODULE_HOUSE_FRAGMENT == moduleType){
+            // 排序
+            popupViews!!.add(getView(CustomersModule.SearchType.SortType))
+        }
         return popupViews!!
     }
 
@@ -54,7 +58,8 @@ class SearchResultViewController : ISearchView {
     }
 
     companion object {
-
+        val MODULE_HOUSE_FRAGMENT: Int=1000
+        val MODULE_MAP_HOUSE_FRAGMENT: Int=1001
         private val instance = SearchResultViewController()
         private var mContext: Context? = null
         private var mIsShowing: Boolean = false

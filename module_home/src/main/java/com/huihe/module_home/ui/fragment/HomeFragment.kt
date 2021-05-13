@@ -54,7 +54,7 @@ class HomeFragment : BaseFragment() {
         val titles = ArrayList<String>()
         fragments.clear()
         titles.add("二手房")
-//        titles.add("地图找房")
+        titles.add("地图找房")
         fragments.add(HouseFragment())
         fragments.add(HouseMapFragment())
         home_viewPager.adapter = BaseFragmentStatePageAdapter(
