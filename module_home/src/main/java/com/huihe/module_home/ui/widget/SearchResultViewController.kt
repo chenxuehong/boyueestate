@@ -10,6 +10,16 @@ import java.util.*
 class SearchResultViewController : ISearchView {
 
     private var mListener: ISearchResultListener? = null
+    private var mContext: Context? = null
+    private var mIsShowing: Boolean = false
+    private var popupViews: MutableList<View>? = null
+
+    constructor(context: Context, isShowing: Boolean) {
+        mContext = context
+        mIsShowing = isShowing
+        popupViews = ArrayList()
+    }
+
     override fun getAllViews(listener: ISearchResultListener): MutableList<View> {
         mListener = listener
         popupViews?.clear()
@@ -34,50 +44,38 @@ class SearchResultViewController : ISearchView {
         when (searchType) {
             CustomersModule.SearchType.AreaType -> {
                 inflate = View.inflate(mContext, R.layout.layout_search_by_area, null)
-                inflate.initAreaView(mContext!!, mListener)
+                AreaResultView().initAreaView(mContext!!, mListener,inflate)
             }
             CustomersModule.SearchType.FloorsType -> {
                 inflate = View.inflate(mContext, R.layout.layout_search_by_floors, null)
-                inflate.initFloorsView(mContext!!, mListener)
+                FloorResultView().initFloorsView(mContext!!, mListener,inflate)
             }
             CustomersModule.SearchType.PriceType -> {
                 inflate = View.inflate(mContext, R.layout.layout_search_by_price, null)
-                inflate.initPriceView(mContext!!, mListener)
+                PriceResultView().initPriceView(mContext!!, mListener,inflate)
             }
             CustomersModule.SearchType.MoreType -> {
                 inflate = View.inflate(mContext, R.layout.layout_search_by_more, null)
-                inflate.initMoreView(mContext!!, mListener)
+                MoreResultView().initMoreView(mContext!!, mListener,inflate)
             }
             else// 排序
             -> {
                 inflate = View.inflate(mContext, R.layout.layout_search_by_sort, null)
-                inflate.initSortView(mContext!!, mListener)
+                SortResultView().initSortView(mContext!!, mListener,inflate)
             }
         }
         return inflate
     }
 
-    companion object {
+    companion object{
         val MODULE_HOUSE_FRAGMENT: Int=1000
         val MODULE_MAP_HOUSE_FRAGMENT: Int=1001
-        private val instance = SearchResultViewController()
-        private var mContext: Context? = null
-        private var mIsShowing: Boolean = false
-        private var popupViews: MutableList<View>? = null
-
-        fun init(context: Context, isShowing: Boolean): SearchResultViewController {
-            mContext = context
-            mIsShowing = isShowing
-            popupViews = ArrayList()
-            return instance
-        }
-
-        fun detach() {
-            mContext = null
-            if (popupViews != null) {
-                popupViews!!.clear()
-                popupViews = null
-            }
+    }
+    fun detach() {
+        mContext = null
+        if (popupViews != null) {
+            popupViews!!.clear()
+            popupViews = null
         }
     }
 }

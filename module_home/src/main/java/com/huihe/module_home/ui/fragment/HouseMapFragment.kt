@@ -190,7 +190,7 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
         layoutContentView =
             LayoutInflater.from(context).inflate(R.layout.layout_house_map, null)
         mSearchResultViewController =
-            SearchResultViewController.init(context!!, dropDownMenu.isShowing)
+            SearchResultViewController(context!!, dropDownMenu.isShowing)
         var allViews = mSearchResultViewController.getAllViews(this)
         dropDownMenu.setDropDownMenu(
             headers.asList(),

@@ -95,7 +95,7 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
             }
         })
         mSearchResultViewController =
-            SearchResultViewController.init(context!!, dropDownMenu.isShowing)
+            SearchResultViewController(context!!, dropDownMenu.isShowing)
         dropDownMenu.setDropDownMenu(
             headers.asList(),
             mSearchResultViewController.getAllViews(this),
@@ -163,7 +163,7 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     override fun onDestroyView() {
         //退出activity前关闭菜单
         dropDownMenu?.closeMenu()
-        SearchResultViewController.detach()
+        mSearchResultViewController?.detach()
         super.onDestroyView()
     }
 
