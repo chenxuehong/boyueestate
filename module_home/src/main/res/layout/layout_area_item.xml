@@ -19,7 +19,7 @@
         android:layout_weight="1"
         android:text="杨浦区"
         android:textColor="@color/color_333333"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:gravity="center"
         android:maxLines="2"
         android:ellipsize="end"

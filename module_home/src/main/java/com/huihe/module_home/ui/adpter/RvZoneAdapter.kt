@@ -40,8 +40,12 @@ class RvZoneAdapter(mContext: Context) :
         return item?.zoneId?.equals(mCheckedItem?.zoneId)!!
     }
 
-    override fun changeStatus(t: AreaBeanConvertModel.ZoneBean) {
-        super.changeStatus(t)
+    override fun changeStatus(
+        t1: View,
+        t: AreaBeanConvertModel.ZoneBean,
+        position: Int
+    ) {
+        super.changeStatus(t1, t, position)
         mCheckedItem = t
         notifyDataSetChanged()
     }

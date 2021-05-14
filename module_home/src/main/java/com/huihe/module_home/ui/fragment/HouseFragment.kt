@@ -25,7 +25,6 @@ import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.provider.constant.HomeConstant
 import kotlinx.android.synthetic.main.fragment_secondhandhouse.*
 import kotlinx.android.synthetic.main.layout_refresh.view.*
-import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.support.v4.startActivity
 
 

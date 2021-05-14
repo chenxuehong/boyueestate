@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvCustomerFirstLetter"
+        android:text="张"
+        android:gravity="center"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_18"
+        android:background="@drawable/common_line_cycle_bg"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginBottom="@dimen/dp_15"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_80"/>
+    <TextView
+        android:id="@+id/tvCustomerUserName"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:text="张三西"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/color_333333"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/dp_15"
+        app:layout_constraintLeft_toRightOf="@id/tvCustomerFirstLetter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <co.lujun.androidtagview.TagContainerLayout
+        android:id="@+id/item_customers_tags"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_16"
+        android:background="@color/transparent"
+        app:container_enable_drag="false"
+        app:horizontal_interval="5dp"
+        app:vertical_interval="5dp"
+        app:tag_horizontal_padding="8dp"
+        app:tag_vertical_padding="2dp"
+        app:tag_clickable="false"
+        app:tag_max_length="4"
+        app:tag_text_size="@dimen/sp_14"
+        app:tag_theme="random"
+        app:tag_corner_radius="@dimen/dp_6"
+        app:container_border_color="@color/transparent"
+        app:container_background_color="@color/transparent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/tvCustomerUserName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCustomerDemandBeat"
+        app:layout_constraintLeft_toRightOf="@id/tvCustomerFirstLetter"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/sp_14"
+        android:text="莲叶别墅"
+        android:layout_marginTop="@dimen/dp_6"
+        app:layout_constraintTop_toBottomOf="@id/tvCustomerUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCustomerDemandFloor"
+        app:layout_constraintLeft_toRightOf="@id/tvCustomerFirstLetter"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/sp_14"
+        android:text="电梯中高区"
+        android:layout_marginTop="@dimen/dp_6"
+        app:layout_constraintTop_toBottomOf="@id/tvCustomerDemandBeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tvCustomerDemandCreateDate"
+        app:layout_constraintLeft_toRightOf="@id/tvCustomerFirstLetter"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/sp_14"
+        android:text="2021-09-09"
+        android:layout_marginBottom="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_6"
+        app:layout_constraintBottom_toTopOf="@id/tvCustomerLine"
+        app:layout_constraintTop_toBottomOf="@id/tvCustomerDemandFloor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <View
+        android:id="@+id/tvCustomerLine"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:background="@color/line"
+        android:layout_height="@dimen/dp_1"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

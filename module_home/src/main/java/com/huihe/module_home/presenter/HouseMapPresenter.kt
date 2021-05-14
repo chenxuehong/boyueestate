@@ -1,5 +1,6 @@
 package com.huihe.module_home.presenter
 
+import com.huihe.module_home.data.protocol.AreaBeanRep
 import com.huihe.module_home.data.protocol.HouseMapReq
 import com.huihe.module_home.data.protocol.MapAreaRep
 import com.huihe.module_home.presenter.view.FindHouseByMapView
@@ -22,5 +23,20 @@ class HouseMapPresenter  @Inject constructor() : BasePresenter<FindHouseByMapVie
                     mView?.onGetHouseMapResult(t)
                 }
             },lifecycleProvider)
+    }
+
+    fun getVillages(
+        latitude: Double?= null,
+        longitude: Double?= null
+    ) {
+        service?.getVillages(
+            latitude,
+            longitude
+        )
+            .execute(object : BaseSubscriber<AreaBeanRep?>(mView) {
+                override fun onNext(t: AreaBeanRep?) {
+                    mView.onGetAreaBeanListResult(t?.list)
+                }
+            }, lifecycleProvider)
     }
 }

@@ -19,7 +19,6 @@ import com.huihe.module_home.ui.adpter.HouseFollowRvAdapter
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ext.startLoading
-import com.kotlin.base.rx.BaseSubscriber
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.provider.constant.HomeConstant

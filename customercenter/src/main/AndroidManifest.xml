@@ -1,2 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.huihe.customercenter" />
+    package="com.huihe.customercenter" >
+    <application
+        android:theme="@style/AppTheme"></application>
+</manifest>

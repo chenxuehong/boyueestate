@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.kennyc.view.MultiStateView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/customers_mMultiStateView"
+    style="@style/MultiStateStyle">
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/customers_mBGARefreshLayout"
+        style="@style/MatchMatch">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/customers_mRecyclerView"
+            style="@style/commonRecyclerView" />
+
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+</com.kennyc.view.MultiStateView>

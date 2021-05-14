@@ -40,8 +40,12 @@ class RvAreaDistrictAdapter(mContext: Context) :
         return item?.districtId?.equals(mCheckedItem?.districtId)!!
     }
 
-    override fun changeStatus(t: AreaBeanConvertModel) {
-        super.changeStatus(t)
+    override fun changeStatus(
+        t1: View,
+        t: AreaBeanConvertModel,
+        position: Int
+    ) {
+        super.changeStatus(t1, t, position)
         mCheckedItem = t
         notifyDataSetChanged()
     }

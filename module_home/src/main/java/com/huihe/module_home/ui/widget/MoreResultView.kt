@@ -69,6 +69,7 @@ var datas = mutableListOf<MoreSearchBean>(
     MoreSearchBean("五室", false, 4, "房型"),
     MoreSearchBean("五室以上", false, 4, "房型")
 )
+
 var mColumnNum: Int = 3
 var hFlag: Int? = null
 var days: Int? = null

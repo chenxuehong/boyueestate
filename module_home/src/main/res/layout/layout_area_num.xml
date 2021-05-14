@@ -4,21 +4,24 @@
     android:layout_width="@dimen/dp_80"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/common_red_cycle_bg"
+    android:background="@drawable/common_color_cycle_bg"
     android:layout_height="@dimen/dp_80" >
     <TextView
         android:id="@+id/tvAreaTitle"
-        android:textSize="@dimen/sp_15"
+        android:textSize="@dimen/sp_13"
         android:gravity="center"
         android:text="小区"
+        android:layout_gravity="center_horizontal"
         android:textColor="@color/white"
+        android:maxLines="2"
+        android:padding="@dimen/dp_6"
+        android:ellipsize="end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/tvAreaNum"
-        android:layout_marginTop="@dimen/dp_6"
         android:text="1套"
-        android:textSize="@dimen/sp_15"
+        android:textSize="@dimen/sp_13"
         android:gravity="center"
         android:textColor="@color/white"
         android:layout_width="wrap_content"

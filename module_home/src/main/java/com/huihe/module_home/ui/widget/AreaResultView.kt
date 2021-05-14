@@ -87,7 +87,7 @@ fun View.initAreaName(
             setItemAreaChecked(item,isChecked,checkedItem)
             btnAreaReset.enable(mContext)
         }
-    })
+    },checkedItem)
     rvAreaName.layoutManager = LinearLayoutManager(mContext)
     rvAreaName.adapter = mAreaNameRvAdapter
     mAreaNameRvAdapter?.setData(districtBeans!!)

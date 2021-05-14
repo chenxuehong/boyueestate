@@ -27,12 +27,12 @@ abstract class BaseRecyclerViewAdapter<T, VH : RecyclerView.ViewHolder>(var mCon
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         holder.itemView.setOnClickListener {
-            changeStatus(dataList[position])
+            changeStatus(holder.itemView,dataList[position],position)
             mItemClickListener?.onItemClick(holder.itemView,dataList[position], position)
         }
     }
 
-    open fun changeStatus(t :T) {
+    open fun changeStatus(itemView: View, t: T, position: Int) {
 
     }
 

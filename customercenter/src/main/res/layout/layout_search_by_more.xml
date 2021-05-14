@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/common_white">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMore"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/common_bg" />
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_12"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnMoreReset"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:text="@string/reset"
+            android:layout_width="0dp"
+            android:textColor="@color/color_999999"
+            android:enabled="false"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_height="@dimen/dp_50"/>
+        <Button
+            android:id="@+id/btnMoreSure"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_16"
+            android:text="@string/sure"
+            android:gravity="center"
+            android:textColor="@color/color_333333"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/dp_50"/>
+    </LinearLayout>
+</LinearLayout>
