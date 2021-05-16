@@ -90,17 +90,17 @@ class MoreResultView {
     fun initMoreView(
         mContext: Context,
         mListener: ISearchResultListener?,
-        view: View
+        mview: View
     ) {
         var gridLayoutManager = GridLayoutManager(mContext, mColumnNum)
-        view.rvMore.layoutManager = gridLayoutManager
-        view.rvMore.addItemDecoration(
+        mview.rvMore.layoutManager = gridLayoutManager
+        mview.rvMore.addItemDecoration(
             ItemSpaceDecoration(
-                view.resources.getDimensionPixelOffset(R.dimen.dp_12)
+                mview.resources.getDimensionPixelOffset(R.dimen.dp_12)
             )
         )
         var moreSearchAdapter = MoreSearchAdapter(mContext, mColumnNum)
-        view.rvMore.adapter = moreSearchAdapter
+        mview.rvMore.adapter = moreSearchAdapter
         moreSearchAdapter.setData(datas)
         moreSearchAdapter.setOnItemClickListener(object :
             BaseRecyclerViewAdapter.OnItemClickListener<MoreSearchBean> {
@@ -108,17 +108,17 @@ class MoreResultView {
                 if (!item.isTitle) {
                     moreSearchAdapter.setItemChecked(item)
                 }
-                view.btnMoreReset.enable(mContext,moreSearchAdapter)
+                mview?.btnMoreReset?.enable(mContext,moreSearchAdapter)
             }
         })
-        view.btnMoreReset.apply {
+        mview.btnMoreReset.apply {
             setOnClickListener {
                 moreSearchAdapter.resetData()
-                btnMoreReset.enable(mContext,moreSearchAdapter)
+                mview.btnMoreReset.enable(mContext,moreSearchAdapter)
             }
         }
 
-        view.btnMoreSure.setOnClickListener {
+        mview.btnMoreSure.setOnClickListener {
             resetData()
             var dataList = moreSearchAdapter.getCheckedData()
             dataList.forEach {
