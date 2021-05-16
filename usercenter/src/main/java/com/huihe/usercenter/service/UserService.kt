@@ -8,7 +8,7 @@ import io.reactivex.Observable
  */
 interface UserService {
     //用户登录
-    fun login(account:String,password:String): Observable<String>
+    fun login(account: String, password: String, type: String): Observable<String>
 
     fun getVillages(
         latitude: Double? = null,

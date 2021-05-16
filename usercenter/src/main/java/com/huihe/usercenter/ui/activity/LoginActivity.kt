@@ -53,7 +53,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.mloginBtn -> {
-                mPresenter.login(mMobileEt.text.toString().trim(), mPwdEt.text.toString().trim())
+                mPresenter.login(mMobileEt.text.toString().trim(), mPwdEt.text.toString().trim(),"mobile")
             }
         }
     }

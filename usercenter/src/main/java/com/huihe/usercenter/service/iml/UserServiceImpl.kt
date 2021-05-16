@@ -12,9 +12,9 @@ class UserServiceImpl @Inject constructor() : UserService {
     @Inject
     lateinit var repository: UserRepository
 
-    override fun login(account: String, password: String): Observable<String> {
+    override fun login(account: String, password: String, type: String): Observable<String> {
 
-        return repository.login(account,password).convert()
+        return repository.login(account,password,type).convert()
     }
 
     override fun getVillages(latitude: Double?, longitude: Double?): Observable<AreaBeanRep?> {

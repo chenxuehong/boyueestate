@@ -11,9 +11,9 @@ class UserRepository @Inject constructor(){
     /*
         登录
      */
-    fun login(account: String, password: String) : Observable<BaseResp<String>> {
+    fun login(account: String, password: String, type: String) : Observable<BaseResp<String>> {
 
-        return RetrofitFactory.instance.create(UserApi::class.java).login(LoginReq(account,password))
+        return RetrofitFactory.instance.create(UserApi::class.java).login(LoginReq(account,password,type))
     }
 
     fun getVillages(latitude: Double?, longitude: Double?): Observable<BaseResp<AreaBeanRep?>> {
