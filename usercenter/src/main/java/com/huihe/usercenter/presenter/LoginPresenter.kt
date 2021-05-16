@@ -20,7 +20,7 @@ class LoginPresenter @Inject constructor():BasePresenter<LoginView>(){
         if (!checkNetWork()) {
             return
         }
-        mView.showLoading(context.resources.getString(R.string.srl_header_loading))
+        mView.showLoading()
         userService.login(account,password).execute(object : BaseSubscriber<String>(mView){
 
             override fun onNext(t: String) {

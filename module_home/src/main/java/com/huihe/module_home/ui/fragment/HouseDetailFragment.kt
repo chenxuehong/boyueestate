@@ -200,7 +200,7 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
     }
 
     private fun showSetImageUerDialog() {
-        LDialog.init(childFragmentManager)
+     val mLDialog =  LDialog.init(childFragmentManager)
             .setLayoutRes(R.layout.layout_set_imageuser_dialog)
             .setBackgroundDrawableRes(R.drawable.new_phone_dialog_bg)
             .setGravity(Gravity.CENTER)
@@ -296,7 +296,7 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
                 getHFlag(item)
             )
         };
-        updateStatusPicker?.show();
+        updateStatusPicker?.show()
     }
 
     private fun getHFlag(item: String): Int? {

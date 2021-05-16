@@ -6,6 +6,7 @@ import com.huihe.module_home.service.HouseService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber
+import com.kotlin.base.rx.DataNullException
 import javax.inject.Inject
 
 class HouseTakeLookRecordInsertPresenter @Inject constructor(): BasePresenter<HouseTakeLookRecordInsertView>(){
@@ -13,15 +14,17 @@ class HouseTakeLookRecordInsertPresenter @Inject constructor(): BasePresenter<Ho
     @Inject
     lateinit var service: HouseService
 
-    fun addHouseTakeLookRecord(houseCodeList:MutableList<String>?=null,evaluate:String?=null,customerCode:String?=null){
+    fun addHouseTakeLookRecord(houseCodeList:MutableList<String>?=null,evaluate:String?=null,code:String?=null){
         service?.addTakeLookRecord(
             houseCodeList= houseCodeList,
             evaluate =  evaluate,
-            customerCode = customerCode
+            code = code
         ).execute(object :BaseSubscriber<HouseTakeLookRep.HouseTakeLook?>(mView){
-            override fun onNext(t: HouseTakeLookRep.HouseTakeLook?) {
-                super.onNext(t)
-                mView?.onAddHouseTakeLookResult(t)
+            override fun onError(e: Throwable) {
+                super.onError(e)
+                if (e is DataNullException){
+                    mView?.onAddHouseTakeLookResult()
+                }
             }
         },lifecycleProvider)
     }

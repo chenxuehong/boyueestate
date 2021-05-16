@@ -10,7 +10,7 @@ import com.kotlin.base.R
  */
 object GlideUtils {
     fun loadImage(context: Context, url: Any, imageView: ImageView) {
-        Glide.with(context).load(url).centerCrop().into(imageView)
+        Glide.with(context).load(url).placeholder(R.drawable.is_empty).error(R.drawable.is_empty).centerCrop().into(imageView)
     }
 
     fun loadImageFitCenter(context: Context, url: Any, imageView: ImageView) {
@@ -18,14 +18,14 @@ object GlideUtils {
     }
 
     fun loadImageDefault(context: Context, url: Any, imageView: ImageView) {
-        Glide.with(context).load(url).into(imageView)
+        Glide.with(context).load(url).placeholder(R.drawable.is_empty).error(R.drawable.is_empty).into(imageView)
     }
 
     /*
         当fragment或者activity失去焦点或者destroyed的时候，Glide会自动停止加载相关资源，确保资源不会被浪费
      */
-    fun loadUrlImage(context: Context, url: String?, imageView: ImageView){
-        Glide.with(context).load(url).placeholder(R.drawable.is_empty).error(R.drawable.is_empty).centerCrop().into(
+    fun loadUrlImage(context: Context, url: String?,placeholder:Int, imageView: ImageView){
+        Glide.with(context).load(url).placeholder(placeholder).error(placeholder).centerCrop().into(
             imageView)
     }
 

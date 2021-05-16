@@ -68,7 +68,7 @@ interface HouseService {
     fun getHouseFollowList(pageNo: Int?, pageSize: Int?, houseCode: String?):Observable<FollowRep?>
     fun addFollowContent(houseId: String?, followContent: String?):Observable<FollowRep.FollowBean?>
     fun getTakeLookRecord(page:Int?,limit:Int?,code:String?):Observable<HouseTakeLookRep?>
-    fun addTakeLookRecord(houseCodeList: MutableList<String>?=null, evaluate: String?=null ,customerCode: String?=null):Observable<HouseTakeLookRep.HouseTakeLook?>
+    fun addTakeLookRecord(houseCodeList: MutableList<String>?=null, evaluate: String?=null ,code: String?=null):Observable<HouseTakeLookRep.HouseTakeLook?>
     fun getHouseLog(page: Int, size: Int, houseCode: String?):Observable<HouseLogRep?>
     fun getHousePhoneLog(page: Int, size: Int, houseCode: String?):Observable<HouseLogRep?>
     fun addHouseInfo(req: AddHouseInfoReq):Observable<SetHouseInfoRep?>

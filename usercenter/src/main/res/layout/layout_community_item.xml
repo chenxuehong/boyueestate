@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvCommunityTitle"
+        android:gravity="center"
+        android:textSize="@dimen/sp_15"
+        android:textColor="@color/color_333333"
+        android:text="杨浦区"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"/>
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"/>
+</LinearLayout>

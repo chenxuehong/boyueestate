@@ -73,7 +73,7 @@ open class BaseActivity : RxAppCompatActivity() {
         return false
     }
 
-    fun setFragment(fragment:BaseFragment,args: Bundle){
+    open fun setFragment(fragment:BaseFragment,args: Bundle){
         fragment.arguments = args
         supportFragmentManager.beginTransaction().replace(
             contentView.id,
@@ -81,7 +81,7 @@ open class BaseActivity : RxAppCompatActivity() {
         ).commitAllowingStateLoss()
     }
 
-    fun setFragment(fragment:BaseFragment){
+    open fun setFragment(fragment:BaseFragment){
         supportFragmentManager.beginTransaction().replace(
             contentView.id,
             fragment

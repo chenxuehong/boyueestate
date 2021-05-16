@@ -14,6 +14,14 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
             <activity android:name=".ui.activity.MainActivity"/>
+            <activity android:name=".ui.activity.CommunityManagerActivity"/>
+            <activity android:name=".ui.activity.DistrictActivity"/>
+            <activity android:name=".ui.activity.CorporateCultureActivity"/>
+            <activity android:name=".ui.activity.SettingActivity"/>
+            <activity android:name=".ui.activity.AboutusActivity"/>
+            <activity android:name=".ui.activity.AddressBookActivity"/>
+            <activity android:name=".ui.activity.DeptInfoActivity"/>
+            <activity android:name=".ui.activity.SearchCommunityActivity"/>
         </activity>
     </application>
 </manifest>

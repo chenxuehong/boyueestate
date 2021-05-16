@@ -12,7 +12,7 @@ import com.huihe.module_home.data.protocol.CustomerProfileInfo
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import kotlinx.android.synthetic.main.layout_customers_profile_info_item.view.*
 
-class CustomerProfileRvAdapter(mContext: Context) :
+class CustomerProfileRvAdapter(mContext: Context,var listener:OnListener) :
     BaseRecyclerViewAdapter<CustomerProfileInfo?, RecyclerView.ViewHolder>(mContext) {
 
     val VIEW_TYPE_HOUSE = 1000
@@ -75,6 +75,17 @@ class CustomerProfileRvAdapter(mContext: Context) :
                         adapter = customerHouseRvAdapter
                     }
                 }
+                customerHouseRvAdapter.setOnItemClickListener(object :OnItemClickListener<CustomerProfileInfo.HouseInfo>{
+                    override fun onItemClick(
+                        view: View,
+                        item: CustomerProfileInfo.HouseInfo,
+                        position: Int
+                    ) {
+
+                        listener?.onHouseClicked(item.id?:"")
+                    }
+
+                })
                 customerHouseRvAdapter.setData(houseInfo!!)
             }
             VIEW_TYPE_SALE_CUSTOMER -> {
@@ -82,13 +93,23 @@ class CustomerProfileRvAdapter(mContext: Context) :
                 var saleCustomerRvAdapter = SaleCustomerRvAdapter(mContext)
                 (holder as SaleCustomerHolder).apply {
                     tvCustomerProfileInfoTitle.text =
-                        "${mContext.resources.getString(R.string.house_num)}(${saleCustomer?.size})"
+                        "${mContext.resources.getString(R.string.buy_num)}(${saleCustomer?.size})"
                     rvCustomerProfileInfo.apply {
                         isNestedScrollingEnabled = false
                         layoutManager = LinearLayoutManager(mContext)
                         adapter = saleCustomerRvAdapter
                     }
                 }
+                saleCustomerRvAdapter.setOnItemClickListener(object :OnItemClickListener<CustomerProfileInfo.CustomerInfo>{
+                    override fun onItemClick(
+                        view: View,
+                        item: CustomerProfileInfo.CustomerInfo,
+                        position: Int
+                    ) {
+                        listener?.onCustomerClicked(item.id?:"")
+                    }
+
+                })
                 saleCustomerRvAdapter.setData(saleCustomer!!)
             }
             else -> {
@@ -96,13 +117,23 @@ class CustomerProfileRvAdapter(mContext: Context) :
                 var rentCustomerRvAdapter = SaleCustomerRvAdapter(mContext)
                 (holder as RentCustomerHolder).apply {
                     tvCustomerProfileInfoTitle.text =
-                        "${mContext.resources.getString(R.string.house_num)}(${rentCustomer?.size})"
+                        "${mContext.resources.getString(R.string.rent_num)}(${rentCustomer?.size})"
                     rvCustomerProfileInfo.apply {
                         isNestedScrollingEnabled = false
                         layoutManager = LinearLayoutManager(mContext)
                         adapter = rentCustomerRvAdapter
                     }
                 }
+                rentCustomerRvAdapter.setOnItemClickListener(object :OnItemClickListener<CustomerProfileInfo.CustomerInfo>{
+                    override fun onItemClick(
+                        view: View,
+                        item: CustomerProfileInfo.CustomerInfo,
+                        position: Int
+                    ) {
+                        listener?.onCustomerClicked(item.id?:"")
+                    }
+
+                })
                 rentCustomerRvAdapter.setData(rentCustomer!!)
             }
         }
@@ -123,4 +154,8 @@ class CustomerProfileRvAdapter(mContext: Context) :
         var rvCustomerProfileInfo = view.rvCustomerProfileInfo
     }
 
+    interface OnListener{
+        fun onHouseClicked(id:String)
+        fun onCustomerClicked(id:String)
+    }
 }

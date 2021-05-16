@@ -31,7 +31,7 @@ class SecondHandHouseAdapter (context: Context) : BaseRecyclerViewAdapter<House,
         super.onBindViewHolder(holder, position)
 
         var customer = dataList[position]
-        holder.itemView.item_customers_iv_cover.loadUrl(customer?.coverImageUrl)
+        holder.itemView.item_customers_iv_cover.loadUrl(customer?.coverImageUrl,R.drawable.is_empty)
         // 小区名villageName+座栋building+房号hNum组成
         holder.itemView.item_customers_tv_title.text = String.format(
             holder.itemView.item_customers_tv_title.context.resources.getString(R.string.customers_title),

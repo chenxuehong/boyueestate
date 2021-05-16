@@ -33,7 +33,7 @@ class CustomerHouseRvAdapter(mContext: Context) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         super.onBindViewHolder(holder, position)
         var houseInfo = dataList[position]
-        holder.itemView.item_customers_house_iv_cover.loadUrl(houseInfo?.coverImageUrl)
+        holder.itemView.item_customers_house_iv_cover.loadUrl(houseInfo?.coverImageUrl,R.drawable.is_empty)
         holder.itemView.item_customers_house_tv_title.text = houseInfo?.villageName
         holder.itemView.item_customers_house_tv_childTitle.text = String.format(
             holder.itemView.item_customers_house_tv_childTitle.context.resources.getString(R.string.customers_childTitle),

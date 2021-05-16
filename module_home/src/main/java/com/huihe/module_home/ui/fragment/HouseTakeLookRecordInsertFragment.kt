@@ -24,9 +24,11 @@ import org.jetbrains.anko.support.v4.toast
 class HouseTakeLookRecordInsertFragment : BaseMvpFragment<HouseTakeLookRecordInsertPresenter>(),
     HouseTakeLookRecordInsertView {
 
+
     var REQUEST_CODE_SELECT_HOUSE: Int = 10001
-    var houseCode:String?=null
-    var houseCodeList=mutableListOf<String>()
+    var houseCode: String? = null
+    var houseCodeList = mutableListOf<String>()
+    var code: String? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,6 +48,7 @@ class HouseTakeLookRecordInsertFragment : BaseMvpFragment<HouseTakeLookRecordIns
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         houseCodeList.clear()
+        code = arguments?.getString(HomeConstant.KEY_CODE)
         initView()
     }
 
@@ -57,11 +60,10 @@ class HouseTakeLookRecordInsertFragment : BaseMvpFragment<HouseTakeLookRecordIns
         }
         tvTakeLookInsert.onClick {
             if (checkInput()) {
-                TODO()
-                houseCodeList.add(houseCode!!)
                 mPresenter.addHouseTakeLookRecord(
                     evaluate = EtTakeLookInsertEvaluation.text.toString().trim(),
-                    houseCodeList = houseCodeList
+                    houseCodeList = houseCodeList,
+                    code = code
                 )
             }
         }
@@ -77,9 +79,9 @@ class HouseTakeLookRecordInsertFragment : BaseMvpFragment<HouseTakeLookRecordIns
         super.onActivityResult(requestCode, resultCode, data)
         if (REQUEST_CODE_SELECT_HOUSE == requestCode) {
             houseCode = data?.getStringExtra(HomeConstant.KEY_HOUSE_CODE)
-            if (!TextUtils.isEmpty(houseCode)){
+            if (!TextUtils.isEmpty(houseCode)) {
                 houseCodeList.add(houseCode!!)
-                nsvTakeLookInsert_house.setContent( houseCodeList.getString(","))
+                nsvTakeLookInsert_house.setContent(houseCodeList.getString(","))
             }
         }
     }
@@ -96,7 +98,7 @@ class HouseTakeLookRecordInsertFragment : BaseMvpFragment<HouseTakeLookRecordIns
         return true
     }
 
-    override fun onAddHouseTakeLookResult(t: HouseTakeLookRep.HouseTakeLook?) {
-
+    override fun onAddHouseTakeLookResult() {
+        activity?.finish()
     }
 }

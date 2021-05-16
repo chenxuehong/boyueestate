@@ -17,6 +17,7 @@
         android:textSize="@dimen/sp_15"
         android:drawablePadding="@dimen/dp_8"
         android:text="@string/house_detail_right_title"
+        android:layout_marginLeft="@dimen/dp_10"
         android:paddingLeft="@dimen/dp_6"
         android:paddingRight="@dimen/dp_9"
         android:layout_marginRight="@dimen/dp_6"

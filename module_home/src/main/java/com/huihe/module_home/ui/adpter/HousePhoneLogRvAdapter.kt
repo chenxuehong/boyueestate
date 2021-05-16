@@ -28,7 +28,7 @@ class HousePhoneLogRvAdapter(mContext: Context) :
         super.onBindViewHolder(holder, position)
         var houseLog = dataList[position]
         holder.itemView.tvLogUserDeptName.text = "${houseLog.createUserName?:""}(${houseLog.deptName?:""})"
-        holder.itemView.tvLogCreateTime.text = houseLog.createTime?:""
+        holder.itemView.tvLogCreateTime.text = "${houseLog.operationType}  ${houseLog.createTime?:""}"
     }
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }

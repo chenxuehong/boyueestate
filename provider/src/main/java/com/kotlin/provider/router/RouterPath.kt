@@ -17,11 +17,14 @@ object RouterPath{
     class HomeCenter{
         companion object {
             const val PATH_HOME = "/homeCenter/home"
+            const val PATH_TAKELOOK_RECORD = "/homeCenter/takeLookRecord"
+            const val PATH_CUSTOMER_PROFILE = "/homeCenter/CustomerProfile"
         }
     }
     class CustomerCenter{
         companion object {
             const val PATH_CUSTOMER = "/CustomerCenter/Customer"
+            const val PATH_CUSTOMER_DETAIL = "/CustomerCenter/CustomerDetail"
         }
     }
     class MessageCenter{

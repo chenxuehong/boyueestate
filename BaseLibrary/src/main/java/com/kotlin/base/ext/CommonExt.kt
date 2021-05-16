@@ -11,6 +11,9 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.R
 import com.kotlin.base.data.protocol.BaseResp
@@ -19,6 +22,7 @@ import com.kotlin.base.rx.BaseFuncBoolean
 import com.kotlin.base.rx.BaseSubscriber
 import com.kotlin.base.utils.GlideUtils
 import com.kotlin.base.widgets.DefaultTextWatcher
+import com.kotlin.base.widgets.GridViewItemDecoration
 import com.trello.rxlifecycle3.LifecycleProvider
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -88,8 +92,8 @@ fun View.enable(et: EditText, method: () -> Boolean) {
 /*
     ImageView加载网络图片
  */
-fun ImageView.loadUrl(url: String?) {
-    GlideUtils.loadUrlImage(context, url, this)
+fun ImageView.loadUrl(url: String?,placeholder:Int) {
+    GlideUtils.loadUrlImage(context, url, placeholder,this)
 }
 
 /*
@@ -132,9 +136,32 @@ fun callPhone(context: Context, phoneNum: String) {
     context.startActivity(intent);
 }
 
-fun getFirstChar(str:String?):String{
-    if (TextUtils.isEmpty(str)){
-       return ""
+/**
+ * 获取首字符
+ */
+fun getFirstChar(str: String?): String {
+    if (TextUtils.isEmpty(str)) {
+        return ""
     }
-    return str?.subSequence(0,1).toString()
+    return str?.subSequence(0, 1).toString()
+}
+
+/**
+ * 字体加粗
+ */
+fun TextView.isFakeBoldText(isFakeBoldText: Boolean) {
+    paint.isFakeBoldText = isFakeBoldText
+}
+
+fun RecyclerView.vertical(column: Int, space: Int) {
+    layoutManager = GridLayoutManager(context, column)
+    var itemDecorationCount = itemDecorationCount
+    if (itemDecorationCount <= 0) {
+        addItemDecoration(
+            GridViewItemDecoration(
+                column,
+                space
+            )
+        )
+    }
 }

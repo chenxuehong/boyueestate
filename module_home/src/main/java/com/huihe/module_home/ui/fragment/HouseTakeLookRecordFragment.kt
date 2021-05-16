@@ -1,5 +1,6 @@
 package com.huihe.module_home.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,21 +17,24 @@ import com.huihe.module_home.ui.activity.HouseTakeLookRecordInsertActivity
 import com.huihe.module_home.ui.adpter.HouseTakeLookRecordRvAdapter
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.ext.onClick
+import com.kotlin.base.ext.setVisible
 import com.kotlin.base.ext.startLoading
-import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.provider.constant.HomeConstant
 import kotlinx.android.synthetic.main.fragment_house_take_look_record.*
 import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.startActivityForResult
 
 class HouseTakeLookRecordFragment : BaseMvpFragment<HouseTakeLookPresenter>(),HouseTakeLookView,
     HouseTakeLookRecordRvAdapter.OnSeeDetailListener<HouseTakeLookRep.HouseTakeLook> {
 
     private var mCurrentPage: Int = 1
     private var mPageSize: Int = 30
-    private var houseCode:String?=null
+    private var code:String?=null
+    private var isAdd:Boolean=false
     private var mHouseTakeLookRvAdapter: HouseTakeLookRecordRvAdapter?=null
 
+    val REQUEST_CODE_INSERT = 1000
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,7 +53,8 @@ class HouseTakeLookRecordFragment : BaseMvpFragment<HouseTakeLookPresenter>(),Ho
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        houseCode = arguments?.getString(HomeConstant.KEY_HOUSE_CODE)
+        code = arguments?.getString(HomeConstant.KEY_CODE)
+        isAdd = arguments?.getBoolean(HomeConstant.KEY_IS_ADD,false)?:false
         initRefreshLayout()
         initView()
         initData()
@@ -71,8 +76,9 @@ class HouseTakeLookRecordFragment : BaseMvpFragment<HouseTakeLookPresenter>(),Ho
         mHouseTakeLookRvAdapter =
             HouseTakeLookRecordRvAdapter(context!!,this)
         house_take_look_record_rvList.adapter = mHouseTakeLookRvAdapter
-        house_take_look_titleBar?.onClick {
-            startActivity<HouseTakeLookRecordInsertActivity>(HomeConstant.KEY_HOUSE_CODE to houseCode)
+        house_take_look_titleBar?.getRightView()?.setVisible(isAdd)
+        house_take_look_titleBar?.getRightView()?.onClick {
+            startActivityForResult<HouseTakeLookRecordInsertActivity>(REQUEST_CODE_INSERT,HomeConstant.KEY_CODE to code)
         }
     }
 
@@ -83,7 +89,7 @@ class HouseTakeLookRecordFragment : BaseMvpFragment<HouseTakeLookPresenter>(),Ho
     }
 
     private fun loadData() {
-        mPresenter?.getTakeLookRecord(mCurrentPage,mPageSize,houseCode)
+        mPresenter?.getTakeLookRecord(mCurrentPage,mPageSize,code)
     }
 
     override fun onDataIsNull() {
@@ -132,5 +138,13 @@ class HouseTakeLookRecordFragment : BaseMvpFragment<HouseTakeLookPresenter>(),Ho
 
     override fun onSeeDetail(item: HouseTakeLookRep.HouseTakeLook, position: Int) {
         startActivity<HouseDetailActivity>(HomeConstant.KEY_HOUSE_ID to item.id)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (REQUEST_CODE_INSERT == requestCode){
+            mCurrentPage = 1
+            loadData()
+        }
     }
 }

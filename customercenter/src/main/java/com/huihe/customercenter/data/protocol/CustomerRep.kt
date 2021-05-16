@@ -10,7 +10,7 @@ data class CustomerRep(
         val createUserName:String?,
         val customerCode:String?,
         val customerName:String?,
-        val customerType:String?,
+        val customerType:Int?,
         val demandArea:String?,
         val demandBeat:String?,
         val demandBudget:String?,

@@ -11,5 +11,13 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
         <activity android:name=".ui.activity.MainActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+        <activity android:name=".ui.activity.CommunityManagerActivity"/>
+        <activity android:name=".ui.activity.DistrictActivity"/>
+        <activity android:name=".ui.activity.CorporateCultureActivity"/>
+        <activity android:name=".ui.activity.SettingActivity"/>
+        <activity android:name=".ui.activity.AboutusActivity"/>
+        <activity android:name=".ui.activity.AddressBookActivity"/>
+        <activity android:name=".ui.activity.DeptInfoActivity"/>
+        <activity android:name=".ui.activity.SearchCommunityActivity"/>
     </application>
 </manifest>

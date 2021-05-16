@@ -13,7 +13,7 @@ import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_refresh.*
 import kotlinx.android.synthetic.main.fragment_title_refresh.*
 
-abstract class BaseTitleRefreshFragment<T : BasePresenter<*>, Adapter : BaseRecyclerViewAdapter<*, *>,D> :
+abstract class BaseTitleRefreshFragment<T : BasePresenter<*>, Adapter : BaseRecyclerViewAdapter<*, *>, D> :
     BaseMvpFragment<T>() {
 
     var mCurrentPage: Int = 1
@@ -31,7 +31,6 @@ abstract class BaseTitleRefreshFragment<T : BasePresenter<*>, Adapter : BaseRecy
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initTitle()
         initRefreshLayout()
         initAdapter()
         initView()
@@ -44,20 +43,21 @@ abstract class BaseTitleRefreshFragment<T : BasePresenter<*>, Adapter : BaseRecy
         loadData()
     }
 
-    private fun initTitle() {
-        refreshTitleBar.setTitle(getTitle())
+    fun initTitle(title: String) {
+        refreshTitleBar.setTitle(title)
     }
 
-    abstract fun getTitle(): String
-
-     fun initAdapter(){
-         refreshTitle_mRecyclerView?.layoutManager = LinearLayoutManager(context)
+    fun initAdapter() {
+        refreshTitle_mRecyclerView?.layoutManager = LinearLayoutManager(context)
         mRvAdapter = getAdapter()
-         refreshTitle_mRecyclerView?.adapter = mRvAdapter
+        refreshTitle_mRecyclerView?.adapter = mRvAdapter
     }
+
     abstract fun getAdapter(): Adapter
 
     private fun initRefreshLayout() {
+        refreshTitle_mBGARefreshLayout.setEnableRefresh(enableRefresh())
+        refreshTitle_mBGARefreshLayout.setEnableLoadMore(enableLoadMore())
         refreshTitle_mBGARefreshLayout.setOnRefreshListener {
             mCurrentPage = 1
             loadData()
@@ -66,6 +66,14 @@ abstract class BaseTitleRefreshFragment<T : BasePresenter<*>, Adapter : BaseRecy
             mCurrentPage++
             loadData()
         }
+    }
+
+    open fun enableLoadMore(): Boolean {
+        return true
+    }
+
+    open fun enableRefresh(): Boolean {
+        return true
     }
 
     abstract fun initView()
@@ -80,6 +88,10 @@ abstract class BaseTitleRefreshFragment<T : BasePresenter<*>, Adapter : BaseRecy
     fun setRightTitle(title: String, l: View.OnClickListener) {
         refreshTitleBar.setRightTitle(title)
         refreshTitleBar.getRightView().setOnClickListener(l)
+    }
+
+    fun inflateRightContentView(rightTitleLayout: Int): View {
+        return refreshTitleBar.inflateRightContentView(rightTitleLayout)
     }
 
     fun finishLoading() {
@@ -105,9 +117,9 @@ abstract class BaseTitleRefreshFragment<T : BasePresenter<*>, Adapter : BaseRecy
         if (list != null && list.size > 0) {
             if (mCurrentPage == 1) {
                 resetNoMoreData()
-                setData(mRvAdapter,list)
+                setData(mRvAdapter, list)
             } else {
-                addAllData(mRvAdapter,list)
+                addAllData(mRvAdapter, list)
                 mRvAdapter?.notifyDataSetChanged()
             }
             showContentView()
@@ -130,7 +142,7 @@ abstract class BaseTitleRefreshFragment<T : BasePresenter<*>, Adapter : BaseRecy
     }
 
     abstract fun addAllData(
-        mRvAdapter:Adapter,
+        mRvAdapter: Adapter,
         list: MutableList<D>
     )
 
@@ -138,4 +150,10 @@ abstract class BaseTitleRefreshFragment<T : BasePresenter<*>, Adapter : BaseRecy
         mRvAdapter: Adapter,
         list: MutableList<D>
     )
+
+    override fun onDataIsNull() {
+        super.onDataIsNull()
+        refreshTitle_mMultiStateView?.viewState =
+            MultiStateView.VIEW_STATE_EMPTY
+    }
 }

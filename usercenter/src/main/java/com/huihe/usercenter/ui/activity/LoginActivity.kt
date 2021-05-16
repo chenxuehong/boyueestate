@@ -12,7 +12,6 @@ import com.huihe.usercenter.presenter.LoginPresenter
 import com.huihe.usercenter.presenter.view.LoginView
 import com.kotlin.base.common.AppManager
 import com.kotlin.base.common.BaseConstant
-import com.kotlin.base.ext.enable
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.activity.BaseMvpActivity
 import com.kotlin.base.utils.AppPrefsUtils

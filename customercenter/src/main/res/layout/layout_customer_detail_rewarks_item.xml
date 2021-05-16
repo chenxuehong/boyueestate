@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_marginLeft="@dimen/dp_15"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/color_333333"
+        android:text="@string/rewarks"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"/>
+
+    <TextView
+        android:id="@+id/tvCustomerRewarks"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:gravity="top|left"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/sp_14"
+        android:padding="@dimen/dp_10"
+        android:background="@drawable/common_line_radius_bg"
+        android:layout_marginRight="@dimen/dp_15"
+        android:layout_height="@dimen/dp_100"/>
+</LinearLayout>

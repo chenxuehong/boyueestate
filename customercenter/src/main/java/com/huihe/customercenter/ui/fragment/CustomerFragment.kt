@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.huihe.customercenter.R
+import com.huihe.customercenter.ui.activity.AddCustomerActivity
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.adapter.BaseFragmentStatePageAdapter
 import com.kotlin.base.ui.fragment.BaseFragment
 import com.kotlin.provider.constant.CustomerConstant
 import com.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.layout_fragment_customer.*
+import org.jetbrains.anko.support.v4.startActivity
 
 @Route(path = RouterPath.CustomerCenter.PATH_CUSTOMER)
 class CustomerFragment : BaseFragment() {
@@ -39,7 +41,6 @@ class CustomerFragment : BaseFragment() {
         titles.add("买卖")
         titles.add("租赁")
         titles.add("淘宝池")
-
         fragments.add(getStatusFragment(1))
         fragments.add(getStatusFragment(2))
         fragments.add(getStatusFragment(2))
@@ -50,15 +51,14 @@ class CustomerFragment : BaseFragment() {
             fragments
         )
         customer_fl_add.onClick {
-
+            startActivity<AddCustomerActivity>()
         }
-
     }
 
     private fun getStatusFragment(customerType: Int): Fragment {
-        var customerListFragment=CustomerListFragment()
+        var customerListFragment = CustomerListFragment()
         val args = Bundle()
-        args.putInt(CustomerConstant.KEY_CUSTOMERTYPE,customerType)
+        args.putInt(CustomerConstant.KEY_CUSTOMERTYPE, customerType)
         customerListFragment.arguments = args
         return customerListFragment
     }

@@ -4,4 +4,26 @@
     <string name="password_enter_tip">请输入密码</string>
     <string name="login_top_title">以奋斗为本</string>
     <string name="login">登录</string>
+    <string name="mine">我的</string>
+    <string name="area_manager">区域管理</string>
+    <string name="district_manager">学区管理</string>
+    <string name="log_manager">日志管理</string>
+    <string name="address_book">通讯录</string>
+    <string name="corporate_culture">企业文化</string>
+    <string name="setting">设置</string>
+    <string name="community_name_input">请输入小区名称</string>
+    <string name="about_us">关于我们</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="logout">退出登录</string>
+    <string name="sure">确定</string>
+    <string name="cancel">取消</string>
+    <string name="logout_tip">确定要退出登录吗?</string>
+    <string name="boystate">伯约地产</string>
+    <string name="checkUpdate">检查更新</string>
+    <string name="StaffInfo">员工信息</string>
+    <string name="StaffName">员工姓名</string>
+    <string name="Dept">部门</string>
+    <string name="mobile">手机号</string>
+    <string name="call_phone">打电话</string>
+    <string name="chat">聊天</string>
 </resources>

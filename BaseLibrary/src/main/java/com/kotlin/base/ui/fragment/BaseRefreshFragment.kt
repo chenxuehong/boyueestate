@@ -133,4 +133,10 @@ abstract class BaseRefreshFragment<T : BasePresenter<*>, Adapter : BaseRecyclerV
         mRvAdapter: Adapter,
         list: MutableList<D>
     )
+
+    override fun onDataIsNull() {
+        super.onDataIsNull()
+        refresh_mMultiStateView?.viewState =
+            MultiStateView.VIEW_STATE_EMPTY
+    }
 }

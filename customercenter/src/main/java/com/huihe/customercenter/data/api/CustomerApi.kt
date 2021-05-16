@@ -1,12 +1,9 @@
 package com.huihe.customercenter.data.api
 
-import com.huihe.customercenter.data.protocol.CustomerRep
-import com.huihe.customercenter.data.protocol.DeptUserRep
-import com.huihe.customercenter.data.protocol.StatusRep
+import com.huihe.customercenter.data.protocol.*
 import com.kotlin.base.data.protocol.BaseResp
 import io.reactivex.Observable
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface CustomerApi {
     @GET("customers")
@@ -30,4 +27,58 @@ interface CustomerApi {
 
     @GET("dicts/dataType")
     fun getCustomerStatusList(@Query("dataType") dataType: String): Observable<BaseResp<MutableList<StatusRep>?>>
+
+    @GET("customers/{id}")
+    fun getCustomerDetail(
+        @Path("id") id: String?
+    ): Observable<BaseResp<CustomerDetailRep?>>
+
+    @GET("customers/followUps")
+    fun getCustomerFollowList(
+        @Query("page") page: Int,
+        @Query("limit") limit: Int?,
+        @Query("customerCode") customerCode: String?
+    ): Observable<BaseResp<CustomerFollowRep?>>
+
+    @POST("customers/{id}/collection")
+    fun reqCollection(
+        @Path("id") id: String?
+    ): Observable<BaseResp<Any?>>
+
+    @DELETE("customers/{id}/collection")
+    fun reqDeleteCollection(
+        @Path("id") id: String?
+    ): Observable<BaseResp<Any?>>
+
+    @POST("customers/followUps")
+    fun addFollowContent(
+        @Body req: AddFollowReq
+    ): Observable<BaseResp<Any?>>
+
+    @GET("customers/log")
+    fun getCustomerLogList(
+        @Query("page") page: Int,
+        @Query("limit") limit: Int,
+        @Query("customerCode") customerCode: String?
+    ): Observable<BaseResp<CustomerLogRep?>>
+
+    @GET("customers/phone")
+    fun getCustomerTelLogList(
+        @Query("page") page: Int,
+        @Query("pageSize") pageSize: Int,
+        @Query("customerCode") customerCode: String?
+    ): Observable<BaseResp<CustomerTelLogRep?>>
+
+    @PUT("customers")
+    fun setCustomerInfo(@Body req: SetCustomersReq): Observable<BaseResp<Any?>>
+
+    @PUT("customers/{id}/part")
+    fun setCustomerStatus(
+        @Path("id") id: String?,
+        @Query("type") type: Int,
+        @Query("value") value: String
+    ): Observable<BaseResp<Any?>>
+
+    @POST("customers")
+    fun addCustomer(@Body req: AddCustomerReq): Observable<BaseResp<Any?>>
 }

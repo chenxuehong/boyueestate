@@ -11,6 +11,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.kotlin.base.R
 import com.kotlin.base.ext.onClick
+import com.kotlin.base.ext.setVisible
 
 import kotlinx.android.synthetic.main.layout_header_bar.view.*
 
@@ -84,6 +85,9 @@ class HeaderBar @JvmOverloads constructor(
 
     fun setRightTitle(title: String){
         mRightTv.text = title
+        if (!title.isNullOrEmpty()){
+            mRightTv.setVisible(true)
+        }
     }
     /*
         获取左侧视图
@@ -104,6 +108,12 @@ class HeaderBar @JvmOverloads constructor(
      */
     fun getRightText():String{
         return mRightTv.text.toString()
+    }
+
+    fun inflateRightContentView(rightTitleLayout:Int):View{
+        mRightVS.layoutResource = rightTitleLayout
+        mRightTitleView = mRightVS.inflate()
+        return mRightTitleView
     }
 
     fun getRightContentView():View{

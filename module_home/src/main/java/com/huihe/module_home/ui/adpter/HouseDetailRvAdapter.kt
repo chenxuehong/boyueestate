@@ -317,7 +317,7 @@ class HouseDetailRvAdapter(mContext: Context?) :
         }
         basicHolder.tvTakeLook.onClick {
             var intent = Intent(mContext, HouseTakeLookRecordActivity::class.java)
-            intent.putExtra(HomeConstant.KEY_HOUSE_CODE, itemHouseDetail.houseCode)
+            intent.putExtra(HomeConstant.KEY_CODE, itemHouseDetail.houseCode)
             mContext.startActivity(intent)
         }
         basicHolder.tvLog.onClick {

@@ -136,7 +136,6 @@ class AddHouseFragment : BaseMvpFragment<AddHousePresenter>(), AddHouseView{
         mAddresspicker?.show()
     }
 
-
     private fun selectTransactionType() {
         // 出售 0, 出租 1,租售 2
         mTransactionTypePicker = SinglePicker(

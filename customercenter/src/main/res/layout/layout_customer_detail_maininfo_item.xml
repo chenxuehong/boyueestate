@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:padding="@dimen/dp_15"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvDetailCustomerName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="@dimen/sp_18"
+        android:textStyle="bold"
+        android:textColor="@color/color_333333"
+        android:text="锦秋花园姐（准客户）"
+        android:layout_width="wrap_content"
+        android:maxWidth="@dimen/dp_180"
+        android:lines="1"
+        android:ellipsize="end"
+        android:layout_height="wrap_content"/>
+
+    <co.lujun.androidtagview.TagContainerLayout
+        android:id="@+id/detailCustomerTags"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginRight="@dimen/dp_16"
+        android:background="@color/transparent"
+        app:container_enable_drag="false"
+        app:horizontal_interval="5dp"
+        app:vertical_interval="5dp"
+        app:tag_horizontal_padding="8dp"
+        app:tag_vertical_padding="2dp"
+        app:tag_clickable="false"
+        app:tag_max_length="4"
+        app:tag_text_size="@dimen/sp_14"
+        app:tag_theme="random"
+        app:tag_corner_radius="@dimen/dp_6"
+        app:container_border_color="@color/transparent"
+        app:container_background_color="@color/transparent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/tvDetailCustomerName"/>
+
+    <TextView
+        android:id="@+id/tvDemandBeat"
+        android:layout_marginTop="@dimen/dp_10"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDetailCustomerName"
+        android:layout_width="wrap_content"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/color_999999"
+        android:text="需求区域：梧桐城邦 中环一号"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tvDemandBudget"
+        android:layout_marginTop="@dimen/dp_10"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDemandBeat"
+        android:layout_width="wrap_content"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/color_999999"
+        android:text="预算：110万"
+        android:layout_height="wrap_content"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

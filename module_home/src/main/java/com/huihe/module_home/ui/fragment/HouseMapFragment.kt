@@ -24,10 +24,7 @@ import com.huihe.module_home.ui.widget.ISearchResultListener
 import com.huihe.module_home.ui.widget.SearchResultViewController
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.utils.LogUtils
-import kotlinx.android.synthetic.main.fragment_findhousebymap.*
 import kotlinx.android.synthetic.main.fragment_findhousebymap.dropDownMenu
-import kotlinx.android.synthetic.main.fragment_house_near.*
-import kotlinx.android.synthetic.main.fragment_secondhandhouse.*
 import kotlinx.android.synthetic.main.layout_area_num.view.*
 import kotlinx.android.synthetic.main.layout_house_map.*
 
@@ -48,7 +45,7 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
     private var mPageSize: Int = 30
     private var mFloorRanges: MutableList<FloorReq>? = null
     private var mPriceRanges: MutableList<PriceReq>? = null
-    private var sortReq: SortReq? = SortReq()
+
     private var moreReq: MoreReq? = MoreReq()
     private var villageIds: MutableList<String>? = null
     private var type = 0
@@ -200,7 +197,6 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
     }
 
     private fun initData() {
-
         if (leftTopPtLL == null || rightBottomPtLL == null) {
             return
         }

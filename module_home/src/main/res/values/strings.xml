@@ -124,6 +124,8 @@
 
     <string name="phone_log">电话日志</string>
     <string name="house_num">房源数量</string>
+    <string name="buy_num">求购数量</string>
+    <string name="rent_num">求租数量</string>
     <string name="setTop">置顶</string>
     <string name="tao">淘</string>
     <string name="near">周边</string>
@@ -137,6 +139,7 @@
     <string name="phone_input">请输入 电话</string>
     <string name="phone1_input">请输入 电话1</string>
     <string name="phone2_input">请输入 电话2</string>
+    <string name="select_house">房源选择</string>
 
 
 </resources>

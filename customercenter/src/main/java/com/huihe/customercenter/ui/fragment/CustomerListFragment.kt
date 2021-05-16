@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.eightbitlab.rxbus.Bus
+import com.eightbitlab.rxbus.registerInBus
 import com.huihe.customercenter.R
 import com.huihe.customercenter.data.protocol.*
 import com.huihe.customercenter.injection.component.DaggerCustomersComponent
 import com.huihe.customercenter.injection.module.CustomersModule
 import com.huihe.customercenter.presenter.CustomerListPresenter
 import com.huihe.customercenter.presenter.view.TransactionView
+import com.huihe.customercenter.ui.activity.CustomerDetailActivity
 import com.huihe.customercenter.ui.adapter.DeptUsersRvAdapter
 import com.huihe.customercenter.ui.adapter.StatusRvAdapter
 import com.huihe.customercenter.ui.adapter.TransactionRvAdapter
@@ -18,12 +21,14 @@ import com.huihe.customercenter.ui.widget.ISearchResult
 import com.huihe.customercenter.ui.widget.ISearchResultListener
 import com.huihe.customercenter.ui.widget.SearchResultViewController
 import com.kennyc.view.MultiStateView
+import com.kotlin.base.event.LoginEvent
 import com.kotlin.base.ext.startLoading
+import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.provider.constant.CustomerConstant
-import com.kotlin.provider.constant.HomeConstant
 import kotlinx.android.synthetic.main.layout_fragment_trannsaction.*
 import kotlinx.android.synthetic.main.layout_refresh.view.*
+import org.jetbrains.anko.support.v4.startActivity
 
 class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), TransactionView,
     ISearchResultListener {
@@ -64,6 +69,7 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
     }
 
     private fun initView() {
+
         mSearchResultViewController =
             SearchResultViewController(context!!, dropDownMenu.isShowing)
         layoutRefreshContentView =
@@ -75,14 +81,28 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
         )
 
         transactionRvAdapter = TransactionRvAdapter(context!!)
+        transactionRvAdapter?.setOnItemClickListener(object :BaseRecyclerViewAdapter.OnItemClickListener<CustomerRep.Customer>{
+            override fun onItemClick(view: View, item: CustomerRep.Customer, position: Int) {
+                startActivity<CustomerDetailActivity>(CustomerConstant.KEY_CUSTOMER_ID to item.id)
+            }
+        })
         layoutRefreshContentView?.customers_mRecyclerView?.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = transactionRvAdapter
         }
+        Bus.observe<LoginEvent>()
+            .subscribe {
+                mCurrentPage = 1
+                loadData()
+                activity?.finish()
+            }.registerInBus(this)
     }
 
     private fun initRefreshLayout() {
-        layoutRefreshContentView?.customers_mBGARefreshLayout.setEnableRefresh(false)
+        layoutRefreshContentView?.customers_mBGARefreshLayout.setOnRefreshListener {
+            mCurrentPage = 1
+            loadData()
+        }
         layoutRefreshContentView?.customers_mBGARefreshLayout.setOnLoadMoreListener {
             mCurrentPage++
             loadData()

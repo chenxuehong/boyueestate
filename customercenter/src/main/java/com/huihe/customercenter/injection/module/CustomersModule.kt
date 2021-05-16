@@ -30,10 +30,29 @@ class CustomersModule {
 
     annotation class SearchType {
         companion object {
-            const val  CreateUserType = 1
-            const val  StatusType = 2
-            const val  MoreType = 3
-            const val  SortType = 4
+            const val CreateUserType = 1
+            const val StatusType = 2
+            const val MoreType = 3
+            const val SortType = 4
+        }
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef(
+        CustomerDetailType.MAIN_INFO,
+        CustomerDetailType.HELPER_INFO,
+        CustomerDetailType.BASIC_INFO,
+        CustomerDetailType.REWARKS,
+        CustomerDetailType.CREATE_USER_INFO
+    )
+
+    annotation class CustomerDetailType {
+        companion object {
+            const val MAIN_INFO = 1
+            const val HELPER_INFO = 2
+            const val BASIC_INFO = 3
+            const val REWARKS = 4
+            const val CREATE_USER_INFO = 5
         }
     }
 }
