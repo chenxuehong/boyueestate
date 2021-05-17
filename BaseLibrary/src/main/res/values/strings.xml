@@ -14,4 +14,10 @@
     <string name="nav_bar_customer">客源</string>
     <string name="nav_bar_msg">消息</string>
     <string name="nav_bar_user">我的</string>
+    <string name="cancel">取消</string>
+    <string name="im_search">请输入小区名称</string>
+    <string name="search">搜索</string>
+    <string name="new_msg_notify">新消息通知</string>
+    <string name="notify_permission_content">请设置允许显示通知，确保消息通知能够及时展示</string>
+    <string name="setting">设置</string>
 </resources>

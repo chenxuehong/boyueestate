@@ -11,10 +11,7 @@ import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.DeptInfoPresenter
 import com.huihe.usercenter.presenter.view.DeptInfoView
-import com.kotlin.base.ext.callPhone
-import com.kotlin.base.ext.initInflater
-import com.kotlin.base.ext.loadUrl
-import com.kotlin.base.ext.onClick
+import com.kotlin.base.ext.*
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.provider.constant.UserConstant
 import kotlinx.android.synthetic.main.fragment_dept_info.*
@@ -68,7 +65,7 @@ class DeptInfoFragment : BaseMvpFragment<DeptInfoPresenter>(), DeptInfoView {
     var userInfo: UserInfo? = null
     override fun onUserInfo(t: UserInfo?) {
         userInfo = t
-        ivDeptHead.loadUrl(t?.avatarUrl ?: "", R.drawable.is_empty)
+        ivDeptHead.loadHeadUrl(t?.avatarUrl ?: "")
         ivDeptStaffName.text = t?.userName ?: ""
         ivDeptName.text = t?.deptName ?: ""
         ivDeptPhone.text = t?.mobile ?: ""

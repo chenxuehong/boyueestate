@@ -1,2 +1,2 @@
-include ':app',':BaseLibrary', ':provider', ':module_home', ':usercenter', ':customercenter', ':messagecenter'
+include ':app',':BaseLibrary', ':provider', ':module_home', ':usercenter', ':customercenter',  ':tuikit'
 rootProject.name='BoyueEstate'

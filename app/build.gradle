@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'com.mob.sdk'
 android {
     compileSdkVersion compile_sdk_version
     defaultConfig {
@@ -54,6 +54,49 @@ android {
     }
 }
 
+MobSDK {
+ /*   fp true //严格模式   暂时不需要授权*/
+    gui true
+    appKey "3270be52b22ee"
+    appSecret "872ca12218b61bc3b588d795fc52b3da"
+    // 调用分享
+    ShareSDK {
+        loopShare true
+        //平台配置信息
+        devInfo {
+            Wechat {
+                appId "wx5058cd7c4c9d9bec"
+                appSecret "29828f4fde064e4be28dab53956e68b1"
+            }
+
+        }
+    }
+    // 调用MobPush
+    MobPush {
+        debugLevel 4
+        devInfo {
+            HUAWEI {
+                appId "103624461"
+                appKey "20723ef8ad174e8e3f5e513d193fd063edaacd36a01dc936e5471babf62d2b11"
+            }
+            XIAOMI {
+                appId "2882303761518959028"
+                appKey "5591895924028"
+            }
+
+            OPPO {
+                appKey "67ca9ac828ab4d84b38dcdff36d2d393"
+                appSecret "2ece6a7ab34d4f07892b424556c756ca"
+            }
+
+            VIVO {
+                appId "105461314"
+                appKey "4d165d448c2e75090cf6ca99c9181ee3"
+            }
+        }
+    }
+}
+
 dependencies {
     implementation project(':provider')
     if (isUserModule.toBoolean()) {
@@ -61,5 +104,5 @@ dependencies {
     }
     implementation project(':module_home')
     implementation project(':customercenter')
-    implementation project(':messagecenter')
+    implementation project(':tuikit')
 }

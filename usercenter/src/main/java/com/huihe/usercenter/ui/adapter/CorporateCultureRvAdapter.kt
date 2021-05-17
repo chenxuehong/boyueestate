@@ -24,7 +24,7 @@ class CorporateCultureRvAdapter(mContext: Context) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         super.onBindViewHolder(holder, position)
         var corporateCulture = dataList[position]
-        holder.itemView.ivCultureCoverImage.loadUrl(corporateCulture.coverImageUrl,R.drawable.is_empty)
+        holder.itemView.ivCultureCoverImage.loadUrl(corporateCulture.coverImageUrl)
         holder.itemView.tvCultureTitle.text = corporateCulture.title?:""
     }
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)

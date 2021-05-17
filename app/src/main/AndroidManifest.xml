@@ -2,6 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.huihe.boyueestate">
 
+    <!--华为推送权限配置-->
+    <permission
+        android:name="com.huihe.boyueestate.permission.PROCESS_PUSH_MSG"
+        android:protectionLevel="signatureOrSystem" />
+    <uses-permission android:name="com.eghuihe.teachpay.permission.PROCESS_PUSH_MSG" />
+
+    <!--小米推送权限配置-->
+    <permission
+        android:name="com.huihe.boyueestate.permission.MIPUSH_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.huihe.boyueestate.permission.MIPUSH_RECEIVE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/splash_bg"
@@ -24,6 +37,9 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="8kutsdYWk96syU2PY8KZKWwZvImyt3Cr" />
+        <meta-data
+            android:name="com.mob.mobpush.debugLevel"
+            android:value="4" />
     </application>
 
 </manifest>

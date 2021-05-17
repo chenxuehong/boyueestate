@@ -15,7 +15,7 @@ import com.scwang.smart.refresh.layout.SmartRefreshLayout
 /*
     Application 基类
  */
-open class BaseApplication : MultiDexApplication() {
+abstract class BaseApplication : MultiDexApplication() {
 
     lateinit var appComponent: AppComponent
 
@@ -42,8 +42,10 @@ open class BaseApplication : MultiDexApplication() {
         ARouter.openLog()    // 打印日志
         ARouter.openDebug()
         ARouter.init(this)
+        initIM()
     }
 
+    abstract fun initIM()
     /*
         Application Component初始化
      */

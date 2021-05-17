@@ -22,6 +22,7 @@ import com.huihe.usercenter.ui.adapter.CityRvAdapter
 import com.huihe.usercenter.ui.adapter.CountyRvAdapter
 import com.huihe.usercenter.ui.adapter.ProvinceRvAdapter
 import com.kotlin.base.ext.onClick
+import com.kotlin.base.ext.setVisible
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_community_manager.*
 import org.jetbrains.anko.support.v4.startActivity
@@ -57,8 +58,9 @@ class CommunityManagerFragment : BaseMvpFragment<CommunityManagerPresenter>(),
     private fun initView() {
 
         rvCommunityManagerInput.onClick {
-//            startActivity<SearchCommunityActivity>()
+            startActivity<SearchCommunityActivity>()
         }
+        rvCommunityManagerInput.setVisible(false)
         rvCommunityManagerLeft.layoutManager = LinearLayoutManager(context)
         mProvinceRvAdapter = ProvinceRvAdapter(context!!)
         mProvinceRvAdapter?.setOnItemClickListener(object :

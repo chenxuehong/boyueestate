@@ -13,9 +13,8 @@ import com.huihe.usercenter.presenter.view.MeView
 import com.huihe.usercenter.ui.activity.*
 import com.huihe.usercenter.ui.widget.MeItemView
 import com.kotlin.base.ext.initInflater
-import com.kotlin.base.ext.loadUrl
+import com.kotlin.base.ext.loadHeadUrl
 import com.kotlin.base.ext.onClick
-import com.kotlin.base.ui.fragment.BaseFragment
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import kotlinx.android.synthetic.main.fragment_me.*
 import org.jetbrains.anko.support.v4.startActivity
@@ -61,9 +60,9 @@ class MeFragment : BaseMvpFragment<MePresenter>(), MeView {
     }
 
     override fun onUserInfo(t: UserInfo?) {
-        ivMeHead.loadUrl(t?.avatarUrl?:"",R.drawable.is_empty)
-        tvMeUserName.text = t?.userName?:""
-        tvMeDeptName.text = t?.deptName?:""
+        ivMeHead.loadHeadUrl(t?.avatarUrl ?: "")
+        tvMeUserName.text = t?.userName ?: ""
+        tvMeDeptName.text = t?.deptName ?: ""
     }
 
     private fun onItemClicked(titleContent: String?) {

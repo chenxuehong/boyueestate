@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.R
@@ -92,8 +93,16 @@ fun View.enable(et: EditText, method: () -> Boolean) {
 /*
     ImageView加载网络图片
  */
-fun ImageView.loadUrl(url: String?,placeholder:Int) {
-    GlideUtils.loadUrlImage(context, url, placeholder,this)
+fun ImageView.loadUrl(url: String?, placeholder: Int) {
+    GlideUtils.loadUrlImage(context, url, placeholder, this)
+}
+
+fun ImageView.loadUrl(url: String?) {
+    GlideUtils.loadUrlImage(context, url, R.color.color_666666, this)
+}
+
+fun ImageView.loadHeadUrl(url: String?) {
+    GlideUtils.loadUrlImage(context, url, R.drawable.head_icon, this)
 }
 
 /*
@@ -164,4 +173,8 @@ fun RecyclerView.vertical(column: Int, space: Int) {
             )
         )
     }
+}
+
+fun RecyclerView.vertical() {
+    layoutManager = LinearLayoutManager(context)
 }
