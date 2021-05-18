@@ -3,16 +3,22 @@ package com.huihe.usercenter.presenter
 import com.huihe.usercenter.presenter.view.LoginView
 import com.huihe.usercenter.service.UserService
 import com.huihe.usercenter.utils.MessageService
+import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber
+import com.kotlin.base.utils.AppPrefsUtils
+import com.kotlin.base.utils.LogUtils
+import com.kotlin.provider.data.protocol.IMUserInfo
 import com.kotlin.provider.event.ErrorEntity
+import com.kotlin.provider.utils.UserPrefsUtils
 import io.reactivex.Observable
 import io.reactivex.functions.Function
 import javax.inject.Inject
 
 class LoginPresenter @Inject constructor() : BasePresenter<LoginView>() {
 
+    val TAG:String= LoginPresenter::class.java.simpleName
     @Inject
     lateinit var userService: UserService
 
@@ -29,31 +35,36 @@ class LoginPresenter @Inject constructor() : BasePresenter<LoginView>() {
         mView.showLoading()
         userService.login(account, password, type)
             .compose(lifecycleProvider.bindToLifecycle())
-            .flatMap(Function<String?, Observable<ErrorEntity?>> {
-                var messageContent: ErrorEntity? = null
-                messageService.login(
-                    account,
-                    it, object : MessageService.OnMessageListener {
-                        override fun onLoginSuccess() {
-                            messageContent = ErrorEntity("登录成功", ErrorEntity.TYPE_LOGIN_SUCCESS)
-                            messageContent?.token = it
-                        }
-
-                        override fun onLoginFail(message: String, code: Int) {
-                            messageContent = ErrorEntity(message, code)
-                        }
-                    })
-                return@Function Observable.fromArray(messageContent)
+            .flatMap(Function<String?, Observable<IMUserInfo?>> {
+                AppPrefsUtils.putString(BaseConstant.KEY_SP_TOKEN, it)
+                LogUtils.d(TAG,"user login->token ${it}")
+                return@Function userService.getUserInfoFormIm()
             })
-            .execute(object : BaseSubscriber<ErrorEntity?>(mView) {
-                override fun onNext(t: ErrorEntity?) {
-                    super.onNext(t)
-                    if (t?.code == ErrorEntity.TYPE_LOGIN_SUCCESS) {
-                        mView?.onLoginResult(t?.token ?: "")
-                    } else {
-                        mView?.onError(t?.error ?: "")
-                    }
+            .execute(object : BaseSubscriber<IMUserInfo?>(mView) {
+                override fun onNext(iMUserInfo: IMUserInfo?) {
+                    super.onNext(iMUserInfo)
+                    LogUtils.d(TAG,"getUserInfo ->uid: ${iMUserInfo?.uid} , userSig: ${iMUserInfo?.userSig}")
+                    messageService.login(
+                        iMUserInfo?.uid?:"",
+                        iMUserInfo?.userSig?:"", object : MessageService.OnMessageListener {
+                            override fun onLoginSuccess() {
+                                LogUtils.d(TAG,"message login success")
+                                UserPrefsUtils.putUserInfo(iMUserInfo)
+                                mView?.onLoginResult(AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN))
+                            }
+
+                            override fun onLoginFail(message: String, code: Int) {
+                                LogUtils.d(TAG,"message login fail: code = ${code},message = ${message}")
+                                mView?.onError(message)
+                            }
+                        })
                 }
             }, lifecycleProvider)
+
+
+    }
+
+    fun onDestory() {
+        messageService?.onDestory()
     }
 }

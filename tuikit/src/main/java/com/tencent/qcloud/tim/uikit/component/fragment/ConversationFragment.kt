@@ -20,6 +20,7 @@ import com.tencent.qcloud.tim.uikit.modules.conversation.ConversationLayout
 import com.tencent.qcloud.tim.uikit.modules.conversation.ConversationListLayout
 import com.tencent.qcloud.tim.uikit.modules.conversation.ConversationManagerKit
 import com.tencent.qcloud.tim.uikit.modules.conversation.base.ConversationInfo
+import kotlinx.android.synthetic.main.fragment_conversation.*
 
 @Route(path = RouterPath.MessageCenter.PATH_MESSAGE)
 class ConversationFragment : BaseFragment(), ConversationManagerKit.MessageUnreadWatcher {
@@ -41,6 +42,7 @@ class ConversationFragment : BaseFragment(), ConversationManagerKit.MessageUnrea
     }
 
     fun initView() {
+        mConversationLayout = fragment_conversationLayout
         ConversationManagerKit.getInstance().addUnreadWatcher(this)
         // 从布局文件中获取会话列表面板
         // 会话列表面板的默认UI和交互初始化

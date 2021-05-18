@@ -82,7 +82,7 @@ class HomeFragment : BaseFragment() {
             adapter = mRvAdapter
         }
         mRvAdapter.setData(data)
-        mCustomPopWindow =CustomPopWindow.PopupWindowBuilder(context)
+        mCustomPopWindow = CustomPopWindow.PopupWindowBuilder(context)
             .setView(contentView)
             .enableBackgroundDark(true) //弹出popWindow时，背景是否变暗
             .setBgDarkAlpha(0.7f) // 控制亮度

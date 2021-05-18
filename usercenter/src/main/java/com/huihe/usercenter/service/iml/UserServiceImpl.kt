@@ -1,6 +1,7 @@
 package com.huihe.usercenter.service.iml
 
 import com.huihe.usercenter.data.protocol.*
+import com.kotlin.provider.data.protocol.IMUserInfo
 import com.huihe.usercenter.data.respository.UserRepository
 import com.huihe.usercenter.service.UserService
 import com.kotlin.base.ext.convert
@@ -41,7 +42,7 @@ class UserServiceImpl @Inject constructor() : UserService {
         return repository.getUserInfo(id).convert()
     }
 
-    override fun getUserInfoFormIm(): Observable<UserInfo?> {
+    override fun getUserInfoFormIm(): Observable<IMUserInfo?> {
         return repository.getUserInfoFormIm().convert()
     }
 }

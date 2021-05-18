@@ -68,7 +68,6 @@ MobSDK {
                 appId "wx5058cd7c4c9d9bec"
                 appSecret "29828f4fde064e4be28dab53956e68b1"
             }
-
         }
     }
     // 调用MobPush

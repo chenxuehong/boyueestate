@@ -16,7 +16,7 @@ import com.tencent.qcloud.tim.uikit.modules.conversation.interfaces.IConversatio
 import com.tencent.qcloud.tim.uikit.modules.conversation.interfaces.IConversationLayout;
 import com.tencent.qcloud.tim.uikit.utils.ToastUtil;
 
-public abstract class ConversationLayout extends RelativeLayout implements IConversationLayout {
+public  class ConversationLayout extends RelativeLayout implements IConversationLayout {
 
     private ConversationListLayout mConversationList;
 
@@ -59,6 +59,11 @@ public abstract class ConversationLayout extends RelativeLayout implements IConv
         });
     }
 
+
+    @Override
+    public TitleBarLayout getTitleBar() {
+        return null;
+    }
 
     @Override
     public void setParentLayout(Object parent) {

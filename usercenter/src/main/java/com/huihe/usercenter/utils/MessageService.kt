@@ -30,4 +30,8 @@ class MessageService @Inject constructor(){
         fun onLoginSuccess()
         fun onLoginFail(message: String, code: Int)
     }
+
+    fun onDestory(){
+        Bus.unregister(this)
+    }
 }

@@ -4,7 +4,7 @@ import com.huihe.usercenter.data.protocol.*
 import com.kotlin.base.data.protocol.BaseResp
 import io.reactivex.Observable
 import retrofit2.http.*
-
+import com.kotlin.provider.data.protocol.IMUserInfo
 interface UserApi {
 
     @POST("auth/login")
@@ -38,5 +38,5 @@ interface UserApi {
     fun getUserInfo(@Path("id") id: String?): Observable<BaseResp<UserInfo?>>
 
     @GET("users/imPrincipal")
-    fun getUserInfoFormIm(): Observable<BaseResp<UserInfo?>>
+    fun getUserInfoFormIm(): Observable<BaseResp<IMUserInfo?>>
 }

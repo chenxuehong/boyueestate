@@ -1,6 +1,8 @@
 package com.huihe.boyueestate.common
 
 import android.widget.Toast
+import cn.sharesdk.framework.Platform
+import cn.sharesdk.framework.PlatformActionListener
 import com.alibaba.android.arouter.launcher.ARouter
 import com.baidu.mapapi.CoordType
 import com.baidu.mapapi.SDKInitializer
@@ -10,21 +12,26 @@ import com.huihe.boyueestate.R
 import com.huihe.boyueestate.push.CustomNotification
 import com.huihe.boyueestate.push.MyMobPushCallback
 import com.huihe.boyueestate.push.MyMobPushReceiver
-import com.huihe.usercenter.utils.UserPrefsUtils
+import com.huihe.boyueestate.share.ShareSdkUtil
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.event.LoginEvent
 import com.kotlin.base.utils.AppPrefsUtils
 import com.kotlin.provider.event.ErrorEntity
 import com.kotlin.provider.event.MessageLoginEvent
+import com.kotlin.provider.event.ShareEvent
 import com.kotlin.provider.router.RouterPath
+import com.kotlin.provider.utils.UserPrefsUtils
 import com.mob.MobSDK
 import com.mob.pushsdk.MobPush
 import com.tencent.qcloud.tim.uikit.TUIKit
 import com.tencent.qcloud.tim.uikit.base.IMApplication
 import com.tencent.qcloud.tim.uikit.base.IUIKitCallBack
+import com.tencent.qcloud.tim.uikit.utils.PopWindowUtil
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
+import org.jetbrains.anko.share
+import java.util.HashMap
 import java.util.concurrent.TimeUnit
 
 
@@ -40,6 +47,10 @@ class MainApplication : IMApplication() {
         Bus.observe<MessageLoginEvent>()
             .subscribe {
                 imLogin(it)
+            }.registerInBus(this)
+        Bus.observe<ShareEvent>()
+            .subscribe {
+                showShare(it)
             }.registerInBus(this)
         //在使用SDK各组件之前初始化context信息，传入ApplicationContext
         SDKInitializer.initialize(this);
@@ -86,7 +97,7 @@ class MainApplication : IMApplication() {
     }
 
     private fun initModePush() {
-        MobSDK.init(this, "31bf832473abc", "fe9719c1e197caa5d6b7716006410414")
+        MobSDK.init(this, "3270be52b22ee", "872ca12218b61bc3b588d795fc52b3da")
         MobPush.setNotifyIcon(R.drawable.splash)
         MobPush.setShowBadge(true)
         myMobPushReceiver = MyMobPushReceiver()
@@ -94,6 +105,26 @@ class MainApplication : IMApplication() {
         MobPush.addPushReceiver(myMobPushReceiver)
         MobPush.getRegistrationId(MyMobPushCallback())
         MobSDK.submitPolicyGrantResult(true, null)
+    }
+
+    private fun showShare(
+        share: ShareEvent
+    ) {
+        ShareSdkUtil.shareWechat(share.title,share.content,share.imagePath,share.imagePath,share.imageUrl,
+            object :PlatformActionListener{
+            override fun onComplete(p0: Platform?, p1: Int, p2: HashMap<String, Any>?) {
+
+            }
+
+            override fun onCancel(p0: Platform?, p1: Int) {
+
+            }
+
+            override fun onError(p0: Platform?, p1: Int, p2: Throwable?) {
+
+            }
+
+        })
     }
 
     override fun onTerminate() {

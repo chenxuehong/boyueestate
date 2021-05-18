@@ -141,7 +141,7 @@ public class TUIKitImpl {
                         userid,
                         usersig);
                 if (callback != null) {
-                    callback.onSuccess(null);
+                    callback.onSuccess("");
                 }
             }
         });

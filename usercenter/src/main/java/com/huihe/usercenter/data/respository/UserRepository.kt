@@ -6,7 +6,7 @@ import com.kotlin.base.data.net.RetrofitFactory
 import com.kotlin.base.data.protocol.BaseResp
 import io.reactivex.Observable
 import javax.inject.Inject
-
+import com.kotlin.provider.data.protocol.IMUserInfo
 class UserRepository @Inject constructor(){
     /*
         登录
@@ -49,7 +49,7 @@ class UserRepository @Inject constructor(){
             .getUserInfo(id)
     }
 
-    fun getUserInfoFormIm(): Observable<BaseResp<UserInfo?>>  {
+    fun getUserInfoFormIm(): Observable<BaseResp<IMUserInfo?>>  {
         return RetrofitFactory.instance.create(UserApi::class.java)
             .getUserInfoFormIm()
     }

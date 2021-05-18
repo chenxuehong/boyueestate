@@ -14,7 +14,6 @@ import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.SettingPresenter
 import com.huihe.usercenter.presenter.view.SettingView
 import com.huihe.usercenter.ui.activity.AboutusActivity
-import com.huihe.usercenter.utils.UserPrefsUtils
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.onClick
@@ -22,6 +21,7 @@ import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.utils.AppPrefsUtils
 import com.kotlin.base.utils.DataCleanManager
 import com.kotlin.provider.router.RouterPath
+import com.kotlin.provider.utils.UserPrefsUtils
 import kotlinx.android.synthetic.main.fragment_setting.*
 import org.jetbrains.anko.support.v4.startActivity
 import top.limuyang2.ldialog.LDialog
@@ -103,5 +103,6 @@ class SettingFragment : BaseMvpFragment<SettingPresenter>(), SettingView {
         UserPrefsUtils.putUserInfo(null)
         AppPrefsUtils.putString(BaseConstant.KEY_SP_TOKEN, "")
         ARouter.getInstance().build(RouterPath.UserCenter.PATH_LOGIN).navigation()
+        activity?.finish()
     }
 }

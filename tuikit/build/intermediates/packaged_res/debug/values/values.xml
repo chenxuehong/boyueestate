@@ -503,15 +503,15 @@
         <attr name="duration_max"/>
     </declare-styleable>
     <declare-styleable name="LineControllerView">
-        
+        <!-- 名称 -->
         <attr format="string" name="name"/>
-        
+        <!-- 内容或当前状态 -->
         <attr format="string" name="subject"/>
-        
+        <!-- 是否是列表中最后一个 -->
         <attr format="boolean" name="isBottom"/>
-        
+        <!-- 是否可以跳转 -->
         <attr format="boolean" name="canNav"/>
-        
+        <!-- 是否是开关 -->
         <attr format="boolean" name="isSwitch"/>
     </declare-styleable>
     <declare-styleable name="ShadeImageView">
@@ -519,17 +519,17 @@
         <attr format="dimension" name="shadeWidth"/>
     </declare-styleable>
     <declare-styleable name="SynthesizedImageView">
-        
+        <!--合成图片的背景-->
         <attr format="color" name="synthesized_image_bg"/>
-        
+        <!--合成图片的默认图片-->
         <attr format="reference" name="synthesized_default_image"/>
-        
+        <!--合成图片的尺寸-->
         <attr format="dimension" name="synthesized_image_size"/>
-        
+        <!--多图片之间的空隙间隔-->
         <attr format="dimension" name="synthesized_image_gap"/>
     </declare-styleable>
     <declare-styleable name="UserIconView">
-        
+        <!--默认头像-->
         <attr format="reference" name="default_image"/>
         <attr format="dimension" name="image_radius"/>
     </declare-styleable>

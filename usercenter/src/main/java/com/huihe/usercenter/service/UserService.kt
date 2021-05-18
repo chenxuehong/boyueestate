@@ -1,6 +1,7 @@
 package com.huihe.usercenter.service
 
 import com.huihe.usercenter.data.protocol.*
+import com.kotlin.provider.data.protocol.IMUserInfo
 import io.reactivex.Observable
 
 /*
@@ -20,5 +21,5 @@ interface UserService {
     fun logout(): Observable<Any>
     fun getDeptUsers():Observable<MutableList<DeptUserRep>?>
     fun getUserInfo(id: String?):Observable<UserInfo?>
-    fun getUserInfoFormIm():Observable<UserInfo?>
+    fun getUserInfoFormIm():Observable<IMUserInfo?>
 }

@@ -55,10 +55,10 @@ class ChatFragment : BaseFragment() {
     private fun initTitleBar() {
         //获取单聊面板的标题栏
         mTitleBar = chat_layout.getTitleBar()
-        mTitleBar!!.setLeftIcon(R.drawable.icon_back_gray)
-        mTitleBar!!.setBackgroundColor(resources.getColor(R.color.white))
+        mTitleBar?.setLeftIcon(R.drawable.icon_back_gray)
+        mTitleBar?.setBackgroundColor(resources.getColor(R.color.main_color))
         //单聊面板标记栏返回按钮点击事件，这里需要开发者自行控制
-        mTitleBar!!.setOnLeftClickListener { activity!!.finish() }
+        mTitleBar?.setOnLeftClickListener { activity!!.finish() }
     }
 
     private fun initChatContent() {

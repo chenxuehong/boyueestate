@@ -6,12 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.kotlin.base.widgets.HeaderBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/main_color"
-        app:isShowBack="false"
-        app:titleText="@string/msg" />
     <com.tencent.qcloud.tim.uikit.modules.chat.ChatLayout
         android:id="@+id/chat_layout"
         android:layout_width="match_parent"
