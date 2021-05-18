@@ -10,7 +10,7 @@ import cn.qqtheme.framework.picker.AddressPicker
 import cn.qqtheme.framework.picker.SinglePicker
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.AddHouseInfoReq
-import com.huihe.module_home.data.protocol.AreaBean
+import com.huihe.module_home.data.protocol.District
 import com.huihe.module_home.data.protocol.SetHouseInfoRep
 import com.huihe.module_home.ext.getConvertProvinceList
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
@@ -115,7 +115,7 @@ class AddHouseFragment : BaseMvpFragment<AddHousePresenter>(), AddHouseView{
         }
     }
 
-    override fun onGetAreaBeanListResult(list: MutableList<AreaBean>?) {
+    override fun onGetAreaBeanListResult(list: MutableList<District>?) {
         mProvinceList = getConvertProvinceList(list)
         selectVillage()
     }
@@ -127,10 +127,13 @@ class AddHouseFragment : BaseMvpFragment<AddHousePresenter>(), AddHouseView{
             mAddresspicker?.setSelectedItem(selectedProvince, selectedCity, selectedCounty)
         }
         mAddresspicker?.setOnAddressPickListener { province, city, county ->
-            selectedProvince = province.areaName
-            selectedCity = city.areaName
-            selectedCounty = county.areaName
-            req?.villageId = county.areaId
+            if (province == null || city ==null || county==null){
+                return@setOnAddressPickListener
+            }
+            selectedProvince = province.areaName?:""
+            selectedCity = city.areaName?:""
+            selectedCounty = county.areaName?:""
+            req?.villageId = county.areaId?:""
             nsvVillage.setContent("${selectedProvince}/${selectedCity}/${selectedCounty}")
         }
         mAddresspicker?.show()

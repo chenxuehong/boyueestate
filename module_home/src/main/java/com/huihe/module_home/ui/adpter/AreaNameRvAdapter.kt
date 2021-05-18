@@ -7,16 +7,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.module_home.R
 
-import com.huihe.module_home.data.protocol.AreaBeanConvertModel
+import com.huihe.module_home.data.protocol.District
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import kotlinx.android.synthetic.main.layout_area_item.view.*
 
 class AreaNameRvAdapter(
     mContext: Context,
     val mListener: OnCheckListener,
-    val checkedItem: AreaBeanConvertModel?
+    val checkedItem: District?
 ) :
-    BaseRecyclerViewAdapter<AreaBeanConvertModel.DistrictBean, AreaNameRvAdapter.ViewHolder>(
+    BaseRecyclerViewAdapter<District.ZoneBean.VillageBean, AreaNameRvAdapter.ViewHolder>(
         mContext
     ) {
 
@@ -70,7 +70,7 @@ class AreaNameRvAdapter(
 
     override fun changeStatus(
         itemView: View,
-        t: AreaBeanConvertModel.DistrictBean,
+        t: District.ZoneBean.VillageBean,
         position: Int
     ) {
         super.changeStatus(itemView, t, position)
@@ -87,7 +87,7 @@ class AreaNameRvAdapter(
         fun isChecked(
             buttonView: View,
             isChecked: Boolean,
-            item: AreaBeanConvertModel.DistrictBean
+            item: District.ZoneBean.VillageBean
         )
     }
 }

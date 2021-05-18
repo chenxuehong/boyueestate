@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.qqtheme.framework.picker.SinglePicker
+import com.eightbitlab.rxbus.Bus
 import com.example.zhouwei.library.CustomPopWindow
 import com.google.gson.Gson
 import com.huihe.module_home.R
@@ -39,10 +40,12 @@ import com.kotlin.base.ui.fragment.BaseTakePhotoFragment
 import com.kotlin.base.utils.DensityUtils
 import com.kotlin.base.utils.LogUtils
 import com.kotlin.provider.constant.HomeConstant
+import com.kotlin.provider.event.ShareEvent
 import com.qiniu.android.storage.UploadManager
 import kotlinx.android.synthetic.main.fragment_house_detail.*
 import kotlinx.android.synthetic.main.layout_right_title_house_detail.*
 import kotlinx.android.synthetic.main.layout_tel_dialog.view.*
+import kotlinx.android.synthetic.main.pop_dialog_share.view.*
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 import top.limuyang2.ldialog.LDialog
@@ -74,6 +77,8 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
     var requestCode: Int = request_code_get_house_picture
     var imageUser: Int = 0
     lateinit var mUploadManager: UploadManager
+    var mShareCustomPopWindow: CustomPopWindow? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -194,13 +199,71 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
             }
             context!!.resources.getString(R.string.more_share) -> {
 
+                showShare()
             }
         }
         mMorePopWindow?.dissmiss()
     }
 
+    private fun showShare() {
+        var decorView = activity?.window?.decorView
+        val contentView = View.inflate(context, R.layout.pop_dialog_share, null)
+        contentView.pop_dialog_share_fl_Wechat.onClick {
+            if (mShareCustomPopWindow != null) {
+                mShareCustomPopWindow?.dissmiss()
+            }
+            if (houseDetail != null) {
+                var imagUrls = houseDetail?.imagUrls?: mutableListOf()
+                var imgUrl = ""
+                if (imagUrls.size>0){
+                    imgUrl = imagUrls[0].url?:""
+                }
+                Bus.send(ShareEvent(
+                    0,
+                    "${houseDetail?.villageInfoResponse?.name?:""}-${houseDetail?.building?:""}-${houseDetail?.hNum?:""}",
+                    "",
+                    "",
+                    imgUrl,
+                    "http://billion.housevip.cn/#/house/${houseDetail?.id?:""}/uid/1/ip/1",
+                    ""))
+            }
+        }
+        contentView.pop_dialog_share_fl_wechatmoments.onClick {
+            if (mShareCustomPopWindow != null)
+                mShareCustomPopWindow?.dissmiss()
+            if (houseDetail != null) {
+                var imagUrls = houseDetail?.imagUrls?: mutableListOf()
+                var imgUrl = ""
+                if (imagUrls.size>0){
+                    imgUrl = imagUrls[0].url?:""
+                }
+                Bus.send(ShareEvent(
+                    1,
+                    "${houseDetail?.villageInfoResponse?.name?:""}-${houseDetail?.building?:""}-${houseDetail?.hNum?:""}",
+                    "",
+                    "",
+                    imgUrl,
+                    "http://billion.housevip.cn/#/house/${houseDetail?.id?:""}/uid/1/ip/1",
+                    ""))
+            }
+        }
+        contentView.pop_dialog_share_tv_cancel.onClick {
+            if (mShareCustomPopWindow != null)
+                mShareCustomPopWindow?.dissmiss()
+        }
+        mShareCustomPopWindow = CustomPopWindow.PopupWindowBuilder(context)
+            .setView(contentView)
+            .size(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+            .enableBackgroundDark(true) //弹出popWindow时，背景是否变暗
+            .setBgDarkAlpha(0.7f) // 控制亮度
+            .setFocusable(true)
+            .setOutsideTouchable(true)
+            .create().showAtLocation(decorView, Gravity.BOTTOM, 0, 0)
+
+    }
+
     private fun showSetImageUerDialog() {
-     val mLDialog =  LDialog.init(childFragmentManager)
+        val mLDialog = LDialog.init(childFragmentManager)
             .setLayoutRes(R.layout.layout_set_imageuser_dialog)
             .setBackgroundDrawableRes(R.drawable.new_phone_dialog_bg)
             .setGravity(Gravity.CENTER)
@@ -323,7 +386,8 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
     }
 
     override fun onGetUploadTokenResult(result: String?) {
-        mUploadManager.put(mLocalFilResult?.image?.originalPath, null, result,
+        mUploadManager.put(
+            mLocalFilResult?.image?.originalPath, null, result,
             { key, info, response ->
                 var mRemoteFileUrl = response?.get("hash") as String
 

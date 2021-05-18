@@ -31,7 +31,7 @@ interface HouseService {
     fun getVillages(
         latitude: Double? = null,
         longitude: Double? = null
-    ): Observable<AreaBeanRep?>
+    ): Observable<MutableList<District>?>
 
     /**
      * 获取房源详情信息

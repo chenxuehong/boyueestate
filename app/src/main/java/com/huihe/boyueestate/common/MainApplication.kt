@@ -13,9 +13,11 @@ import com.huihe.boyueestate.push.CustomNotification
 import com.huihe.boyueestate.push.MyMobPushCallback
 import com.huihe.boyueestate.push.MyMobPushReceiver
 import com.huihe.boyueestate.share.ShareSdkUtil
+import com.kotlin.base.common.AppManager
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.event.LoginEvent
 import com.kotlin.base.utils.AppPrefsUtils
+import com.kotlin.provider.event.ChatEvent
 import com.kotlin.provider.event.ErrorEntity
 import com.kotlin.provider.event.MessageLoginEvent
 import com.kotlin.provider.event.ShareEvent
@@ -31,6 +33,7 @@ import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import org.jetbrains.anko.share
+import org.jetbrains.anko.toast
 import java.util.HashMap
 import java.util.concurrent.TimeUnit
 
@@ -51,6 +54,10 @@ class MainApplication : IMApplication() {
         Bus.observe<ShareEvent>()
             .subscribe {
                 showShare(it)
+            }.registerInBus(this)
+        Bus.observe<ChatEvent>()
+            .subscribe {
+                chat(it)
             }.registerInBus(this)
         //在使用SDK各组件之前初始化context信息，传入ApplicationContext
         SDKInitializer.initialize(this);
@@ -110,21 +117,53 @@ class MainApplication : IMApplication() {
     private fun showShare(
         share: ShareEvent
     ) {
-        ShareSdkUtil.shareWechat(share.title,share.content,share.imagePath,share.imagePath,share.imageUrl,
-            object :PlatformActionListener{
-            override fun onComplete(p0: Platform?, p1: Int, p2: HashMap<String, Any>?) {
+        if (0 == share.type) {
+            ShareSdkUtil.shareWechat(share.title,
+                share.content,
+                share.url,
+                share.imagePath,
+                share.imageUrl,
+                object : PlatformActionListener {
+                    override fun onComplete(p0: Platform?, p1: Int, p2: HashMap<String, Any>?) {
 
-            }
+                    }
 
-            override fun onCancel(p0: Platform?, p1: Int) {
+                    override fun onCancel(p0: Platform?, p1: Int) {
+                        toast("已取消")
+                    }
 
-            }
+                    override fun onError(p0: Platform?, p1: Int, p2: Throwable?) {
+                        toast(p2?.message ?: "")
+                    }
 
-            override fun onError(p0: Platform?, p1: Int, p2: Throwable?) {
+                })
+        } else {
+            ShareSdkUtil.shareWechatMoments(share.title,
+                share.content,
+                share.url,
+                share.imagePath,
+                share.imageUrl,
+                object : PlatformActionListener {
+                    override fun onComplete(p0: Platform?, p1: Int, p2: HashMap<String, Any>?) {
 
-            }
+                    }
 
-        })
+                    override fun onCancel(p0: Platform?, p1: Int) {
+
+                        toast("已取消")
+                    }
+
+                    override fun onError(p0: Platform?, p1: Int, p2: Throwable?) {
+                        toast(p2?.message ?: "")
+                    }
+
+                })
+        }
+
+    }
+
+    private fun chat(it: ChatEvent?) {
+        TUIKit.startChat(AppManager.instance.currentActivity(), it?.id ?: "", it?.chatName ?: "")
     }
 
     override fun onTerminate() {

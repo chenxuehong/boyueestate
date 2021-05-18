@@ -30,6 +30,7 @@ object RouterPath{
     class MessageCenter{
         companion object {
             const val PATH_MESSAGE = "/MessageCenter/Message"
+            const val PATH_CHAT = "/MessageCenter/Chat"
         }
     }
 }

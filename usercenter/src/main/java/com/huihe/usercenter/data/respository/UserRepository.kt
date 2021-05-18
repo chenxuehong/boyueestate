@@ -16,12 +16,9 @@ class UserRepository @Inject constructor(){
         return RetrofitFactory.instance.create(UserApi::class.java).login(LoginReq(account,password,type))
     }
 
-    fun getVillages(latitude: Double?, longitude: Double?): Observable<BaseResp<AreaBeanRep?>> {
+    fun getVillages(latitude: Double?, longitude: Double?): Observable<BaseResp<MutableList<District>?>> {
         return RetrofitFactory.instance.create(UserApi::class.java)
-            .getVillages(
-                latitude,
-                longitude
-            )
+            .getVillages()
     }
 
     fun getSchoolDistrictList(page:Int,limit:Int):  Observable<BaseResp<SchoolDistrictRep?>> {

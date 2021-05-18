@@ -75,9 +75,9 @@ class HousePresenter @Inject constructor() : BasePresenter<SecondHandHouseView>(
             latitude,
             longitude
         )
-            .execute(object : BaseSubscriber<AreaBeanRep?>(mView) {
-                override fun onNext(t: AreaBeanRep?) {
-                    mView.onGetAreaBeanListResult(t?.list)
+            .execute(object : BaseSubscriber<MutableList<District>?>(mView) {
+                override fun onNext(t: MutableList<District>?) {
+                    mView.onGetAreaBeanListResult(t)
                 }
             }, lifecycleProvider)
 

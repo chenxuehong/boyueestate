@@ -21,7 +21,6 @@ class DeptUsersRvAdapter(mContext: Context) :
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        checkedIndex =-1
         return ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.layout_deptuser_item,parent,false))
     }
 

@@ -3,8 +3,8 @@ package com.huihe.module_home.ui.widget
 import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.huihe.module_home.data.protocol.AreaBeanConvertModel
 import com.huihe.module_home.data.protocol.AreaReq
+import com.huihe.module_home.data.protocol.District
 import com.huihe.module_home.ext.*
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.ui.adpter.AreaNameRvAdapter
@@ -18,7 +18,7 @@ class AreaResultView {
     private var mRvZoneAdapter: RvZoneAdapter? = null
     private var mAreaNameRvAdapter: AreaNameRvAdapter? = null
     private var mListener: ISearchResultListener? = null
-    private var checkedItem: AreaBeanConvertModel? = null
+    private var checkedItem: District? = null
     fun initAreaView(
         mContext: Context,
         listener: ISearchResultListener?,
@@ -35,7 +35,7 @@ class AreaResultView {
             var villageIds = getVillageIds()
             mListener?.onSearchResult(
                 AreaReq(villageIds!!),
-                if (villageIds.size>0){"${mCheckedItem?.districtName}+${villageIds.size}"}else {"区域"},
+                if (villageIds.size>0){"${mCheckedItem?.name}+${villageIds.size}"}else {"区域"},
                 CustomersModule.SearchType.AreaType
             )
         }
@@ -45,11 +45,11 @@ class AreaResultView {
         mRvAreaDistrictAdapter = RvAreaDistrictAdapter(mContext)
         rvAreaDistrictName.layoutManager = LinearLayoutManager(mContext)
         mRvAreaDistrictAdapter?.setOnItemClickListener(
-            object : BaseRecyclerViewAdapter.OnItemClickListener<AreaBeanConvertModel> {
-                override fun onItemClick(view: View, item: AreaBeanConvertModel, position: Int) {
+            object : BaseRecyclerViewAdapter.OnItemClickListener<District> {
+                override fun onItemClick(view: View, item: District, position: Int) {
 
                     checkedItem = item
-                    initRvZone(mContext, item.zoneBean)
+                    initRvZone(mContext, item.zones)
                     initAreaName(mContext, mutableListOf())
                 }
             }
@@ -60,14 +60,14 @@ class AreaResultView {
 
     fun View.initRvZone(
         mContext: Context,
-        zoneBeans: MutableList<AreaBeanConvertModel.ZoneBean>?
+        zoneBeans: MutableList<District.ZoneBean>?
     ) {
         mRvZoneAdapter = RvZoneAdapter(mContext)
         rvAreaZoneName.layoutManager = LinearLayoutManager(mContext)
         mRvZoneAdapter?.setOnItemClickListener(object :
-            BaseRecyclerViewAdapter.OnItemClickListener<AreaBeanConvertModel.ZoneBean> {
-            override fun onItemClick(view: View, item: AreaBeanConvertModel.ZoneBean, position: Int) {
-                initAreaName(mContext, item.districtBean)
+            BaseRecyclerViewAdapter.OnItemClickListener<District.ZoneBean> {
+            override fun onItemClick(view: View, item: District.ZoneBean, position: Int) {
+                initAreaName(mContext, item.villages)
             }
         })
         rvAreaZoneName.adapter = mRvZoneAdapter
@@ -76,14 +76,14 @@ class AreaResultView {
 
     fun View.initAreaName(
         mContext: Context,
-        districtBeans: MutableList<AreaBeanConvertModel.DistrictBean>?
+        districtBeans: MutableList<District.ZoneBean.VillageBean>?
     ) {
         clearAreaCheckList()
         mAreaNameRvAdapter = AreaNameRvAdapter(mContext,object :AreaNameRvAdapter.OnCheckListener{
             override fun isChecked(
                 buttonView: View,
                 isChecked: Boolean,
-                item: AreaBeanConvertModel.DistrictBean
+                item: District.ZoneBean.VillageBean
             ) {
                 setItemAreaChecked(item,isChecked,checkedItem)
                 btnAreaReset.enable(mContext)

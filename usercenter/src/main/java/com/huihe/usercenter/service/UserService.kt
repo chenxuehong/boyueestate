@@ -14,7 +14,7 @@ interface UserService {
     fun getVillages(
         latitude: Double? = null,
         longitude: Double? = null
-    ): Observable<AreaBeanRep?>
+    ): Observable<MutableList<District>?>
 
     fun getSchoolDistrictList(page:Int,limit:Int): Observable<SchoolDistrictRep?>
     fun getMobTechList(page: Int, pageSize: Int): Observable<CorporateCultureRep?>

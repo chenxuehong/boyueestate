@@ -32,11 +32,9 @@ interface HouseApi {
         @Path("id") id: String?
     ): Observable<BaseResp<OwnerInfo?>>
 
-    @GET("villages")
+    @GET("districts/villages")
     fun getVillages(
-        @Query("latitude") latitude: Double?,
-        @Query("longitude") longitude: Double?
-    ): Observable<BaseResp<AreaBeanRep?>>
+    ): Observable<BaseResp<MutableList<District>?>>
 
     @POST("house/{id}/collection")
     fun reqCollection(

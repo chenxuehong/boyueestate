@@ -10,11 +10,8 @@ interface UserApi {
     @POST("auth/login")
     fun login(@Body req: LoginReq): Observable<BaseResp<String>>
 
-    @GET("villages")
-    fun getVillages(
-        @Query("latitude") latitude: Double?,
-        @Query("longitude") longitude: Double?
-    ): Observable<BaseResp<AreaBeanRep?>>
+    @GET("districts/villages")
+    fun getVillages(): Observable<BaseResp<MutableList<District>?>>
 
     @GET("schools")
     fun getSchoolDistrictList(

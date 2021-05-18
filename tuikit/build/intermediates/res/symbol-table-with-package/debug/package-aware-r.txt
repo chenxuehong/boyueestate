@@ -2248,6 +2248,8 @@ drawable voice_msg_playing_1
 drawable voice_msg_playing_2
 drawable voice_msg_playing_3
 drawable wait_background
+drawable wechatmoment
+drawable weixin_green
 id FixedBehind
 id FixedFront
 id MatchLayout

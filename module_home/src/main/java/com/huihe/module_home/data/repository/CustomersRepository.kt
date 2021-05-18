@@ -68,12 +68,9 @@ class CustomersRepository @Inject constructor() {
             )
     }
 
-    fun getVillages(latitude: Double?, longitude: Double?): Observable<BaseResp<AreaBeanRep?>> {
+    fun getVillages(latitude: Double?, longitude: Double?): Observable<BaseResp<MutableList<District>?>> {
         return RetrofitFactory.instance.create(HouseApi::class.java)
-            .getVillages(
-                latitude,
-                longitude
-            )
+            .getVillages()
     }
 
     fun getHouseDetailRelationPeople(id: String?): Observable<BaseResp<OwnerInfo?>> {

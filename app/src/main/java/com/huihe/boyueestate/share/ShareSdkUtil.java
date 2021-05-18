@@ -6,6 +6,7 @@ import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.wechat.friends.Wechat;
+import cn.sharesdk.wechat.moments.WechatMoments;
 
 public class ShareSdkUtil {
 
@@ -29,6 +30,31 @@ public class ShareSdkUtil {
             sp.setUrl(url);
         }
         Platform tw = ShareSDK.getPlatform(Wechat.NAME);
+        tw.setPlatformActionListener(actionListener); // 设置分享事件回调
+        // 执行图文分享
+        tw.share(sp);
+    }
+
+    public static void shareWechatMoments(
+            String title,
+            String content,
+            String url,
+            String imagePath,
+            String imageUrl,
+            PlatformActionListener actionListener) {
+        Platform.ShareParams sp = new Platform.ShareParams();
+        sp.setTitle(title);
+        sp.setText(content);
+        if (!TextUtils.isEmpty(imagePath)) {
+            sp.setImagePath(imagePath);
+        }
+        if (!TextUtils.isEmpty(imageUrl)) {
+            sp.setImageUrl(imageUrl);
+        }
+        if (!TextUtils.isEmpty(url)) {
+            sp.setUrl(url);
+        }
+        Platform tw = ShareSDK.getPlatform(WechatMoments.NAME);
         tw.setPlatformActionListener(actionListener); // 设置分享事件回调
         // 执行图文分享
         tw.share(sp);

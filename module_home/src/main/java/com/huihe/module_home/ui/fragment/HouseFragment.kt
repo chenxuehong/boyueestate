@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.*
-import com.huihe.module_home.ext.getConvertData
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HousePresenter
@@ -45,12 +44,13 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     private var moreReq: MoreReq? = MoreReq()
     private var villageIds: MutableList<String>? = null
     private var mRvAreaDistrictAdapter: RvAreaDistrictAdapter? = null
-    private var isHouseSelect:Boolean=false
+    private var isHouseSelect: Boolean = false
+
     init {
         hasMoreData = true
     }
 
-    val RESULT_CODE_GET_HOUSE_CODE:Int=1000
+    val RESULT_CODE_GET_HOUSE_CODE: Int = 1000
     override fun injectComponent() {
         DaggerCustomersComponent.builder().activityComponent(mActivityComponent).customersModule(
             CustomersModule()
@@ -69,7 +69,7 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        isHouseSelect = arguments?.getBoolean(HomeConstant.KEY_IS_HOUSE_SELECT,false)?:false
+        isHouseSelect = arguments?.getBoolean(HomeConstant.KEY_IS_HOUSE_SELECT, false) ?: false
         initView()
         initRefreshLayout()
         initData()
@@ -87,9 +87,13 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
 
             BaseRecyclerViewAdapter.OnItemClickListener<House> {
             override fun onItemClick(view: View, item: House, position: Int) {
-                if (isHouseSelect){
-                    finishForSetResultStr(HomeConstant.KEY_HOUSE_CODE,item.houseCode!!,RESULT_CODE_GET_HOUSE_CODE)
-                }else{
+                if (isHouseSelect) {
+                    finishForSetResultStr(
+                        HomeConstant.KEY_HOUSE_CODE,
+                        item.houseCode!!,
+                        RESULT_CODE_GET_HOUSE_CODE
+                    )
+                } else {
                     startActivity<HouseDetailActivity>(HomeConstant.KEY_HOUSE_ID to item.id)
                 }
             }
@@ -191,9 +195,8 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
         )
     }
 
-    override fun onGetAreaBeanListResult(areaBeans: MutableList<AreaBean>?) {
-        var data = getConvertData(areaBeans)
-        mRvAreaDistrictAdapter?.setData(data)
+    override fun onGetAreaBeanListResult(list: MutableList<District>?) {
+        mRvAreaDistrictAdapter?.setData(list?: mutableListOf())
     }
 
     override fun startLoad(adapter: RvAreaDistrictAdapter?) {
@@ -202,7 +205,7 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     }
 
     override fun getModuleType(): Int {
-       return SearchResultViewController.MODULE_HOUSE_FRAGMENT
+        return SearchResultViewController.MODULE_HOUSE_FRAGMENT
     }
 
     override fun onDataIsNull() {
@@ -240,10 +243,10 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
                     MultiStateView.VIEW_STATE_CONTENT
             }
         }
-        if (!hasMoreData){
+        if (!hasMoreData) {
             if (mCurrentPage == 1) {
                 layoutRefreshContentView?.customers_mBGARefreshLayout?.finishRefreshWithNoMoreData()
-            }else{
+            } else {
                 layoutRefreshContentView?.customers_mBGARefreshLayout?.finishLoadMoreWithNoMoreData()
             }
         }

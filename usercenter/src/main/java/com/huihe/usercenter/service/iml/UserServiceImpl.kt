@@ -18,7 +18,7 @@ class UserServiceImpl @Inject constructor() : UserService {
         return repository.login(account,password,type).convert()
     }
 
-    override fun getVillages(latitude: Double?, longitude: Double?): Observable<AreaBeanRep?> {
+    override fun getVillages(latitude: Double?, longitude: Double?): Observable<MutableList<District>?> {
         return repository.getVillages(latitude, longitude).convert()
     }
 

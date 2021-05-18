@@ -45,6 +45,15 @@ android {
 //            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    dexOptions {
+        dexInProcess true
+        preDexLibraries true
+        javaMaxHeapSize "6g"
+    }
+    lintOptions {
+        //某些资源报错
+        disable 'MissingTranslation'
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -65,6 +74,10 @@ MobSDK {
         //平台配置信息
         devInfo {
             Wechat {
+                appId "wx5058cd7c4c9d9bec"
+                appSecret "29828f4fde064e4be28dab53956e68b1"
+            }
+            WechatMoments {
                 appId "wx5058cd7c4c9d9bec"
                 appSecret "29828f4fde064e4be28dab53956e68b1"
             }

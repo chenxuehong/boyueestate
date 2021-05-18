@@ -5,17 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.R
+import com.kotlin.base.data.protocol.ErrorBean
 import com.kotlin.base.ext.startLoading
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_refresh.*
 import kotlinx.android.synthetic.main.fragment_title_refresh.*
+import javax.inject.Inject
 
-abstract class BaseRefreshFragment<T : BasePresenter<*>, Adapter : BaseRecyclerViewAdapter<*, *>,D> :
+abstract class BaseRefreshFragment<T : BasePresenter<*>, Adapter : BaseRecyclerViewAdapter<*, *>, D> :
     BaseMvpFragment<T>() {
+
+    @Inject
+    lateinit var num: ErrorBean
 
     var mCurrentPage: Int = 1
     var mPageSize: Int = 30
@@ -100,9 +104,9 @@ abstract class BaseRefreshFragment<T : BasePresenter<*>, Adapter : BaseRecyclerV
         if (list != null && list.size > 0) {
             if (mCurrentPage == 1) {
                 resetNoMoreData()
-                setData(mRvAdapter,list)
+                setData(mRvAdapter, list)
             } else {
-                addAllData(mRvAdapter,list)
+                addAllData(mRvAdapter, list)
                 mRvAdapter?.notifyDataSetChanged()
             }
             showContentView()
@@ -125,7 +129,7 @@ abstract class BaseRefreshFragment<T : BasePresenter<*>, Adapter : BaseRecyclerV
     }
 
     abstract fun addAllData(
-        mRvAdapter:Adapter,
+        mRvAdapter: Adapter,
         list: MutableList<D>
     )
 

@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.AreaBeanConvertModel
+import com.huihe.module_home.data.protocol.District
 import com.kotlin.base.ext.setVisible
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import kotlinx.android.synthetic.main.layout_area_item.view.*
 
 class RvAreaDistrictAdapter(mContext: Context) :
-    BaseRecyclerViewAdapter<AreaBeanConvertModel, RvAreaDistrictAdapter.ViewHolder>(mContext) {
+    BaseRecyclerViewAdapter<District, RvAreaDistrictAdapter.ViewHolder>(mContext) {
 
-    private  var mCheckedItem :AreaBeanConvertModel?=null
+    private  var mCheckedItem :District?=null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflate =
             LayoutInflater.from(mContext).inflate(R.layout.layout_area_item, parent, false)
@@ -25,7 +25,7 @@ class RvAreaDistrictAdapter(mContext: Context) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         super.onBindViewHolder(holder, position)
         val item = dataList[position]
-        holder.itemView.tvAreaName.text = item.districtName
+        holder.itemView.tvAreaName.text = item.name
         holder.itemView.tvAreaName.setTextColor(
             if (hasChecked(item)){
                 mContext.resources.getColor(R.color.main_color)
@@ -36,13 +36,13 @@ class RvAreaDistrictAdapter(mContext: Context) :
         holder.itemView.areaCheckbox.setVisible(false)
     }
 
-    private fun hasChecked(item: AreaBeanConvertModel): Boolean {
-        return item?.districtId?.equals(mCheckedItem?.districtId)!!
+    private fun hasChecked(item: District): Boolean {
+        return item?.id?.equals(mCheckedItem?.id)!!
     }
 
     override fun changeStatus(
         t1: View,
-        t: AreaBeanConvertModel,
+        t: District,
         position: Int
     ) {
         super.changeStatus(t1, t, position)

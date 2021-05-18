@@ -2247,6 +2247,8 @@ int drawable voice_msg_playing_1 0x7f08016d
 int drawable voice_msg_playing_2 0x7f08016e
 int drawable voice_msg_playing_3 0x7f08016f
 int drawable wait_background 0x7f080170
+int drawable wechatmoment 0x7f080171
+int drawable weixin_green 0x7f080172
 int id FixedBehind 0x7f0b0001
 int id FixedFront 0x7f0b0002
 int id MatchLayout 0x7f0b0003

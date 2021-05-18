@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.layout_search_by_create_user.view.*
 class CreateUserView {
     private var mListener: ISearchResultListener? = null
 
-    var mCheckList: MutableList<DeptUserRep.DeptUser>? = null
+    var mCheckList: MutableList<DeptUserRep.DeptUser> = mutableListOf()
     var mCheckedDeptUserRep: DeptUserRep? = null
     fun initCreateUserView(
         mContext: Context,

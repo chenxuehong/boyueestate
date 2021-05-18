@@ -7,14 +7,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.R
+import com.kotlin.base.data.protocol.ErrorBean
 import com.kotlin.base.ext.startLoading
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_refresh.*
 import kotlinx.android.synthetic.main.fragment_title_refresh.*
+import javax.inject.Inject
 
 abstract class BaseTitleRefreshFragment<T : BasePresenter<*>, Adapter : BaseRecyclerViewAdapter<*, *>, D> :
     BaseMvpFragment<T>() {
+
+    @Inject
+    lateinit var num: ErrorBean
 
     var mCurrentPage: Int = 1
     var mPageSize: Int = 30

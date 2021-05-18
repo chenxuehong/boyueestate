@@ -3,7 +3,6 @@ package com.huihe.module_home.ui.widget
 import android.content.Context
 import android.view.View
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.AreaBean
 import com.huihe.module_home.injection.module.CustomersModule
 import java.util.*
 

@@ -10,7 +10,7 @@ import cn.qqtheme.framework.picker.AddressPicker
 import cn.qqtheme.framework.picker.SinglePicker
 import com.google.gson.Gson
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.AreaBean
+import com.huihe.module_home.data.protocol.District
 import com.huihe.module_home.data.protocol.HouseDetail
 import com.huihe.module_home.data.protocol.SetHouseInfoRep
 import com.huihe.module_home.data.protocol.SetHouseInfoReq
@@ -211,7 +211,7 @@ class SetHouseInfoFragment : BaseMvpFragment<SetHouseInfoPresenter>(), SetHouseI
         mAddresspicker?.show()
     }
 
-    override fun onGetAreaBeanListResult(list: MutableList<AreaBean>?) {
+    override fun onGetAreaBeanListResult(list: MutableList<District>?) {
         mProvinceList = getConvertProvinceList(list)
         selectVillage()
     }

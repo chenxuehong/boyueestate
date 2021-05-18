@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/llShare"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/pop_dialog_share_fl_Wechat"
+            android:layout_marginTop="@dimen/dp_40"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/weixin_green"
+                android:drawablePadding="8.5dp"
+                android:gravity="center"
+                android:text="微信"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/sp_13" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/pop_dialog_share_fl_wechatmoments"
+            android:layout_marginTop="@dimen/dp_40"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/wechatmoment"
+                android:drawablePadding="8.5dp"
+                android:gravity="center"
+                android:text="朋友圈"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/sp_13" />
+        </FrameLayout>
+
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_below="@id/llShare"
+        android:id="@+id/pop_dialog_share_tv_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/cancel"
+        android:textColor="@color/main_color"
+        android:textSize="18sp" />
+</RelativeLayout>

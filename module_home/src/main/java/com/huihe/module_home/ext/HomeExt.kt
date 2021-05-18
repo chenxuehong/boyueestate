@@ -1,190 +1,49 @@
 package com.huihe.module_home.ext
 
 import android.content.Context
-import android.text.TextUtils
 import android.widget.Button
 import cn.qqtheme.framework.entity.City
 import cn.qqtheme.framework.entity.County
 import cn.qqtheme.framework.entity.Province
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.AreaBean
-import com.huihe.module_home.data.protocol.AreaBeanConvertModel
+import com.huihe.module_home.data.protocol.District
 import com.huihe.module_home.data.protocol.HouseDetail
 import com.huihe.module_home.data.protocol.ItemHouseDetail
 import com.huihe.module_home.ui.adpter.MoreSearchAdapter
 import com.kotlin.base.utils.DateUtils
-import java.math.BigDecimal
 
 
-fun getConvertData(data: MutableList<AreaBean>?): MutableList<AreaBeanConvertModel> {
-    var dataList: MutableList<AreaBeanConvertModel> = mutableListOf()
-    data?.apply {
-        forEach { item ->
-            var hasItem = hasItem(item, dataList)
-            if (hasItem == null) {
-                val zoneBeanList = mutableListOf<AreaBeanConvertModel.ZoneBean>()
-                addZoneBeanList(zoneBeanList, item)
-                var areaBeanConvertModel = AreaBeanConvertModel(
-                    item.districtId!!,
-                    item.districtName!!,
-                    zoneBeanList
-                )
-                dataList?.add(areaBeanConvertModel)
-            } else {
-                var zoneBeanList = hasItem.zoneBean
-                addZoneBeanList(zoneBeanList, item)
-            }
-        }
-    }
-    return dataList
-}
-
-fun getConvertProvinceList(data: MutableList<AreaBean>?): ArrayList<Province> {
+fun getConvertProvinceList(data: MutableList<District>?): ArrayList<Province> {
     var dataList: ArrayList<Province> = ArrayList()
     data?.apply {
         forEach { item ->
-            var hasItem = hasProvinceItem(item, dataList)
-            if (hasItem == null) {
-                val cities = mutableListOf<City>()
-                addCityList(cities, item)
-                var province = Province(
-                    item.districtId!!,
-                    item.districtName!!
-                )
-                province.cities = cities
-                dataList?.add(province)
-            } else {
-                var cities = hasItem.cities
-                addCityList(cities, item)
-            }
+            val province = Province(item.id, item.name)
+            province.cities = getCities(item.zones)
+            dataList.add(province)
         }
     }
     return dataList
 }
 
-fun addCityList(cities: MutableList<City>, item: AreaBean) {
-    var hasCityItem = hasCityItem(item, cities)
-    if (hasCityItem == null) {
-        var counties = mutableListOf<County>()
-        addCountyItem(item, counties)
-        var city =
-            City(item.zoneId, item.zoneName)
-        city.counties = counties
-        city.provinceId = item.districtId
-        cities?.add(city)
-    } else {
-        var counties = hasCityItem.counties
-        addCountyItem(item, counties)
-        var city =
-            City(item.zoneId, item.zoneName)
-        city.counties = counties
-        cities?.add(city)
+fun getCities(zones: MutableList<District.ZoneBean>): MutableList<City>? {
+    var dataList: ArrayList<City> = ArrayList()
+    zones?.forEach { item ->
+        var city = City(item.id, item.name)
+        city.counties = getCounties(item.villages)
+        dataList.add(city)
     }
+    return dataList
 }
 
-fun addCountyItem(item: AreaBean, counties: MutableList<County>) {
-    var hasDistrictItem = hasCountyItem(item, counties)
-    if (hasDistrictItem == null) {
-        var county = County(item.id, item.name)
-        county.cityId = item.zoneId
-        counties?.add(county)
+fun getCounties(villages: MutableList<District.ZoneBean.VillageBean>?): MutableList<County>? {
+    var dataList: ArrayList<County> = ArrayList()
+    villages?.forEach { item ->
+        dataList.add(County(item.id,item.name))
     }
+    return dataList
 }
 
-fun hasCountyItem(areaBean: AreaBean, counties: MutableList<County>): County? {
-    counties?.forEach { item ->
-        if (item?.areaId?.equals(areaBean?.id)!!) {
-            return item
-        }
-    }
-    return null
-}
-
-fun hasCityItem(areaBean: AreaBean, cities: MutableList<City>): City? {
-    cities?.forEach { item ->
-        if (item?.areaId.equals(areaBean?.zoneId)) {
-            return item
-        }
-    }
-    return null
-}
-
-fun hasProvinceItem(areaBean: AreaBean, dataList: MutableList<Province>): Province? {
-    dataList?.forEach { item ->
-        if (areaBean?.districtId?.equals(item?.areaId)!!) {
-            return item
-        }
-    }
-    return null
-}
-
-fun hasItem(
-    areaBean: AreaBean,
-    dataList: MutableList<AreaBeanConvertModel>
-): AreaBeanConvertModel? {
-    dataList.forEach { item ->
-        if (item?.districtId?.equals(areaBean.districtId)!!) {
-            return item
-        }
-    }
-    return null
-}
-
-fun hasZoneItem(
-    areaBean: AreaBean?,
-    zoneBeanList: MutableList<AreaBeanConvertModel.ZoneBean>?
-): AreaBeanConvertModel.ZoneBean? {
-    zoneBeanList?.forEach { item ->
-        if (item?.zoneId?.equals(areaBean?.zoneId)!!) {
-            return item
-        }
-    }
-    return null
-}
-
-fun hasDistrictItem(
-    areaBean: AreaBean?,
-    districtBeanList: MutableList<AreaBeanConvertModel.DistrictBean>?
-): AreaBeanConvertModel.DistrictBean? {
-    districtBeanList?.forEach { item ->
-        if (item?.id?.equals(areaBean?.id)!!) {
-            return item
-        }
-    }
-    return null
-}
-
-private fun addZoneBeanList(
-    zoneBeanList: MutableList<AreaBeanConvertModel.ZoneBean>?,
-    item: AreaBean
-) {
-    var hasZoneItem = hasZoneItem(item, zoneBeanList)
-    if (hasZoneItem == null) {
-        var districtBeanList = mutableListOf<AreaBeanConvertModel.DistrictBean>()
-        addDistrictItem(item, districtBeanList)
-        var zoneBean =
-            AreaBeanConvertModel.ZoneBean(item.zoneId, item.zoneName, districtBeanList)
-        zoneBeanList?.add(zoneBean)
-    } else {
-        var districtBeanList = hasZoneItem.districtBean
-        addDistrictItem(item, districtBeanList)
-        var zoneBean =
-            AreaBeanConvertModel.ZoneBean(item.zoneId, item.zoneName, districtBeanList)
-        zoneBeanList?.add(zoneBean)
-    }
-}
-
-private fun addDistrictItem(
-    item: AreaBean,
-    districtBeanList: MutableList<AreaBeanConvertModel.DistrictBean>?
-) {
-    var hasDistrictItem = hasDistrictItem(item, districtBeanList)
-    if (hasDistrictItem == null) {
-        districtBeanList?.add(AreaBeanConvertModel.DistrictBean(item.id, item.name))
-    }
-}
-
-var list: MutableList<AreaBeanConvertModel.DistrictBean> = mutableListOf()
+var list: MutableList<District.ZoneBean.VillageBean> = mutableListOf()
 
 fun clearAreaCheckList() {
     list.clear()
@@ -198,13 +57,13 @@ fun getVillageIds(): MutableList<String> {
     return villageIds
 }
 
-var mCheckedItem: AreaBeanConvertModel? = null
+var mCheckedItem: District? = null
 
 fun setItemAreaChecked(
-    zoneBean: AreaBeanConvertModel.DistrictBean?,
+    zoneBean: District.ZoneBean.VillageBean?,
     isChecked: Boolean,
-    checkedItem: AreaBeanConvertModel?
-): MutableList<AreaBeanConvertModel.DistrictBean> {
+    checkedItem: District?
+): MutableList<District.ZoneBean.VillageBean> {
     if (isChecked) {
         list.add(zoneBean!!)
     } else {
@@ -391,15 +250,15 @@ fun getConvertHouseDetailData(houseDetail: HouseDetail?): MutableList<ItemHouseD
     return houseList
 }
 
-fun MutableList<String>.getString(split:String):String{
+fun MutableList<String>.getString(split: String): String {
     var stringBuffer = StringBuffer()
     forEach {
         stringBuffer.append(split)
         stringBuffer.append(it)
     }
-    return if (stringBuffer.length>1){
+    return if (stringBuffer.length > 1) {
         stringBuffer.substring(1)
-    }else{
+    } else {
         ""
     }
 }

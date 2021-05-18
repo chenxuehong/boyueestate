@@ -43,7 +43,7 @@ class HouseServiceImpl @Inject constructor() : HouseService {
         return repository.getHouseList(pageNo, pageSize, dataType).convert()
     }
 
-    override fun getVillages(latitude: Double?, longitude: Double?): Observable<AreaBeanRep?> {
+    override fun getVillages(latitude: Double?, longitude: Double?): Observable<MutableList<District>?> {
         return repository.getVillages(latitude, longitude).convert()
     }
 

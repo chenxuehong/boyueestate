@@ -9,11 +9,12 @@ import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 
 import cn.qqtheme.framework.entity.City
 import com.huihe.usercenter.R
+import com.huihe.usercenter.data.protocol.District
 import com.kotlin.base.ext.initInflater
 import kotlinx.android.synthetic.main.layout_community_item.view.*
 
 class CityRvAdapter(mContext: Context) :
-    BaseRecyclerViewAdapter<City, CityRvAdapter.ViewHolder>(mContext) {
+    BaseRecyclerViewAdapter<District.ZoneBean, CityRvAdapter.ViewHolder>(mContext) {
 
     var checkedIndex = -1
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,7 +32,7 @@ class CityRvAdapter(mContext: Context) :
         }
     }
 
-    override fun changeStatus(itemView: View, t: City, position: Int) {
+    override fun changeStatus(itemView: View, t: District.ZoneBean, position: Int) {
         super.changeStatus(itemView, t, position)
         checkedIndex = position
         notifyDataSetChanged()

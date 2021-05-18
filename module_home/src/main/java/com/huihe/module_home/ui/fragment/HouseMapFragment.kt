@@ -6,7 +6,6 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
 import com.baidu.mapapi.search.district.DistrictSearch
@@ -14,7 +13,6 @@ import com.baidu.mapapi.search.district.DistrictSearchOption
 import com.baidu.mapapi.search.district.OnGetDistricSearchResultListener
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.*
-import com.huihe.module_home.ext.getConvertData
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HouseMapPresenter
@@ -24,7 +22,7 @@ import com.huihe.module_home.ui.widget.ISearchResultListener
 import com.huihe.module_home.ui.widget.SearchResultViewController
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.utils.LogUtils
-import kotlinx.android.synthetic.main.fragment_findhousebymap.dropDownMenu
+import kotlinx.android.synthetic.main.fragment_findhousebymap.*
 import kotlinx.android.synthetic.main.layout_area_num.view.*
 import kotlinx.android.synthetic.main.layout_house_map.*
 
@@ -54,7 +52,8 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
             var centerPt = it.centerPt
             LogUtils.i(
                 TAG,
-                "中心经纬度：longitude = ${centerPt?.longitude ?: ""},latitude = ${centerPt?.latitude ?: ""}"
+                "中心经纬度：longitude = ${centerPt?.longitude ?: ""},latitude = ${centerPt?.latitude
+                    ?: ""}"
             )
             //定义地图状态
             val mMapStatus: MapStatus = MapStatus.Builder()
@@ -70,10 +69,10 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
             initData()
         }
 
-    var minLongitude =0.0
-    var minLatitude =0.0
-    var maxLatitude =0.0
-    var maxLongitude =0.0
+    var minLongitude = 0.0
+    var minLatitude = 0.0
+    var maxLatitude = 0.0
+    var maxLongitude = 0.0
     private fun resetLocRanges() {
         // 左上
         val pt = Point()
@@ -85,21 +84,21 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
         // 右下
         rightBottomPtLL = house_map_MapView.map.projection.fromScreenLocation(pt)
 
-        var longitude = leftTopPtLL?.longitude?:0.0
-        var longitude1 = rightBottomPtLL?.longitude?:0.0
-        if (longitude>longitude1){
+        var longitude = leftTopPtLL?.longitude ?: 0.0
+        var longitude1 = rightBottomPtLL?.longitude ?: 0.0
+        if (longitude > longitude1) {
             minLongitude = longitude1
             maxLongitude = longitude
-        }else{
+        } else {
             minLongitude = longitude
             maxLongitude = longitude1
         }
-        var latitude = leftTopPtLL?.latitude?:0.0
-        var latitude1 = rightBottomPtLL?.latitude?:0.0
-        if (latitude>latitude1){
+        var latitude = leftTopPtLL?.latitude ?: 0.0
+        var latitude1 = rightBottomPtLL?.latitude ?: 0.0
+        if (latitude > latitude1) {
             minLatitude = latitude1
             maxLatitude = latitude
-        }else{
+        } else {
             minLatitude = latitude
             maxLatitude = latitude1
         }
@@ -146,13 +145,15 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
         mBaiduMap?.mapType = BaiduMap.MAP_TYPE_NORMAL
         var mDistrictSearch = DistrictSearch.newInstance();
         mDistrictSearch.setOnDistrictSearchListener(mDistrictSearchlistener);
-        house_map_MapView?.map?.setOnMapLoadedCallback { // 左上
+        house_map_MapView?.map?.setOnMapLoadedCallback {
+            // 左上
             mDistrictSearch.searchDistrict(
                 DistrictSearchOption()
                     .cityName("上海市")
             )
         }
-        house_map_MapView?.map?.setOnMapStatusChangeListener(object :BaiduMap.OnMapStatusChangeListener{
+        house_map_MapView?.map?.setOnMapStatusChangeListener(object :
+            BaiduMap.OnMapStatusChangeListener {
             override fun onMapStatusChangeStart(p0: MapStatus?) {
 
             }
@@ -166,7 +167,7 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
             }
 
             override fun onMapStatusChangeFinish(p0: MapStatus?) {
-                if(house_map_MapView.map.projection==null){
+                if (house_map_MapView.map.projection == null) {
                     return
                 }
                 var zoom = p0?.zoom!!
@@ -257,13 +258,12 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
                 house_map_MapView?.map?.addOverlay(option)
             }
         } catch (e: Exception) {
-            LogUtils.i(TAG,e.toString())
+            LogUtils.i(TAG, e.toString())
         }
     }
 
-    override fun onGetAreaBeanListResult(areaBeans: MutableList<AreaBean>?) {
-        var data = getConvertData(areaBeans)
-        mRvAreaDistrictAdapter?.setData(data)
+    override fun onGetAreaBeanListResult(list: MutableList<District>?) {
+        mRvAreaDistrictAdapter?.setData(list?: mutableListOf())
     }
 
     override fun onSearchResult(iSearchResult: ISearchResult?, showTip: String, type: Int) {

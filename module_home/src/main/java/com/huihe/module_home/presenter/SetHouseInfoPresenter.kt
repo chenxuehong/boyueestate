@@ -1,6 +1,6 @@
 package com.huihe.module_home.presenter
 
-import com.huihe.module_home.data.protocol.AreaBeanRep
+import com.huihe.module_home.data.protocol.District
 import com.huihe.module_home.data.protocol.SetHouseInfoRep
 import com.huihe.module_home.data.protocol.SetHouseInfoReq
 import com.huihe.module_home.presenter.view.SetHouseInfoView
@@ -17,9 +17,9 @@ class SetHouseInfoPresenter @Inject constructor() : BasePresenter<SetHouseInfoVi
     fun getVillages(){
         mView?.showLoading()
         service?.getVillages()
-            .execute(object : BaseSubscriber<AreaBeanRep?>(mView) {
-                override fun onNext(t: AreaBeanRep?) {
-                    mView.onGetAreaBeanListResult(t?.list)
+            .execute(object : BaseSubscriber<MutableList<District>?>(mView) {
+                override fun onNext(t: MutableList<District>?) {
+                    mView.onGetAreaBeanListResult(t)
                 }
             }, lifecycleProvider)
     }
