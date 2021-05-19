@@ -1,6 +1,5 @@
 package com.huihe.usercenter.presenter
 
-import com.huihe.usercenter.data.protocol.IMUserInfo
 import com.huihe.usercenter.data.protocol.UserInfo
 import com.huihe.usercenter.presenter.view.MeView
 import com.huihe.usercenter.service.UserService

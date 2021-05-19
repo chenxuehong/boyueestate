@@ -43,19 +43,19 @@ class SortView {
 
         when (position) {
             0 -> {
-                return SortReq(defaultOrder = 1)
+                return SortReq()
             }
             1 -> {
-                return SortReq(createTimeOrder = 0)
+                return SortReq(createDateAsc = 0)
             }
             2 -> {
-                return SortReq(createTimeOrder = 1)
+                return SortReq(createDateAsc = 1)
             }
             3 -> {
-                return SortReq(latestFollowTimeOrder = 0)
+                return SortReq(followUpDateAsc = 0)
             }
             4 -> {
-                return SortReq(latestFollowTimeOrder = 1)
+                return SortReq(followUpDateAsc = 1)
             }
             else -> {
                 return SortReq()

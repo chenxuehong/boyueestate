@@ -4,13 +4,13 @@ import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.huihe.module_home.data.protocol.AreaReq
-import com.huihe.module_home.data.protocol.District
 import com.huihe.module_home.ext.*
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.ui.adpter.AreaNameRvAdapter
 import com.huihe.module_home.ui.adpter.RvAreaDistrictAdapter
 import com.huihe.module_home.ui.adpter.RvZoneAdapter
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
+import com.kotlin.provider.data.protocol.District
 import kotlinx.android.synthetic.main.layout_search_by_area.view.*
 
 class AreaResultView {

@@ -20,6 +20,7 @@
         <attr name="isShowLine" format="boolean"/>
         <attr name="isNecessary" format="boolean"/>
         <attr name="unit" format="string"/>
+        <attr name="maxLength" format="integer"/>
         <attr name="inputType">
             <flag name="text" value="0x00000001" />
             <flag name="numberDecimal" value="0x00002002" />

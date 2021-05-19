@@ -11,8 +11,8 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import cn.qqtheme.framework.picker.SinglePicker
+import com.alibaba.android.arouter.launcher.ARouter
 import com.eightbitlab.rxbus.Bus
 import com.example.zhouwei.library.CustomPopWindow
 import com.google.gson.Gson
@@ -31,6 +31,8 @@ import com.huihe.module_home.ui.activity.SetHouseInfoActivity
 import com.huihe.module_home.ui.activity.SetOwnerInfoActivity
 import com.huihe.module_home.ui.adpter.HouseDetailRvAdapter
 import com.huihe.module_home.ui.adpter.MoreRvAdapter
+import com.jelly.mango.Mango
+import com.jelly.mango.MultiplexImage
 import com.jph.takephoto.model.TResult
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.ext.onClick
@@ -40,7 +42,9 @@ import com.kotlin.base.ui.fragment.BaseTakePhotoFragment
 import com.kotlin.base.utils.DensityUtils
 import com.kotlin.base.utils.LogUtils
 import com.kotlin.provider.constant.HomeConstant
+import com.kotlin.provider.constant.UserConstant
 import com.kotlin.provider.event.ShareEvent
+import com.kotlin.provider.router.RouterPath
 import com.qiniu.android.storage.UploadManager
 import kotlinx.android.synthetic.main.fragment_house_detail.*
 import kotlinx.android.synthetic.main.layout_right_title_house_detail.*
@@ -56,7 +60,8 @@ import top.limuyang2.ldialog.base.ViewHolder
 /**
  * 房源详情
  */
-class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), HouseDetailView {
+class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), HouseDetailView,
+    HouseDetailRvAdapter.OnListener {
 
     lateinit var houseDetailTvAdapter: HouseDetailRvAdapter
     var mLocalFilResult: TResult? = null
@@ -121,7 +126,7 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
             ivHouseDetailMore.isEnabled = false
         }
         house_detail_rvList.layoutManager = LinearLayoutManager(context)
-        houseDetailTvAdapter = HouseDetailRvAdapter(context)
+        houseDetailTvAdapter = HouseDetailRvAdapter(context, this)
         houseDetailTvAdapter.setRecyclerview(house_detail_rvList)
         house_detail_rvList.adapter = houseDetailTvAdapter
         mMoreList = mutableListOf(
@@ -213,38 +218,44 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
                 mShareCustomPopWindow?.dissmiss()
             }
             if (houseDetail != null) {
-                var imagUrls = houseDetail?.imagUrls?: mutableListOf()
+                var imagUrls = houseDetail?.imagUrls ?: mutableListOf()
                 var imgUrl = ""
-                if (imagUrls.size>0){
-                    imgUrl = imagUrls[0].url?:""
+                if (imagUrls.size > 0) {
+                    imgUrl = imagUrls[0].url ?: ""
                 }
-                Bus.send(ShareEvent(
-                    0,
-                    "${houseDetail?.villageInfoResponse?.name?:""}-${houseDetail?.building?:""}-${houseDetail?.hNum?:""}",
-                    "",
-                    "",
-                    imgUrl,
-                    "http://billion.housevip.cn/#/house/${houseDetail?.id?:""}/uid/1/ip/1",
-                    ""))
+                Bus.send(
+                    ShareEvent(
+                        0,
+                        "${houseDetail?.villageInfoResponse?.name ?: ""}-${houseDetail?.building ?: ""}-${houseDetail?.hNum ?: ""}",
+                        "",
+                        "",
+                        imgUrl,
+                        "http://billion.housevip.cn/#/house/${houseDetail?.id ?: ""}/uid/1/ip/1",
+                        ""
+                    )
+                )
             }
         }
         contentView.pop_dialog_share_fl_wechatmoments.onClick {
             if (mShareCustomPopWindow != null)
                 mShareCustomPopWindow?.dissmiss()
             if (houseDetail != null) {
-                var imagUrls = houseDetail?.imagUrls?: mutableListOf()
+                var imagUrls = houseDetail?.imagUrls ?: mutableListOf()
                 var imgUrl = ""
-                if (imagUrls.size>0){
-                    imgUrl = imagUrls[0].url?:""
+                if (imagUrls.size > 0) {
+                    imgUrl = imagUrls[0].url ?: ""
                 }
-                Bus.send(ShareEvent(
-                    1,
-                    "${houseDetail?.villageInfoResponse?.name?:""}-${houseDetail?.building?:""}-${houseDetail?.hNum?:""}",
-                    "",
-                    "",
-                    imgUrl,
-                    "http://billion.housevip.cn/#/house/${houseDetail?.id?:""}/uid/1/ip/1",
-                    ""))
+                Bus.send(
+                    ShareEvent(
+                        1,
+                        "${houseDetail?.villageInfoResponse?.name ?: ""}-${houseDetail?.building ?: ""}-${houseDetail?.hNum ?: ""}",
+                        "",
+                        "",
+                        imgUrl,
+                        "http://billion.housevip.cn/#/house/${houseDetail?.id ?: ""}/uid/1/ip/1",
+                        ""
+                    )
+                )
             }
         }
         contentView.pop_dialog_share_tv_cancel.onClick {
@@ -253,7 +264,7 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
         }
         mShareCustomPopWindow = CustomPopWindow.PopupWindowBuilder(context)
             .setView(contentView)
-            .size(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+            .size(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             .enableBackgroundDark(true) //弹出popWindow时，背景是否变暗
             .setBgDarkAlpha(0.7f) // 控制亮度
             .setFocusable(true)
@@ -509,5 +520,22 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
     override fun onPause() {
         houseDetailTvAdapter?.onPause()
         super.onPause()
+    }
+
+    override fun onUserClicked(item: ItemHouseDetail.OwnerInfo) {
+        ARouter.getInstance().build(RouterPath.UserCenter.PATH_DEPTINFO)
+            .withString(UserConstant.KEY_USER_ID, item.uid)
+            .navigation()
+    }
+
+    override fun onViewPhoto(
+        photo: String,
+        photoList: List<MultiplexImage>,
+        position: Int
+    ) {
+        Mango.setImages(photoList) //设置图片源
+        Mango.setPosition(position) //设置初始显示位置
+        Mango.setIsShowLoading(true); //在加载图片的时候是否显示Loading,但是如果有原图，加载原图的时候就一定会显示loading
+        Mango.open(context) //开启图片浏览
     }
 }

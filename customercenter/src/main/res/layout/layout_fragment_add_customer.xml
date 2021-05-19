@@ -63,7 +63,7 @@
                 android:id="@+id/nsvDemandBeat"
                 style="@style/MatchWrap"
                 android:layout_height="@dimen/dp_40"
-                app:isNecessary="true"
+                app:isNecessary="false"
                 app:isShowLine="true"
                 app:leftTitleText="@string/demandBeat"
                 app:tipContentText="@string/demandBeat_input" />
@@ -72,7 +72,7 @@
                 android:id="@+id/nsvDemandBudget"
                 style="@style/MatchWrap"
                 android:layout_height="@dimen/dp_40"
-                app:isNecessary="true"
+                app:isNecessary="false"
                 app:isShowLine="true"
                 app:leftTitleText="@string/demandBudget"
                 app:tipContentText="@string/demandBudget_input" />
@@ -81,7 +81,7 @@
                 android:id="@+id/nsvDemandFloor"
                 style="@style/MatchWrap"
                 android:layout_height="@dimen/dp_40"
-                app:isNecessary="true"
+                app:isNecessary="false"
                 app:isShowLine="true"
                 app:leftTitleText="@string/demandFloor"
                 app:tipContentText="@string/demandFloor_input" />

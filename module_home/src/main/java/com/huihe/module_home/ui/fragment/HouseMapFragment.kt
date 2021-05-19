@@ -22,6 +22,7 @@ import com.huihe.module_home.ui.widget.ISearchResultListener
 import com.huihe.module_home.ui.widget.SearchResultViewController
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.utils.LogUtils
+import com.kotlin.provider.data.protocol.District
 import kotlinx.android.synthetic.main.fragment_findhousebymap.*
 import kotlinx.android.synthetic.main.layout_area_num.view.*
 import kotlinx.android.synthetic.main.layout_house_map.*

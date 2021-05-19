@@ -15,8 +15,9 @@ import com.kotlin.base.ext.hideKeyboard
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 
 class FloorResultView {
+    // 底层 1-2 3-4 5-7 8层以上
     private val floors =
-        mutableListOf<String>("不限", "5以下", "5-10", "10-15", "15-20", "20-25", "25-30", "30以上")
+        mutableListOf<String>("不限", "底层", "1-2", "3-4", "5-7",  "8以上")
     private var title = "楼层"
     private var maxFloor = "100"
     private var minFloor = "1"
@@ -85,6 +86,7 @@ class FloorResultView {
                 etMaxValue.text.isNullOrEmpty().not()
     }
 
+    //  不限 底层 1-2 3-4 5-7 8层以上
     private fun getFloorRanges(floor: String, position: Int, length: Int): MutableList<String>? {
         var startFloor = minFloor
         var endFloor = maxFloor
@@ -94,10 +96,10 @@ class FloorResultView {
             }
             1 -> {
                 startFloor = minFloor
-                endFloor = "5"
+                endFloor = "1"
             }
             length - 1 -> {
-                startFloor = "30"
+                startFloor = "8"
                 endFloor = maxFloor
             }
             else -> {

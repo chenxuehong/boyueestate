@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.huihe.usercenter.R
-import com.huihe.usercenter.data.protocol.District
 import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.CommunityManagerPresenter
@@ -20,6 +19,7 @@ import com.kotlin.base.ext.onClick
 import com.kotlin.base.ext.setVisible
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
+import com.kotlin.provider.data.protocol.District
 import kotlinx.android.synthetic.main.fragment_community_manager.*
 import org.jetbrains.anko.support.v4.startActivity
 

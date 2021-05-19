@@ -7,10 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 
-import cn.qqtheme.framework.entity.County
 import com.huihe.usercenter.R
-import com.huihe.usercenter.data.protocol.District
 import com.kotlin.base.ext.initInflater
+import com.kotlin.provider.data.protocol.District
 import kotlinx.android.synthetic.main.layout_community_item.view.*
 
 class CountyRvAdapter(mContext: Context) :

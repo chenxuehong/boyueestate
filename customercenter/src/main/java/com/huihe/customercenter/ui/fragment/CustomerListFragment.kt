@@ -125,9 +125,8 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
                 isOwn = mMoreReq?.isOwn,
                 isTakeLook = mMoreReq?.isTakeLook,
                 isCollection = mMoreReq?.isCollection,
-                defaultOrder = mSortReq?.defaultOrder,
-                createTimeOrder = mSortReq?.createTimeOrder,
-                latestFollowTimeOrder = mSortReq?.latestFollowTimeOrder
+                createDateAsc = mSortReq?.createDateAsc,
+                followUpDateAsc = mSortReq?.followUpDateAsc
             )
         )
     }

@@ -2148,6 +2148,7 @@ drawable icon_selector
 drawable icon_state_error
 drawable im_class
 drawable im_contacts
+drawable image_btn
 drawable image_placeholder
 drawable indicator_point_nomal
 drawable indicator_point_select
@@ -2207,6 +2208,7 @@ drawable owner_takelook
 drawable owner_tel
 drawable page_selected
 drawable page_unselected
+drawable placeholder
 drawable play_voice_message
 drawable popu_dialog_bg
 drawable progress_dialog_anim
@@ -2504,6 +2506,7 @@ id group_name
 id group_notice
 id group_sponsor
 id group_type_bar
+id hint
 id home
 id homeAsUp
 id horizontal
@@ -2608,8 +2611,10 @@ id notification_background
 id notification_main_column
 id notification_main_column_container
 id nowrap
+id oImage
 id off
 id on
+id origin
 id outline
 id outmost_container
 id packed
@@ -2637,6 +2642,7 @@ id pop_menu_list
 id pos_btn
 id profile_icon
 id profile_icon_group
+id progress
 id progress_bar_album_select
 id progress_bar_image_select
 id progress_circular
@@ -2669,6 +2675,7 @@ id row_reverse
 id rtl
 id rv_group_member_list
 id rv_selected_member
+id save
 id save_image_matrix
 id save_non_transition_alpha
 id save_scale_type
@@ -2725,6 +2732,7 @@ id srl_tag
 id start
 id status
 id status_bar_latest_event_content
+id statusbarutil_fake_status_bar_view
 id stretch
 id submenuarrow
 id submit_area
@@ -2880,6 +2888,7 @@ layout acivity_main
 layout activity_album_select
 layout activity_base_title
 layout activity_camera
+layout activity_image_browse
 layout activity_image_select
 layout activity_photo_view
 layout activity_video_view
@@ -3021,6 +3030,7 @@ layout tooltip
 layout videocall_activity_online_call
 layout videocall_item_user_user_layout
 layout view_dialog
+layout vp_item_image
 menu menu_contextual_action_bar
 mipmap ic_launcher
 string Photo

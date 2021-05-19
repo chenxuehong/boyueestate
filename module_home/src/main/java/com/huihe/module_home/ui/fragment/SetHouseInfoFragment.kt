@@ -10,7 +10,6 @@ import cn.qqtheme.framework.picker.AddressPicker
 import cn.qqtheme.framework.picker.SinglePicker
 import com.google.gson.Gson
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.District
 import com.huihe.module_home.data.protocol.HouseDetail
 import com.huihe.module_home.data.protocol.SetHouseInfoRep
 import com.huihe.module_home.data.protocol.SetHouseInfoReq
@@ -24,6 +23,7 @@ import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.widgets.NecessaryTitleInputView
 import com.kotlin.base.widgets.NecessaryTitleSelectView
 import com.kotlin.provider.constant.HomeConstant
+import com.kotlin.provider.data.protocol.District
 import kotlinx.android.synthetic.main.layout_fragment_set_house_info.*
 import org.jetbrains.anko.support.v4.toast
 

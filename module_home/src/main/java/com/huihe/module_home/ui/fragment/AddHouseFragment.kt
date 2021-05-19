@@ -10,7 +10,6 @@ import cn.qqtheme.framework.picker.AddressPicker
 import cn.qqtheme.framework.picker.SinglePicker
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.AddHouseInfoReq
-import com.huihe.module_home.data.protocol.District
 import com.huihe.module_home.data.protocol.SetHouseInfoRep
 import com.huihe.module_home.ext.getConvertProvinceList
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
@@ -21,6 +20,7 @@ import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.widgets.NecessaryTitleInputView
 import com.kotlin.base.widgets.NecessaryTitleSelectView
+import com.kotlin.provider.data.protocol.District
 import kotlinx.android.synthetic.main.fragment_add_house.*
 import kotlinx.android.synthetic.main.fragment_add_house.nivfloorage
 import kotlinx.android.synthetic.main.fragment_add_house.nsvTransaction_type
@@ -190,6 +190,10 @@ class AddHouseFragment : BaseMvpFragment<AddHousePresenter>(), AddHouseView{
 
     private fun checkInput(): Boolean {
         var childCount = llAddHouse.childCount
+        if (!TextUtils.isEmpty(nivrNumber.getContent()) && nivrNumber.getContent()?.length !=4){
+            toast("房间号长度必须为4")
+            return false
+        }
         for (i in 0 until childCount) {
             var childView = llAddHouse.getChildAt(i)
             if (childView is NecessaryTitleSelectView) {

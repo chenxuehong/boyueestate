@@ -1,6 +1,5 @@
 package com.huihe.module_home.presenter
 
-import com.huihe.module_home.data.protocol.District
 import com.huihe.module_home.data.protocol.SetHouseInfoRep
 import com.huihe.module_home.data.protocol.SetHouseInfoReq
 import com.huihe.module_home.presenter.view.SetHouseInfoView
@@ -8,6 +7,7 @@ import com.huihe.module_home.service.HouseService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber
+import com.kotlin.provider.data.protocol.District
 import javax.inject.Inject
 
 class SetHouseInfoPresenter @Inject constructor() : BasePresenter<SetHouseInfoView>(){
