@@ -19,5 +19,6 @@ public class ImageAdapter extends BannerImageAdapter<HouseDetail.ImagUrlsBean> {
     @Override
     public void onBindView(BannerImageHolder holder, HouseDetail.ImagUrlsBean data, int position, int size) {
         GlideUtils.INSTANCE.loadImage(context,data.getUrl(),holder.imageView);
+
     }
 }

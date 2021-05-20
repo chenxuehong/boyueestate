@@ -32,6 +32,7 @@ import com.tencent.qcloud.tim.uikit.utils.PopWindowUtil
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
+import org.jetbrains.anko.runOnUiThread
 import org.jetbrains.anko.share
 import org.jetbrains.anko.toast
 import java.util.HashMap
@@ -118,7 +119,8 @@ class MainApplication : IMApplication() {
         share: ShareEvent
     ) {
         if (0 == share.type) {
-            ShareSdkUtil.shareWechat(share.title,
+            ShareSdkUtil.shareWechat(
+                share.title,
                 share.content,
                 share.url,
                 share.imagePath,
@@ -129,11 +131,16 @@ class MainApplication : IMApplication() {
                     }
 
                     override fun onCancel(p0: Platform?, p1: Int) {
-                        toast("已取消")
+                       runOnUiThread {
+                           toast("已取消")
+                       }
                     }
 
                     override fun onError(p0: Platform?, p1: Int, p2: Throwable?) {
-                        toast(p2?.message ?: "")
+
+                        runOnUiThread {
+                            toast(p2?.message ?: "")
+                        }
                     }
 
                 })
@@ -150,11 +157,15 @@ class MainApplication : IMApplication() {
 
                     override fun onCancel(p0: Platform?, p1: Int) {
 
-                        toast("已取消")
+                        runOnUiThread {
+                            toast("已取消")
+                        }
                     }
 
                     override fun onError(p0: Platform?, p1: Int, p2: Throwable?) {
-                        toast(p2?.message ?: "")
+                        runOnUiThread {
+                            toast(p2?.message ?: "")
+                        }
                     }
 
                 })

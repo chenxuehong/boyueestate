@@ -31,12 +31,11 @@ import com.huihe.module_home.ui.activity.SetHouseInfoActivity
 import com.huihe.module_home.ui.activity.SetOwnerInfoActivity
 import com.huihe.module_home.ui.adpter.HouseDetailRvAdapter
 import com.huihe.module_home.ui.adpter.MoreRvAdapter
-import com.jelly.mango.Mango
-import com.jelly.mango.MultiplexImage
 import com.jph.takephoto.model.TResult
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ext.startLoading
+import com.kotlin.base.ext.viewPhoto
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseTakePhotoFragment
 import com.kotlin.base.utils.DensityUtils
@@ -307,7 +306,7 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
             .setGravity(Gravity.CENTER)
             .setWidthScale(0.75f)
             .setVerticalMargin(0.015f)
-            .setAnimStyle(R.style.LDialogBottomAnimation)
+//            .setAnimStyle(R.style.LDialogBottomAnimation)
             .setViewHandlerListener(object : ViewHandlerListener() {
                 override fun convertView(holder: ViewHolder, dialog: BaseLDialog<*>) {
                     val etPhone = holder.getView<EditText>(R.id.etPhoneContent)
@@ -530,12 +529,10 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
 
     override fun onViewPhoto(
         photo: String,
-        photoList: List<MultiplexImage>,
-        position: Int
+        photoList: List<String>,
+        position: Int,
+        itemView: View
     ) {
-        Mango.setImages(photoList) //设置图片源
-        Mango.setPosition(position) //设置初始显示位置
-        Mango.setIsShowLoading(true); //在加载图片的时候是否显示Loading,但是如果有原图，加载原图的时候就一定会显示loading
-        Mango.open(context) //开启图片浏览
+        itemView.viewPhoto(context, position, photoList)
     }
 }

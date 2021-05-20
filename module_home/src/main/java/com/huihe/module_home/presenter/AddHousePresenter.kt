@@ -24,14 +24,4 @@ class AddHousePresenter @Inject constructor(): BasePresenter<AddHouseView>(){
                 }
             },lifecycleProvider)
     }
-
-    fun getVillages(){
-        mView?.showLoading()
-        service?.getVillages()
-            .execute(object : BaseSubscriber<MutableList<District>?>(mView) {
-                override fun onNext(t: MutableList<District>?) {
-                    mView.onGetAreaBeanListResult(t)
-                }
-            }, lifecycleProvider)
-    }
 }

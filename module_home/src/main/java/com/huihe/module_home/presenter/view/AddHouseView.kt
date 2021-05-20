@@ -6,5 +6,4 @@ import com.kotlin.provider.data.protocol.District
 
 interface AddHouseView : BaseView {
     fun onAddHouseInfoSuccess(t: SetHouseInfoRep?)
-    fun onGetAreaBeanListResult(list: MutableList<District>?)
 }

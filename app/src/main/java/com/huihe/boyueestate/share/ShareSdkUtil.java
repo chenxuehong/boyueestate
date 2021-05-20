@@ -29,6 +29,7 @@ public class ShareSdkUtil {
         if (!TextUtils.isEmpty(url)) {
             sp.setUrl(url);
         }
+        sp.setShareType(Platform.SHARE_WEBPAGE);
         Platform tw = ShareSDK.getPlatform(Wechat.NAME);
         tw.setPlatformActionListener(actionListener); // 设置分享事件回调
         // 执行图文分享
@@ -51,6 +52,7 @@ public class ShareSdkUtil {
         if (!TextUtils.isEmpty(imageUrl)) {
             sp.setImageUrl(imageUrl);
         }
+        sp.setShareType(Platform.SHARE_WEBPAGE);
         if (!TextUtils.isEmpty(url)) {
             sp.setUrl(url);
         }

@@ -28,7 +28,6 @@ import com.huihe.module_home.ui.activity.HouseLogHomeActivity
 
 import com.huihe.module_home.ui.activity.HouseTakeLookRecordActivity
 import com.huihe.module_home.ui.holder.*
-import com.jelly.mango.MultiplexImage
 import com.kotlin.base.ext.callPhone
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.onClick
@@ -288,13 +287,13 @@ class HouseDetailRvAdapter(mContext: Context?,var mListener:OnListener) :
                 mContext.resources.getDimensionPixelOffset(R.dimen.dp_6),
                 0.8f
             )
+
             setOnBannerListener { data, position ->
-
-
                 mListener?.onViewPhoto(
                     (data as HouseDetail.ImagUrlsBean).url?:"",
                     getPhotoList(itemHouseDetail.bannerList?: mutableListOf()),
-                    position
+                    position,
+                    bannerHolder.itemView
                 )
             }
 
@@ -402,7 +401,8 @@ class HouseDetailRvAdapter(mContext: Context?,var mListener:OnListener) :
                 mListener?.onViewPhoto(
                     item.url?:"",
                     getPhotoList(houseDetailPhotoRvAdapter.dataList),
-                    position
+                    position,
+                    view
                 )
             }
 
@@ -410,21 +410,21 @@ class HouseDetailRvAdapter(mContext: Context?,var mListener:OnListener) :
         houseDetailPhotoRvAdapter.setData(imagUrls)
     }
 
-    var photoList = mutableListOf<MultiplexImage>()
-    private fun getPhotoList(dataList: MutableList<HouseDetail.ImagUrlsBean>): List<MultiplexImage> {
+    var photoList = mutableListOf<String>()
+    private fun getPhotoList(dataList: MutableList<HouseDetail.ImagUrlsBean>): List<String> {
         photoList?.clear()
         dataList.forEach {
             item->
-            photoList.add(MultiplexImage(item.url?:"", MultiplexImage.ImageType.NORMAL))
+            photoList.add(item.url?:"")
         }
         return photoList
     }
 
-    private fun getReferPhotoList(dataList: MutableList<HouseDetail.ReferUrlsBean>): List<MultiplexImage> {
+    private fun getReferPhotoList(dataList: MutableList<HouseDetail.ReferUrlsBean>): List<String> {
         photoList?.clear()
         dataList.forEach {
                 item->
-            photoList.add(MultiplexImage(item.url?:"", MultiplexImage.ImageType.NORMAL))
+            photoList.add(item.url?:"")
         }
         return photoList
     }
@@ -451,7 +451,8 @@ class HouseDetailRvAdapter(mContext: Context?,var mListener:OnListener) :
                 mListener?.onViewPhoto(
                     item.url?:"",
                     getReferPhotoList(houseDetailReferImageRvAdapter.dataList),
-                    position
+                    position,
+                    view
                 )
             }
 
@@ -504,8 +505,9 @@ class HouseDetailRvAdapter(mContext: Context?,var mListener:OnListener) :
         fun onUserClicked(item: ItemHouseDetail.OwnerInfo)
         fun onViewPhoto(
             photo: String,
-            photoList: List<MultiplexImage>,
-            position: Int
+            photoList: List<String>,
+            position: Int,
+            itemView: View
         )
     }
 }

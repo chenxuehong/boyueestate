@@ -14,16 +14,6 @@ class SetHouseInfoPresenter @Inject constructor() : BasePresenter<SetHouseInfoVi
     @Inject
     lateinit var service: HouseService
 
-    fun getVillages(){
-        mView?.showLoading()
-        service?.getVillages()
-            .execute(object : BaseSubscriber<MutableList<District>?>(mView) {
-                override fun onNext(t: MutableList<District>?) {
-                    mView.onGetAreaBeanListResult(t)
-                }
-            }, lifecycleProvider)
-    }
-
     fun putHouseInfo(req: SetHouseInfoReq){
         mView?.showLoading()
         service?.putHouseInfo(req)

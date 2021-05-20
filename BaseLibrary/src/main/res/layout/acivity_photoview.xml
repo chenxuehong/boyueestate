@@ -1,0 +1,22 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/layout_viewpager_rl"
+    android:layout_height="wrap_content">
+
+    <com.kotlin.base.widgets.MyViewPager
+        android:id="@+id/activity_photoview_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:background="@color/common_black" />
+    <TextView
+        android:layout_marginTop="@dimen/dp_44"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/activity_photoview_tv_img_count"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>

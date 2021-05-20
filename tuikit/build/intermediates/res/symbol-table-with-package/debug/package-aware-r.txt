@@ -539,6 +539,7 @@ attr maxActionInlineWidth
 attr maxButtonHeight
 attr maxHeight
 attr maxImageSize
+attr maxLength
 attr maxLine
 attr maxWidth
 attr max_select
@@ -2148,7 +2149,6 @@ drawable icon_selector
 drawable icon_state_error
 drawable im_class
 drawable im_contacts
-drawable image_btn
 drawable image_placeholder
 drawable indicator_point_nomal
 drawable indicator_point_select
@@ -2208,7 +2208,6 @@ drawable owner_takelook
 drawable owner_tel
 drawable page_selected
 drawable page_unselected
-drawable placeholder
 drawable play_voice_message
 drawable popu_dialog_bg
 drawable progress_dialog_anim
@@ -2312,6 +2311,8 @@ id actions
 id activity_chat_container
 id activity_chooser_view_content
 id activity_contracts_list
+id activity_photoview_tv_img_count
+id activity_photoview_viewpager
 id add
 id add_group_member
 id add_wording
@@ -2506,7 +2507,6 @@ id group_name
 id group_notice
 id group_sponsor
 id group_type_bar
-id hint
 id home
 id homeAsUp
 id horizontal
@@ -2543,6 +2543,9 @@ id jcameraview
 id join_type_bar
 id labeled
 id largeLabel
+id layout_save_gallery_tv_cancel
+id layout_save_gallery_tv_save
+id layout_viewpager_rl
 id left
 id leftBottom
 id leftTop
@@ -2611,10 +2614,8 @@ id notification_background
 id notification_main_column
 id notification_main_column_container
 id nowrap
-id oImage
 id off
 id on
-id origin
 id outline
 id outmost_container
 id packed
@@ -2642,7 +2643,6 @@ id pop_menu_list
 id pos_btn
 id profile_icon
 id profile_icon_group
-id progress
 id progress_bar_album_select
 id progress_bar_image_select
 id progress_circular
@@ -2675,7 +2675,6 @@ id row_reverse
 id rtl
 id rv_group_member_list
 id rv_selected_member
-id save
 id save_image_matrix
 id save_non_transition_alpha
 id save_scale_type
@@ -2732,7 +2731,6 @@ id srl_tag
 id start
 id status
 id status_bar_latest_event_content
-id statusbarutil_fake_status_bar_view
 id stretch
 id submenuarrow
 id submit_area
@@ -2885,10 +2883,10 @@ layout abc_tooltip
 layout acivity_chat
 layout acivity_contracts_list
 layout acivity_main
+layout acivity_photoview
 layout activity_album_select
 layout activity_base_title
 layout activity_camera
-layout activity_image_browse
 layout activity_image_select
 layout activity_photo_view
 layout activity_video_view
@@ -2978,6 +2976,7 @@ layout layout_materia_dialog
 layout layout_message_ios_dialog
 layout layout_necessary_title_inputview
 layout layout_necessary_title_selectview
+layout layout_save_gallery
 layout layout_state_empty
 layout layout_state_error
 layout layout_state_loading
@@ -3030,7 +3029,6 @@ layout tooltip
 layout videocall_activity_online_call
 layout videocall_item_user_user_layout
 layout view_dialog
-layout vp_item_image
 menu menu_contextual_action_bar
 mipmap ic_launcher
 string Photo
@@ -3318,6 +3316,7 @@ string revoke_fail
 string revoke_tips
 string revoke_tips_other
 string revoke_tips_you
+string save_pic_to_camera
 string say_time_short
 string sdk_version
 string search
@@ -4061,7 +4060,7 @@ styleable MenuItem actionLayout actionProviderClass actionViewClass alphabeticMo
 styleable MenuView android_headerBackground android_horizontalDivider android_itemBackground android_itemIconDisabledAlpha android_itemTextAppearance android_verticalDivider android_windowAnimationStyle preserveIconSpacing subMenuArrow
 styleable MultiStateView msv_animateViewChanges msv_emptyView msv_errorView msv_loadingView msv_viewState
 styleable NavigationView android_background android_fitsSystemWindows android_maxWidth elevation headerLayout itemBackground itemHorizontalPadding itemIconPadding itemIconTint itemTextAppearance itemTextColor menu
-styleable NecessaryTitleView inputType isNecessary isShowLine leftTitleText tipContentText unit
+styleable NecessaryTitleView inputType isNecessary isShowLine leftTitleText maxLength tipContentText unit
 styleable PopupWindow android_popupAnimationStyle android_popupBackground overlapAnchor
 styleable PopupWindowBackgroundState state_above_anchor
 styleable RecycleListView paddingBottomNoButtons paddingTopNoTitle

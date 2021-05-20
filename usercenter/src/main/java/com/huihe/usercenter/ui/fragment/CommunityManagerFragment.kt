@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.eightbitlab.rxbus.Bus
 import com.huihe.usercenter.R
 import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
@@ -14,6 +15,8 @@ import com.huihe.usercenter.ui.activity.SearchCommunityActivity
 import com.huihe.usercenter.ui.adapter.CityRvAdapter
 import com.huihe.usercenter.ui.adapter.CountyRvAdapter
 import com.huihe.usercenter.ui.adapter.ProvinceRvAdapter
+import com.kotlin.base.common.BaseConstant
+import com.kotlin.base.event.VillageEvent
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ext.setVisible
@@ -29,6 +32,7 @@ class CommunityManagerFragment : BaseMvpFragment<CommunityManagerPresenter>(),
     var mProvinceRvAdapter: ProvinceRvAdapter? = null
     var mCityRvAdapter: CityRvAdapter? = null
     var mCountyRvAdapter: CountyRvAdapter? = null
+    var isSelect = false
     override fun injectComponent() {
         DaggerUserComponent.builder().activityComponent(mActivityComponent).userModule(
             UserModule()
@@ -47,6 +51,7 @@ class CommunityManagerFragment : BaseMvpFragment<CommunityManagerPresenter>(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        isSelect = arguments?.getBoolean(BaseConstant.KEY_ISSELECT,false)?:false
         initView()
         initData()
     }
@@ -87,8 +92,24 @@ class CommunityManagerFragment : BaseMvpFragment<CommunityManagerPresenter>(),
     private fun initCountyAdapter(item: District.ZoneBean) {
         mCountyRvAdapter?.resetData()
         rvCommunityManagerRight.layoutManager = LinearLayoutManager(context)
+        mCountyRvAdapter?.setOnItemClickListener(object :BaseRecyclerViewAdapter.OnItemClickListener<District.ZoneBean.VillageBean>{
+            override fun onItemClick(
+                view: View,
+                item: District.ZoneBean.VillageBean,
+                position: Int
+            ) {
+                if (isSelect){
+                    finishForGetData(item)
+                }
+            }
+        })
         rvCommunityManagerRight.adapter = mCountyRvAdapter
         mCountyRvAdapter?.setData(item.villages?: mutableListOf())
+    }
+
+    private fun finishForGetData(item: District.ZoneBean.VillageBean) {
+        Bus.send(VillageEvent(item.id?:"",item.districtName?:"",item.zoneName?:"",item.name?:""))
+        activity?.finish()
     }
 
     private fun initData() {
@@ -98,6 +119,5 @@ class CommunityManagerFragment : BaseMvpFragment<CommunityManagerPresenter>(),
     override fun onGetAreaBeanListResult(list: MutableList<District>?) {
         mProvinceRvAdapter?.setData(list ?: mutableListOf())
     }
-
 
 }

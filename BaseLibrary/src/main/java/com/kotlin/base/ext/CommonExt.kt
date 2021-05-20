@@ -15,13 +15,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.R
 import com.kotlin.base.data.protocol.BaseResp
 import com.kotlin.base.rx.BaseFunc
 import com.kotlin.base.rx.BaseFuncBoolean
 import com.kotlin.base.rx.BaseSubscriber
+import com.kotlin.base.ui.activity.PhotoViewActivity
 import com.kotlin.base.utils.GlideUtils
+import com.kotlin.base.utils.amin.AnimationConstants
 import com.kotlin.base.widgets.DefaultTextWatcher
 import com.kotlin.base.widgets.GridViewItemDecoration
 import com.trello.rxlifecycle3.LifecycleProvider
@@ -177,4 +180,25 @@ fun RecyclerView.vertical(column: Int, space: Int) {
 
 fun RecyclerView.vertical() {
     layoutManager = LinearLayoutManager(context)
+}
+
+fun View.viewPhoto(
+    context: Context?,
+    position: Int,
+    photoList: List<String>
+) {
+    val intent =
+        Intent(context, PhotoViewActivity::class.java)
+    intent.putExtra(PhotoViewActivity.CURRENT_POSITION, position)
+    intent.putExtra(PhotoViewActivity.URLS, Gson().toJson(photoList))
+
+    val location = IntArray(2)
+    getLocationOnScreen(location)
+
+    val centerX = (location[0] + getMeasuredWidth() / 2) as Int
+    val centery = (location[1] + getMeasuredHeight() / 2) as Int
+    intent.putExtra(AnimationConstants.ACTIVITY_ANIMATION_PIVOTX, centerX)
+    intent.putExtra(AnimationConstants.ACTIVITY_ANIMATION_PIVOTY, centery)
+    intent.putExtra(AnimationConstants.ACTIVITY_ANIMATION_ENABLE, true)
+    context?.startActivity(intent)
 }

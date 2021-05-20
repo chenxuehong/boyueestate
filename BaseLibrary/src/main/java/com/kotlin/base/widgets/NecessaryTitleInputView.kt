@@ -42,6 +42,35 @@ class NecessaryTitleInputView @JvmOverloads constructor(
         )
         obtainStyledAttributes.recycle()
 
+        initView(isNecessary, titleText, tipContentText, isShowLine, unit, inputType,maxLength)
+
+    }
+
+    private fun initView(
+        isNecessary: Boolean,
+        titleText: String?,
+        tipContentText: String?,
+        isShowLine: Boolean,
+        unit: String?,
+        inputType: Int,
+        maxLength: Int
+    ) {
+        View.inflate(context, R.layout.layout_necessary_title_inputview, this)
+        var titleText1 = titleText
+        if (isNecessary)
+            titleText1 = String.format("<font color=\"#ff0000\">%s</font>%s", "*", titleText1);
+        if (isNecessary) {
+            tvNecessaryTitleInputviewTitle.text = Html.fromHtml(titleText1)
+        } else {
+            tvNecessaryTitleInputviewTitle.text = titleText1
+        }
+        etNecessaryTitleInputviewContent.hint = tipContentText
+        vNecessaryTitleInputviewline.setVisible(isShowLine)
+        tvNecessaryTitleInputviewContentUnit.text = unit
+        etNecessaryTitleInputviewContent.inputType = inputType
+        if (!TextUtils.isEmpty(unit)) {
+            tvNecessaryTitleInputviewContentUnit.setVisible(true)
+        }
         if (maxLength > 0) {
             etNecessaryTitleInputviewContent.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
@@ -74,35 +103,6 @@ class NecessaryTitleInputView @JvmOverloads constructor(
                 }
 
             })
-        }
-
-        initView(isNecessary, titleText, tipContentText, isShowLine, unit, inputType)
-
-    }
-
-    private fun initView(
-        isNecessary: Boolean,
-        titleText: String?,
-        tipContentText: String?,
-        isShowLine: Boolean,
-        unit: String?,
-        inputType: Int
-    ) {
-        View.inflate(context, R.layout.layout_necessary_title_inputview, this)
-        var titleText1 = titleText
-        if (isNecessary)
-            titleText1 = String.format("<font color=\"#ff0000\">%s</font>%s", "*", titleText1);
-        if (isNecessary) {
-            tvNecessaryTitleInputviewTitle.text = Html.fromHtml(titleText1)
-        } else {
-            tvNecessaryTitleInputviewTitle.text = titleText1
-        }
-        etNecessaryTitleInputviewContent.hint = tipContentText
-        vNecessaryTitleInputviewline.setVisible(isShowLine)
-        tvNecessaryTitleInputviewContentUnit.text = unit
-        etNecessaryTitleInputviewContent.inputType = inputType
-        if (!TextUtils.isEmpty(unit)) {
-            tvNecessaryTitleInputviewContentUnit.setVisible(true)
         }
     }
 

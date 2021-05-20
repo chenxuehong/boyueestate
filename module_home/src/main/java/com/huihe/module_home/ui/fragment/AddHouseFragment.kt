@@ -1,5 +1,6 @@
 package com.huihe.module_home.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -8,6 +9,10 @@ import android.view.ViewGroup
 import cn.qqtheme.framework.entity.Province
 import cn.qqtheme.framework.picker.AddressPicker
 import cn.qqtheme.framework.picker.SinglePicker
+import com.alibaba.android.arouter.facade.callback.NavigationCallback
+import com.alibaba.android.arouter.launcher.ARouter
+import com.eightbitlab.rxbus.Bus
+import com.eightbitlab.rxbus.registerInBus
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.AddHouseInfoReq
 import com.huihe.module_home.data.protocol.SetHouseInfoRep
@@ -16,11 +21,15 @@ import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.AddHousePresenter
 import com.huihe.module_home.presenter.view.AddHouseView
+import com.kotlin.base.common.BaseConstant
+import com.kotlin.base.event.VillageEvent
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.widgets.NecessaryTitleInputView
 import com.kotlin.base.widgets.NecessaryTitleSelectView
 import com.kotlin.provider.data.protocol.District
+import com.kotlin.provider.event.ChatEvent
+import com.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.fragment_add_house.*
 import kotlinx.android.synthetic.main.fragment_add_house.nivfloorage
 import kotlinx.android.synthetic.main.fragment_add_house.nsvTransaction_type
@@ -31,12 +40,6 @@ class AddHouseFragment : BaseMvpFragment<AddHousePresenter>(), AddHouseView{
 
     var mTransactionTypePicker:SinglePicker<String>?=null
     var req:AddHouseInfoReq?=null
-    var mProvinceList: ArrayList<Province>? = null
-    var selectedCounty: String? = null
-    var mAddresspicker: AddressPicker? = null
-    var selectedProvince: String? = null
-    var selectedCity: String? = null
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -69,11 +72,7 @@ class AddHouseFragment : BaseMvpFragment<AddHousePresenter>(), AddHouseView{
             selectTransactionType()
         }
         nsvVillage.onClick {
-            if (mProvinceList != null && mProvinceList!!.size > 0) {
-                selectVillage()
-            } else {
-                mPresenter.getVillages()
-            }
+            selectVillage()
         }
     }
 
@@ -115,28 +114,15 @@ class AddHouseFragment : BaseMvpFragment<AddHousePresenter>(), AddHouseView{
         }
     }
 
-    override fun onGetAreaBeanListResult(list: MutableList<District>?) {
-        mProvinceList = getConvertProvinceList(list)
-        selectVillage()
-    }
-
     private fun selectVillage() {
-        mAddresspicker = AddressPicker(activity, mProvinceList)
-        mAddresspicker?.setColumnWeight(2 / 8.0f, 3 / 8.0f, 3 / 8.0f)//省级、地级和县级的比例为2:3:3
-        if (!TextUtils.isEmpty(selectedCounty)) {
-            mAddresspicker?.setSelectedItem(selectedProvince, selectedCity, selectedCounty)
-        }
-        mAddresspicker?.setOnAddressPickListener { province, city, county ->
-            if (province == null || city ==null || county==null){
-                return@setOnAddressPickListener
-            }
-            selectedProvince = province.areaName?:""
-            selectedCity = city.areaName?:""
-            selectedCounty = county.areaName?:""
-            req?.villageId = county.areaId?:""
-            nsvVillage.setContent("${selectedProvince}/${selectedCity}/${selectedCounty}")
-        }
-        mAddresspicker?.show()
+        ARouter.getInstance().build(RouterPath.UserCenter.PATH_COMMUNITY_MANAGER)
+            .withBoolean(BaseConstant.KEY_ISSELECT,true)
+            .navigation()
+        Bus.observe<VillageEvent>()
+            .subscribe {
+                req?.villageId = it.id?:""
+                nsvVillage.setContent("${it.villageName}")
+            }.registerInBus(this)
     }
 
     private fun selectTransactionType() {
@@ -220,8 +206,11 @@ class AddHouseFragment : BaseMvpFragment<AddHousePresenter>(), AddHouseView{
     override fun onDestroy() {
         super.onDestroy()
         try {
+            Bus.unregister(this)
             mTransactionTypePicker?.dismiss()
         } catch (e: Exception) {
         }
     }
 }
+
+
