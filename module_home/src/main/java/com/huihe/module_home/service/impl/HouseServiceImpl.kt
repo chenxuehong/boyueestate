@@ -4,6 +4,7 @@ import com.huihe.module_home.data.protocol.*
 import com.huihe.module_home.data.repository.CustomersRepository
 import com.huihe.module_home.service.HouseService
 import com.kotlin.base.ext.convert
+import com.kotlin.provider.data.protocol.District
 import io.reactivex.Observable
 import javax.inject.Inject
 

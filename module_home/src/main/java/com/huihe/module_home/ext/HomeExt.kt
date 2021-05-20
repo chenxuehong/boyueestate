@@ -6,11 +6,11 @@ import cn.qqtheme.framework.entity.City
 import cn.qqtheme.framework.entity.County
 import cn.qqtheme.framework.entity.Province
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.District
 import com.huihe.module_home.data.protocol.HouseDetail
 import com.huihe.module_home.data.protocol.ItemHouseDetail
 import com.huihe.module_home.ui.adpter.MoreSearchAdapter
 import com.kotlin.base.utils.DateUtils
+import com.kotlin.provider.data.protocol.District
 
 
 fun getConvertProvinceList(data: MutableList<District>?): ArrayList<Province> {
@@ -192,6 +192,7 @@ fun getConvertHouseDetailData(houseDetail: HouseDetail?): MutableList<ItemHouseD
         ItemHouseDetail(
             ownerInfoList = mutableListOf(
                 ItemHouseDetail.OwnerInfo(
+                    ownerInfo?.createUser?:"",
                     "录入人",
                     "${ownerInfo?.createUserName} ${DateUtils.stringToString(
                         ownerInfo?.createTime!!,
@@ -200,36 +201,44 @@ fun getConvertHouseDetailData(houseDetail: HouseDetail?): MutableList<ItemHouseD
                     )}"
                 ),
                 ItemHouseDetail.OwnerInfo(
+                    ownerInfo?.maintainUser?:"",
                     "维护人",
-                    "${ownerInfo?.maintainUserName}"
+                    "${ownerInfo?.maintainUserName?:""}"
                 ),
                 ItemHouseDetail.OwnerInfo(
+                    ownerInfo?.imageUser?:"",
                     "图片人",
-                    "${ownerInfo?.imageUserName}"
+                    "${ownerInfo?.imageUserName?:""}"
                 ),
                 ItemHouseDetail.OwnerInfo(
+                    ownerInfo?.entrustUser?:"",
                     "委托人",
-                    "${ownerInfo?.entrustUserName}"
+                    "${ownerInfo?.entrustUserName?:""}"
                 ),
                 ItemHouseDetail.OwnerInfo(
+                    ownerInfo?.haveKeyUser?:"",
                     "钥匙人",
-                    "${ownerInfo?.haveKeyUserName}"
+                    "${ownerInfo?.haveKeyUserName?:""}"
                 ),
                 ItemHouseDetail.OwnerInfo(
+                    ownerInfo?.soleUser?:"",
                     "独家人",
-                    "${ownerInfo?.soleUserName}"
+                    "${ownerInfo?.soleUserName?:""}"
                 ),
                 ItemHouseDetail.OwnerInfo(
+                    ownerInfo?.bargainPriceUser?:"",
                     "推荐人",
-                    "${ownerInfo?.bargainPriceUserName}"
+                    "${ownerInfo?.bargainPriceUserName?:""}"
                 ),
                 ItemHouseDetail.OwnerInfo(
+                    ownerInfo?.blockUser?:"",
                     "封盘人",
-                    "${ownerInfo?.blockUserName}"
+                    "${ownerInfo?.blockUserName?:""}"
                 ),
                 ItemHouseDetail.OwnerInfo(
+                    ownerInfo?.openUser?:"",
                     "开盘人",
-                    "${ownerInfo?.openUserName}"
+                    "${ownerInfo?.openUserName?:""}"
                 )
             )
         ),

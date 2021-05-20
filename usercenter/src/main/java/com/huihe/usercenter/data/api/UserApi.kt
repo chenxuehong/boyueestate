@@ -2,6 +2,7 @@ package com.huihe.usercenter.data.api
 
 import com.huihe.usercenter.data.protocol.*
 import com.kotlin.base.data.protocol.BaseResp
+import com.kotlin.provider.data.protocol.District
 import io.reactivex.Observable
 import retrofit2.http.*
 import com.kotlin.provider.data.protocol.IMUserInfo

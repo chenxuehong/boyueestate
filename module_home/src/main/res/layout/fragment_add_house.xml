@@ -69,6 +69,7 @@
             android:id="@+id/nivrNumber"
             app:leftTitleText="@string/rNumber"
             app:isNecessary="true"
+            app:maxLength="4"
             app:isShowLine="true"
             app:tipContentText="@string/rNumber_input"
             style="@style/MatchWrap"/>

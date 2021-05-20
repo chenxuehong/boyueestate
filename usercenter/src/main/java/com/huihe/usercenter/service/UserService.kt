@@ -1,6 +1,7 @@
 package com.huihe.usercenter.service
 
 import com.huihe.usercenter.data.protocol.*
+import com.kotlin.provider.data.protocol.District
 import com.kotlin.provider.data.protocol.IMUserInfo
 import io.reactivex.Observable
 

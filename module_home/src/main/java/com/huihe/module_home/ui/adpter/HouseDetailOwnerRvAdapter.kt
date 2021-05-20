@@ -32,6 +32,7 @@ class HouseDetailOwnerRvAdapter(mContext: Context) :
         holder.itemView.tvHouseDetailRightTitle.text = detailInfo.leftTitle
         holder.itemView.tvHouseDetailRightContent.text = detailInfo.content?:""
         holder.itemView.tvHouseDetailTitle.setVisible(position==0)
+        holder.itemView.tvHouseDetailRightArrow.setVisible(position!=0)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)

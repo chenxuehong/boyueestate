@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.District
 import com.kotlin.base.ext.setVisible
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
+import com.kotlin.provider.data.protocol.District
 import kotlinx.android.synthetic.main.layout_area_item.view.*
 
 class RvZoneAdapter(mContext: Context) :
     BaseRecyclerViewAdapter<District.ZoneBean, RvZoneAdapter.ViewHolder>(mContext) {
 
-    private  var mCheckedItem :District.ZoneBean?=null
+    private  var mCheckedItem : District.ZoneBean?=null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflate =
             LayoutInflater.from(mContext).inflate(R.layout.layout_area_item, parent, false)

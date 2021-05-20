@@ -11,6 +11,8 @@ object RouterPath{
         companion object {
             const val PATH_LOGIN = "/userCenter/login"
             const val PATH_MAIN = "/userCenter/main"
+            const val PATH_DEPTINFO = "/userCenter/DeptInfo"
+            const val PATH_COMMUNITY_MANAGER = "/userCenter/CommunityManager"
         }
     }
     //首页模块

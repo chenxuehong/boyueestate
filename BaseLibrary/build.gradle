@@ -85,6 +85,8 @@ dependencies {
     //画廊
 //    api 'com.github.crosswall:Android-Coverflow:release-v1.0.4'
 
+   api 'com.bm.photoview:library:1.4.1'
+
     //MultiStateView
     api "com.github.Kennyc1012:MultiStateView:$multi_state_view_version"
 

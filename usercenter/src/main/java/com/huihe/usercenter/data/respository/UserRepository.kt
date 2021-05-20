@@ -4,6 +4,7 @@ import com.huihe.usercenter.data.api.UserApi
 import com.huihe.usercenter.data.protocol.*
 import com.kotlin.base.data.net.RetrofitFactory
 import com.kotlin.base.data.protocol.BaseResp
+import com.kotlin.provider.data.protocol.District
 import io.reactivex.Observable
 import javax.inject.Inject
 import com.kotlin.provider.data.protocol.IMUserInfo

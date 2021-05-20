@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.eightbitlab.rxbus.Bus
+import com.google.gson.Gson
 import com.huihe.usercenter.R
-import com.huihe.usercenter.data.protocol.District
 import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.CommunityManagerPresenter
@@ -15,11 +16,15 @@ import com.huihe.usercenter.ui.activity.SearchCommunityActivity
 import com.huihe.usercenter.ui.adapter.CityRvAdapter
 import com.huihe.usercenter.ui.adapter.CountyRvAdapter
 import com.huihe.usercenter.ui.adapter.ProvinceRvAdapter
+import com.kotlin.base.common.BaseConstant
+import com.kotlin.base.event.VillageEvent
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ext.setVisible
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
+import com.kotlin.provider.constant.UserConstant
+import com.kotlin.provider.data.protocol.District
 import kotlinx.android.synthetic.main.fragment_community_manager.*
 import org.jetbrains.anko.support.v4.startActivity
 
@@ -29,6 +34,9 @@ class CommunityManagerFragment : BaseMvpFragment<CommunityManagerPresenter>(),
     var mProvinceRvAdapter: ProvinceRvAdapter? = null
     var mCityRvAdapter: CityRvAdapter? = null
     var mCountyRvAdapter: CountyRvAdapter? = null
+    var isSelect = false
+    var mDistrictList: MutableList<District> = mutableListOf()
+
     override fun injectComponent() {
         DaggerUserComponent.builder().activityComponent(mActivityComponent).userModule(
             UserModule()
@@ -47,6 +55,7 @@ class CommunityManagerFragment : BaseMvpFragment<CommunityManagerPresenter>(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        isSelect = arguments?.getBoolean(BaseConstant.KEY_ISSELECT, false) ?: false
         initView()
         initData()
     }
@@ -54,7 +63,9 @@ class CommunityManagerFragment : BaseMvpFragment<CommunityManagerPresenter>(),
     private fun initView() {
 
         rvCommunityManagerInput.onClick {
-            startActivity<SearchCommunityActivity>()
+            if (mDistrictList != null) {
+                startActivity<SearchCommunityActivity>()
+            }
         }
         rvCommunityManagerInput.setVisible(false)
         rvCommunityManagerLeft.layoutManager = LinearLayoutManager(context)
@@ -87,8 +98,32 @@ class CommunityManagerFragment : BaseMvpFragment<CommunityManagerPresenter>(),
     private fun initCountyAdapter(item: District.ZoneBean) {
         mCountyRvAdapter?.resetData()
         rvCommunityManagerRight.layoutManager = LinearLayoutManager(context)
+        mCountyRvAdapter?.setOnItemClickListener(object :
+            BaseRecyclerViewAdapter.OnItemClickListener<District.ZoneBean.VillageBean> {
+            override fun onItemClick(
+                view: View,
+                item: District.ZoneBean.VillageBean,
+                position: Int
+            ) {
+                if (isSelect) {
+                    finishForGetData(item)
+                }
+            }
+        })
         rvCommunityManagerRight.adapter = mCountyRvAdapter
-        mCountyRvAdapter?.setData(item.villages?: mutableListOf())
+        mCountyRvAdapter?.setData(item.villages ?: mutableListOf())
+    }
+
+    private fun finishForGetData(item: District.ZoneBean.VillageBean) {
+        Bus.send(
+            VillageEvent(
+                item.id ?: "",
+                item.districtName ?: "",
+                item.zoneName ?: "",
+                item.name ?: ""
+            )
+        )
+        activity?.finish()
     }
 
     private fun initData() {
@@ -96,8 +131,8 @@ class CommunityManagerFragment : BaseMvpFragment<CommunityManagerPresenter>(),
     }
 
     override fun onGetAreaBeanListResult(list: MutableList<District>?) {
-        mProvinceRvAdapter?.setData(list ?: mutableListOf())
+        mDistrictList = list ?: mutableListOf()
+        mProvinceRvAdapter?.setData(mDistrictList)
     }
-
 
 }

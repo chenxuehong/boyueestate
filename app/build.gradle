@@ -70,7 +70,7 @@ MobSDK {
     appSecret "872ca12218b61bc3b588d795fc52b3da"
     // 调用分享
     ShareSDK {
-        loopShare true
+        loopShare false
         //平台配置信息
         devInfo {
             Wechat {
@@ -85,27 +85,27 @@ MobSDK {
     }
     // 调用MobPush
     MobPush {
-        debugLevel 4
-        devInfo {
-            HUAWEI {
-                appId "103624461"
-                appKey "20723ef8ad174e8e3f5e513d193fd063edaacd36a01dc936e5471babf62d2b11"
-            }
-            XIAOMI {
-                appId "2882303761518959028"
-                appKey "5591895924028"
-            }
-
-            OPPO {
-                appKey "67ca9ac828ab4d84b38dcdff36d2d393"
-                appSecret "2ece6a7ab34d4f07892b424556c756ca"
-            }
-
-            VIVO {
-                appId "105461314"
-                appKey "4d165d448c2e75090cf6ca99c9181ee3"
-            }
-        }
+//        debugLevel 4
+//        devInfo {
+//            HUAWEI {
+//                appId "103624461"
+//                appKey "20723ef8ad174e8e3f5e513d193fd063edaacd36a01dc936e5471babf62d2b11"
+//            }
+//            XIAOMI {
+//                appId "2882303761518959028"
+//                appKey "5591895924028"
+//            }
+//
+//            OPPO {
+//                appKey "67ca9ac828ab4d84b38dcdff36d2d393"
+//                appSecret "2ece6a7ab34d4f07892b424556c756ca"
+//            }
+//
+//            VIVO {
+//                appId "105461314"
+//                appKey "4d165d448c2e75090cf6ca99c9181ee3"
+//            }
+//        }
     }
 }
 

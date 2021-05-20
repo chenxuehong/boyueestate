@@ -20,6 +20,7 @@ import com.kotlin.provider.constant.UserConstant
 import com.kotlin.provider.event.ChatEvent
 import com.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.fragment_dept_info.*
+import org.jetbrains.anko.support.v4.toast
 
 class DeptInfoFragment : BaseMvpFragment<DeptInfoPresenter>(), DeptInfoView {
 
@@ -54,6 +55,8 @@ class DeptInfoFragment : BaseMvpFragment<DeptInfoPresenter>(), DeptInfoView {
                 var mobile = userInfo?.mobile ?: ""
                 if (!TextUtils.isEmpty(mobile)){
                     callPhone(context!!, userInfo?.mobile?:"")
+                }else{
+                    toast("暂无电话")
                 }
             }
         }

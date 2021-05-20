@@ -9,12 +9,19 @@ class BaseConstant{
 //        const val IMAGE_SERVER_ADDRESS = "http://osea2fxp7.bkt.clouddn.com/"
         //本地服务器地址
 //        const val SERVER_ADDRESS = "http://estate.ccp520.com/api/v1/"
-        const val SERVER_ADDRESS = "http://47.93.192.90:9527/api/v1/"
+        // 伯约
+//        const val SERVER_ADDRESS = "http://47.93.192.90:9527/api/v1/"
+        const val SERVER_ADDRESS = "http://101.133.160.181/api/v1/"
         //SP表名
         const val TABLE_PREFS = "estate"
         //Token Key
         const val KEY_SP_TOKEN = "H-User-Token"
         const val KEY_SP_USER_INFO = "userInfo"
         const val KEY_SP_REGISTRATIONID = "RegistrationId"
+        const val KEY_ISSELECT = "isSelect"
+        const val KEY_ID = "id"
+
+        // 小区列表 key
+        const val KEY_SP_VILLAGES = "Villages"
     }
 }

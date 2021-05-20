@@ -37,7 +37,6 @@ import com.kotlin.base.widgets.GridViewItemDecoration
 import com.kotlin.provider.constant.HomeConstant
 import com.youth.banner.Banner
 import com.youth.banner.config.IndicatorConfig
-import com.youth.banner.indicator.CircleIndicator
 import com.youth.banner.indicator.RectangleIndicator
 import kotlinx.android.synthetic.main.layout_house_detail_banner_item.view.*
 import kotlinx.android.synthetic.main.layout_house_detail_map_item.view.*
@@ -46,7 +45,7 @@ import kotlinx.android.synthetic.main.layout_tel_dialog.view.*
 import org.jetbrains.anko.toast
 
 
-class HouseDetailRvAdapter(mContext: Context?) :
+class HouseDetailRvAdapter(mContext: Context?,var mListener:OnListener) :
     BaseRecyclerViewAdapter<ItemHouseDetail, RecyclerView.ViewHolder>(mContext!!) {
 
     var banner: Banner<HouseDetail.ImagUrlsBean, ImageAdapter>? = null
@@ -262,6 +261,13 @@ class HouseDetailRvAdapter(mContext: Context?) :
         rvList.isNestedScrollingEnabled = false
         var houseDetailRvAdapter = HouseDetailOwnerRvAdapter(mContext)
         rvList.adapter = houseDetailRvAdapter
+        houseDetailRvAdapter.setOnItemClickListener(object :OnItemClickListener<ItemHouseDetail.OwnerInfo>{
+            override fun onItemClick(view: View, item: ItemHouseDetail.OwnerInfo, position: Int) {
+
+                mListener?.onUserClicked(item)
+            }
+
+        })
         houseDetailRvAdapter.setData(itemHouseDetail?.ownerInfoList!!)
     }
 
@@ -281,6 +287,16 @@ class HouseDetailRvAdapter(mContext: Context?) :
                 mContext.resources.getDimensionPixelOffset(R.dimen.dp_6),
                 0.8f
             )
+
+            setOnBannerListener { data, position ->
+                mListener?.onViewPhoto(
+                    (data as HouseDetail.ImagUrlsBean).url?:"",
+                    getPhotoList(itemHouseDetail.bannerList?: mutableListOf()),
+                    position,
+                    bannerHolder.itemView
+                )
+            }
+
             setBannerRound(mContext.resources.getDimension(R.dimen.dp_10))
         }
     }
@@ -378,7 +394,39 @@ class HouseDetailRvAdapter(mContext: Context?) :
                     )
                 )
         }
+        houseDetailPhotoRvAdapter.setOnItemClickListener(object :OnItemClickListener<HouseDetail.ImagUrlsBean>{
+            override fun onItemClick(view: View, item: HouseDetail.ImagUrlsBean, position: Int) {
+
+
+                mListener?.onViewPhoto(
+                    item.url?:"",
+                    getPhotoList(houseDetailPhotoRvAdapter.dataList),
+                    position,
+                    view
+                )
+            }
+
+        })
         houseDetailPhotoRvAdapter.setData(imagUrls)
+    }
+
+    var photoList = mutableListOf<String>()
+    private fun getPhotoList(dataList: MutableList<HouseDetail.ImagUrlsBean>): List<String> {
+        photoList?.clear()
+        dataList.forEach {
+            item->
+            photoList.add(item.url?:"")
+        }
+        return photoList
+    }
+
+    private fun getReferPhotoList(dataList: MutableList<HouseDetail.ReferUrlsBean>): List<String> {
+        photoList?.clear()
+        dataList.forEach {
+                item->
+            photoList.add(item.url?:"")
+        }
+        return photoList
     }
 
     private fun initReferurl(holder: RecyclerView.ViewHolder, itemHouseDetail: ItemHouseDetail) {
@@ -398,6 +446,17 @@ class HouseDetailRvAdapter(mContext: Context?) :
                     )
                 )
         }
+        houseDetailReferImageRvAdapter.setOnItemClickListener(object :OnItemClickListener<HouseDetail.ReferUrlsBean>{
+            override fun onItemClick(view: View, item: HouseDetail.ReferUrlsBean, position: Int) {
+                mListener?.onViewPhoto(
+                    item.url?:"",
+                    getReferPhotoList(houseDetailReferImageRvAdapter.dataList),
+                    position,
+                    view
+                )
+            }
+
+        })
         houseDetailReferImageRvAdapter.setData(imagUrls)
 
     }
@@ -442,4 +501,13 @@ class HouseDetailRvAdapter(mContext: Context?) :
         mhouseDetailRvlist= houseDetailRvlist
     }
 
+    interface OnListener{
+        fun onUserClicked(item: ItemHouseDetail.OwnerInfo)
+        fun onViewPhoto(
+            photo: String,
+            photoList: List<String>,
+            position: Int,
+            itemView: View
+        )
+    }
 }

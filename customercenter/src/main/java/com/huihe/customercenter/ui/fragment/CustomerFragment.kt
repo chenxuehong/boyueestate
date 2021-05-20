@@ -41,8 +41,8 @@ class CustomerFragment : BaseFragment() {
         titles.add("买卖")
         titles.add("租赁")
         titles.add("淘宝池")
-        fragments.add(getStatusFragment(1))
         fragments.add(getStatusFragment(2))
+        fragments.add(getStatusFragment(1))
         fragments.add(getStatusFragment(2))
         customer_viewPager.offscreenPageLimit = 3
         customer_viewPager.adapter = BaseFragmentStatePageAdapter(

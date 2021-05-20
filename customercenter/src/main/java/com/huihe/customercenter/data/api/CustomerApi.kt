@@ -17,9 +17,8 @@ interface CustomerApi {
         @Query("isOwn") isOwn: Int?,
         @Query("isTakeLook") isTakeLook: Int?,
         @Query("isCollection") isCollection: Int?,
-        @Query("defaultOrder") defaultOrder: Int?,
-        @Query("createTimeOrder") createTimeOrder: Int?,
-        @Query("latestFollowTimeOrder") latestFollowTimeOrder: Int?
+        @Query("createDateAsc") createTimeOrder: Int?,
+        @Query("followUpDateAsc") latestFollowTimeOrder: Int?
     ): Observable<BaseResp<CustomerRep?>>
 
     @GET("depts/deptUsers")

@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import cn.qqtheme.framework.entity.Province
 import cn.qqtheme.framework.picker.AddressPicker
 import cn.qqtheme.framework.picker.SinglePicker
+import com.alibaba.android.arouter.launcher.ARouter
+import com.eightbitlab.rxbus.Bus
+import com.eightbitlab.rxbus.registerInBus
 import com.google.gson.Gson
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.District
 import com.huihe.module_home.data.protocol.HouseDetail
 import com.huihe.module_home.data.protocol.SetHouseInfoRep
 import com.huihe.module_home.data.protocol.SetHouseInfoReq
@@ -19,12 +21,29 @@ import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.SetHouseInfoPresenter
 import com.huihe.module_home.presenter.view.SetHouseInfoView
+import com.kotlin.base.common.BaseConstant
+import com.kotlin.base.event.VillageEvent
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.widgets.NecessaryTitleInputView
 import com.kotlin.base.widgets.NecessaryTitleSelectView
 import com.kotlin.provider.constant.HomeConstant
+import com.kotlin.provider.data.protocol.District
+import com.kotlin.provider.router.RouterPath
+import kotlinx.android.synthetic.main.fragment_add_house.*
 import kotlinx.android.synthetic.main.layout_fragment_set_house_info.*
+import kotlinx.android.synthetic.main.layout_fragment_set_house_info.nivSalePrice
+import kotlinx.android.synthetic.main.layout_fragment_set_house_info.nivbuilding
+import kotlinx.android.synthetic.main.layout_fragment_set_house_info.nivdefend
+import kotlinx.android.synthetic.main.layout_fragment_set_house_info.nivfloorage
+import kotlinx.android.synthetic.main.layout_fragment_set_house_info.nivgroundFloor
+import kotlinx.android.synthetic.main.layout_fragment_set_house_info.nivhall
+import kotlinx.android.synthetic.main.layout_fragment_set_house_info.nivrNumber
+import kotlinx.android.synthetic.main.layout_fragment_set_house_info.nivrent
+import kotlinx.android.synthetic.main.layout_fragment_set_house_info.nivroom
+import kotlinx.android.synthetic.main.layout_fragment_set_house_info.nivtotalFloors
+import kotlinx.android.synthetic.main.layout_fragment_set_house_info.nsvTransaction_type
+import kotlinx.android.synthetic.main.layout_fragment_set_house_info.nsvVillage
 import org.jetbrains.anko.support.v4.toast
 
 
@@ -35,8 +54,6 @@ class SetHouseInfoFragment : BaseMvpFragment<SetHouseInfoPresenter>(), SetHouseI
     var selectedProvince: String? = null
     var selectedCity: String? = null
     var selectedCounty: String? = null
-    var mProvinceList: ArrayList<Province>? = null
-    var mAddresspicker: AddressPicker? = null
     lateinit var houseDetail: HouseDetail
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -133,11 +150,7 @@ class SetHouseInfoFragment : BaseMvpFragment<SetHouseInfoPresenter>(), SetHouseI
             selectTransactionType()
         }
         nsvVillage.onClick {
-            if (mProvinceList != null && mProvinceList!!.size > 0) {
-                selectVillage()
-            } else {
-                mPresenter.getVillages()
-            }
+            selectVillage()
         }
         tvAlterHouseInfo.onClick {
             if (checkInput()) {
@@ -196,24 +209,14 @@ class SetHouseInfoFragment : BaseMvpFragment<SetHouseInfoPresenter>(), SetHouseI
     }
 
     private fun selectVillage() {
-        mAddresspicker = AddressPicker(activity, mProvinceList)
-        mAddresspicker?.setColumnWeight(2 / 8.0f, 3 / 8.0f, 3 / 8.0f)//省级、地级和县级的比例为2:3:3
-        if (!TextUtils.isEmpty(selectedCounty)) {
-            mAddresspicker?.setSelectedItem(selectedProvince, selectedCity, selectedCounty)
-        }
-        mAddresspicker?.setOnAddressPickListener { province, city, county ->
-            selectedProvince = province.areaName
-            selectedCity = city.areaName
-            selectedCounty = county.areaName
-            req.villageId = county.areaId
-            nsvVillage.setContent("${selectedProvince}/${selectedCity}/${selectedCounty}")
-        }
-        mAddresspicker?.show()
-    }
-
-    override fun onGetAreaBeanListResult(list: MutableList<District>?) {
-        mProvinceList = getConvertProvinceList(list)
-        selectVillage()
+        ARouter.getInstance().build(RouterPath.UserCenter.PATH_COMMUNITY_MANAGER)
+            .withBoolean(BaseConstant.KEY_ISSELECT,true)
+            .navigation()
+        Bus.observe<VillageEvent>()
+            .subscribe {
+                req?.villageId = it.id?:""
+                nsvVillage.setContent("${it.villageName}")
+            }.registerInBus(this)
     }
 
     private fun commit() {
@@ -271,8 +274,8 @@ class SetHouseInfoFragment : BaseMvpFragment<SetHouseInfoPresenter>(), SetHouseI
     override fun onDestroy() {
         super.onDestroy()
         try {
+            Bus.unregister(this)
             mTransactionTypePicker?.dismiss()
-            mAddresspicker?.dismiss()
         } catch (e: Exception) {
         }
     }

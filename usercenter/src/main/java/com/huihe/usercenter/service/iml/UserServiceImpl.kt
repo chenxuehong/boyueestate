@@ -5,6 +5,7 @@ import com.kotlin.provider.data.protocol.IMUserInfo
 import com.huihe.usercenter.data.respository.UserRepository
 import com.huihe.usercenter.service.UserService
 import com.kotlin.base.ext.convert
+import com.kotlin.provider.data.protocol.District
 import io.reactivex.Observable
 import javax.inject.Inject
 

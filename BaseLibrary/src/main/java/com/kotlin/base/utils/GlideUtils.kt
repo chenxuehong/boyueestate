@@ -9,7 +9,7 @@ import com.kotlin.base.R
     Glide工具类
  */
 object GlideUtils {
-    fun loadImage(context: Context, url: Any, imageView: ImageView) {
+  fun loadImage(context: Context, url: Any, imageView: ImageView) {
         Glide.with(context).load(url).placeholder(R.drawable.is_empty).error(R.drawable.is_empty).centerCrop().into(imageView)
     }
 

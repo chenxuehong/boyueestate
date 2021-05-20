@@ -4,14 +4,12 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import cn.qqtheme.framework.entity.City
 
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 
-import cn.qqtheme.framework.entity.Province
 import com.huihe.usercenter.R
-import com.huihe.usercenter.data.protocol.District
 import com.kotlin.base.ext.initInflater
+import com.kotlin.provider.data.protocol.District
 import kotlinx.android.synthetic.main.layout_community_item.view.*
 
 class ProvinceRvAdapter(mContext: Context) :

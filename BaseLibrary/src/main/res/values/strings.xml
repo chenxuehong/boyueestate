@@ -20,4 +20,5 @@
     <string name="new_msg_notify">新消息通知</string>
     <string name="notify_permission_content">请设置允许显示通知，确保消息通知能够及时展示</string>
     <string name="setting">设置</string>
+    <string name="save_pic_to_camera">图片已保存到相册</string>
 </resources>

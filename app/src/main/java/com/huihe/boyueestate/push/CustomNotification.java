@@ -21,7 +21,7 @@ public class CustomNotification extends MobPushTailorNotification {
     // 代码格式：常量名所有字母大写，单词间以下划线分割，待修改
     private static final String CHANNELID = "CHANNEL_TEACHPAY_NOTIFY";
     private static final String CHANNELNAME = "CHANNEL_TEACHPAY";
-    private static final String MY_ACTION = "com.huihe.teachpay.notifyclick";
+    private static final String MY_ACTION = "com.huihe.boyue.notifyclick";
     private static final String TAG = CustomNotification.class.getSimpleName();
 
     @Override

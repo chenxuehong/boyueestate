@@ -1,4 +1,4 @@
-package com.huihe.usercenter.data.protocol
+package com.kotlin.provider.data.protocol
 
 class District(
 

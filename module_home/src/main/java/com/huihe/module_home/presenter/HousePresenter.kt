@@ -6,6 +6,8 @@ import com.huihe.module_home.service.HouseService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber
+import com.kotlin.provider.data.protocol.District
+import com.kotlin.provider.utils.UserPrefsUtils
 import javax.inject.Inject
 
 class HousePresenter @Inject constructor() : BasePresenter<SecondHandHouseView>() {
@@ -17,11 +19,11 @@ class HousePresenter @Inject constructor() : BasePresenter<SecondHandHouseView>(
         pageNo: Int? = 1,
         pageSize: Int? = 30,
         sortReq: SortReq? = null,
-        floorRanges :MutableList<FloorReq>?=null,
-        roomNumRanges: String?=null,
-        priceRanges:MutableList<PriceReq>?=null,
+        floorRanges: MutableList<FloorReq>? = null,
+        roomNumRanges: String? = null,
+        priceRanges: MutableList<PriceReq>? = null,
         moreReq: MoreReq? = null,
-        villageIds:  MutableList<String>? =null
+        villageIds: MutableList<String>? = null
     ) {
         if (!checkNetWork()) {
             return
@@ -65,10 +67,15 @@ class HousePresenter @Inject constructor() : BasePresenter<SecondHandHouseView>(
     }
 
     fun getVillages(
-        latitude: Double?= null,
-        longitude: Double?= null
+        latitude: Double? = null,
+        longitude: Double? = null
     ) {
         if (!checkNetWork()) {
+            return
+        }
+        var gettVillages = UserPrefsUtils.gettVillages()
+        if (gettVillages!=null){
+            mView.onGetAreaBeanListResult(gettVillages)
             return
         }
         customersService?.getVillages(
@@ -77,7 +84,9 @@ class HousePresenter @Inject constructor() : BasePresenter<SecondHandHouseView>(
         )
             .execute(object : BaseSubscriber<MutableList<District>?>(mView) {
                 override fun onNext(t: MutableList<District>?) {
+                    UserPrefsUtils.putVillages(t)
                     mView.onGetAreaBeanListResult(t)
+
                 }
             }, lifecycleProvider)
 

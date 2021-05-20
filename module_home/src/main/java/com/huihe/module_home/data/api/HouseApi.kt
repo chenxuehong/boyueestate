@@ -2,6 +2,7 @@ package com.huihe.module_home.data.api
 
 import com.huihe.module_home.data.protocol.*
 import com.kotlin.base.data.protocol.BaseResp
+import com.kotlin.provider.data.protocol.District
 import io.reactivex.Observable
 import retrofit2.http.*
 

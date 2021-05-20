@@ -1,6 +1,5 @@
 package com.huihe.module_home.presenter
 
-import com.huihe.module_home.data.protocol.District
 import com.huihe.module_home.data.protocol.HouseMapReq
 import com.huihe.module_home.data.protocol.MapAreaRep
 import com.huihe.module_home.presenter.view.FindHouseByMapView
@@ -8,6 +7,7 @@ import com.huihe.module_home.service.HouseService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber
+import com.kotlin.provider.data.protocol.District
 import javax.inject.Inject
 
 class HouseMapPresenter  @Inject constructor() : BasePresenter<FindHouseByMapView>() {
