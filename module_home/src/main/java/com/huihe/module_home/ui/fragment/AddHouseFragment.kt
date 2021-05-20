@@ -123,9 +123,6 @@ class AddHouseFragment : BaseMvpFragment<AddHousePresenter>(), AddHouseView{
     private fun selectVillage() {
         mAddresspicker = AddressPicker(activity, mProvinceList)
         mAddresspicker?.setColumnWeight(2 / 8.0f, 3 / 8.0f, 3 / 8.0f)//省级、地级和县级的比例为2:3:3
-        if (!TextUtils.isEmpty(selectedCounty)) {
-            mAddresspicker?.setSelectedItem(selectedProvince, selectedCity, selectedCounty)
-        }
         mAddresspicker?.setOnAddressPickListener { province, city, county ->
             if (province == null || city ==null || county==null){
                 return@setOnAddressPickListener
