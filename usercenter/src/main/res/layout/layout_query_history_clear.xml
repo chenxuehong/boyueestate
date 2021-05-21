@@ -17,7 +17,7 @@
         android:gravity="center"
         android:text="清空搜索历史"
         android:textColor="@color/color_666666"
-        android:textSize="@dimen/sp_15" />
+        android:textSize="@dimen/sp_16" />
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_0_5"

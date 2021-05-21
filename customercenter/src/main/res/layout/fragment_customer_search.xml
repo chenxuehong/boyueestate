@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.kotlin.base.widgets.HeaderBar
+        android:id="@+id/customerSearchTitleBar"
+        style="@style/MatchWrap"
+        android:background="@color/main_color"
+        app:isShowBack="true"
+        app:rightText="@string/sure"
+        app:titleText="@string/search" />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/llcustomerSearch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/nivcustomerCode"
+                app:leftTitleText="@string/customerCode"
+                app:isShowLine="true"
+                app:tipContentText="@string/customerCode_input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"/>
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/nivmobile"
+                app:leftTitleText="@string/customerTel"
+                app:isShowLine="true"
+                app:tipContentText="@string/customerTel_input"
+                app:inputType="phone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"/>
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/nivcustomerName"
+                app:leftTitleText="@string/customerName"
+                app:isShowLine="true"
+                app:tipContentText="@string/customerName_input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"/>
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/nivdemandBeat"
+                app:leftTitleText="@string/demandBeat"
+                app:isShowLine="true"
+                app:tipContentText="@string/demandBeat_input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"/>
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/nivremarks"
+                app:leftTitleText="@string/rewarks"
+                app:isShowLine="true"
+                app:tipContentText="@string/rewarks_input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

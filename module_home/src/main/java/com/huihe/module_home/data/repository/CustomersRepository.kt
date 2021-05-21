@@ -18,7 +18,8 @@ class CustomersRepository @Inject constructor() {
         floorRanges: MutableList<FloorReq>?,
         priceRanges: MutableList<PriceReq>?,
         moreReq: MoreReq?,
-        villageIds: MutableList<String>?
+        villageIds: MutableList<String>?,
+        searchReq: SearchReq?
     ): Observable<BaseResp<HouseWrapper?>> {
         return RetrofitFactory.instance.create(HouseApi::class.java)
             .getHouseList(
@@ -44,7 +45,21 @@ class CustomersRepository @Inject constructor() {
                     moreReq?.myCollect,
                     moreReq?.floorageRanges,
                     moreReq?.roomNumRanges,
-                    villageIds
+                    villageIds,
+                    searchReq?.villageName,
+                    searchReq?.ownerTel,
+                    searchReq?.houseCode,
+                    searchReq?.building,
+                    searchReq?.hNum,
+                    searchReq?.schoolIds,
+                    searchReq?.createUsers,
+                    searchReq?.imageUsers,
+                    searchReq?.maintainUsers,
+                    searchReq?.bargainPriceUsers,
+                    searchReq?.blockUsers,
+                    searchReq?.haveKeyUsers,
+                    searchReq?.soleUsers,
+                    searchReq?.entrustUsers
                 )
             )
     }

@@ -53,8 +53,8 @@
     <string name="OwnerInfo">业主信息</string>
     <string name="OwnerNick">业主姓名</string>
     <string name="OwnerPhone">业主电话</string>
-    <string name="inputOwnerNick">请输入业主姓名</string>
-    <string name="inputOwnerPhone">请输入业主电话</string>
+    <string name="inputOwnerNick">请输入业主 姓名</string>
+    <string name="inputOwnerPhone">请输入业主 电话</string>
     <string name="finish">完成</string>
     <string name="prompt">提示</string>
     <string name="setImageUserTip">此次上传是否设置本人为图片人?</string>
@@ -140,6 +140,29 @@
     <string name="phone1_input">请输入 电话1</string>
     <string name="phone2_input">请输入 电话2</string>
     <string name="select_house">房源选择</string>
+    <string name="search">搜索</string>
+    <string name="community_name">小区名称</string>
+    <string name="community_input">请输入 小区名称</string>
+    <string name="houseCode">房源编号</string>
+    <string name="houseCode_input">请输入 房源编号</string>
+    <string name="schoolIds">学区</string>
+    <string name="schoolIds_input">请选择 学区</string>
+    <string name="createUsers">录入人</string>
+    <string name="imageUsers">图片人</string>
+    <string name="imageUsers_input">请选择 图片人</string>
+    <string name="createUsers_input">请选择 录入人</string>
+    <string name="maintainUsers">维护人</string>
+    <string name="maintainUsers_input">请选择 维护人</string>
+    <string name="blockUsers">封盘人</string>
+    <string name="blockUsers_input">请选择 封盘人</string>
+    <string name="haveKeyUsers">钥匙人</string>
+    <string name="haveKeyUsers_input">请选择 钥匙人</string>
+    <string name="soleUsers">独家人</string>
+    <string name="soleUsers_input">请选择 独家人</string>
 
+    <string name="entrustUsers">委托人</string>
+    <string name="entrustUsers_input">请选择 委托人</string>
+    <string name="bargainPriceUsers">推荐人</string>
+    <string name="bargainPriceUsers_input">请选择 推荐人</string>
 
 </resources>

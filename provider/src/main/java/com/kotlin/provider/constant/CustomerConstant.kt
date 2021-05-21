@@ -8,5 +8,6 @@ class CustomerConstant {
         const val KEY_CUSTOMER_INFO = "customerInfo"
         const val KEY_CUSTOMER_NAME = "customerName"
         const val KEY_CUSTOMER_MOBILE = "customerMobile"
+        const val KEY_CUSTOMER_SEARCH = "customerSearch"
     }
 }

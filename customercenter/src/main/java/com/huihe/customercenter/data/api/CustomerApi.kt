@@ -18,7 +18,12 @@ interface CustomerApi {
         @Query("isTakeLook") isTakeLook: Int?,
         @Query("isCollection") isCollection: Int?,
         @Query("createDateAsc") createTimeOrder: Int?,
-        @Query("followUpDateAsc") latestFollowTimeOrder: Int?
+        @Query("followUpDateAsc") latestFollowTimeOrder: Int?,
+        @Query("customerCode") customerCode: String?,
+        @Query("mobile") mobile: String?,
+        @Query("customerName") customerName: String?,
+        @Query("demandBeat") demandBeat: String?,
+        @Query("remarks") remarks: String?
     ): Observable<BaseResp<CustomerRep?>>
 
     @GET("depts/deptUsers")

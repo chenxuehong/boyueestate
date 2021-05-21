@@ -19,5 +19,6 @@
         <activity android:name=".ui.activity.AddressBookActivity"/>
         <activity android:name=".ui.activity.DeptInfoActivity"/>
         <activity android:name=".ui.activity.SearchCommunityActivity"/>
+        <activity android:name=".ui.activity.ResultCommunityActivity"/>
     </application>
 </manifest>

@@ -21,7 +21,13 @@ class CustomersRepository @Inject constructor() {
             customerReq.isTakeLook,
             customerReq.isCollection,
             customerReq.createDateAsc,
-            customerReq.followUpDateAsc)
+            customerReq.followUpDateAsc,
+            customerReq.customerCode,
+            customerReq.mobile,
+            customerReq.customerName,
+            customerReq.demandBeat,
+            customerReq.remarks
+        )
     }
 
     fun getDeptUserList():  Observable<BaseResp<MutableList<DeptUserRep>?>> {

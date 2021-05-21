@@ -9,5 +9,6 @@
         <activity android:name=".ui.activity.CustomerInfoEditActivity"/>
         <activity android:name=".ui.activity.SetCustomerInfoActivity"/>
         <activity android:name=".ui.activity.AddCustomerActivity"/>
+        <activity android:name=".ui.activity.CustomerSearchActivity"/>
     </application>
 </manifest>

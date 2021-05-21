@@ -5,19 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import com.eightbitlab.rxbus.Bus
+import com.eightbitlab.rxbus.registerInBus
 import com.huihe.usercenter.R
 import com.huihe.usercenter.data.protocol.SearchBean
+import com.huihe.usercenter.ui.activity.ResultCommunityActivity
+import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.data.db.MySQLiteDBDao
 import com.kotlin.base.data.db.MySQLiteOpenHelper
+import com.kotlin.base.event.VillageEvent
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.vertical
 import com.kotlin.base.ui.fragment.BaseFragment
+import com.kotlin.provider.constant.UserConstant
 import kotlinx.android.synthetic.main.fragment_search_community.*
+import org.jetbrains.anko.support.v4.startActivity
 
 class SearchCommunityFragment : BaseFragment(), SearchHistoryRvAdapter.OnListener {
 
     var searchHistoryRvAdapter: SearchHistoryRvAdapter? = null
-    var  sqLiteDBDao:MySQLiteDBDao?=null
+    var sqLiteDBDao: MySQLiteDBDao? = null
+    var isSelect = false
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,6 +38,7 @@ class SearchCommunityFragment : BaseFragment(), SearchHistoryRvAdapter.OnListene
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sqLiteDBDao = MySQLiteDBDao.getInstance(context)
+        isSelect = arguments?.getBoolean(BaseConstant.KEY_ISSELECT) ?: false
         initView()
         initData()
     }
@@ -46,6 +55,12 @@ class SearchCommunityFragment : BaseFragment(), SearchHistoryRvAdapter.OnListene
                 return false
             }
         })
+        if (isSelect) {
+            Bus.observe<VillageEvent>()
+                .subscribe {
+                    activity?.finish()
+                }.registerInBus(this)
+        }
     }
 
     override fun onSearch(history: String) {
@@ -65,12 +80,15 @@ class SearchCommunityFragment : BaseFragment(), SearchHistoryRvAdapter.OnListene
             )
         }
         initData()
-
+        startActivity<ResultCommunityActivity>(
+            UserConstant.KEY_VILLAGE to history,
+            BaseConstant.KEY_ISSELECT to isSelect
+        )
     }
 
     private fun initData() {
         rvSearchHistory.vertical()
-        searchHistoryRvAdapter = SearchHistoryRvAdapter(context!!,this)
+        searchHistoryRvAdapter = SearchHistoryRvAdapter(context!!, this)
         rvSearchHistory.adapter = searchHistoryRvAdapter
         var historyList = getHistoryList()
         searchHistoryRvAdapter?.setData(historyList!!)
@@ -83,7 +101,7 @@ class SearchCommunityFragment : BaseFragment(), SearchHistoryRvAdapter.OnListene
         val dataList = searchHistoryRvAdapter?.dataList
 
         dataList?.forEach { item ->
-            if (item.content == history){
+            if (item.content == history) {
                 return true
             }
         }
@@ -94,11 +112,11 @@ class SearchCommunityFragment : BaseFragment(), SearchHistoryRvAdapter.OnListene
         var list =
             sqLiteDBDao?.queryHistoryList(MySQLiteOpenHelper.table.HistoryTable.TABLE_NAME)
                 ?: mutableListOf()
-       var  data = mutableListOf<SearchBean>()
-        data.add(SearchBean(0,"历史记录"))
-        data.add(SearchBean(1,"清除记录"))
-        list.forEach { item->
-            data.add(SearchBean(2,item))
+        var data = mutableListOf<SearchBean>()
+        data.add(SearchBean(0, "历史记录"))
+        data.add(SearchBean(1, "清除记录"))
+        list.forEach { item ->
+            data.add(SearchBean(2, item))
         }
         return data
     }
@@ -127,4 +145,13 @@ class SearchCommunityFragment : BaseFragment(), SearchHistoryRvAdapter.OnListene
         initData()
     }
 
+    override fun onDestroy() {
+        try {
+            if (isSelect) {
+                Bus.unregister(this)
+            }
+        } catch (e: Exception) {
+        }
+        super.onDestroy()
+    }
 }

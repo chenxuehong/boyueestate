@@ -22,4 +22,5 @@ interface UserComponent {
     fun inject(fragment: AddressBookFragment)
     fun inject(fragment: DeptInfoFragment)
     fun inject(fragment: MeFragment)
+    fun inject(fragment: ResultCommunityFragment)
 }

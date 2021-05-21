@@ -11,5 +11,6 @@ class HomeConstant {
         const val KEY_FOLLOW_BEAN = "FollowBean"
         const val KEY_MAP_BEAN = "MapBean"
         const val KEY_IS_ADD = "is_add"
+        const val KEY_SEARCH_REQ = "SearchReq"
     }
 }

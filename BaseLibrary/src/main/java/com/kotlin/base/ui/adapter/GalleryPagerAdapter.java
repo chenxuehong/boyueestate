@@ -81,7 +81,7 @@ public class GalleryPagerAdapter extends PagerAdapter {
         View rootView = activity.getWindow().getDecorView().getRootView();
         View containerView = View.inflate(context,R.layout.layout_save_gallery,null);
         final  CustomPopWindow customPopWindow = PhotoWindowUtils.popBottomDialog(rootView, context, containerView);
-        rootView.findViewById(R.id.layout_save_gallery_tv_save).setOnClickListener(new View.OnClickListener() {
+        containerView.findViewById(R.id.layout_save_gallery_tv_save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (customPopWindow !=null){
@@ -90,7 +90,7 @@ public class GalleryPagerAdapter extends PagerAdapter {
                 PhotoTools.saveBitmap(context, url);
             }
         });
-        rootView.findViewById(R.id.layout_save_gallery_tv_cancel).setOnClickListener(new View.OnClickListener() {
+        containerView.findViewById(R.id.layout_save_gallery_tv_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (customPopWindow !=null){

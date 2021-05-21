@@ -1,10 +1,13 @@
 package com.huihe.module_home.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.*
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
@@ -12,12 +15,15 @@ import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HousePresenter
 import com.huihe.module_home.presenter.view.SecondHandHouseView
 import com.huihe.module_home.ui.activity.HouseDetailActivity
+import com.huihe.module_home.ui.activity.SearchHouseActivity
 import com.huihe.module_home.ui.adpter.RvAreaDistrictAdapter
 import com.huihe.module_home.ui.adpter.SecondHandHouseAdapter
 import com.huihe.module_home.ui.inter.RefreshListener
 import com.huihe.module_home.ui.widget.ISearchResultListener
 import com.huihe.module_home.ui.widget.SearchResultViewController
 import com.kennyc.view.MultiStateView
+import com.kotlin.base.ext.onClick
+import com.kotlin.base.ext.setVisible
 import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
@@ -26,6 +32,7 @@ import com.kotlin.provider.data.protocol.District
 import kotlinx.android.synthetic.main.fragment_secondhandhouse.*
 import kotlinx.android.synthetic.main.layout_refresh.view.*
 import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.startActivityForResult
 
 
 class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
@@ -46,12 +53,14 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     private var villageIds: MutableList<String>? = null
     private var mRvAreaDistrictAdapter: RvAreaDistrictAdapter? = null
     private var isHouseSelect: Boolean = false
+    var mSearchReq: SearchReq = SearchReq()
 
     init {
         hasMoreData = true
     }
 
     val RESULT_CODE_GET_HOUSE_CODE: Int = 1000
+    val REQUEST_CODE_SEARCH: Int = 1001
     override fun injectComponent() {
         DaggerCustomersComponent.builder().activityComponent(mActivityComponent).customersModule(
             CustomersModule()
@@ -83,7 +92,10 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
             LinearLayoutManager(context)
         mGoodsAdapter = SecondHandHouseAdapter(context!!)
         layoutRefreshContentView?.customers_mRecyclerView?.adapter = mGoodsAdapter
-
+        layoutRefreshContentView?.customersSearch?.setVisible(true)
+        layoutRefreshContentView?.customersSearch?.onClick {
+            startActivityForResult<SearchHouseActivity>(REQUEST_CODE_SEARCH)
+        }
         mGoodsAdapter?.setOnItemClickListener(object :
 
             BaseRecyclerViewAdapter.OnItemClickListener<House> {
@@ -173,7 +185,10 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     }
 
     private fun initRefreshLayout() {
-        layoutRefreshContentView?.customers_mBGARefreshLayout.setEnableRefresh(false)
+        layoutRefreshContentView?.customers_mBGARefreshLayout.setOnRefreshListener {
+            mCurrentPage = 1
+            loadData()
+        }
         layoutRefreshContentView?.customers_mBGARefreshLayout.setOnLoadMoreListener {
             mCurrentPage++
             loadData()
@@ -192,12 +207,13 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
             priceRanges = mPriceRanges,
             sortReq = sortReq,
             moreReq = moreReq,
-            villageIds = villageIds
+            villageIds = villageIds,
+            searchReq = mSearchReq
         )
     }
 
     override fun onGetAreaBeanListResult(list: MutableList<District>?) {
-        mRvAreaDistrictAdapter?.setData(list?: mutableListOf())
+        mRvAreaDistrictAdapter?.setData(list ?: mutableListOf())
     }
 
     override fun startLoad(adapter: RvAreaDistrictAdapter?) {
@@ -255,5 +271,19 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
 
     override fun refreshData() {
         loadData()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (REQUEST_CODE_SEARCH == requestCode) {
+            if (data != null) {
+                var json = data.getStringExtra(HomeConstant.KEY_SEARCH_REQ)
+                if (!TextUtils.isEmpty(json)) {
+                    mSearchReq = Gson().fromJson<SearchReq>(json, SearchReq::class.java)
+                    mCurrentPage = 1
+                    loadData()
+                }
+            }
+        }
     }
 }

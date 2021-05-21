@@ -20,7 +20,8 @@ interface HouseService {
         roomNumRanges: String?,
         priceRanges: MutableList<PriceReq>?,
         moreReq: MoreReq?,
-        villageIds: MutableList<String>?
+        villageIds: MutableList<String>?,
+        searchReq: SearchReq?
     ): Observable<HouseWrapper?>
 
     fun getHouseList(

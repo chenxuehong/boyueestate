@@ -7,8 +7,10 @@
     <string name="mine">我的</string>
     <string name="area_manager">区域管理</string>
     <string name="district_manager">学区管理</string>
+    <string name="district_select">选择学区</string>
     <string name="log_manager">日志管理</string>
     <string name="address_book">通讯录</string>
+    <string name="selectEmployees">选择员工</string>
     <string name="corporate_culture">企业文化</string>
     <string name="setting">设置</string>
     <string name="community_name_input">请输入小区名称</string>

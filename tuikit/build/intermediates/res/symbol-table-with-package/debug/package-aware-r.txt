@@ -2218,6 +2218,7 @@ drawable sb_bg
 drawable sb_progress
 drawable sb_progress_drawable
 drawable sb_second
+drawable search
 drawable selector_face_text
 drawable selector_ios_dialog_left
 drawable selector_ios_dialog_right

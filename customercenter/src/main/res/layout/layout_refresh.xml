@@ -1,16 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.kennyc.view.MultiStateView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/customers_mMultiStateView"
-    style="@style/MultiStateStyle">
-    <com.scwang.smart.refresh.layout.SmartRefreshLayout
-        android:id="@+id/customers_mBGARefreshLayout"
-        style="@style/MatchMatch">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/customers_mRecyclerView"
-            style="@style/commonRecyclerView" />
+    <com.kennyc.view.MultiStateView
 
-    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
-</com.kennyc.view.MultiStateView>
+        android:id="@+id/customers_mMultiStateView"
+        style="@style/MultiStateStyle">
+
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/customers_mBGARefreshLayout"
+            style="@style/MatchMatch">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/customers_mRecyclerView"
+                style="@style/commonRecyclerView" />
+
+
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+    </com.kennyc.view.MultiStateView>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/customersSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="@dimen/dp_24"
+        android:layout_marginBottom="@dimen/dp_44"
+        android:src="@drawable/search"
+        android:visibility="gone" />
+</FrameLayout>

@@ -23,7 +23,8 @@ class HousePresenter @Inject constructor() : BasePresenter<SecondHandHouseView>(
         roomNumRanges: String? = null,
         priceRanges: MutableList<PriceReq>? = null,
         moreReq: MoreReq? = null,
-        villageIds: MutableList<String>? = null
+        villageIds: MutableList<String>? = null,
+        searchReq: SearchReq?
     ) {
         if (!checkNetWork()) {
             return
@@ -35,7 +36,8 @@ class HousePresenter @Inject constructor() : BasePresenter<SecondHandHouseView>(
             roomNumRanges,
             priceRanges,
             moreReq,
-            villageIds
+            villageIds,
+            searchReq
         )
             .execute(object : BaseSubscriber<HouseWrapper?>(mView) {
                 override fun onNext(t: HouseWrapper?) {

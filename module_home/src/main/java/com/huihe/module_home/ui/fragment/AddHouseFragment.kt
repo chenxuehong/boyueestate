@@ -105,14 +105,14 @@ class AddHouseFragment : BaseMvpFragment<AddHousePresenter>(), AddHouseView{
     }
 
     private fun selectVillage() {
-        ARouter.getInstance().build(RouterPath.UserCenter.PATH_COMMUNITY_MANAGER)
-            .withBoolean(BaseConstant.KEY_ISSELECT,true)
-            .navigation()
         Bus.observe<VillageEvent>()
             .subscribe {
                 req?.villageId = it.id?:""
                 nsvVillage.setContent("${it.villageName}")
             }.registerInBus(this)
+        ARouter.getInstance().build(RouterPath.UserCenter.PATH_COMMUNITY_MANAGER)
+            .withBoolean(BaseConstant.KEY_ISSELECT,true)
+            .navigation()
 
     }
 

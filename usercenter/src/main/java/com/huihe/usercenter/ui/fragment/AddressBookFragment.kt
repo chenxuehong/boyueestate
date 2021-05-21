@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.eightbitlab.rxbus.Bus
 import com.huihe.usercenter.R
 import com.huihe.usercenter.data.protocol.DeptUserRep
 import com.huihe.usercenter.injection.component.DaggerUserComponent
@@ -14,10 +15,12 @@ import com.huihe.usercenter.presenter.view.AddressBookView
 import com.huihe.usercenter.ui.activity.DeptInfoActivity
 import com.huihe.usercenter.ui.adapter.DeptChildRvAdapter
 import com.huihe.usercenter.ui.adapter.DeptUserRvAdapter
+import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.provider.constant.UserConstant
+import com.kotlin.provider.event.SearchHouseEvent
 import kotlinx.android.synthetic.main.fragment_adddress_book.*
 import org.jetbrains.anko.support.v4.startActivity
 
@@ -25,6 +28,7 @@ class AddressBookFragment : BaseMvpFragment<AddressBookPresenter>(), AddressBook
 
     var mDeptUserRvAdapter: DeptUserRvAdapter? = null
     var mDeptChildRvAdapter: DeptChildRvAdapter? = null
+    var isSelect =false
     override fun injectComponent() {
         DaggerUserComponent.builder().activityComponent(mActivityComponent).userModule(
             UserModule()
@@ -43,11 +47,13 @@ class AddressBookFragment : BaseMvpFragment<AddressBookPresenter>(), AddressBook
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        isSelect = arguments?.getBoolean(BaseConstant.KEY_ISSELECT, false) ?: false
         initView()
         initData()
     }
 
     private fun initView() {
+        headAddressBook.setTitle(if (isSelect) {resources.getString(R.string.selectEmployees)}else{resources.getString(R.string.address_book)})
         mDeptUserRvAdapter = DeptUserRvAdapter(context!!)
         mDeptUserRvAdapter?.setOnItemClickListener(object :
             BaseRecyclerViewAdapter.OnItemClickListener<DeptUserRep> {
@@ -69,7 +75,12 @@ class AddressBookFragment : BaseMvpFragment<AddressBookPresenter>(), AddressBook
         mDeptChildRvAdapter?.setOnItemClickListener(object :
             BaseRecyclerViewAdapter.OnItemClickListener<DeptUserRep.DeptUser> {
             override fun onItemClick(view: View, item: DeptUserRep.DeptUser, position: Int) {
-                startActivity<DeptInfoActivity>(UserConstant.KEY_USER_ID to item.uid)
+                if (isSelect){
+                    Bus.send(SearchHouseEvent("AddressBookFragment",item.uid?:"",item.label?:"" ))
+                    activity?.finish()
+                }else{
+                    startActivity<DeptInfoActivity>(UserConstant.KEY_USER_ID to item.uid)
+                }
             }
         })
         mDeptChildRvAdapter?.resetData()

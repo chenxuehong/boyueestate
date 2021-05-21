@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <com.kotlin.base.widgets.HeaderBar
+        android:id="@+id/headCommunityManager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/main_color"

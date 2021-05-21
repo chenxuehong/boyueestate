@@ -1,12 +1,15 @@
 package com.huihe.customercenter.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
+import com.google.gson.Gson
 import com.huihe.customercenter.R
 import com.huihe.customercenter.data.protocol.*
 import com.huihe.customercenter.injection.component.DaggerCustomersComponent
@@ -14,6 +17,7 @@ import com.huihe.customercenter.injection.module.CustomersModule
 import com.huihe.customercenter.presenter.CustomerListPresenter
 import com.huihe.customercenter.presenter.view.TransactionView
 import com.huihe.customercenter.ui.activity.CustomerDetailActivity
+import com.huihe.customercenter.ui.activity.CustomerSearchActivity
 import com.huihe.customercenter.ui.adapter.DeptUsersRvAdapter
 import com.huihe.customercenter.ui.adapter.StatusRvAdapter
 import com.huihe.customercenter.ui.adapter.TransactionRvAdapter
@@ -22,6 +26,8 @@ import com.huihe.customercenter.ui.widget.ISearchResultListener
 import com.huihe.customercenter.ui.widget.SearchResultViewController
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.event.LoginEvent
+import com.kotlin.base.ext.onClick
+import com.kotlin.base.ext.setVisible
 import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
@@ -29,6 +35,7 @@ import com.kotlin.provider.constant.CustomerConstant
 import kotlinx.android.synthetic.main.layout_fragment_trannsaction.*
 import kotlinx.android.synthetic.main.layout_refresh.view.*
 import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.startActivityForResult
 
 class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), TransactionView,
     ISearchResultListener {
@@ -44,6 +51,8 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
     var mMoreReq: MoreReq? = null
     var mSortReq: SortReq? = null
     var mSearchResultViewController: SearchResultViewController? = null
+    val REQUEST_CODE_CUSTOMER_SEARCH = 10000
+    var mCustomerSearchReq :CustomerSearchReq= CustomerSearchReq()
     override fun injectComponent() {
         DaggerCustomersComponent.builder().activityComponent(mActivityComponent).customersModule(
             CustomersModule()
@@ -74,6 +83,10 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
             SearchResultViewController(context!!, dropDownMenu.isShowing)
         layoutRefreshContentView =
             LayoutInflater.from(context).inflate(R.layout.layout_refresh, null)
+        layoutRefreshContentView?.customersSearch?.setVisible(true)
+        layoutRefreshContentView?.customersSearch.onClick {
+            startActivityForResult<CustomerSearchActivity>(REQUEST_CODE_CUSTOMER_SEARCH)
+        }
         dropDownMenu.setDropDownMenu(
             headers.asList(),
             mSearchResultViewController?.getAllViews(this)!!,
@@ -126,7 +139,12 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
                 isTakeLook = mMoreReq?.isTakeLook,
                 isCollection = mMoreReq?.isCollection,
                 createDateAsc = mSortReq?.createDateAsc,
-                followUpDateAsc = mSortReq?.followUpDateAsc
+                followUpDateAsc = mSortReq?.followUpDateAsc,
+                customerCode = mCustomerSearchReq.customerCode,
+                mobile = mCustomerSearchReq.mobile,
+                customerName = mCustomerSearchReq.customerName,
+                demandBeat = mCustomerSearchReq.demandBeat,
+                remarks = mCustomerSearchReq.remarks
             )
         )
     }
@@ -229,6 +247,19 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
     override fun onDataIsNull() {
         layoutRefreshContentView?.customers_mMultiStateView?.viewState =
             MultiStateView.VIEW_STATE_EMPTY
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_CUSTOMER_SEARCH){
+            if (data!=null){
+                var json = data.getStringExtra(CustomerConstant.KEY_CUSTOMER_SEARCH)
+                if (!TextUtils.isEmpty(json)){
+                   mCustomerSearchReq =Gson().fromJson<CustomerSearchReq>(json,CustomerSearchReq::class.java)
+                    initData()
+                }
+            }
+        }
     }
 
     override fun onDestroy() {

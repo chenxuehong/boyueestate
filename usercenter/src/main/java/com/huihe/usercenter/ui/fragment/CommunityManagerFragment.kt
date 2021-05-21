@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eightbitlab.rxbus.Bus
+import com.eightbitlab.rxbus.registerInBus
 import com.google.gson.Gson
 import com.huihe.usercenter.R
 import com.huihe.usercenter.injection.component.DaggerUserComponent
@@ -61,13 +62,14 @@ class CommunityManagerFragment : BaseMvpFragment<CommunityManagerPresenter>(),
     }
 
     private fun initView() {
-
+        if (isSelect){
+            headCommunityManager.setTitle("选择区域")
+        }
         rvCommunityManagerInput.onClick {
             if (mDistrictList != null) {
-                startActivity<SearchCommunityActivity>()
+                startActivity<SearchCommunityActivity>(BaseConstant.KEY_ISSELECT to isSelect)
             }
         }
-        rvCommunityManagerInput.setVisible(false)
         rvCommunityManagerLeft.layoutManager = LinearLayoutManager(context)
         mProvinceRvAdapter = ProvinceRvAdapter(context!!)
         mProvinceRvAdapter?.setOnItemClickListener(object :
@@ -80,6 +82,12 @@ class CommunityManagerFragment : BaseMvpFragment<CommunityManagerPresenter>(),
 
         mCityRvAdapter = CityRvAdapter(context!!)
         mCountyRvAdapter = CountyRvAdapter(context!!)
+        if (isSelect) {
+            Bus.observe<VillageEvent>()
+                .subscribe {
+                    activity?.finish()
+                }.registerInBus(this)
+        }
     }
 
     private fun initCityAdapter(item: District) {
@@ -123,7 +131,6 @@ class CommunityManagerFragment : BaseMvpFragment<CommunityManagerPresenter>(),
                 item.name ?: ""
             )
         )
-        activity?.finish()
     }
 
     private fun initData() {
@@ -135,4 +142,13 @@ class CommunityManagerFragment : BaseMvpFragment<CommunityManagerPresenter>(),
         mProvinceRvAdapter?.setData(mDistrictList)
     }
 
+    override fun onDestroy() {
+        try {
+            if (isSelect) {
+                Bus.unregister(this)
+            }
+        } catch (e: Exception) {
+        }
+        super.onDestroy()
+    }
 }

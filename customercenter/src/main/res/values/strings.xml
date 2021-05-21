@@ -59,4 +59,8 @@
     <string name="mobile_input">请输入 联系方式</string>
     <string name="ownership">客户所属</string>
     <string name="ownership_input">请选择 客户所属</string>
+    <string name="customerCode">客户编号</string>
+    <string name="customerCode_input">请输入 客户编号</string>
+    <string name="customerTel">客户电话</string>
+    <string name="customerTel_input">请输入 客户电话</string>
 </resources>

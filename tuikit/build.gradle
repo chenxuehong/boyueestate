@@ -34,6 +34,12 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    sourceSets {
+        main {
+            assets.srcDirs = ['assets']
+        }
+    }
+
     repositories {
         flatDir {
             dirs 'libs'

@@ -24,7 +24,8 @@ class HouseServiceImpl @Inject constructor() : HouseService {
         roomNumRanges: String?,
         priceRanges: MutableList<PriceReq>?,
         moreReq: MoreReq?,
-        villageIds: MutableList<String>?
+        villageIds: MutableList<String>?,
+        searchReq: SearchReq?
     ): Observable<HouseWrapper?> {
         return repository.getHouseList(
             pageNo, pageSize,
@@ -32,7 +33,8 @@ class HouseServiceImpl @Inject constructor() : HouseService {
             floorRanges,
             priceRanges,
             moreReq,
-            villageIds
+            villageIds,
+            searchReq
         ).convert()
     }
 
