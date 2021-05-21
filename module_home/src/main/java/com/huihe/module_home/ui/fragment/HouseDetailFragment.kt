@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import cn.qqtheme.framework.picker.SinglePicker
 import com.alibaba.android.arouter.launcher.ARouter
 import com.eightbitlab.rxbus.Bus
+import com.eightbitlab.rxbus.registerInBus
 import com.example.zhouwei.library.CustomPopWindow
 import com.google.gson.Gson
 import com.huihe.module_home.R
@@ -26,9 +27,7 @@ import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HouseDetailPresenter
 import com.huihe.module_home.presenter.view.HouseDetailView
-import com.huihe.module_home.ui.activity.CustomerProfileActivity
-import com.huihe.module_home.ui.activity.SetHouseInfoActivity
-import com.huihe.module_home.ui.activity.SetOwnerInfoActivity
+import com.huihe.module_home.ui.activity.*
 import com.huihe.module_home.ui.adpter.HouseDetailRvAdapter
 import com.huihe.module_home.ui.adpter.MoreRvAdapter
 import com.jph.takephoto.model.TResult
@@ -42,6 +41,7 @@ import com.kotlin.base.utils.DensityUtils
 import com.kotlin.base.utils.LogUtils
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.constant.UserConstant
+import com.kotlin.provider.event.OwnerInfoPutEvent
 import com.kotlin.provider.event.ShareEvent
 import com.kotlin.provider.router.RouterPath
 import com.qiniu.android.storage.UploadManager
@@ -103,6 +103,8 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
         super.onViewCreated(view, savedInstanceState)
         id = arguments?.getString(HomeConstant.KEY_HOUSE_ID)
         initView()
+        initRvHouseDetailAdapter()
+        initListener()
         initData()
     }
 
@@ -110,6 +112,28 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
         rightContentView = house_detail_titleBar.getRightContentView()
         ivCollection = rightContentView?.findViewById<ImageView>(R.id.ivHouseDetailStar)
         requestCollecting = false
+        mMoreList = mutableListOf(
+            context!!.resources.getString(R.string.more_update),
+            context!!.resources.getString(R.string.more_house_photo),
+            context!!.resources.getString(R.string.more_refers),
+            context!!.resources.getString(R.string.more_update_status),
+            context!!.resources.getString(R.string.more_circulate),
+            context!!.resources.getString(R.string.more_edit_info),
+            context!!.resources.getString(R.string.more_new_phone),
+            context!!.resources.getString(R.string.more_customer),
+            context!!.resources.getString(R.string.more_share)
+        )
+        mUploadManager = UploadManager()
+    }
+
+    private fun initRvHouseDetailAdapter() {
+        house_detail_rvList.layoutManager = LinearLayoutManager(context)
+        houseDetailTvAdapter = HouseDetailRvAdapter(context, this)
+        houseDetailTvAdapter.setRecyclerview(house_detail_rvList)
+        house_detail_rvList.adapter = houseDetailTvAdapter
+    }
+
+    private fun initListener() {
         rightContentView.apply {
             ivHouseDetailStar.onClick {
                 if (!requestCollecting)
@@ -124,22 +148,9 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
             }
             ivHouseDetailMore.isEnabled = false
         }
-        house_detail_rvList.layoutManager = LinearLayoutManager(context)
-        houseDetailTvAdapter = HouseDetailRvAdapter(context, this)
-        houseDetailTvAdapter.setRecyclerview(house_detail_rvList)
-        house_detail_rvList.adapter = houseDetailTvAdapter
-        mMoreList = mutableListOf(
-            context!!.resources.getString(R.string.more_update),
-            context!!.resources.getString(R.string.more_house_photo),
-            context!!.resources.getString(R.string.more_refers),
-            context!!.resources.getString(R.string.more_update_status),
-            context!!.resources.getString(R.string.more_circulate),
-            context!!.resources.getString(R.string.more_edit_info),
-            context!!.resources.getString(R.string.more_new_phone),
-            context!!.resources.getString(R.string.more_customer),
-            context!!.resources.getString(R.string.more_share)
-        )
-        mUploadManager = UploadManager()
+        Bus.observe<OwnerInfoPutEvent>().subscribe {
+            mPresenter?.getHouseDetailById(id)
+        }.registerInBus(this)
     }
 
     private fun showMoreDialog(ivHouseDetailMore: TextView) {
@@ -522,9 +533,41 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
     }
 
     override fun onUserClicked(item: ItemHouseDetail.OwnerInfo) {
-        ARouter.getInstance().build(RouterPath.UserCenter.PATH_DEPTINFO)
-            .withString(UserConstant.KEY_USER_ID, item.uid)
-            .navigation()
+        if (TextUtils.isEmpty(item.uid)){
+            when(item.type){
+                CustomersModule.OwnerInfoType.createUser ->{
+
+                }
+                CustomersModule.OwnerInfoType.maintainUser ->{
+
+                }
+                CustomersModule.OwnerInfoType.imageUser ->{
+
+                }
+                CustomersModule.OwnerInfoType.entrustUser ->{
+                    startActivity<EntrustUserActivity>(HomeConstant.KEY_HOUSE_ID to houseDetail?.id)
+                }
+                CustomersModule.OwnerInfoType.haveKeyUser ->{
+                    startActivity<HaveKeyUserActivity>(HomeConstant.KEY_HOUSE_ID to houseDetail?.id)
+                }
+                CustomersModule.OwnerInfoType.soleUser ->{
+
+                }
+                CustomersModule.OwnerInfoType.bargainPriceUser ->{
+
+                }
+                CustomersModule.OwnerInfoType.blockUser ->{
+
+                }
+                CustomersModule.OwnerInfoType.openUser ->{
+
+                }
+            }
+        }else{
+            ARouter.getInstance().build(RouterPath.UserCenter.PATH_DEPTINFO)
+                .withString(UserConstant.KEY_USER_ID, item.uid)
+                .navigation()
+        }
     }
 
     override fun onViewPhoto(
@@ -534,5 +577,13 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
         itemView: View
     ) {
         itemView.viewPhoto(context, position, photoList)
+    }
+
+    override fun onDestroyView() {
+        try {
+            Bus.unregister(this)
+        } catch (e: Exception) {
+        }
+        super.onDestroyView()
     }
 }

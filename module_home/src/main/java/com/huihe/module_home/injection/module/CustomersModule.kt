@@ -63,4 +63,30 @@ class CustomersModule {
            const val  SortType = 5
         }
     }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef(
+        OwnerInfoType.createUser,
+        OwnerInfoType.maintainUser,
+        OwnerInfoType.imageUser,
+        OwnerInfoType.entrustUser,
+        OwnerInfoType.haveKeyUser,
+        OwnerInfoType.soleUser,
+        OwnerInfoType.bargainPriceUser,
+        OwnerInfoType.blockUser,
+        OwnerInfoType.openUser
+    )
+    annotation class OwnerInfoType {
+        companion object {
+            const val  createUser = 1
+            const val  maintainUser = 2
+            const val  imageUser = 3
+            const val  entrustUser = 4
+            const val  haveKeyUser = 5
+            const val  soleUser = 6
+            const val  bargainPriceUser = 7
+            const val  blockUser = 8
+            const val  openUser = 9
+        }
+    }
 }

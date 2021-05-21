@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.kotlin.base.widgets.HeaderBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_color"
+        app:isShowBack="true"
+        app:titleText="@string/setEntrustUser" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/llEntrustuser"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.kotlin.base.widgets.NecessaryTitleSelectView
+                android:id="@+id/entrustUser"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/entrustUser"
+                app:isNecessary="true"
+                app:isShowLine="true"
+                app:tipContentText="@string/entrustUser_input"
+                android:layout_height="@dimen/dp_40"/>
+
+            <com.kotlin.base.widgets.NecessaryTitleSelectView
+                android:id="@+id/estateType"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/estateType"
+                app:isNecessary="true"
+                app:isShowLine="true"
+                app:tipContentText="@string/estateType_input"
+                android:layout_height="@dimen/dp_40"/>
+
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/brokerUser"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/brokerUser"
+                app:isNecessary="true"
+                app:isShowLine="true"
+                app:tipContentText="@string/brokerUser_input"
+                android:layout_height="@dimen/dp_40"/>
+
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/district"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/district"
+                app:isShowLine="true"
+                app:tipContentText="@string/district_input"
+                android:layout_height="@dimen/dp_40"/>
+
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/road"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/road"
+                app:isShowLine="true"
+                app:tipContentText="@string/road_input"
+                android:layout_height="@dimen/dp_40"/>
+
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/lane"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/lane"
+                app:isShowLine="true"
+                app:tipContentText="@string/lane_input"
+                android:layout_height="@dimen/dp_40"/>
+
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/number"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/number"
+                app:isShowLine="true"
+                app:tipContentText="@string/number_input"
+                android:layout_height="@dimen/dp_40"/>
+
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/room"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/room"
+                app:isShowLine="true"
+                app:tipContentText="@string/room_input"
+                android:layout_height="@dimen/dp_40"/>
+
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/carportNum"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/carportNum"
+                app:isShowLine="true"
+                app:tipContentText="@string/carportNum_input"
+                android:layout_height="@dimen/dp_40"/>
+
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/floorage"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/floorage"
+                app:isShowLine="true"
+                app:tipContentText="@string/floorage_input"
+                android:layout_height="@dimen/dp_40"/>
+
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/powerUser"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/powerUser"
+                app:isShowLine="true"
+                app:tipContentText="@string/powerUser_input"
+                android:layout_height="@dimen/dp_40"/>
+
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/decorat"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/decorat"
+                app:isShowLine="true"
+                app:tipContentText="@string/decorat_input"
+                android:layout_height="@dimen/dp_40"/>
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/facility"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/facility"
+                app:isShowLine="true"
+                app:tipContentText="@string/facility_input"
+                android:layout_height="@dimen/dp_40"/>
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/isMortgage"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/isMortgage"
+                app:isShowLine="true"
+                app:tipContentText="@string/isMortgage_input"
+                android:layout_height="@dimen/dp_40"/>
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/mortgageUser"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/mortgageUser"
+                app:isShowLine="true"
+                app:tipContentText="@string/mortgageUser_input"
+                android:layout_height="@dimen/dp_40"/>
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/mortgageBalance"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/mortgageBalance"
+                app:isShowLine="true"
+                app:tipContentText="@string/mortgageBalance_input"
+                android:layout_height="@dimen/dp_40"/>
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/isLease"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/isLease"
+                app:isShowLine="true"
+                app:tipContentText="@string/isLease_input"
+                android:layout_height="@dimen/dp_40"/>
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/housePrice"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/housePrice"
+                app:isShowLine="true"
+                app:tipContentText="@string/housePrice_input"
+                android:layout_height="@dimen/dp_40"/>
+
+            <TextView
+                android:id="@+id/tvEntrustuserCreateCopy"
+                android:gravity="center"
+                android:textSize="@dimen/sp_16"
+                android:textColor="@color/white"
+                android:text="@string/create_copy"
+                android:layout_marginLeft="@dimen/dp_24"
+                android:layout_marginRight="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_44"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:background="@drawable/common_maincolor_radius_bg"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_44"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

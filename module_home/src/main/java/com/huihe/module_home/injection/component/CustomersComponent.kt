@@ -26,4 +26,6 @@ interface CustomersComponent {
     fun inject(fragment: HouseLogFragment)
     fun inject(fragment: HousePhoneLogFragment)
     fun inject(fragment: AddHouseFragment)
+    fun inject(fragment: EntrustUserFragment)
+    fun inject(fragment: HaveKeyUserFragment)
 }

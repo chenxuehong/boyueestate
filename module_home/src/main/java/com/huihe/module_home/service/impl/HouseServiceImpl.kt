@@ -139,4 +139,16 @@ class HouseServiceImpl @Inject constructor() : HouseService {
         return repository.getMapRoomList(req).convert()
     }
 
+    override fun putHouseEntrust(req: EntrustUserReq): Observable<EntrustUserRep?> {
+        return repository.putHouseEntrust(req).convert()
+    }
+
+    override fun getHouseEntrust(houseId: String): Observable<EntrustUserRep?> {
+        return repository.getHouseEntrust(houseId).convert()
+    }
+
+    override fun putHouseKey(req: HaveKeyUserReq): Observable<HaveKeyUserRep?> {
+        return repository.putHouseKey(req).convert()
+    }
+
 }
