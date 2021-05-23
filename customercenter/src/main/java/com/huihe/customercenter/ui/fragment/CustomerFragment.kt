@@ -41,9 +41,9 @@ class CustomerFragment : BaseFragment() {
         titles.add("买卖")
         titles.add("租赁")
         titles.add("淘宝池")
-        fragments.add(getStatusFragment(2))
-        fragments.add(getStatusFragment(1))
-        fragments.add(getStatusFragment(2))
+        fragments.add(getStatusFragment(2, null))
+        fragments.add(getStatusFragment(1, null))
+        fragments.add(getStatusFragment(2, 1))
         customer_viewPager.offscreenPageLimit = 3
         customer_viewPager.adapter = BaseFragmentStatePageAdapter(
             childFragmentManager,
@@ -55,10 +55,13 @@ class CustomerFragment : BaseFragment() {
         }
     }
 
-    private fun getStatusFragment(customerType: Int): Fragment {
+    private fun getStatusFragment(customerType: Int, isCornucopia: Int?): Fragment {
         var customerListFragment = CustomerListFragment()
         val args = Bundle()
         args.putInt(CustomerConstant.KEY_CUSTOMERTYPE, customerType)
+        if (isCornucopia != null){
+            args.putInt(CustomerConstant.KEY_IS_CORNUCOPIA, isCornucopia)
+        }
         customerListFragment.arguments = args
         return customerListFragment
     }

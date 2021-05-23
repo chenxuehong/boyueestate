@@ -47,12 +47,13 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
     private lateinit var layoutRefreshContentView: View
     var transactionRvAdapter: TransactionRvAdapter? = null
     var customerType = 1
+    var isCornucopia: Int? = null
     var status: Int? = null
     var mMoreReq: MoreReq? = null
     var mSortReq: SortReq? = null
     var mSearchResultViewController: SearchResultViewController? = null
     val REQUEST_CODE_CUSTOMER_SEARCH = 10000
-    var mCustomerSearchReq :CustomerSearchReq= CustomerSearchReq()
+    var mCustomerSearchReq: CustomerSearchReq = CustomerSearchReq()
     override fun injectComponent() {
         DaggerCustomersComponent.builder().activityComponent(mActivityComponent).customersModule(
             CustomersModule()
@@ -72,6 +73,7 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         customerType = arguments?.getInt(CustomerConstant.KEY_CUSTOMERTYPE, 1) ?: 1
+        isCornucopia = arguments?.getInt(CustomerConstant.KEY_IS_CORNUCOPIA)
         initView()
         initRefreshLayout()
         initData()
@@ -94,7 +96,8 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
         )
 
         transactionRvAdapter = TransactionRvAdapter(context!!)
-        transactionRvAdapter?.setOnItemClickListener(object :BaseRecyclerViewAdapter.OnItemClickListener<CustomerRep.Customer>{
+        transactionRvAdapter?.setOnItemClickListener(object :
+            BaseRecyclerViewAdapter.OnItemClickListener<CustomerRep.Customer> {
             override fun onItemClick(view: View, item: CustomerRep.Customer, position: Int) {
                 startActivity<CustomerDetailActivity>(CustomerConstant.KEY_CUSTOMER_ID to item.id)
             }
@@ -144,7 +147,8 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
                 mobile = mCustomerSearchReq.mobile,
                 customerName = mCustomerSearchReq.customerName,
                 demandBeat = mCustomerSearchReq.demandBeat,
-                remarks = mCustomerSearchReq.remarks
+                remarks = mCustomerSearchReq.remarks,
+                isCornucopia = isCornucopia
             )
         )
     }
@@ -251,11 +255,12 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_CUSTOMER_SEARCH){
-            if (data!=null){
+        if (requestCode == REQUEST_CODE_CUSTOMER_SEARCH) {
+            if (data != null) {
                 var json = data.getStringExtra(CustomerConstant.KEY_CUSTOMER_SEARCH)
-                if (!TextUtils.isEmpty(json)){
-                   mCustomerSearchReq =Gson().fromJson<CustomerSearchReq>(json,CustomerSearchReq::class.java)
+                if (!TextUtils.isEmpty(json)) {
+                    mCustomerSearchReq =
+                        Gson().fromJson<CustomerSearchReq>(json, CustomerSearchReq::class.java)
                     initData()
                 }
             }

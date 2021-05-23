@@ -23,7 +23,8 @@ interface CustomerApi {
         @Query("mobile") mobile: String?,
         @Query("customerName") customerName: String?,
         @Query("demandBeat") demandBeat: String?,
-        @Query("remarks") remarks: String?
+        @Query("remarks") remarks: String?,
+        @Query("isCornucopia") isCornucopia: Int?
     ): Observable<BaseResp<CustomerRep?>>
 
     @GET("depts/deptUsers")

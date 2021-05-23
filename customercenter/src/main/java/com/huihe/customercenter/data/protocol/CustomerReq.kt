@@ -16,5 +16,6 @@ data class CustomerReq(
     var mobile:String?=null,
     var customerName:String?=null,
     var demandBeat:String?=null,
-    var remarks:String?=null
+    var remarks:String?=null,
+    var isCornucopia:Int?=null
 )

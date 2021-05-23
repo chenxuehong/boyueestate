@@ -45,7 +45,7 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     private var mGoodsAdapter: SecondHandHouseAdapter? = null
     private lateinit var layoutRefreshContentView: View
     private lateinit var mSearchResultViewController: SearchResultViewController
-    private val headers = arrayOf("区域", "楼层", "价格", "更多", "排序")
+    private val headers = arrayOf("区域", "楼层", "价格", "有效", "排序")
     private var mFloorRanges: MutableList<FloorReq>? = null
     private var mPriceRanges: MutableList<PriceReq>? = null
     private var sortReq: SortReq? = SortReq()

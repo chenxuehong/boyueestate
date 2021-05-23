@@ -102,6 +102,7 @@ class MoreResultView {
         var moreSearchAdapter = MoreSearchAdapter(mContext, mColumnNum)
         mview.rvMore.adapter = moreSearchAdapter
         moreSearchAdapter.setData(datas)
+        moreSearchAdapter.setItemChecked(MoreSearchBean("有效", false, 0, "状态"))
         moreSearchAdapter.setOnItemClickListener(object :
             BaseRecyclerViewAdapter.OnItemClickListener<MoreSearchBean> {
             override fun onItemClick(view: View, item: MoreSearchBean, position: Int) {

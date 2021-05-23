@@ -26,7 +26,8 @@ class CustomersRepository @Inject constructor() {
             customerReq.mobile,
             customerReq.customerName,
             customerReq.demandBeat,
-            customerReq.remarks
+            customerReq.remarks,
+            customerReq.isCornucopia
         )
     }
 
