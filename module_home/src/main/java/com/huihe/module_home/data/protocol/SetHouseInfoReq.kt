@@ -6,7 +6,7 @@ data class SetHouseInfoReq(
     val circulation:Int?=null,
     val ownerTel:String?=null,
     val ownerName:String?=null,
-    val imageUser: Int?=null,
+    val imageUser: String?=null,
     val imagUrl: String?=null,
     val houseCode: String?=null,
     val referUrl: String?=null,
@@ -34,5 +34,7 @@ data class SetHouseInfoReq(
     var decorat: String?=null,
     var propertyRightUserSize: String?=null,
     var soldReason: String?=null,
-    var remarks: String?=null
+    var remarks: String?=null,
+    var maintainUser: String?=null,
+    var bargainPriceUser: String?=null
 )

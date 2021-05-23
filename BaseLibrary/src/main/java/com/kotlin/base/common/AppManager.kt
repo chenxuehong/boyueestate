@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
 import java.util.*
+import kotlin.system.exitProcess
 
 /*
     Activity管理器
@@ -55,6 +56,6 @@ class AppManager private constructor(){
         finishAllActivity()
         val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         activityManager.killBackgroundProcesses(context.packageName)
-        System.exit(0)
+        exitProcess(0)
     }
 }

@@ -24,6 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
+        android:id="@+id/flMeScan"
         android:layout_width="@dimen/dp_44"
         android:layout_height="@dimen/dp_44"
         android:layout_marginRight="@dimen/dp_15"

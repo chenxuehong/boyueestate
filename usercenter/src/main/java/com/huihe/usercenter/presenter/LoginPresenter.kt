@@ -50,7 +50,6 @@ class LoginPresenter @Inject constructor() : BasePresenter<LoginView>() {
                             override fun onLoginSuccess() {
                                 LogUtils.d(TAG,"message login success")
                                 UserPrefsUtils.putUserInfo(iMUserInfo)
-                                mView?.onLoginResult(AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN))
                             }
 
                             override fun onLoginFail(message: String, code: Int) {
@@ -58,6 +57,7 @@ class LoginPresenter @Inject constructor() : BasePresenter<LoginView>() {
                                 mView?.onError(message)
                             }
                         })
+                    mView?.onLoginResult(AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN))
                 }
             }, lifecycleProvider)
 

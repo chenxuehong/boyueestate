@@ -13,6 +13,7 @@ import javax.inject.Inject
  */
 class HouseServiceImpl @Inject constructor() : HouseService {
 
+
     @Inject
     lateinit var repository: CustomersRepository
 
@@ -141,4 +142,30 @@ class HouseServiceImpl @Inject constructor() : HouseService {
         return repository.getMapRoomList(req).convert()
     }
 
+    override fun putHouseEntrust(req: EntrustUserReq): Observable<EntrustUserRep?> {
+        return repository.putHouseEntrust(req).convert()
+    }
+
+    override fun getHouseEntrust(houseId: String): Observable<EntrustUserRep?> {
+        return repository.getHouseEntrust(houseId).convert()
+    }
+
+    override fun putHouseKey(req: HaveKeyUserReq): Observable<HaveKeyUserRep?> {
+        return repository.putHouseKey(req).convert()
+    }
+
+    override fun pathHouseCreateUser(
+        id: String?,
+        createUser: String?
+    ): Observable<HouseCreateUserRep?> {
+        return repository.pathHouseCreateUser(id,createUser).convert()
+    }
+
+    override fun putCapping(req: CappingReq): Observable<CappingRep?> {
+        return repository.putCapping(req).convert()
+    }
+
+    override fun postSole(req: SoleUserReq?): Observable<SoleUserRep?> {
+        return repository.postSole(req).convert()
+    }
 }

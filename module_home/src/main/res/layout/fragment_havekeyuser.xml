@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.kotlin.base.widgets.HeaderBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_color"
+        app:isShowBack="true"
+        app:titleText="@string/SetKey" />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/llhaveKeyUser"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.kotlin.base.widgets.NecessaryTitleSelectView
+                android:id="@+id/haveKeyUser"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/HasKeyuser"
+                app:isNecessary="true"
+                app:isShowLine="true"
+                app:tipContentText="@string/HasKeyuser_input"
+                android:layout_height="@dimen/dp_40"/>
+
+            <com.kotlin.base.widgets.NecessaryTitleSelectView
+                android:id="@+id/haveKeyTime"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/haveKeyTime"
+                app:isNecessary="true"
+                app:isShowLine="true"
+                app:tipContentText="@string/haveKeyTime_input"
+                android:layout_height="@dimen/dp_40"/>
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/keyCode"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/keyCode"
+                app:isNecessary="true"
+                app:isShowLine="true"
+                app:tipContentText="@string/keyCode_input"
+                android:layout_height="@dimen/dp_40"/>
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/keyPassword"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/keyPassword"
+                app:isShowLine="true"
+                app:tipContentText="@string/keyPassword_input"
+                android:layout_height="@dimen/dp_40"/>
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/receipt"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/receipt"
+                app:isShowLine="true"
+                app:tipContentText="@string/receipt_input"
+                android:layout_height="@dimen/dp_40"/>
+            <LinearLayout
+                android:id="@+id/keyImage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_marginLeft="@dimen/dp_15"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="@dimen/sp_15"
+                    android:textColor="@color/color_333333"
+                    android:text="@string/keyImage"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:layout_marginRight="@dimen/dp_15"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/icon_uploading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHavekeyUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvHaveKeyuserSetting"
+                android:layout_marginLeft="@dimen/dp_24"
+                android:layout_marginRight="@dimen/dp_24"
+                android:gravity="center"
+                android:textSize="@dimen/sp_16"
+                android:textColor="@color/white"
+                android:text="@string/setting"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_44"
+                android:background="@drawable/common_maincolor_radius_bg"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

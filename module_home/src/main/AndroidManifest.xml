@@ -15,7 +15,13 @@
 
         <activity android:name=".ui.activity.HouseSelectActivity"/>
         <activity android:name=".ui.activity.AddHouseActivity"/>
+
         <activity android:name=".ui.activity.SearchHouseActivity"/>
+
+        <activity android:name=".ui.activity.EntrustUserActivity"/>
+        <activity android:name=".ui.activity.HaveKeyUserActivity"/>
+        <activity android:name=".ui.activity.SoleUserActivity"/>
+
 
         <activity android:name=".ui.activity.SetOwnerInfoActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>

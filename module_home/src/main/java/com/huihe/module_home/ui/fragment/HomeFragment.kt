@@ -9,6 +9,7 @@ import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.zhouwei.library.CustomPopWindow
 import com.huihe.module_home.R
 import com.huihe.module_home.ui.activity.AddHouseActivity
@@ -24,6 +25,14 @@ import com.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.layout_fragment_home.*
 import kotlinx.android.synthetic.main.layout_tel_dialog.view.*
 import org.jetbrains.anko.support.v4.startActivity
+import com.darsh.multipleimageselect.helpers.Constants.REQUEST_CODE
+import com.huihe.module_home.ui.activity.HouseDetailActivity
+import com.kotlin.provider.constant.HomeConstant
+import com.uuzuche.lib_zxing.activity.CaptureActivity
+import com.trello.rxlifecycle3.RxLifecycle.bindUntilEvent
+import com.uuzuche.lib_zxing.activity.CodeUtils
+import org.jetbrains.anko.support.v4.toast
+
 
 @Route(path = RouterPath.HomeCenter.PATH_HOME)
 class HomeFragment : BaseFragment() {
@@ -103,7 +112,8 @@ class HomeFragment : BaseFragment() {
                 startActivityForResult(intent, REQUEST_CODE_ADD_HOUSE)
             }
             BaseApplication.context.resources.getString(R.string.scan) -> {
-
+                val intent = Intent(context, CaptureActivity::class.java)
+                startActivityForResult(intent, REQUEST_CODE)
             }
         }
         mCustomPopWindow?.dissmiss()
@@ -115,6 +125,23 @@ class HomeFragment : BaseFragment() {
             fragments?.forEach { fragment ->
                 if (fragment is RefreshListener){
                     (fragment as RefreshListener).refreshData()
+                }
+            }
+        }else if (requestCode == REQUEST_CODE) {
+            //处理扫描结果（在界面上显示）
+            if (null != data) {
+                var bundle: Bundle? = data.extras ?: return
+                if (bundle?.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+                    var result = bundle.getString(CodeUtils.RESULT_STRING);
+//                    toast("解析结果:${result}")
+                    result?.apply {
+                        ARouter.getInstance()
+                            .build(RouterPath.HomeCenter.PATH_HOUSE_DETIL)
+                            .withString(HomeConstant.KEY_HOUSE_ID ,this)
+                            .navigation()
+                    }
+                } else if (bundle?.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+                    toast("解析二维码失败")
                 }
             }
         }

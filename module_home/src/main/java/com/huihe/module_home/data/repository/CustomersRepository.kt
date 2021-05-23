@@ -179,4 +179,34 @@ class CustomersRepository @Inject constructor() {
         return RetrofitFactory.instance.create(HouseApi::class.java)
             .getMapRoomList(req)
     }
+
+    fun putHouseEntrust(req: EntrustUserReq): Observable<BaseResp<EntrustUserRep?>> {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .putHouseEntrust(req)
+    }
+
+    fun getHouseEntrust(houseId: String): Observable<BaseResp<EntrustUserRep?>>  {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .getHouseEntrust(houseId)
+    }
+
+    fun putHouseKey(req: HaveKeyUserReq): Observable<BaseResp<HaveKeyUserRep?>> {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .putHouseKey(req)
+    }
+
+    fun pathHouseCreateUser(id: String?, createUser: String?): Observable<BaseResp<HouseCreateUserRep?>> {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .pathHouseCreateUser(HouseCreateUserReq(id,createUser))
+    }
+
+    fun putCapping(req: CappingReq): Observable<BaseResp<CappingRep?>> {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .putCapping(req)
+    }
+
+    fun postSole(req: SoleUserReq?): Observable<BaseResp<SoleUserRep?>> {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .postSole(req)
+    }
 }

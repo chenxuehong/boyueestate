@@ -1,8 +1,6 @@
 package com.huihe.module_home.presenter.view
 
-import com.huihe.module_home.data.protocol.HouseDetail
-import com.huihe.module_home.data.protocol.OwnerInfo
-import com.huihe.module_home.data.protocol.SetHouseInfoRep
+import com.huihe.module_home.data.protocol.*
 import com.kotlin.base.presenter.view.BaseView
 
 interface HouseDetailView :BaseView{
@@ -13,4 +11,6 @@ interface HouseDetailView :BaseView{
     fun onHouseStatus(t: SetHouseInfoRep?)
     fun onGetUploadTokenResult(result: String?)
     fun onUploadSuccessResult(result: String?)
+    fun onHouseCreateUserResult(t: HouseCreateUserRep?)
+    fun onPutCappingResult(t: CappingRep?)
 }

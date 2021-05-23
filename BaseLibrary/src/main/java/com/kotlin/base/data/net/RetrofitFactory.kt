@@ -1,5 +1,7 @@
 package com.kotlin.base.data.net
 
+import cn.qqtheme.framework.AppConfig
+import com.kotlin.base.BuildConfig
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.utils.AppPrefsUtils
 import okhttp3.Interceptor
@@ -41,7 +43,12 @@ class RetrofitFactory private constructor(){
 
         //Retrofit实例化
         retrofit = Retrofit.Builder()
-                .baseUrl(BaseConstant.SERVER_ADDRESS)
+                .baseUrl(
+                    if (BuildConfig.BUILD_TYPE.equals("release")){
+                    BaseConstant.SERVER_ADDRESS
+                }else{
+                    BaseConstant.SERVER_ADDRESS_DEBUG
+                })
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(initClient())

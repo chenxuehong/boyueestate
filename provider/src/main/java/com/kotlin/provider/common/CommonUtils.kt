@@ -10,7 +10,7 @@ import com.kotlin.provider.utils.UserPrefsUtils
     顶级函数，判断是否登录
  */
 fun isLogined():Boolean{
-    return UserPrefsUtils.getUserInfo()!=null && AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN).isNotEmpty()
+    return AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN).isNotEmpty()
 }
 
 /*

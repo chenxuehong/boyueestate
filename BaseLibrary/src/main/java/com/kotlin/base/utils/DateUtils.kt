@@ -3,9 +3,7 @@ package com.kotlin.base.utils
 import android.text.TextUtils
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.TimeZone
+import java.util.*
 
 /**
  * 日期工具类 默认使用 "yyyy-MM-dd HH:mm:ss" 格式化日期
@@ -61,6 +59,8 @@ object DateUtils {
 
     var TIMEZONE = "Asia/Shanghai"
 
+    var HFormatStr = "HH"
+    var MFormatStr = "mm"
     /**
      * 根据预设格式返回当前日期
 
@@ -69,6 +69,7 @@ object DateUtils {
     val now: String
         get() = format(Date())
 
+    private val weeks = arrayOf("周一", "周二", "周三", "周四", "周五", "周六", "周日")
     /**
      * 根据用户格式返回当前日期
 
@@ -267,10 +268,160 @@ object DateUtils {
         return date.time
     }
 
+
+    /**
+     * 获取当前时间
+     *
+     * @return
+     */
+    fun getCurDateStr(formatTimeStr: String): String {
+        if (TextUtils.isEmpty(formatTimeStr)) {
+            return ""
+        }
+        val dateFm = SimpleDateFormat(formatTimeStr, Locale.SIMPLIFIED_CHINESE)
+        return dateFm.format(java.lang.Long.valueOf(Date().time))
+    }
+
     //当前时间毫秒数
     val curTime: Long
         get() {
             val c = Calendar.getInstance(defTimeZone)
             return c.timeInMillis
         }
+
+    fun getChineseWeek(specifiedDay: String, formatTimeStr: String): String {
+        var dayofWeek = getDayofWeek(specifiedDay, formatTimeStr)
+        if (dayofWeek == 0) {
+            dayofWeek = 6
+        }
+        if (dayofWeek > 0) {
+            dayofWeek--
+        }
+        return weeks[dayofWeek]
+    }
+
+    fun getDayofWeek(specifiedDay: String, formatTimeStr: String): Int {
+        val cal = Calendar.getInstance()
+        if (specifiedDay == "") {
+            cal.time = Date(System.currentTimeMillis())
+        } else {
+            val sdf = SimpleDateFormat(formatTimeStr, Locale.getDefault())
+            var date: Date?
+            try {
+                date = sdf.parse(specifiedDay)
+            } catch (e: ParseException) {
+                date = null
+                e.printStackTrace()
+            }
+
+            if (date != null) {
+                cal.time = Date(date.time)
+            }
+        }
+        return cal.get(Calendar.DAY_OF_WEEK) - 1
+    }
+
+    fun getCurYear(): Int {
+        val calendar = Calendar.getInstance()
+        return calendar.get(Calendar.YEAR)
+    }
+
+    fun getCurMonth(): Int {
+        val calendar = Calendar.getInstance()
+        return calendar.get(Calendar.MONTH) + 1
+    }
+
+    fun getCurDay(): Int {
+        val calendar = Calendar.getInstance()
+        return calendar.get(Calendar.DAY_OF_MONTH)
+    }
+
+    fun getCurHour(): Int {
+
+        val curDateStr = getCurDateStr(HFormatStr)
+        return Integer.valueOf(curDateStr)
+    }
+
+    fun getCurMinute(): Int {
+
+        val curDateStr = getCurDateStr(MFormatStr)
+        return Integer.valueOf(curDateStr)
+    }
+
+    /**
+     * 获得指定日期的后一天
+     *
+     * @param specifiedDay
+     * @return
+     */
+    fun getSpecifiedDayAfter(specifiedDay: String, formatTimeStr: String, days: Int): String {
+        val c = Calendar.getInstance()
+        var date: Date? = null
+        try {
+            date = SimpleDateFormat(formatTimeStr).parse(specifiedDay)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+
+        c.time = date!!
+        val day = c.get(Calendar.DATE)
+        c.set(Calendar.DATE, day + days)
+
+        return SimpleDateFormat(formatTimeStr).format(c.time)
+    }
+
+    fun getYear(dateStr: String, formatStr: String): Int {
+        var date: Date? = null
+        try {
+            date = SimpleDateFormat(formatStr).parse(dateStr)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+
+        val calendar = Calendar.getInstance()
+        calendar.time = date!!
+        return calendar.get(Calendar.YEAR)
+    }
+
+    fun getMonth(dateStr: String, formatStr: String): Int {
+        var date: Date? = null
+        try {
+            date = SimpleDateFormat(formatStr).parse(dateStr)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+
+        val calendar = Calendar.getInstance()
+        calendar.time = date!!
+        return calendar.get(Calendar.MONTH) + 1
+    }
+
+    fun getDay(dateStr: String, formatStr: String): Int {
+        var date: Date? = null
+        try {
+            date = SimpleDateFormat(formatStr).parse(dateStr)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+
+        val calendar = Calendar.getInstance()
+        calendar.time = date!!
+        return calendar.get(Calendar.DAY_OF_MONTH)
+    }
+
+    fun getMonthOfDay(year: Int, month: Int): Int {
+        var day = 0
+        if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+            day = 29
+        } else {
+            day = 28
+        }
+        when (month) {
+            1, 3, 5, 7, 8, 10, 12 -> return 31
+            4, 6, 9, 11 -> return 30
+            2 -> return day
+        }
+
+        return 0
+    }
 }

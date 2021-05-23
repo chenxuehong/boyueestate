@@ -1,9 +1,6 @@
 package com.huihe.module_home.presenter
 
-import com.huihe.module_home.data.protocol.HouseDetail
-import com.huihe.module_home.data.protocol.OwnerInfo
-import com.huihe.module_home.data.protocol.SetHouseInfoRep
-import com.huihe.module_home.data.protocol.SetHouseInfoReq
+import com.huihe.module_home.data.protocol.*
 import com.huihe.module_home.presenter.view.HouseDetailView
 import com.huihe.module_home.service.HouseService
 import com.kotlin.base.ext.execute
@@ -25,7 +22,7 @@ class HouseDetailPresenter @Inject constructor() : BasePresenter<HouseDetailView
         }
         mHouseService.getHouseDetailRelationPeople(id)
             .compose(lifecycleProvider.bindToLifecycle())
-            .flatMap(Function<OwnerInfo?, Observable<HouseDetail?>>{
+            .flatMap(Function<OwnerInfo?, Observable<HouseDetail?>> {
                 mView?.onGetOwnerResult(it)
                 return@Function mHouseService.getHouseDetailById(id)
             })
@@ -62,21 +59,11 @@ class HouseDetailPresenter @Inject constructor() : BasePresenter<HouseDetailView
     }
 
     fun setHouseInfo(
-        id: String?,
-        hFlag: Int? = null,
-        isCirculation: Int? = null,
-        ownerTel: String? = null,
-        imageUser: Int? = null
+        req: SetHouseInfoReq
     ) {
         mView?.showLoading("正在修改")
         mHouseService.setHouseInfo(
-            SetHouseInfoReq(
-                id,
-                hFlag,
-                circulation = isCirculation,
-                ownerTel = ownerTel,
-                imageUser = imageUser
-            )
+            req
         )
             .execute(object : BaseSubscriber<SetHouseInfoRep?>(mView) {
                 override fun onNext(t: SetHouseInfoRep?) {
@@ -102,7 +89,8 @@ class HouseDetailPresenter @Inject constructor() : BasePresenter<HouseDetailView
         imagUrl: String? = null
     ) {
         mHouseService.postHouseImage(
-            SetHouseInfoReq(id = id,imagUrl = imagUrl))
+            SetHouseInfoReq(id = id, imagUrl = imagUrl)
+        )
             .execute(object : BaseSubscriber<String?>(mView) {
                 override fun onNext(t: String?) {
                     super.onNext(t)
@@ -117,12 +105,36 @@ class HouseDetailPresenter @Inject constructor() : BasePresenter<HouseDetailView
         referUrl: String? = null
     ) {
         mHouseService.postReferImage(
-            SetHouseInfoReq(id = id,houseCode = houseCode,referUrl = referUrl))
+            SetHouseInfoReq(id = id, houseCode = houseCode, referUrl = referUrl)
+        )
             .execute(object : BaseSubscriber<String?>(mView) {
                 override fun onNext(t: String?) {
                     super.onNext(t)
                     mView?.onUploadSuccessResult(t)
                 }
             }, lifecycleProvider)
+    }
+
+    fun pathHouseCreateUser(id: String?, createUser: String?) {
+        mView?.showLoading()
+        mHouseService.pathHouseCreateUser(id, createUser)
+            .execute(object : BaseSubscriber<HouseCreateUserRep?>(mView) {
+                override fun onNext(t: HouseCreateUserRep?) {
+                    super.onNext(t)
+                    mView?.onHouseCreateUserResult(t)
+                }
+            }, lifecycleProvider)
+    }
+
+    fun putCapping(req:CappingReq) {
+        mView?.showLoading()
+        mHouseService.putCapping(req)
+            .execute(object :BaseSubscriber<CappingRep?>(mView){
+
+                override fun onNext(t: CappingRep?) {
+                    super.onNext(t)
+                    mView?.onPutCappingResult(t)
+                }
+            },lifecycleProvider)
     }
 }

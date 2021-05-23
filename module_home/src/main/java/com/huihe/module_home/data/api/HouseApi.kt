@@ -105,4 +105,30 @@ interface HouseApi {
 
     @POST("map/room")
     fun getMapRoomList(@Body req: HouseMapReq): Observable<BaseResp<MutableList<MapAreaRep>?>>
+
+    @POST("house/entrust")
+    fun putHouseEntrust(@Body req: EntrustUserReq): Observable<BaseResp<EntrustUserRep?>>
+
+    @GET("house/{houseId}/entrust")
+    fun getHouseEntrust(
+        @Path("houseId") houseId: String
+    ): Observable<BaseResp<EntrustUserRep?>>
+
+    @POST("house/key")
+    fun putHouseKey(
+        @Body req: HaveKeyUserReq
+    ): Observable<BaseResp<HaveKeyUserRep?>>
+
+    @PATCH("house/createUser")
+    fun pathHouseCreateUser(
+        @Body req: HouseCreateUserReq
+    ): Observable<BaseResp<HouseCreateUserRep?>>
+
+    @PUT("house/Capping")
+    fun putCapping(
+        @Body req: CappingReq
+    ): Observable<BaseResp<CappingRep?>>
+
+    @POST("house/sole")
+    fun postSole(@Body req: SoleUserReq?): Observable<BaseResp<SoleUserRep?>>
 }

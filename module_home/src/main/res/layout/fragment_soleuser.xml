@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.kotlin.base.widgets.HeaderBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_color"
+        app:isShowBack="true"
+        app:titleText="@string/setSoleUser" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/llsoleUser"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/soleCode"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/soleCode"
+                app:isNecessary="true"
+                app:isShowLine="true"
+                app:tipContentText="@string/soleCode_input"
+                android:layout_height="@dimen/dp_40"/>
+
+            <com.kotlin.base.widgets.NecessaryTitleSelectView
+                android:id="@+id/soleUser"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/soleUsers"
+                app:isNecessary="true"
+                app:isShowLine="true"
+                app:tipContentText="@string/soleUsers_input"
+                android:layout_height="@dimen/dp_40"/>
+
+            <com.kotlin.base.widgets.NecessaryTitleSelectView
+                android:id="@+id/startTime"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/startTime"
+                app:isNecessary="true"
+                app:isShowLine="true"
+                app:tipContentText="@string/startTime_input"
+                android:layout_height="@dimen/dp_40"/>
+
+            <com.kotlin.base.widgets.NecessaryTitleSelectView
+                android:id="@+id/endTime"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/endTime"
+                app:isNecessary="true"
+                app:isShowLine="true"
+                app:tipContentText="@string/endTime_input"
+                android:layout_height="@dimen/dp_40"/>
+
+            <com.kotlin.base.widgets.NecessaryTitleInputView
+                android:id="@+id/soleTotalPrice"
+                style="@style/MatchWrap"
+                app:leftTitleText="@string/soleTotalPrice"
+                app:isShowLine="true"
+                app:inputType="numberDecimal"
+                app:tipContentText="@string/soleTotalPrice_input"
+                android:layout_height="@dimen/dp_40"/>
+
+            <TextView
+                android:id="@+id/tvSoleUsersSetting"
+                android:gravity="center"
+                android:textSize="@dimen/sp_16"
+                android:textColor="@color/white"
+                android:text="@string/setting"
+                android:layout_marginLeft="@dimen/dp_24"
+                android:layout_marginRight="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_44"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:background="@drawable/common_maincolor_radius_bg"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_44"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

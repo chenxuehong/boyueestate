@@ -195,12 +195,12 @@ class AddHouseFragment : BaseMvpFragment<AddHousePresenter>(), AddHouseView{
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         try {
             Bus.unregister(this)
             mTransactionTypePicker?.dismiss()
         } catch (e: Exception) {
         }
+        super.onDestroy()
     }
 }
 

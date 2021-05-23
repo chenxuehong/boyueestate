@@ -1,6 +1,7 @@
 package com.huihe.module_home.ext
 
 import android.content.Context
+import android.text.TextUtils
 import android.widget.Button
 import cn.qqtheme.framework.entity.City
 import cn.qqtheme.framework.entity.County
@@ -8,6 +9,7 @@ import cn.qqtheme.framework.entity.Province
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.HouseDetail
 import com.huihe.module_home.data.protocol.ItemHouseDetail
+import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.ui.adpter.MoreSearchAdapter
 import com.kotlin.base.utils.DateUtils
 import com.kotlin.provider.data.protocol.District
@@ -198,47 +200,56 @@ fun getConvertHouseDetailData(houseDetail: HouseDetail?): MutableList<ItemHouseD
                         ownerInfo?.createTime!!,
                         DateUtils.datePattern,
                         DateUtils.FORMAT_SHORT
-                    )}"
+                    )}",
+                    CustomersModule.OwnerInfoType.createUser
                 ),
                 ItemHouseDetail.OwnerInfo(
                     ownerInfo?.maintainUser?:"",
                     "维护人",
-                    "${ownerInfo?.maintainUserName?:""}"
+                    "${ownerInfo?.maintainUserName?:"${if (TextUtils.isEmpty(ownerInfo?.maintainUser)) "请选择 维护人" else ""}"}",
+                    CustomersModule.OwnerInfoType.maintainUser
                 ),
                 ItemHouseDetail.OwnerInfo(
                     ownerInfo?.imageUser?:"",
                     "图片人",
-                    "${ownerInfo?.imageUserName?:""}"
+                    "${ownerInfo?.imageUserName?:"${if (TextUtils.isEmpty(ownerInfo?.imageUser)) "请选择 图片人" else ""}"}",
+                    CustomersModule.OwnerInfoType.imageUser
                 ),
                 ItemHouseDetail.OwnerInfo(
                     ownerInfo?.entrustUser?:"",
                     "委托人",
-                    "${ownerInfo?.entrustUserName?:""}"
+                    "${ownerInfo?.entrustUserName?:"${if (TextUtils.isEmpty(ownerInfo?.entrustUser)) "请选择 委托人" else ""}"}",
+                    CustomersModule.OwnerInfoType.entrustUser
                 ),
                 ItemHouseDetail.OwnerInfo(
                     ownerInfo?.haveKeyUser?:"",
                     "钥匙人",
-                    "${ownerInfo?.haveKeyUserName?:""}"
+                    "${ownerInfo?.haveKeyUserName?:"${if (TextUtils.isEmpty(ownerInfo?.haveKeyUser)) "请选择 钥匙人" else ""}"}",
+                    CustomersModule.OwnerInfoType.haveKeyUser
                 ),
                 ItemHouseDetail.OwnerInfo(
                     ownerInfo?.soleUser?:"",
                     "独家人",
-                    "${ownerInfo?.soleUserName?:""}"
+                    "${ownerInfo?.soleUserName?:"${if (TextUtils.isEmpty(ownerInfo?.soleUser)) "请选择 独家人" else ""}"}",
+                    CustomersModule.OwnerInfoType.soleUser
                 ),
                 ItemHouseDetail.OwnerInfo(
                     ownerInfo?.bargainPriceUser?:"",
                     "推荐人",
-                    "${ownerInfo?.bargainPriceUserName?:""}"
+                    "${ownerInfo?.bargainPriceUserName?:"${if (TextUtils.isEmpty(ownerInfo?.bargainPriceUser)) "请选择 推荐人" else ""}"}",
+                    CustomersModule.OwnerInfoType.bargainPriceUser
                 ),
                 ItemHouseDetail.OwnerInfo(
                     ownerInfo?.blockUser?:"",
                     "封盘人",
-                    "${ownerInfo?.blockUserName?:""}"
+                    "${ownerInfo?.blockUserName?:""}",
+                    CustomersModule.OwnerInfoType.blockUser
                 ),
                 ItemHouseDetail.OwnerInfo(
                     ownerInfo?.openUser?:"",
                     "开盘人",
-                    "${ownerInfo?.openUserName?:""}"
+                    "${ownerInfo?.openUserName?:""}",
+                    CustomersModule.OwnerInfoType.openUser
                 )
             )
         ),

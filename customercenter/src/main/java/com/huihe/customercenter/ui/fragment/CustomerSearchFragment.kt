@@ -37,7 +37,7 @@ class CustomerSearchFragment : BaseFragment(){
     private fun initView() {
         req = CustomerSearchReq()
         customerSearchTitleBar.onClick {
-            if (checkInput()){
+//            if (checkInput()){
                 req.customerCode = nivcustomerCode.getContent()
                 req.mobile = nivmobile.getContent()
                 req.customerName = nivcustomerName.getContent()
@@ -47,7 +47,7 @@ class CustomerSearchFragment : BaseFragment(){
                 intent.putExtra(CustomerConstant.KEY_CUSTOMER_SEARCH, Gson().toJson(req))
                 activity?.setResult(0, intent)
                 activity?.finish()
-            }
+//            }
         }
     }
 

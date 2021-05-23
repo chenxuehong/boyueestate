@@ -406,6 +406,15 @@ attr indexBarTextSize
 attr indicatorColor
 attr indicatorName
 attr initialActivityCount
+attr inner_corner_color
+attr inner_corner_length
+attr inner_corner_width
+attr inner_height
+attr inner_margintop
+attr inner_scan_bitmap
+attr inner_scan_iscircle
+attr inner_scan_speed
+attr inner_width
 attr inputType
 attr insetForeground
 attr isBottom
@@ -905,6 +914,7 @@ color bgColor_alertview_alert
 color bgColor_alertview_alert_start
 color bgColor_divier
 color bgColor_overlay
+color bg_color
 color bg_negative_btn
 color bg_positive_btn
 color black
@@ -927,6 +937,7 @@ color cardview_dark_background
 color cardview_light_background
 color cardview_shadow_end_color
 color cardview_shadow_start_color
+color cc
 color chat_background_color
 color chat_title_line_color
 color check_bg
@@ -955,6 +966,7 @@ color common_purple
 color common_red
 color common_white
 color common_yellow
+color contents_text
 color conversation_time_color
 color conversation_top_color
 color crop__button_bar
@@ -984,6 +996,7 @@ color dim_foreground_material_dark
 color dim_foreground_material_light
 color drop_down_selected
 color drop_down_unselected
+color encode_view
 color error_color_material
 color error_color_material_dark
 color error_color_material_light
@@ -992,6 +1005,10 @@ color foreground_material_dark
 color foreground_material_light
 color gray
 color green
+color grgray
+color header
+color help_button_view
+color help_view
 color highlighted_text_material_dark
 color highlighted_text_material_light
 color hint_foreground_material_dark
@@ -1071,6 +1088,7 @@ color notification_icon_bg_color
 color notification_material_background_media_default_color
 color partTranslucent
 color positive_text
+color possible_result_points
 color primary_dark_material_dark
 color primary_dark_material_light
 color primary_material_dark
@@ -1080,15 +1098,30 @@ color primary_text_default_material_light
 color primary_text_disabled_material_dark
 color primary_text_disabled_material_light
 color read_dot_bg
+color result_image_border
+color result_minor_text
+color result_points
+color result_text
+color result_view
 color ripple_material_dark
 color ripple_material_light
+color sbc_header_text
+color sbc_header_view
+color sbc_layout_view
+color sbc_list_item
+color sbc_page_number_text
+color sbc_snippet_text
 color secondary_text_default_material_dark
 color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
+color share_text
+color share_view
 color slide_bar_hint_color
 color split_lint_color
 color status_bar_color
+color status_text
+color status_view
 color switch_thumb_disabled_material_dark
 color switch_thumb_disabled_material_light
 color switch_thumb_material_dark
@@ -1122,6 +1155,9 @@ color tooltip_background_dark
 color tooltip_background_light
 color transparent
 color un_press_color
+color viewfinder_frame
+color viewfinder_laser
+color viewfinder_mask
 color voice_normal
 color voice_pressed
 color white
@@ -2147,6 +2183,7 @@ drawable icon_favorite_nor
 drawable icon_search
 drawable icon_selector
 drawable icon_state_error
+drawable icon_uploading
 drawable im_class
 drawable im_contacts
 drawable image_placeholder
@@ -2213,11 +2250,13 @@ drawable popu_dialog_bg
 drawable progress_dialog_anim
 drawable progress_dialog_bg
 drawable recording_volume
+drawable remove_pic
 drawable right_arrow
 drawable sb_bg
 drawable sb_progress
 drawable sb_progress_drawable
 drawable sb_second
+drawable scan_light
 drawable search
 drawable selector_face_text
 drawable selector_ios_dialog_left
@@ -2326,6 +2365,7 @@ id audio_play_iv
 id audio_time_tv
 id audio_unread
 id auto
+id auto_focus
 id avatar
 id background_style_default
 id background_style_ripple
@@ -2410,6 +2450,9 @@ id coordinator
 id crop_image
 id custom
 id customPanel
+id decode
+id decode_failed
+id decode_succeeded
 id decor_content_parent
 id default_activity_button
 id design_bottom_sheet
@@ -2432,6 +2475,8 @@ id edit_content_et
 id edit_query
 id edit_title_bar
 id empty
+id encode_failed
+id encode_succeeded
 id end
 id end_padder
 id error
@@ -2460,6 +2505,7 @@ id fixed_bottom_navigation_icon_container
 id fixed_bottom_navigation_title
 id fl_no_video
 id fl_shade
+id fl_zxing_container
 id flex_end
 id flex_start
 id forever
@@ -2544,6 +2590,7 @@ id jcameraview
 id join_type_bar
 id labeled
 id largeLabel
+id launch_product_query
 id layout_save_gallery_tv_cancel
 id layout_save_gallery_tv_save
 id layout_viewpager_rl
@@ -2642,6 +2689,7 @@ id pop_menu_icon
 id pop_menu_label
 id pop_menu_list
 id pos_btn
+id preview_view
 id profile_icon
 id profile_icon_group
 id progress_bar_album_select
@@ -2650,6 +2698,7 @@ id progress_circular
 id progress_horizontal
 id pure_cyan
 id pure_teal
+id quit
 id radio
 id random
 id recording_icon
@@ -2663,6 +2712,8 @@ id refresh_mMultiStateView
 id refresh_mRecyclerView
 id remark
 id remove_group_member
+id restart_preview
+id return_scan_result
 id right
 id rightArrow
 id rightBottom
@@ -2687,6 +2738,8 @@ id scrollable
 id search
 id search_badge
 id search_bar
+id search_book_contents_failed
+id search_book_contents_succeeded
 id search_button
 id search_close_btn
 id search_edit_frame
@@ -2816,6 +2869,7 @@ id view_alpha
 id view_line
 id view_offset_helper
 id view_original_btn
+id viewfinder_view
 id visible
 id voice_input_switch
 id voice_recording_view
@@ -2899,6 +2953,7 @@ layout audiocall_item_select_contact
 layout audiocall_item_selected_contact
 layout audiocall_item_user_layout
 layout bottom_navigation_bar_container
+layout camera
 layout chat_bottom
 layout chat_input_camera_view
 layout chat_input_layout
@@ -2935,6 +2990,7 @@ layout design_navigation_menu_item
 layout design_text_input_password_icon
 layout face_group_icon
 layout fixed_bottom_navigation_item
+layout fragment_capture
 layout fragment_chat
 layout fragment_conversation
 layout fragment_face
@@ -3032,6 +3088,7 @@ layout videocall_item_user_user_layout
 layout view_dialog
 menu menu_contextual_action_bar
 mipmap ic_launcher
+raw beep
 string Photo
 string Take_a_picture
 string abc_action_bar_home_description
@@ -3194,6 +3251,7 @@ string group_notice
 string group_remove_member
 string group_type
 string has_read
+string hello_blank_fragment
 string hide_bottom_view_on_scroll_behavior
 string hold_say
 string icon
@@ -3392,6 +3450,7 @@ style Animation_AppCompat_Dialog
 style Animation_AppCompat_DropDownUp
 style Animation_AppCompat_Tooltip
 style Animation_Design_BottomSheetDialog
+style AppBaseTheme
 style AppTheme
 style AppTheme_Black
 style AutoMatch
@@ -3988,6 +4047,7 @@ style WrapWrap_Vertical
 style commonRecyclerView
 style common_btn_bg
 style loading_dialog
+style my_actionbar_style
 styleable AVLoadingIndicatorView indicatorColor indicatorName maxHeight maxWidth minHeight minWidth
 styleable ActionBar background backgroundSplit backgroundStacked contentInsetEnd contentInsetEndWithActions contentInsetLeft contentInsetRight contentInsetStart contentInsetStartWithNavigation customNavigationLayout displayOptions divider elevation height hideOnContentScroll homeAsUpIndicator homeLayout icon indeterminateProgressStyle itemPadding logo navigationMode popupTheme progressBarPadding progressBarStyle subtitle subtitleTextStyle title titleTextStyle
 styleable ActionBarLayout android_layout_gravity
@@ -4093,6 +4153,7 @@ styleable View android_focusable android_theme backgroundTint backgroundTintMode
 styleable ViewBackgroundHelper android_background backgroundTint backgroundTintMode
 styleable ViewPager2 android_orientation
 styleable ViewStubCompat android_id android_inflatedId android_layout
+styleable ViewfinderView inner_corner_color inner_corner_length inner_corner_width inner_height inner_margintop inner_scan_bitmap inner_scan_iscircle inner_scan_speed inner_width
 styleable pickerview wheelview_dividerColor wheelview_gravity wheelview_lineSpacingMultiplier wheelview_textColorCenter wheelview_textColorOut wheelview_textSize
 styleable search_view searchHint
 xml file_paths

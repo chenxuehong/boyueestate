@@ -33,7 +33,8 @@ data class ItemHouseDetail(
     data class OwnerInfo(
         var uid:String?,
         var leftTitle: String?,
-        var content: String?
+        var content: String?,
+        var type: Int
     )
 
    data class MapInfo(

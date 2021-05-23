@@ -44,17 +44,15 @@ class SearchHouseFragment : BaseFragment() {
     private fun initView() {
         req = SearchReq()
         set_houseinfo_titleBar.getRightView().onClick {
-            if (checkInput()) {
-                req.villageName = nivVillageName.getContent()
-                req.ownerTel = nivOwnerTel.getContent()
-                req.houseCode = nivHouseCode.getContent()
-                req.building = nivBuilding.getContent()
-                req.hNum = nivHNum.getContent()
-                var intent = Intent()
-                intent.putExtra(HomeConstant.KEY_SEARCH_REQ, Gson().toJson(req))
-                activity?.setResult(0, intent)
-                activity?.finish()
-            }
+            req.villageName = nivVillageName.getContent()
+            req.ownerTel = nivOwnerTel.getContent()
+            req.houseCode = nivHouseCode.getContent()
+            req.building = nivBuilding.getContent()
+            req.hNum = nivHNum.getContent()
+            var intent = Intent()
+            intent.putExtra(HomeConstant.KEY_SEARCH_REQ, Gson().toJson(req))
+            activity?.setResult(0, intent)
+            activity?.finish()
         }
 
         Bus.observe<SearchHouseEvent>()
@@ -147,41 +145,41 @@ class SearchHouseFragment : BaseFragment() {
         it?.apply {
             when (type) {
                 "DistrictFragment" -> {
-                    nivSchoolIds.setContent(it.name)
+                    nivSchoolIds?.setContent(it.name)
                     req.schoolIds = mutableListOf(it.id)
                 }
                 "AddressBookFragment" -> {
-                    when {
-                        "CreateUsers".equals(type) -> {
-                            nivCreateUsers.setContent(it.name)
+                    when (this@SearchHouseFragment.type){
+                        "CreateUsers"-> {
+                            nivCreateUsers?.setContent(it.name)
                             req.createUsers = mutableListOf(it.id)
                         }
-                        "ImageUsers".equals(type) -> {
-                            nivImageUsers.setContent(it.name)
+                        "ImageUsers" -> {
+                            nivImageUsers?.setContent(it.name)
                             req.imageUsers = mutableListOf(it.id)
                         }
-                        "MaintainUsers".equals(type) -> {
-                            nivMaintainUsers.setContent(it.name)
+                        "MaintainUsers"-> {
+                            nivMaintainUsers?.setContent(it.name)
                             req.maintainUsers = mutableListOf(it.id)
                         }
-                        "BargainPriceUsers".equals(type) -> {
-                            nivBargainPriceUsers.setContent(it.name)
+                        "BargainPriceUsers" -> {
+                            nivBargainPriceUsers?.setContent(it.name)
                             req.bargainPriceUsers = mutableListOf(it.id)
                         }
-                        "BlockUsers".equals(type) -> {
-                            nivBlockUsers.setContent(it.name)
+                        "BlockUsers" -> {
+                            nivBlockUsers?.setContent(it.name)
                             req.blockUsers = mutableListOf(it.id)
                         }
-                        "HaveKeyUsers".equals(type) -> {
-                            nivHaveKeyUsers.setContent(it.name)
+                        "HaveKeyUsers" -> {
+                            nivHaveKeyUsers?.setContent(it.name)
                             req.haveKeyUsers = mutableListOf(it.id)
                         }
-                        "SoleUsers".equals(type) -> {
-                            nivSoleUsers.setContent(it.name)
+                        "SoleUsers" -> {
+                            nivSoleUsers?.setContent(it.name)
                             req.soleUsers = mutableListOf(it.id)
                         }
-                        "EntrustUsers".equals(type) -> {
-                            nivEntrustUsers.setContent(it.name)
+                        "EntrustUsers" -> {
+                            nivEntrustUsers?.setContent(it.name)
                             req.entrustUsers = mutableListOf(it.id)
                         }
                     }

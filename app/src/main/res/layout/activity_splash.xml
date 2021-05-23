@@ -7,6 +7,7 @@
         android:layout_width="wrap_content"
         android:src="@drawable/splash"
         android:layout_marginTop="@dimen/dp_80"
+        android:visibility="gone"
         android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"/>
     <TextView

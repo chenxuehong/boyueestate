@@ -21,22 +21,22 @@ class SplashActivity : BaseActivity() {
         setContentView(R.layout.activity_splash)
         afterLogin {
             var userInfo = UserPrefsUtils.getUserInfo()
-            messageService.login(
-                userInfo?.uid?:"",
-                userInfo?.userSig?:"",
-            object :MessageService.OnMessageListener{
-                override fun onLoginSuccess() {
-                    startActivity<MainActivity>()
-                    finish()
-                }
+            if (userInfo!=null){
+                messageService.login(
+                    userInfo?.uid?:"",
+                    userInfo?.userSig?:"",
+                    object :MessageService.OnMessageListener{
+                        override fun onLoginSuccess() {
 
-                override fun onLoginFail(message: String, code: Int) {
-                    toast(message)
-                    ARouter.getInstance().build(RouterPath.UserCenter.PATH_LOGIN).navigation()
-                    finish()
-                }
+                        }
 
-            })
+                        override fun onLoginFail(message: String, code: Int) {
+                        }
+
+                    })
+            }
+            startActivity<MainActivity>()
+            finish()
         }
 
     }

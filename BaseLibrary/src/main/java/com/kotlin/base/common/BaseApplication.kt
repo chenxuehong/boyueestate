@@ -10,6 +10,7 @@ import com.kotlin.base.injection.module.AppModule
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import com.uuzuche.lib_zxing.activity.ZXingLibrary
 
 
 /*
@@ -28,7 +29,8 @@ abstract class BaseApplication : MultiDexApplication() {
         };
         //设置全局的Footer构建器
         SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
-            ClassicsFooter(context).setDrawableSize(context.resources.getDimension(R.dimen.dp_15)) }
+            ClassicsFooter(context).setDrawableSize(context.resources.getDimension(R.dimen.dp_15))
+        }
     }
 
     override fun onCreate() {
@@ -43,6 +45,7 @@ abstract class BaseApplication : MultiDexApplication() {
         ARouter.openDebug()
         ARouter.init(this)
         initIM()
+        ZXingLibrary.initDisplayOpinion(this)
     }
 
     abstract fun initIM()
