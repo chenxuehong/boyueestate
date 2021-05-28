@@ -85,27 +85,31 @@ MobSDK {
     }
     // 调用MobPush
     MobPush {
-//        debugLevel 4
-//        devInfo {
-//            HUAWEI {
-//                appId "104346335"
-//                appKey "b98f67a725af4c75e98913e1a592d5b078e3410e596b52bda455acfe13c4546c"
-//            }
-//            XIAOMI {
-//                appId "2882303761518959028"
-//                appKey "5591895924028"
-//            }
-//
-//            OPPO {
-//                appKey "67ca9ac828ab4d84b38dcdff36d2d393"
-//                appSecret "2ece6a7ab34d4f07892b424556c756ca"
-//            }
+        debugLevel 4
+        devInfo {
+            HUAWEI {
+                appId "104363651"
+                appKey "CgB6e3x9+2XGAS+TdGkzhh9i3HXFqkh3B0UvYJiFo2WvHnFQgQF9RugXpBmuRpMeZvAzW2IbRJcGXzlJOqia+EaA"
+            }
+            XIAOMI {
+                appId "2882303761519940641"
+                appKey "5731994046641"
+            }
+
+            OPPO {
+                appKey "5dde8a3e247944e5b4c9318d73101b27"
+                appSecret "56bab0ca6e2442649831143ebfbea550"
+            }
+            MEIZU{
+                appId "141600"
+                appKey "44051b9fa4f043f095a41b84873f7e70"
+            }
 //
 //            VIVO {
 //                appId "105461314"
 //                appKey "4d165d448c2e75090cf6ca99c9181ee3"
 //            }
-//        }
+        }
     }
 }
 
