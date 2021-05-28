@@ -36,9 +36,8 @@ class SplashActivity : BaseActivity() {
                     })
             }
             startActivity<MainActivity>()
-            finish()
         }
-
+        finish()
     }
 
 }

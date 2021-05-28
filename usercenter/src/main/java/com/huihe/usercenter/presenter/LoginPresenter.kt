@@ -38,7 +38,7 @@ class LoginPresenter @Inject constructor() : BasePresenter<LoginView>() {
             .flatMap(Function<String?, Observable<IMUserInfo?>> {
                 AppPrefsUtils.putString(BaseConstant.KEY_SP_TOKEN, it)
                 LogUtils.d(TAG,"user login->token ${it}")
-                return@Function userService.getUserInfoFormIm()
+                               return@Function userService.getUserInfoFormIm()
             })
             .execute(object : BaseSubscriber<IMUserInfo?>(mView) {
                 override fun onNext(iMUserInfo: IMUserInfo?) {
@@ -56,8 +56,15 @@ class LoginPresenter @Inject constructor() : BasePresenter<LoginView>() {
                                 LogUtils.d(TAG,"message login fail: code = ${code},message = ${message}")
                                 mView?.onError(message)
                             }
-                        })
-                    mView?.onLoginResult(AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN))
+                        }
+
+                    )
+
+                }
+
+                override fun onComplete() {
+                    super.onComplete()
+                    mView?.onLoginResult("login")
                 }
             }, lifecycleProvider)
 
