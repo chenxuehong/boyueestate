@@ -1,5 +1,6 @@
 package com.huihe.module_home.ui.fragment
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -28,9 +29,11 @@ import com.huihe.module_home.presenter.view.HouseDetailView
 import com.huihe.module_home.ui.activity.*
 import com.huihe.module_home.ui.adpter.HouseDetailRvAdapter
 import com.huihe.module_home.ui.adpter.MoreRvAdapter
+import com.huihe.module_home.ui.adpter.TelRvAdapter
 import com.jph.takephoto.model.TResult
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.common.BaseConstant
+import com.kotlin.base.ext.callPhone
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ext.viewPhoto
@@ -52,6 +55,7 @@ import kotlinx.android.synthetic.main.layout_tel_dialog.view.*
 import kotlinx.android.synthetic.main.pop_dialog_share.view.*
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.toast
 import top.limuyang2.ldialog.LDialog
 import top.limuyang2.ldialog.base.BaseLDialog
 import top.limuyang2.ldialog.base.ViewHandlerListener
@@ -72,7 +76,6 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
     var isCollect = false
     var requestCollecting = true
     var ivCollection: ImageView? = null
-    var mMorePopWindow: CustomPopWindow? = null
     var mMoreList: MutableList<String>? = null
     var updateStatusPicker: SinglePicker<String>? = null
     var mCirculatePicker: SinglePicker<String>? = null
@@ -80,9 +83,12 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
     val request_code_get_refer_picture: Int = 101
     var REQUEST_CODE_PUTHOUSE_INFO: Int = 102
     var requestCode: Int = request_code_get_house_picture
-    var imageUser: String?=null
+    var imageUser: String? = null
     lateinit var mUploadManager: UploadManager
+
+    var mMorePopWindow: CustomPopWindow? = null
     var mShareCustomPopWindow: CustomPopWindow? = null
+    var mCallPopWindow: CustomPopWindow? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -242,9 +248,8 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
                 Bus.send(
                     ShareEvent(
                         0,
-                        "${houseDetail?.villageInfoResponse?.name ?: ""}-${houseDetail?.building
-                            ?: ""}-${houseDetail?.hNum ?: ""}",
-                        "",
+                        "${houseDetail?.villageInfoResponse?.name ?: ""}",
+                        "推荐好房",
                         "",
                         imgUrl,
                         "http://billion.housevip.cn/#/house/${houseDetail?.id ?: ""}/uid/1/ip/1",
@@ -523,11 +528,14 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
     }
 
     override fun onDestroy() {
-        houseDetailTvAdapter?.onDestroy()
         try {
+            houseDetailTvAdapter?.onDestroy()
+            Bus.unregister(this)
             mMorePopWindow?.dissmiss()
             updateStatusPicker?.dismiss()
             mCirculatePicker?.dismiss()
+            mShareCustomPopWindow?.dissmiss()
+            mCallPopWindow?.dissmiss()
         } catch (e: Exception) {
         }
         super.onDestroy()
@@ -561,7 +569,7 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
             when (item.type) {
                 CustomersModule.OwnerInfoType.maintainUser,
                 CustomersModule.OwnerInfoType.imageUser,
-                CustomersModule.OwnerInfoType.bargainPriceUser-> {
+                CustomersModule.OwnerInfoType.bargainPriceUser -> {
                     ARouter.getInstance().build(RouterPath.UserCenter.PATH_ADDRESSBOOK)
                         .withBoolean(BaseConstant.KEY_ISSELECT, true)
                         .navigation(context)
@@ -613,8 +621,8 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
                     )
                 )
             }
-            CustomersModule.OwnerInfoType.blockUser-> {
-              mPresenter.putCapping(CappingReq(id=id,blockUser = it?.id))
+            CustomersModule.OwnerInfoType.blockUser -> {
+                mPresenter.putCapping(CappingReq(id = id, blockUser = it?.id))
             }
         }
     }
@@ -638,11 +646,41 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
         itemView.viewPhoto(context, position, photoList)
     }
 
-    override fun onDestroyView() {
-        try {
-            Bus.unregister(this)
-        } catch (e: Exception) {
-        }
-        super.onDestroyView()
+    override fun onShowTelListDialog(houseCode: String?, tvTel: TextView) {
+        mPresenter.getHouseMobile(houseCode)
     }
+
+    override fun onShowTelListDialog(ownerTel: String?) {
+        var split = ownerTel?.split("*") ?: mutableListOf()
+        split = split?.toMutableList()
+        if (split?.isEmpty()) {
+            toast("暂无电话")
+            return
+        }
+        val contentView =
+            LayoutInflater.from(context).inflate(R.layout.layout_tel_dialog, null, false)
+        var telRvAdapter = TelRvAdapter(context!!)
+        telRvAdapter.setOnItemClickListener(object :
+            BaseRecyclerViewAdapter.OnItemClickListener<String> {
+            override fun onItemClick(view: View, tel: String, position: Int) {
+                callPhone(context!!, tel)
+            }
+        })
+        (contentView.rvTelDialog).apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = telRvAdapter
+        }
+        telRvAdapter.setData(
+            split
+        )
+        mCallPopWindow = CustomPopWindow.PopupWindowBuilder(context)
+            .setView(contentView)
+            .enableBackgroundDark(true) //弹出popWindow时，背景是否变暗
+            .setBgDarkAlpha(0.7f) // 控制亮度
+            .setFocusable(true)
+            .setOutsideTouchable(true)
+            .create()
+            .showAsDropDown(view, 0, 10)
+    }
+
 }

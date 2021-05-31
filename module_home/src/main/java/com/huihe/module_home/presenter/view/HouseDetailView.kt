@@ -13,4 +13,5 @@ interface HouseDetailView :BaseView{
     fun onUploadSuccessResult(result: String?)
     fun onHouseCreateUserResult(t: HouseCreateUserRep?)
     fun onPutCappingResult(t: CappingRep?)
+    fun onShowTelListDialog(ownerTel: String?)
 }

@@ -137,7 +137,7 @@ class HouseTakeLookRecordFragment : BaseMvpFragment<HouseTakeLookPresenter>(),Ho
     }
 
     override fun onSeeDetail(item: HouseTakeLookRep.HouseTakeLook, position: Int) {
-        startActivity<HouseDetailActivity>(HomeConstant.KEY_HOUSE_ID to item.id)
+        startActivity<HouseDetailActivity>(HomeConstant.KEY_HOUSE_ID to item.houseId)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

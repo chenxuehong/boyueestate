@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,16 +46,16 @@ import kotlinx.android.synthetic.main.layout_tel_dialog.view.*
 import org.jetbrains.anko.toast
 
 
-class HouseDetailRvAdapter(mContext: Context?,var mListener:OnListener) :
+class HouseDetailRvAdapter(mContext: Context?, var mListener: OnListener) :
     BaseRecyclerViewAdapter<ItemHouseDetail, RecyclerView.ViewHolder>(mContext!!) {
 
     var banner: Banner<HouseDetail.ImagUrlsBean, ImageAdapter>? = null
-    var callPopWindow: CustomPopWindow? = null
     var mId: String? = ""
 
     var houseDetailMapview: MapView? = null
-    var mhouseDetailRvlist: RecyclerView?=null
-    var hasLoadMap=false
+    var mhouseDetailRvlist: RecyclerView? = null
+    var hasLoadMap = false
+
     init {
         hasLoadMap = false
     }
@@ -187,7 +188,7 @@ class HouseDetailRvAdapter(mContext: Context?,var mListener:OnListener) :
     }
 
     private fun initMap(holder: RecyclerView.ViewHolder, itemHouseDetail: ItemHouseDetail) {
-        if (hasLoadMap){
+        if (hasLoadMap) {
             return
         }
         var mapInfo = itemHouseDetail.mapInfo
@@ -219,7 +220,7 @@ class HouseDetailRvAdapter(mContext: Context?,var mListener:OnListener) :
             .icon(bitmap)
         var addOverlay = mBaiduMap?.addOverlay(optons)
         val bundle = Bundle()
-        bundle.putString("villageName", mapInfo?.villageName?:"")
+        bundle.putString("villageName", mapInfo?.villageName ?: "")
         addOverlay?.extraInfo = bundle
 
         houseDetailMapview?.removeViewAt(2)
@@ -231,8 +232,8 @@ class HouseDetailRvAdapter(mContext: Context?,var mListener:OnListener) :
             true
         }
         holder.itemView.house_detail_map_right_title.onClick {
-            val intent = Intent(mContext,HouseNearActivity::class.java)
-            intent.putExtra(HomeConstant.KEY_MAP_BEAN,Gson().toJson(mapInfo))
+            val intent = Intent(mContext, HouseNearActivity::class.java)
+            intent.putExtra(HomeConstant.KEY_MAP_BEAN, Gson().toJson(mapInfo))
             mContext.startActivity(intent)
         }
         hasLoadMap = true
@@ -261,7 +262,8 @@ class HouseDetailRvAdapter(mContext: Context?,var mListener:OnListener) :
         rvList.isNestedScrollingEnabled = false
         var houseDetailRvAdapter = HouseDetailOwnerRvAdapter(mContext)
         rvList.adapter = houseDetailRvAdapter
-        houseDetailRvAdapter.setOnItemClickListener(object :OnItemClickListener<ItemHouseDetail.OwnerInfo>{
+        houseDetailRvAdapter.setOnItemClickListener(object :
+            OnItemClickListener<ItemHouseDetail.OwnerInfo> {
             override fun onItemClick(view: View, item: ItemHouseDetail.OwnerInfo, position: Int) {
 
                 mListener?.onUserClicked(item)
@@ -290,8 +292,8 @@ class HouseDetailRvAdapter(mContext: Context?,var mListener:OnListener) :
 
             setOnBannerListener { data, position ->
                 mListener?.onViewPhoto(
-                    (data as HouseDetail.ImagUrlsBean).url?:"",
-                    getPhotoList(itemHouseDetail.bannerList?: mutableListOf()),
+                    (data as HouseDetail.ImagUrlsBean).url ?: "",
+                    getPhotoList(itemHouseDetail.bannerList ?: mutableListOf()),
                     position,
                     bannerHolder.itemView
                 )
@@ -323,7 +325,7 @@ class HouseDetailRvAdapter(mContext: Context?,var mListener:OnListener) :
         basicHolder.tvOwnerName.text = itemHouseDetail?.basicInfo?.ownerName
 
         basicHolder.tvTel.onClick {
-            showTelListDialog(itemHouseDetail?.basicInfo?.ownerTel, basicHolder.tvTel)
+            mListener?.onShowTelListDialog(itemHouseDetail?.houseCode, basicHolder.tvTel)
         }
         basicHolder.tvFollow.onClick {
             var intent = Intent(mContext, HouseFollowActivity::class.java)
@@ -343,40 +345,6 @@ class HouseDetailRvAdapter(mContext: Context?,var mListener:OnListener) :
         }
     }
 
-    private fun showTelListDialog(ownerTel: String?, view: View) {
-        var split = ownerTel?.split("*") ?: mutableListOf()
-        split = split?.toMutableList()
-        if (split?.isEmpty()) {
-            (mContext as Activity).toast("暂无电话")
-            return
-        }
-        val contentView =
-            LayoutInflater.from(mContext).inflate(R.layout.layout_tel_dialog, null, false)
-        var telRvAdapter = TelRvAdapter(mContext)
-        telRvAdapter.setOnItemClickListener(object :
-            BaseRecyclerViewAdapter.OnItemClickListener<String> {
-            override fun onItemClick(view: View, tel: String, position: Int) {
-                callPhone(mContext, tel)
-            }
-        })
-        (contentView.rvTelDialog).apply {
-            layoutManager = LinearLayoutManager(mContext)
-            adapter = telRvAdapter
-        }
-        telRvAdapter.setData(
-            split
-        )
-        callPopWindow = PopupWindowBuilder(mContext)
-            .setView(contentView)
-            .enableBackgroundDark(true) //弹出popWindow时，背景是否变暗
-            .setBgDarkAlpha(0.7f) // 控制亮度
-            .setFocusable(true)
-            .setOutsideTouchable(true)
-            .create()
-            .showAsDropDown(view, 0, 10)
-    }
-
-
     private fun initPhotos(holder: RecyclerView.ViewHolder, itemHouseDetail: ItemHouseDetail) {
         var viewHolder = holder as ItemPhotoHolder
         var imagUrls = itemHouseDetail.imagUrls
@@ -394,12 +362,13 @@ class HouseDetailRvAdapter(mContext: Context?,var mListener:OnListener) :
                     )
                 )
         }
-        houseDetailPhotoRvAdapter.setOnItemClickListener(object :OnItemClickListener<HouseDetail.ImagUrlsBean>{
+        houseDetailPhotoRvAdapter.setOnItemClickListener(object :
+            OnItemClickListener<HouseDetail.ImagUrlsBean> {
             override fun onItemClick(view: View, item: HouseDetail.ImagUrlsBean, position: Int) {
 
 
                 mListener?.onViewPhoto(
-                    item.url?:"",
+                    item.url ?: "",
                     getPhotoList(houseDetailPhotoRvAdapter.dataList),
                     position,
                     view
@@ -413,18 +382,16 @@ class HouseDetailRvAdapter(mContext: Context?,var mListener:OnListener) :
     var photoList = mutableListOf<String>()
     private fun getPhotoList(dataList: MutableList<HouseDetail.ImagUrlsBean>): List<String> {
         photoList?.clear()
-        dataList.forEach {
-            item->
-            photoList.add(item.url?:"")
+        dataList.forEach { item ->
+            photoList.add(item.url ?: "")
         }
         return photoList
     }
 
     private fun getReferPhotoList(dataList: MutableList<HouseDetail.ReferUrlsBean>): List<String> {
         photoList?.clear()
-        dataList.forEach {
-                item->
-            photoList.add(item.url?:"")
+        dataList.forEach { item ->
+            photoList.add(item.url ?: "")
         }
         return photoList
     }
@@ -446,10 +413,11 @@ class HouseDetailRvAdapter(mContext: Context?,var mListener:OnListener) :
                     )
                 )
         }
-        houseDetailReferImageRvAdapter.setOnItemClickListener(object :OnItemClickListener<HouseDetail.ReferUrlsBean>{
+        houseDetailReferImageRvAdapter.setOnItemClickListener(object :
+            OnItemClickListener<HouseDetail.ReferUrlsBean> {
             override fun onItemClick(view: View, item: HouseDetail.ReferUrlsBean, position: Int) {
                 mListener?.onViewPhoto(
-                    item.url?:"",
+                    item.url ?: "",
                     getReferPhotoList(houseDetailReferImageRvAdapter.dataList),
                     position,
                     view
@@ -485,10 +453,9 @@ class HouseDetailRvAdapter(mContext: Context?,var mListener:OnListener) :
 
     fun onDestroy() {
         //销毁
-        banner?.destroy()
         try {
+            banner?.destroy()
             houseDetailMapview?.onDestroy()
-            callPopWindow?.dissmiss()
         } catch (e: Exception) {
         }
     }
@@ -498,10 +465,10 @@ class HouseDetailRvAdapter(mContext: Context?,var mListener:OnListener) :
     }
 
     fun setRecyclerview(houseDetailRvlist: RecyclerView?) {
-        mhouseDetailRvlist= houseDetailRvlist
+        mhouseDetailRvlist = houseDetailRvlist
     }
 
-    interface OnListener{
+    interface OnListener {
         fun onUserClicked(item: ItemHouseDetail.OwnerInfo)
         fun onViewPhoto(
             photo: String,
@@ -509,5 +476,7 @@ class HouseDetailRvAdapter(mContext: Context?,var mListener:OnListener) :
             position: Int,
             itemView: View
         )
+
+        fun onShowTelListDialog(houseCode: String?, tvTel: TextView)
     }
 }

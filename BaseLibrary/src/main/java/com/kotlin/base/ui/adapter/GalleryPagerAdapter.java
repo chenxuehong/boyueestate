@@ -67,7 +67,7 @@ public class GalleryPagerAdapter extends PagerAdapter {
         Glide.with(context).load(urls.get(position))
                 .placeholder(R.drawable.is_empty)
                 .error(R.drawable.is_empty)
-                .centerCrop().into((ImageView) p);
+                .into((ImageView) p);
         container.addView(p);
         return p;
     }

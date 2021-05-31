@@ -126,15 +126,31 @@ class HouseDetailPresenter @Inject constructor() : BasePresenter<HouseDetailView
             }, lifecycleProvider)
     }
 
-    fun putCapping(req:CappingReq) {
+    fun putCapping(req: CappingReq) {
         mView?.showLoading()
         mHouseService.putCapping(req)
-            .execute(object :BaseSubscriber<CappingRep?>(mView){
+            .execute(object : BaseSubscriber<CappingRep?>(mView) {
 
                 override fun onNext(t: CappingRep?) {
                     super.onNext(t)
                     mView?.onPutCappingResult(t)
                 }
-            },lifecycleProvider)
+            }, lifecycleProvider)
+    }
+
+    fun getHouseMobile(houseCode: String?) {
+        mHouseService.getHouseMobile(houseCode)
+            .execute(object : BaseSubscriber<String?>(mView) {
+
+                override fun onNext(t: String?) {
+                    super.onNext(t)
+                    mView?.onShowTelListDialog(t ?: "")
+                }
+
+                override fun onError(e: Throwable) {
+                    super.onError(e)
+                    mView?.onShowTelListDialog("")
+                }
+            }, lifecycleProvider)
     }
 }

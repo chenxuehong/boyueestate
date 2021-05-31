@@ -40,14 +40,12 @@
                 android:id="@+id/nivfloorage"
                 app:leftTitleText="@string/floorage"
                 style="@style/MatchWrap"
-                app:isNecessary="true"
                 app:isShowLine="true"
                 app:inputType="numberDecimal"
                 app:tipContentText="@string/floorage_input"/>
             <com.kotlin.base.widgets.NecessaryTitleInputView
                 android:id="@+id/nivSalePrice"
                 app:leftTitleText="@string/solePrice"
-                app:isNecessary="true"
                 style="@style/MatchWrap"
                 app:unit="@string/wan_yuan"
                 app:isShowLine="true"
@@ -56,7 +54,6 @@
             <com.kotlin.base.widgets.NecessaryTitleInputView
                 android:id="@+id/nivrent"
                 app:leftTitleText="@string/rent"
-                app:isNecessary="true"
                 style="@style/MatchWrap"
                 app:isShowLine="true"
                 app:inputType="numberDecimal"
@@ -89,7 +86,6 @@
             <com.kotlin.base.widgets.NecessaryTitleInputView
                 android:id="@+id/nivgroundFloor"
                 app:leftTitleText="@string/groundFloor"
-                app:isNecessary="true"
                 app:isShowLine="true"
                 app:inputType="number"
                 style="@style/MatchWrap"
@@ -97,7 +93,6 @@
             <com.kotlin.base.widgets.NecessaryTitleInputView
                 android:id="@+id/nivtotalFloors"
                 app:leftTitleText="@string/totalFloors"
-                app:isNecessary="true"
                 app:isShowLine="true"
                 app:inputType="number"
                 style="@style/MatchWrap"
@@ -105,7 +100,6 @@
             <com.kotlin.base.widgets.NecessaryTitleInputView
                 android:id="@+id/nivroom"
                 app:leftTitleText="@string/room"
-                app:isNecessary="true"
                 app:isShowLine="true"
                 style="@style/MatchWrap"
                 app:inputType="number"
@@ -113,7 +107,6 @@
             <com.kotlin.base.widgets.NecessaryTitleInputView
                 android:id="@+id/nivhall"
                 app:leftTitleText="@string/hall"
-                app:isNecessary="true"
                 app:isShowLine="true"
                 app:inputType="number"
                 style="@style/MatchWrap"
@@ -121,7 +114,6 @@
             <com.kotlin.base.widgets.NecessaryTitleInputView
                 android:id="@+id/nivdefend"
                 app:leftTitleText="@string/defend"
-                app:isNecessary="true"
                 style="@style/MatchWrap"
                 app:isShowLine="true"
                 app:inputType="number"

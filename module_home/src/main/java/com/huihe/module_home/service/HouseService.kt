@@ -81,4 +81,5 @@ interface HouseService {
     fun pathHouseCreateUser(id: String?, createUser: String?): Observable<HouseCreateUserRep?>
     fun putCapping(req: CappingReq):Observable<CappingRep?>
     fun postSole(req: SoleUserReq?):Observable<SoleUserRep?>
+    fun getHouseMobile(houseCode: String?):Observable<String?>
 }

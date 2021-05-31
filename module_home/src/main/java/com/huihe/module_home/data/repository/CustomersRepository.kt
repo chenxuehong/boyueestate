@@ -209,4 +209,9 @@ class CustomersRepository @Inject constructor() {
         return RetrofitFactory.instance.create(HouseApi::class.java)
             .postSole(req)
     }
+
+    fun getHouseMobile(houseCode: String?): Observable<BaseResp<String?>>  {
+        return RetrofitFactory.instance.create(HouseApi::class.java)
+            .getHouseMobile(houseCode)
+    }
 }

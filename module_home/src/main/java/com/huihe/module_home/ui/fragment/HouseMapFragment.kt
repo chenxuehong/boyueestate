@@ -6,6 +6,7 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
 import com.baidu.mapapi.search.district.DistrictSearch
@@ -48,6 +49,8 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
     private var moreReq: MoreReq? = MoreReq()
     private var villageIds: MutableList<String>? = null
     private var type = 0
+    private var curZoomLevel = 12f
+
     var mDistrictSearchlistener: OnGetDistricSearchResultListener =
         OnGetDistricSearchResultListener {
             var centerPt = it.centerPt
@@ -56,19 +59,22 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
                 "中心经纬度：longitude = ${centerPt?.longitude ?: ""},latitude = ${centerPt?.latitude
                     ?: ""}"
             )
-            //定义地图状态
-            val mMapStatus: MapStatus = MapStatus.Builder()
-                .target(centerPt)
-                .zoom(12f)
-                .build()
-            //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
-            val mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus)
-            //改变地图状态
-            house_map_MapView?.map?.setMapStatus(mMapStatusUpdate)
-
+            changeMapStatus(centerPt)
             resetLocRanges()
             initData()
         }
+
+    private fun changeMapStatus(centerPt: LatLng?) {
+        //定义地图状态
+        val mMapStatus: MapStatus = MapStatus.Builder()
+            .target(centerPt)
+            .zoom(curZoomLevel)
+            .build()
+        //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
+        val mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus)
+        //改变地图状态
+        house_map_MapView?.map?.setMapStatus(mMapStatusUpdate)
+    }
 
     var minLongitude = 0.0
     var minLatitude = 0.0
@@ -132,7 +138,8 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        type = 0
+        curZoomLevel = 12f
         dm = DisplayMetrics()
         activity?.windowManager?.defaultDisplay?.getMetrics(dm)
         initView()
@@ -242,6 +249,24 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
     override fun onGetHouseMapResult(t: MutableList<MapAreaRep>?) {
         try {
             house_map_MapView?.map?.clear()
+            house_map_MapView?.map?.setOnMarkerClickListener {
+                when (type) {
+                    1 -> {
+                        curZoomLevel = 14.7f
+                    }
+                    3 -> {
+                        curZoomLevel = 18f
+                    }
+                    else -> {
+                        curZoomLevel = 18f
+                    }
+                }
+                var mapStatus = house_map_MapView?.map?.mapStatus
+                if (mapStatus != null) {
+                    changeMapStatus(mapStatus.target)
+                }
+                true
+            }
             t?.forEach { item ->
 
                 //圆心位置
@@ -256,7 +281,7 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
                     .position(center)
                     .icon(bitmap)
                 //在地图上显示文本
-                house_map_MapView?.map?.addOverlay(option)
+                var addOverlay = house_map_MapView?.map?.addOverlay(option)
             }
         } catch (e: Exception) {
             LogUtils.i(TAG, e.toString())
@@ -264,7 +289,7 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
     }
 
     override fun onGetAreaBeanListResult(list: MutableList<District>?) {
-        mRvAreaDistrictAdapter?.setData(list?: mutableListOf())
+        mRvAreaDistrictAdapter?.setData(list ?: mutableListOf())
     }
 
     override fun onSearchResult(iSearchResult: ISearchResult?, showTip: String, type: Int) {

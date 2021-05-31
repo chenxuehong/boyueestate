@@ -1,12 +1,13 @@
 package com.kotlin.base.ui.fragment
 
+import android.Manifest
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kotlin.base.R
-import com.kotlin.base.common.AppManager
 import com.kotlin.base.common.BaseApplication
 import com.kotlin.base.injection.component.ActivityComponent
 import com.kotlin.base.injection.component.DaggerActivityComponent
@@ -15,6 +16,8 @@ import com.kotlin.base.injection.module.LifecycleProviderModule
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.presenter.view.BaseView
 import com.kotlin.base.widgets.ProgressLoading
+import com.tbruyelle.rxpermissions2.RxPermissions
+import io.reactivex.functions.Consumer
 import org.jetbrains.anko.support.v4.act
 import org.jetbrains.anko.support.v4.toast
 import javax.inject.Inject
@@ -89,4 +92,17 @@ abstract class BaseMvpFragment<T : BasePresenter<*>> : BaseFragment(), BaseView 
         activity?.finish()
     }
 
+    fun callPhone(phoneNum: String) {
+        RxPermissions(activity!!).request(Manifest.permission.CALL_PHONE, Manifest.permission.CAMERA).subscribe(
+            Consumer<Boolean>{
+            if (it){
+                try {
+                    val intent = Intent(Intent.ACTION_CALL)
+                    intent.data = Uri.parse("tel:${phoneNum}")
+                    startActivity(intent)
+                } catch (e: Exception) {
+                }
+            }
+        })
+    }
 }
