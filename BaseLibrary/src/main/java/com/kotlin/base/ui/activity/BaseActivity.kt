@@ -27,8 +27,8 @@ open class BaseActivity : RxAppCompatActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         AppManager.instance.finishActivity(this)
+        super.onDestroy()
     }
 
     //获取Window中视图content

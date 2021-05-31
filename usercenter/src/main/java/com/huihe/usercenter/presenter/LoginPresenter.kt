@@ -57,7 +57,6 @@ class LoginPresenter @Inject constructor() : BasePresenter<LoginView>() {
                                 mView?.onError(message)
                             }
                         }
-
                     )
 
                 }

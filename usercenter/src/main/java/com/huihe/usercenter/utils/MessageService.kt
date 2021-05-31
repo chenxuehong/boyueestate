@@ -21,7 +21,7 @@ class MessageService @Inject constructor(){
         }.registerInBus(this)
     }
 
-    fun login(userId: String, userSign: String,listsner:OnMessageListener ) {
+    fun login(userId: String, userSign: String, listsner:OnMessageListener ) {
         this.listsner = listsner
         Bus.send(MessageLoginEvent(userId, userSign))
     }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kotlin.base.R
+import com.kotlin.base.common.AppManager
 import com.kotlin.base.common.BaseApplication
 import com.kotlin.base.injection.component.ActivityComponent
 import com.kotlin.base.injection.component.DaggerActivityComponent
@@ -87,4 +88,5 @@ abstract class BaseMvpFragment<T : BasePresenter<*>> : BaseFragment(), BaseView 
         activity?.setResult(resultCode,intent)
         activity?.finish()
     }
+
 }

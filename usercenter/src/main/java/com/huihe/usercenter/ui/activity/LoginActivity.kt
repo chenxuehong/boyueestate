@@ -37,8 +37,8 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
 
     private fun initView() {
 
-        mloginBtn.enable(mMobileEt, { isBtnEnable() })
-        mloginBtn.enable(mPwdEt, { isBtnEnable() })
+        mloginBtn.enable(mMobileEt) { isBtnEnable() }
+        mloginBtn.enable(mPwdEt) { isBtnEnable() }
         mloginBtn.onClick(this)
     }
 
@@ -65,7 +65,6 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
     override fun onLoginResult(result: String) {
         toast("登录成功")
         ARouter.getInstance().build(RouterPath.UserCenter.PATH_MAIN).navigation()
-        finish()
     }
 
     override fun onDestroy() {
