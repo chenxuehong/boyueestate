@@ -93,7 +93,7 @@ abstract class BaseMvpFragment<T : BasePresenter<*>> : BaseFragment(), BaseView 
     }
 
     fun callPhone(phoneNum: String) {
-        RxPermissions(activity!!).request(Manifest.permission.CALL_PHONE, Manifest.permission.CAMERA).subscribe(
+        RxPermissions(activity!!).request(Manifest.permission.CALL_PHONE).subscribe(
             Consumer<Boolean>{
             if (it){
                 try {

@@ -325,7 +325,7 @@ class HouseDetailRvAdapter(mContext: Context?, var mListener: OnListener) :
         basicHolder.tvOwnerName.text = itemHouseDetail?.basicInfo?.ownerName
 
         basicHolder.tvTel.onClick {
-            mListener?.onShowTelListDialog(itemHouseDetail?.houseCode, basicHolder.tvTel)
+            mListener?.onShowTelListDialog(mId,basicHolder.tvTel)
         }
         basicHolder.tvFollow.onClick {
             var intent = Intent(mContext, HouseFollowActivity::class.java)
@@ -477,6 +477,6 @@ class HouseDetailRvAdapter(mContext: Context?, var mListener: OnListener) :
             itemView: View
         )
 
-        fun onShowTelListDialog(houseCode: String?, tvTel: TextView)
+        fun onShowTelListDialog(houseId: String?, tvTel: TextView)
     }
 }

@@ -49,43 +49,43 @@ class SortResultView {
                 return SortReq(defaultOrder = 1)
             }
             1 -> {
-                return SortReq(createTimeOrder = 0)
+                return SortReq(defaultOrder = 0,createTimeOrder = 0)
             }
             2 -> {
-                return SortReq(createTimeOrder = 1)
+                return SortReq(defaultOrder = 0,createTimeOrder = 1)
             }
             3 -> {
-                return SortReq(latestFollowTimeOrder = 0)
+                return SortReq(defaultOrder = 0,latestFollowTimeOrder = 0)
             }
             4 -> {
-                return SortReq(latestFollowTimeOrder = 1)
+                return SortReq(defaultOrder = 0,latestFollowTimeOrder = 1)
             }
             5 -> {
-                return SortReq(buildingOrder = 0)
+                return SortReq(defaultOrder = 0,buildingOrder = 0)
             }
             6 -> {
-                return SortReq(buildingOrder = 1)
+                return SortReq(defaultOrder = 0,buildingOrder = 1)
             }
             7 -> {
-                return SortReq(floorOrder = 0)
+                return SortReq(defaultOrder = 0,floorOrder = 0)
             }
             8 -> {
-                return SortReq(floorOrder = 1)
+                return SortReq(defaultOrder = 0,floorOrder = 1)
             }
             9 -> {
-                return SortReq(floorageOrder = 0)
+                return SortReq(defaultOrder = 0,floorageOrder = 0)
             }
             10 -> {
-                return SortReq(floorageOrder = 1)
+                return SortReq(defaultOrder = 0,floorageOrder = 1)
             }
             11 -> {
-                return SortReq(priceOrder = 0)
+                return SortReq(defaultOrder = 0,priceOrder = 0)
             }
             12 -> {
-                return SortReq(priceOrder = 1)
+                return SortReq(defaultOrder = 0,priceOrder = 1)
             }
             else -> {
-                return SortReq()
+                return SortReq(defaultOrder = 1)
             }
         }
     }

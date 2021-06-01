@@ -23,6 +23,7 @@ class SetOwnerInfoFragment : BaseMvpFragment<SetOwnerInfoPresenter>(), SetOwnerI
 
     var mRvPhoneAdapter: RvPhoneAdapter? = null
     var id: String? = null
+    var ownerName: String? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,8 +43,15 @@ class SetOwnerInfoFragment : BaseMvpFragment<SetOwnerInfoPresenter>(), SetOwnerI
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         id = arguments?.getString(HomeConstant.KEY_HOUSE_ID)
+        ownerName = arguments?.getString(HomeConstant.KEY_OWNER_NAME)?:""
         initView()
         initRvPhoneAdapter()
+        initData()
+    }
+
+    private fun initData() {
+        set_owner_info_et_OwnerNick.setText(ownerName)
+        mPresenter.getHouseMobile(id)
     }
 
     private fun initView() {
@@ -99,5 +107,14 @@ class SetOwnerInfoFragment : BaseMvpFragment<SetOwnerInfoPresenter>(), SetOwnerI
     override fun onHouseInfo(t: SetHouseInfoRep?) {
         toast("修改成功")
         activity?.finish()
+    }
+
+    override fun onMobile(ownerTel: String?) {
+        var split = ownerTel?.split("*") ?: mutableListOf()
+        split = split?.toMutableList()
+        if (split?.isEmpty()) {
+            return
+        }
+        mRvPhoneAdapter?.setData(split.toMutableList())
     }
 }

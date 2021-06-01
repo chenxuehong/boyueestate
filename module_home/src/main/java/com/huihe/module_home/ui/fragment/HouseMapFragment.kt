@@ -60,8 +60,6 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
                     ?: ""}"
             )
             changeMapStatus(centerPt)
-            resetLocRanges()
-            initData()
         }
 
     private fun changeMapStatus(centerPt: LatLng?) {
@@ -74,6 +72,8 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
         val mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus)
         //改变地图状态
         house_map_MapView?.map?.setMapStatus(mMapStatusUpdate)
+        resetLocRanges()
+        initData()
     }
 
     var minLongitude = 0.0
@@ -179,17 +179,21 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
                     return
                 }
                 var zoom = p0?.zoom!!
-                type = if (zoom < 14.5) {
-                    0
-                } else if (zoom > 14.5 && zoom < 16) {
-                    1
-                } else {
-                    2
-                }
+                changeType(zoom)
                 resetLocRanges()
                 initData()
             }
         })
+    }
+
+    private fun changeType(zoom: Float) {
+        type = if (zoom < 14.5) {
+            0
+        } else if (zoom > 14.5 && zoom < 16) {
+            1
+        } else {
+            2
+        }
     }
 
     private fun initView() {
@@ -261,6 +265,7 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
                         curZoomLevel = 18f
                     }
                 }
+                changeType(curZoomLevel)
                 var mapStatus = house_map_MapView?.map?.mapStatus
                 if (mapStatus != null) {
                     changeMapStatus(mapStatus.target)

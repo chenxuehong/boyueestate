@@ -100,7 +100,7 @@ class CustomerDetailFragment :
         telRvAdapter.setOnItemClickListener(object :
             BaseRecyclerViewAdapter.OnItemClickListener<String> {
             override fun onItemClick(view: View, tel: String, position: Int) {
-                callPhone(context!!, tel)
+                callPhone(tel)
             }
         })
         (contentView.rvTelDialog).apply {

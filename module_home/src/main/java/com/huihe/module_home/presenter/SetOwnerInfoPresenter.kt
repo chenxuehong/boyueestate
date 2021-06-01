@@ -28,4 +28,18 @@ class SetOwnerInfoPresenter @Inject constructor() : BasePresenter<SetOwnerInfoVi
                 }
             }, lifecycleProvider)
     }
+
+    fun getHouseMobile(id: String?) {
+        mHouseService.getHouseMobile(id)
+            .execute(object : BaseSubscriber<String?>(mView){
+                override fun onNext(t: String?) {
+                    super.onNext(t)
+                    mView.onMobile(t)
+                }
+                override fun onError(e: Throwable) {
+                    super.onError(e)
+                    mView.onMobile("")
+                }
+            },lifecycleProvider)
+    }
 }

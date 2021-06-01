@@ -216,7 +216,7 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
                 showCirculateSelectDialog()
             }
             context!!.resources.getString(R.string.more_edit_info) -> {
-                startActivity<SetOwnerInfoActivity>(HomeConstant.KEY_HOUSE_ID to id)
+                startActivity<SetOwnerInfoActivity>(HomeConstant.KEY_HOUSE_ID to id,HomeConstant.KEY_OWNER_NAME to houseDetail?.ownerName)
             }
             context!!.resources.getString(R.string.more_new_phone) -> {
                 showNewPhoneDialog()
@@ -646,8 +646,10 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
         itemView.viewPhoto(context, position, photoList)
     }
 
-    override fun onShowTelListDialog(houseCode: String?, tvTel: TextView) {
-        mPresenter.getHouseMobile(houseCode)
+    lateinit var tvTel: TextView
+    override fun onShowTelListDialog(houseId: String?, tvTel: TextView) {
+        this.tvTel = tvTel
+        mPresenter.getHouseMobile(houseId)
     }
 
     override fun onShowTelListDialog(ownerTel: String?) {
@@ -663,7 +665,7 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
         telRvAdapter.setOnItemClickListener(object :
             BaseRecyclerViewAdapter.OnItemClickListener<String> {
             override fun onItemClick(view: View, tel: String, position: Int) {
-                callPhone(context!!, tel)
+                callPhone(tel)
             }
         })
         (contentView.rvTelDialog).apply {
@@ -680,7 +682,7 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
             .setFocusable(true)
             .setOutsideTouchable(true)
             .create()
-            .showAsDropDown(view, 0, 10)
+            .showAsDropDown(tvTel, 0, 10)
     }
 
 }

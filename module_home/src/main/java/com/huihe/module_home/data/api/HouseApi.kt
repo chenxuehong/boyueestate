@@ -132,8 +132,13 @@ interface HouseApi {
     @POST("house/sole")
     fun postSole(@Body req: SoleUserReq?): Observable<BaseResp<SoleUserRep?>>
 
-    @GET("house/{houseCode}/mobile")
+    @GET("house/{houseId}/mobile")
     fun getHouseMobile(
-        @Path("houseCode") houseCode: String?
+        @Path("houseId") houseCode: String?
+    ): Observable<BaseResp<String?>>
+
+    @POST("house/preCheck")
+    fun preCheckHouse(
+        @Body  req: AddHouseInfoReq
     ): Observable<BaseResp<String?>>
 }

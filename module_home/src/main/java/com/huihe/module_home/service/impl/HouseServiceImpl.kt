@@ -169,7 +169,11 @@ class HouseServiceImpl @Inject constructor() : HouseService {
         return repository.postSole(req).convert()
     }
 
-    override fun getHouseMobile(houseCode: String?): Observable<String?> {
-        return repository.getHouseMobile(houseCode).convert()
+    override fun getHouseMobile(houseId: String?): Observable<String?> {
+        return repository.getHouseMobile(houseId).convert()
+    }
+
+    override fun preCheckHouse(req: AddHouseInfoReq): Observable<String?> {
+        return repository.preCheckHouse(req).convert()
     }
 }

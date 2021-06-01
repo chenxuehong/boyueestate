@@ -54,7 +54,7 @@ class DeptInfoFragment : BaseMvpFragment<DeptInfoPresenter>(), DeptInfoView {
             if (userInfo != null){
                 var mobile = userInfo?.mobile ?: ""
                 if (!TextUtils.isEmpty(mobile)){
-                    callPhone(context!!, userInfo?.mobile?:"")
+                    callPhone(userInfo?.mobile?:"")
                 }else{
                     toast("暂无电话")
                 }

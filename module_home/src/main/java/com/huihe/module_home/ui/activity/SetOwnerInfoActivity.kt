@@ -10,9 +10,11 @@ class SetOwnerInfoActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         var extras = intent.extras
         var id = extras.getString(HomeConstant.KEY_HOUSE_ID)
+        var ownerName = extras.getString(HomeConstant.KEY_OWNER_NAME)
         var fragment = SetOwnerInfoFragment()
         val args = Bundle()
         args.putString(HomeConstant.KEY_HOUSE_ID,id)
+        args.putString(HomeConstant.KEY_OWNER_NAME,ownerName)
         setFragment(fragment,args)
     }
 }

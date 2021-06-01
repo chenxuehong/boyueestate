@@ -5,4 +5,5 @@ import com.kotlin.base.presenter.view.BaseView
 
 interface SetOwnerInfoView : BaseView {
     fun onHouseInfo(t: SetHouseInfoRep?)
+    fun onMobile(t: String?)
 }

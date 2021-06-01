@@ -43,12 +43,12 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
     private var mCurrentPage: Int = 1
     private var mPageSize: Int = 30
     var createUserList: String? = null
-    private val headers = arrayOf("录入人", "状态", "更多", "排序")
+    private val headers = arrayOf("录入人", "有效", "更多", "排序")
     private lateinit var layoutRefreshContentView: View
     var transactionRvAdapter: TransactionRvAdapter? = null
     var customerType = 1
     var isCornucopia: Int? = null
-    var status: Int? = null
+    var status: Int? = 1
     var mMoreReq: MoreReq? = null
     var mSortReq: SortReq? = null
     var mSearchResultViewController: SearchResultViewController? = null

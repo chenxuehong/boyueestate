@@ -21,6 +21,7 @@ class StatusView {
 
             adapter = mSortRvAdapter
         }
+
         mSortRvAdapter.setOnItemClickListener(object :
             BaseRecyclerViewAdapter.OnItemClickListener<StatusRep> {
             override fun onItemClick(view: View, item: StatusRep, position: Int) {
