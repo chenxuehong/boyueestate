@@ -66,6 +66,7 @@ class CustomerDetailFragment :
     }
 
     override fun onPhoneCall(view: View, mobile: MutableList<String>?) {
+        mPresenter.getCustomerMobile(id)
         showTelListDialog(mobile, view)
     }
 
