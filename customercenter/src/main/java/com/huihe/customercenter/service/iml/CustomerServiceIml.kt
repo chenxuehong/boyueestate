@@ -80,4 +80,13 @@ class CustomerServiceIml @Inject constructor(): CustomerService {
     override fun addCustomer(req: AddCustomerReq): Observable<Any?> {
         return repository.addCustomer(req).convert()
     }
+
+    override fun getCustomerMobile(id: String?): Observable<CustomerMobileRep?> {
+        return repository.getCustomerMobile(id).convert()
+    }
+
+    override fun checkCustomer(mobile: String?): Observable<CheckCustomerRep?> {
+        return repository.checkCustomer(mobile).convert()
+    }
+
 }

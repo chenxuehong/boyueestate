@@ -13,5 +13,7 @@ class HomeConstant {
         const val KEY_IS_ADD = "is_add"
         const val KEY_SEARCH_REQ = "SearchReq"
         const val KEY_OWNER_NAME = "ownerName"
+        const val KEY_VILLAGE_NAME = "villageName"
+        const val KEY_SCHOOL_ID = "schoolId"
     }
 }

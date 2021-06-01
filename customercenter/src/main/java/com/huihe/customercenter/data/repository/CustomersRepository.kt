@@ -79,4 +79,12 @@ class CustomersRepository @Inject constructor() {
         return RetrofitFactory.instance.create(CustomerApi::class.java).addCustomer(req)
     }
 
+    fun getCustomerMobile(id: String?):   Observable<BaseResp<CustomerMobileRep?>>  {
+        return RetrofitFactory.instance.create(CustomerApi::class.java).getCustomerMobile(id)
+    }
+
+    fun checkCustomer(mobile: String?):  Observable<BaseResp<CheckCustomerRep?>> {
+        return RetrofitFactory.instance.create(CustomerApi::class.java).checkCustomer(mobile)
+    }
+
 }

@@ -7,4 +7,5 @@ interface CustomerDetailView :BaseView {
     fun onCustomerDetailResult(t: CustomerDetailRep?)
     fun onReqCollectionResult(isCollection: Boolean)
     fun onSetCustomerStatusSuccess()
+    fun onCustomerMobile(s: String)
 }

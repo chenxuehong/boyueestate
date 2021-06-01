@@ -20,5 +20,6 @@
         <activity android:name=".ui.activity.DeptInfoActivity"/>
         <activity android:name=".ui.activity.SearchCommunityActivity"/>
         <activity android:name=".ui.activity.ResultCommunityActivity"/>
+        <activity android:name=".ui.activity.SearchHouseListActivity"/>
     </application>
 </manifest>

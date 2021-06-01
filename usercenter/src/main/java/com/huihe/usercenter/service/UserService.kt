@@ -23,4 +23,5 @@ interface UserService {
     fun getDeptUsers():Observable<MutableList<DeptUserRep>?>
     fun getUserInfo(id: String?):Observable<UserInfo?>
     fun getUserInfoFormIm():Observable<IMUserInfo?>
+    fun getSplashBanner():Observable<SplashBannerRep?>
 }

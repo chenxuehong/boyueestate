@@ -7,13 +7,16 @@ import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.ResultCommunityPresenter
 import com.huihe.usercenter.presenter.view.ResultCommunityView
+import com.huihe.usercenter.ui.activity.SearchHouseListActivity
 import com.huihe.usercenter.ui.adapter.ResultCommunityRvAdapter
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.event.VillageEvent
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseTitleRefreshFragment
+import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.constant.UserConstant
 import com.kotlin.provider.data.protocol.District
+import org.jetbrains.anko.support.v4.startActivity
 
 class ResultCommunityFragment :
     BaseTitleRefreshFragment<ResultCommunityPresenter, ResultCommunityRvAdapter, District.ZoneBean.VillageBean>(),
@@ -75,6 +78,8 @@ class ResultCommunityFragment :
                             item.name ?: ""
                         )
                     )
+                }else{
+                    startActivity<SearchHouseListActivity>(HomeConstant.KEY_VILLAGE_NAME to item.name)
                 }
             }
         })

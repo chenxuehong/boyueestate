@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.gson.Gson
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.*
@@ -29,12 +30,13 @@ import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.data.protocol.District
+import com.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.fragment_secondhandhouse.*
 import kotlinx.android.synthetic.main.layout_refresh.view.*
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.startActivityForResult
 
-
+@Route(path = RouterPath.HomeCenter.PATH_HOUSE_FRAGMENT)
 class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     ISearchResultListener, RefreshListener {
 
@@ -80,6 +82,15 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isHouseSelect = arguments?.getBoolean(HomeConstant.KEY_IS_HOUSE_SELECT, false) ?: false
+        var villageName = arguments?.getString(HomeConstant.KEY_VILLAGE_NAME)
+        var schoolId = arguments?.getString(HomeConstant.KEY_SCHOOL_ID)
+        mSearchReq = SearchReq()
+        if (!TextUtils.isEmpty(villageName)) {
+            mSearchReq.villageName = villageName
+        }
+        if (!TextUtils.isEmpty(schoolId)) {
+            mSearchReq.schoolIds = mutableListOf(schoolId?:"")
+        }
         initView()
         initRefreshLayout()
         initData()

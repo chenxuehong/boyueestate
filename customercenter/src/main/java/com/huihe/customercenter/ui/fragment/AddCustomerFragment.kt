@@ -159,5 +159,6 @@ class AddCustomerFragment : BaseMvpFragment<AddCustomerPresenter>(),AddCustomerV
 
     override fun onAddSuccess() {
         Bus.send(AddCustomerEvent())
+        activity?.finish()
     }
 }

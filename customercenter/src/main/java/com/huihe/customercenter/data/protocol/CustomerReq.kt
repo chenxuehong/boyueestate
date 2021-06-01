@@ -3,7 +3,7 @@ package com.huihe.customercenter.data.protocol
 data class CustomerReq(
     val page:Int=1,
     val pageSize:Int=30,
-    val customerType:Int=1,
+    val customerType:Int?=null,
     val createUserList: String? = null,
     val status: Int? = null,
     val userType: Int? = null,

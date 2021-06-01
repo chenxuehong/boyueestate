@@ -24,6 +24,7 @@ object RouterPath{
             const val PATH_TAKELOOK_RECORD = "/homeCenter/takeLookRecord"
             const val PATH_CUSTOMER_PROFILE = "/homeCenter/CustomerProfile"
             const val PATH_HOUSE_DETIL = "/homeCenter/HouseDetail"
+            const val PATH_HOUSE_FRAGMENT = "/homeCenter/HouseFragment"
         }
     }
     class CustomerCenter{

@@ -22,4 +22,6 @@ interface CustomerService {
     fun setCustomerInfo(req: SetCustomersReq): Observable<Any?>
     fun setCustomerStatus(id: String?, type: Int, value: String): Observable<Any?>
     fun addCustomer(req: AddCustomerReq): Observable<Any?>
+    fun getCustomerMobile(id: String?):Observable<CustomerMobileRep?>
+    fun checkCustomer(mobile: String?):Observable<CheckCustomerRep?>
 }

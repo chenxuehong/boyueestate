@@ -46,4 +46,9 @@ class UserServiceImpl @Inject constructor() : UserService {
     override fun getUserInfoFormIm(): Observable<IMUserInfo?> {
         return repository.getUserInfoFormIm().convert()
     }
+
+    override fun getSplashBanner(): Observable<SplashBannerRep?> {
+        return repository.getSplashBanner().convert()
+    }
+
 }

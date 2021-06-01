@@ -60,14 +60,22 @@ class CustomerDetailFragment :
     val REQUEST_CODE_SET_INFO = 1001
     var is_top = 0
 
+    lateinit var mPhoneView:View
     init {
         is_collection = false
         isLoadFinish = false
     }
 
     override fun onPhoneCall(view: View, mobile: MutableList<String>?) {
+        mPhoneView = view
         mPresenter.getCustomerMobile(id)
-        showTelListDialog(mobile, view)
+
+    }
+
+    override fun onCustomerMobile(mobile: String) {
+        var split = mobile?.split("*")
+        split = split?.toMutableList()
+        showTelListDialog(split, mPhoneView)
     }
 
     override fun onFollow(view: View, customerCode: String?) {

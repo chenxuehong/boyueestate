@@ -32,10 +32,12 @@ import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.provider.constant.CustomerConstant
+import com.kotlin.provider.event.AddCustomerEvent
 import kotlinx.android.synthetic.main.layout_fragment_trannsaction.*
 import kotlinx.android.synthetic.main.layout_refresh.view.*
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.startActivityForResult
+import org.jetbrains.anko.support.v4.toast
 
 class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), TransactionView,
     ISearchResultListener {
@@ -46,7 +48,7 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
     private val headers = arrayOf("录入人", "有效", "更多", "排序")
     private lateinit var layoutRefreshContentView: View
     var transactionRvAdapter: TransactionRvAdapter? = null
-    var customerType = 1
+    var customerType :Int?= null
     var isCornucopia: Int? = null
     var status: Int? = 1
     var mMoreReq: MoreReq? = null
@@ -74,6 +76,12 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
         super.onViewCreated(view, savedInstanceState)
         customerType = arguments?.getInt(CustomerConstant.KEY_CUSTOMERTYPE, 1) ?: 1
         isCornucopia = arguments?.getInt(CustomerConstant.KEY_IS_CORNUCOPIA)
+        Bus.observe<AddCustomerEvent>()
+            .subscribe {
+                toast("新增成功")
+                mCurrentPage = 1
+                loadData()
+            }.registerInBus(this)
         initView()
         initRefreshLayout()
         initData()
@@ -268,7 +276,11 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
     }
 
     override fun onDestroy() {
-        mSearchResultViewController?.detach()
+        try {
+            mSearchResultViewController?.detach()
+            Bus.unregister(this)
+        } catch (e: Exception) {
+        }
         super.onDestroy()
     }
 }

@@ -14,6 +14,7 @@ import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.CommunityManagerPresenter
 import com.huihe.usercenter.presenter.view.CommunityManagerView
 import com.huihe.usercenter.ui.activity.SearchCommunityActivity
+import com.huihe.usercenter.ui.activity.SearchHouseListActivity
 import com.huihe.usercenter.ui.adapter.CityRvAdapter
 import com.huihe.usercenter.ui.adapter.CountyRvAdapter
 import com.huihe.usercenter.ui.adapter.ProvinceRvAdapter
@@ -24,6 +25,7 @@ import com.kotlin.base.ext.onClick
 import com.kotlin.base.ext.setVisible
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
+import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.constant.UserConstant
 import com.kotlin.provider.data.protocol.District
 import kotlinx.android.synthetic.main.fragment_community_manager.*
@@ -62,7 +64,7 @@ class CommunityManagerFragment : BaseMvpFragment<CommunityManagerPresenter>(),
     }
 
     private fun initView() {
-        if (isSelect){
+        if (isSelect) {
             headCommunityManager.setTitle("选择区域")
         }
         rvCommunityManagerInput.onClick {
@@ -76,6 +78,7 @@ class CommunityManagerFragment : BaseMvpFragment<CommunityManagerPresenter>(),
             BaseRecyclerViewAdapter.OnItemClickListener<District> {
             override fun onItemClick(view: View, item: District, position: Int) {
                 initCityAdapter(item)
+                mCountyRvAdapter?.setData(mutableListOf())
             }
         })
         rvCommunityManagerLeft.adapter = mProvinceRvAdapter
@@ -115,6 +118,8 @@ class CommunityManagerFragment : BaseMvpFragment<CommunityManagerPresenter>(),
             ) {
                 if (isSelect) {
                     finishForGetData(item)
+                } else {
+                    startActivity<SearchHouseListActivity>(HomeConstant.KEY_VILLAGE_NAME to item.name)
                 }
             }
         })

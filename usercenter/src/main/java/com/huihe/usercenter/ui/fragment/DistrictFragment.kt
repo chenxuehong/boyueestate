@@ -8,11 +8,15 @@ import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.DistrictPresenter
 import com.huihe.usercenter.presenter.view.DistrictView
+import com.huihe.usercenter.ui.activity.SearchHouseListActivity
 import com.huihe.usercenter.ui.adapter.DistrictRvAdapter
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseTitleRefreshFragment
+import com.kotlin.provider.constant.CustomerConstant
+import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.event.SearchHouseEvent
+import org.jetbrains.anko.support.v4.startActivity
 
 class DistrictFragment :
     BaseTitleRefreshFragment<DistrictPresenter, DistrictRvAdapter, SchoolDistrictRep.SchoolDistrict>(),
@@ -25,9 +29,9 @@ class DistrictFragment :
 
     override fun initView() {
         isSelect = arguments?.getBoolean(BaseConstant.KEY_ISSELECT) ?: false
-        if (isSelect){
+        if (isSelect) {
             initTitle(resources.getString(R.string.district_select))
-        }else{
+        } else {
             initTitle(resources.getString(R.string.district_manager))
         }
 
@@ -61,8 +65,16 @@ class DistrictFragment :
             ) {
 
                 if (isSelect) {
-                    Bus.send(SearchHouseEvent("DistrictFragment",item.id?:"",item.schoolDistrictName?:"" ))
+                    Bus.send(
+                        SearchHouseEvent(
+                            "DistrictFragment",
+                            item.id ?: "",
+                            item.schoolDistrictName ?: ""
+                        )
+                    )
                     activity?.finish()
+                } else {
+                    startActivity<SearchHouseListActivity>(HomeConstant.KEY_SCHOOL_ID to item.id)
                 }
             }
 

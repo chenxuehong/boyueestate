@@ -37,4 +37,7 @@ interface UserApi {
 
     @GET("users/imPrincipal")
     fun getUserInfoFormIm(): Observable<BaseResp<IMUserInfo?>>
+
+    @GET("share/system/configs")
+    fun getSplashBanner(): Observable<BaseResp<SplashBannerRep?>>
 }

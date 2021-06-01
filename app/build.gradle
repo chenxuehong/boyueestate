@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.mob.sdk'
+apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion compile_sdk_version
     defaultConfig {
@@ -115,6 +116,8 @@ MobSDK {
 
 dependencies {
     implementation project(':provider')
+    //Dagger2
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
     if (isUserModule.toBoolean()) {
         implementation project(':usercenter')
     }

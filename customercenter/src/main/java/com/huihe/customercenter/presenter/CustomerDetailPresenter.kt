@@ -1,6 +1,7 @@
 package com.huihe.customercenter.presenter
 
 import com.huihe.customercenter.data.protocol.CustomerDetailRep
+import com.huihe.customercenter.data.protocol.CustomerMobileRep
 import com.huihe.customercenter.presenter.view.CustomerDetailView
 import com.huihe.customercenter.service.CustomerService
 import com.kotlin.base.ext.execute
@@ -63,5 +64,16 @@ class CustomerDetailPresenter @Inject constructor() : BasePresenter<CustomerDeta
                     }
                 }
             }, lifecycleProvider)
+    }
+
+    fun getCustomerMobile(id: String?) {
+        service.getCustomerMobile(id)
+            .execute(object :BaseSubscriber<CustomerMobileRep?>(mView){
+
+                override fun onNext(t: CustomerMobileRep?) {
+                    super.onNext(t)
+                    mView?.onCustomerMobile(t?.mobile?:"")
+                }
+            },lifecycleProvider)
     }
 }

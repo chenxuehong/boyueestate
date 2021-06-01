@@ -51,4 +51,9 @@ class UserRepository @Inject constructor(){
         return RetrofitFactory.instance.create(UserApi::class.java)
             .getUserInfoFormIm()
     }
+
+    fun getSplashBanner(): Observable<BaseResp<SplashBannerRep?>> {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .getSplashBanner()
+    }
 }

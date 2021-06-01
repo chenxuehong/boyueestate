@@ -10,7 +10,7 @@ interface CustomerApi {
     fun getCustomerList(
         @Query("page") page: Int,
         @Query("pageSize") pageSize: Int,
-        @Query("customerType") customerType: Int,
+        @Query("customerType") customerType: Int?,
         @Query("createUserList") createUserList: String?,
         @Query("status") status: Int?,
         @Query("userType") userType: Int?,
@@ -86,4 +86,14 @@ interface CustomerApi {
 
     @POST("customers")
     fun addCustomer(@Body req: AddCustomerReq): Observable<BaseResp<Any?>>
+
+    @GET("customers/{id}/mobile")
+    fun getCustomerMobile(
+        @Path("id") id: String?
+    ): Observable<BaseResp<CustomerMobileRep?>>
+
+    @GET("customers/check")
+    fun checkCustomer(
+        @Query("mobile") mobile: String?
+    ): Observable<BaseResp<CheckCustomerRep?>>
 }
