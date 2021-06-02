@@ -43,13 +43,13 @@ class LoginPresenter @Inject constructor() : BasePresenter<LoginView>() {
             .execute(object : BaseSubscriber<IMUserInfo?>(mView) {
                 override fun onNext(iMUserInfo: IMUserInfo?) {
                     super.onNext(iMUserInfo)
+                    UserPrefsUtils.putUserInfo(iMUserInfo)
                     LogUtils.d(TAG,"getUserInfo ->uid: ${iMUserInfo?.uid} , userSig: ${iMUserInfo?.userSig}")
                     messageService.login(
                         iMUserInfo?.uid?:"",
                         iMUserInfo?.userSig?:"", object : MessageService.OnMessageListener {
                             override fun onLoginSuccess() {
                                 LogUtils.d(TAG,"message login success")
-                                UserPrefsUtils.putUserInfo(iMUserInfo)
                             }
 
                             override fun onLoginFail(message: String, code: Int) {
