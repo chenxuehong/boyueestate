@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.PriceReq
 import com.huihe.module_home.injection.module.CustomersModule
-import com.huihe.module_home.ui.adpter.PriceRvAdapter
+import com.huihe.module_home.ui.adapter.PriceRvAdapter
 import com.kotlin.base.ext.enable
 import com.kotlin.base.ext.hideKeyboard
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter

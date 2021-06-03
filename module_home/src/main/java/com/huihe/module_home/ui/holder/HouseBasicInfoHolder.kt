@@ -19,6 +19,4 @@ class HouseBasicInfoHolder(itemView: View) :
     var tvFollow: TextView = itemView.findViewById<TextView>(R.id.tvHouseDetailFollow)
     var tvTakeLook: TextView = itemView.findViewById<TextView>(R.id.tvHouseDetailTakeLook)
     var tvLog: TextView = itemView.findViewById<TextView>(R.id.tvHouseDetailLog)
-    var tvOwnerName: TextView =
-        itemView.findViewById<TextView>(R.id.tvHouseDetailOwnerNameValue)
 }

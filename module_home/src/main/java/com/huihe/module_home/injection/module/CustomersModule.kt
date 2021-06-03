@@ -29,7 +29,8 @@ class CustomersModule {
         HouseDetailType.ITEM_OWNER_INFO,
         HouseDetailType.ITEM_PHOTO,
         HouseDetailType.ITEM_REFERURL,
-        HouseDetailType.MAP
+        HouseDetailType.MAP,
+        HouseDetailType.TAB
     )
 
     annotation class HouseDetailType {
@@ -42,6 +43,7 @@ class CustomersModule {
            const val  ITEM_PHOTO = 6
            const val  ITEM_REFERURL = 7
            const val  MAP = 8
+           const val  TAB = 9
         }
     }
 

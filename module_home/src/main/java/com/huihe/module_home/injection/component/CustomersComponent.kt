@@ -16,6 +16,8 @@ interface CustomersComponent {
     fun inject(fragment: HouseFragment)
     fun inject(fragment: HouseMapFragment)
     fun inject(fragment: HouseDetailFragment)
+    fun inject(fragment: HouseDetailFragment2)
+    fun inject(fragment: HouseOwnerInfoFragment)
     fun inject(fragment: HouseFollowFragment)
     fun inject(fragment: HouseTakeLookRecordFragment)
     fun inject(fragment: SetHouseInfoFragment)

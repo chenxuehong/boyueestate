@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
 import com.huihe.module_home.R
-import com.huihe.module_home.ui.adpter.HomeHouseLogRvAdapter
+import com.huihe.module_home.ui.adapter.HomeHouseLogRvAdapter
 import com.kotlin.base.common.BaseApplication
 import com.kotlin.base.ui.fragment.BaseFragment
 import com.kotlin.provider.constant.HomeConstant

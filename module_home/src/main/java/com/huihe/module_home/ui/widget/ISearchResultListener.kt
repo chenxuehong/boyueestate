@@ -1,7 +1,7 @@
 package com.huihe.module_home.ui.widget
 
 import com.huihe.module_home.data.protocol.ISearchResult
-import com.huihe.module_home.ui.adpter.RvAreaDistrictAdapter
+import com.huihe.module_home.ui.adapter.RvAreaDistrictAdapter
 
 
 interface ISearchResultListener {

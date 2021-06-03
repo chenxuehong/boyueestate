@@ -6,7 +6,6 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
 import com.baidu.mapapi.search.district.DistrictSearch
@@ -18,7 +17,7 @@ import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HouseMapPresenter
 import com.huihe.module_home.presenter.view.FindHouseByMapView
-import com.huihe.module_home.ui.adpter.RvAreaDistrictAdapter
+import com.huihe.module_home.ui.adapter.RvAreaDistrictAdapter
 import com.huihe.module_home.ui.widget.ISearchResultListener
 import com.huihe.module_home.ui.widget.SearchResultViewController
 import com.kotlin.base.ui.fragment.BaseMvpFragment

@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
-import com.baidu.location.LocationClient
-import com.baidu.location.LocationClientOption
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
 import com.baidu.mapapi.search.poi.*
@@ -15,7 +13,7 @@ import com.google.gson.Gson
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.ItemHouseDetail
 import com.huihe.module_home.ext.MyOnGetPoiSearchResultListener
-import com.huihe.module_home.ui.adpter.HouseNearFragmentAdapter
+import com.huihe.module_home.ui.adapter.HouseNearFragmentAdapter
 import com.kotlin.base.ui.fragment.BaseFragment
 import com.kotlin.base.utils.DensityUtils
 import com.kotlin.provider.constant.HomeConstant
@@ -61,6 +59,7 @@ class HouseNearFragment : BaseFragment() {
         fragments.add(mListenerList[2] as Fragment)
         fragments.add(mListenerList[3] as Fragment)
         fragments.add(mListenerList[4] as Fragment)
+        house_near_viewPager.offscreenPageLimit = 1
         house_near_tabLayout.setupWithViewPager(house_near_viewPager)
         house_near_viewPager.adapter =
             HouseNearFragmentAdapter(childFragmentManager, titles, fragments)

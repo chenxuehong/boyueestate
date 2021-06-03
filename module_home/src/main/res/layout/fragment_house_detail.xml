@@ -24,9 +24,46 @@
         app:layout_constraintBottom_toBottomOf="parent"
         style="@style/MultiStateStyle"
         android:layout_height="0dp">
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll"
+                android:orientation="vertical">
+                <include layout="@layout/layout_house_detail_banner_item"/>
+                <include layout="@layout/layout_house_basic_info_item"/>
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/houseDetailItemTabLayout"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_44"
+                    app:tabGravity="center"
+                    android:background="@color/line"
+                    app:tabMode="fixed"
+                    app:tabSelectedTextColor="@color/main_color"
+                    app:tabTextAppearance="@style/TabLayoutTextStyle"
+                    app:tabTextColor="@color/color_333333" />
+            </LinearLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/houseDetailItemViewpager"
+                android:layout_width="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_height="match_parent"/>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+     <!--   <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/house_detail_rvList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"/>-->
     </com.kennyc.view.MultiStateView>
 </androidx.constraintlayout.widget.ConstraintLayout>

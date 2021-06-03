@@ -13,7 +13,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.example.zhouwei.library.CustomPopWindow
 import com.huihe.module_home.R
 import com.huihe.module_home.ui.activity.AddHouseActivity
-import com.huihe.module_home.ui.adpter.MoreRvAdapter
+import com.huihe.module_home.ui.adapter.MoreRvAdapter
 import com.huihe.module_home.ui.inter.RefreshListener
 import com.kotlin.base.common.BaseApplication
 import com.kotlin.base.ext.onClick
@@ -24,12 +24,9 @@ import com.kotlin.base.utils.DensityUtils
 import com.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.layout_fragment_home.*
 import kotlinx.android.synthetic.main.layout_tel_dialog.view.*
-import org.jetbrains.anko.support.v4.startActivity
 import com.darsh.multipleimageselect.helpers.Constants.REQUEST_CODE
-import com.huihe.module_home.ui.activity.HouseDetailActivity
 import com.kotlin.provider.constant.HomeConstant
 import com.uuzuche.lib_zxing.activity.CaptureActivity
-import com.trello.rxlifecycle3.RxLifecycle.bindUntilEvent
 import com.uuzuche.lib_zxing.activity.CodeUtils
 import org.jetbrains.anko.support.v4.toast
 

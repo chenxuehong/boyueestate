@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.baidu.mapapi.search.poi.*
 import com.huihe.module_home.R
 import com.huihe.module_home.ext.MyOnGetPoiSearchResultListener
-import com.huihe.module_home.ui.adpter.HouseNearRvAdapter
+import com.huihe.module_home.ui.adapter.HouseNearRvAdapter
 import com.kotlin.base.ui.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_house_near_status.*
 

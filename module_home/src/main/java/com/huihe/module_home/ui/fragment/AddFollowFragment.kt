@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.eightbitlab.rxbus.Bus
 import com.google.gson.Gson
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.FollowRep
@@ -66,6 +67,7 @@ class AddFollowFragment : BaseMvpFragment<AddFollowPresenter>(), AddFollowView {
 
     override fun onAddFollowResult(t: FollowRep.FollowBean?) {
         val intent = Intent()
+        Bus.send(t!!)
         activity?.setResult(Activity.RESULT_OK, intent)
         intent.putExtra(HomeConstant.KEY_FOLLOW_BEAN, Gson().toJson(t))
         activity?.finish()

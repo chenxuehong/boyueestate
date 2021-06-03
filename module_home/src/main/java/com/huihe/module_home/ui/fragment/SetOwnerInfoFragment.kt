@@ -12,7 +12,7 @@ import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.SetOwnerInfoPresenter
 import com.huihe.module_home.presenter.view.SetOwnerInfoView
-import com.huihe.module_home.ui.adpter.RvPhoneAdapter
+import com.huihe.module_home.ui.adapter.RvPhoneAdapter
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.provider.constant.HomeConstant

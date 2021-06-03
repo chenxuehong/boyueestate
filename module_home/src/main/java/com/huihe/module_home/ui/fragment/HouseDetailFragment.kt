@@ -1,6 +1,5 @@
 package com.huihe.module_home.ui.fragment
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -14,7 +13,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.qqtheme.framework.picker.SinglePicker
 import com.alibaba.android.arouter.launcher.ARouter
-import com.darsh.multipleimageselect.helpers.Constants
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.example.zhouwei.library.CustomPopWindow
@@ -27,13 +25,12 @@ import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HouseDetailPresenter
 import com.huihe.module_home.presenter.view.HouseDetailView
 import com.huihe.module_home.ui.activity.*
-import com.huihe.module_home.ui.adpter.HouseDetailRvAdapter
-import com.huihe.module_home.ui.adpter.MoreRvAdapter
-import com.huihe.module_home.ui.adpter.TelRvAdapter
+import com.huihe.module_home.ui.adapter.HouseDetailRvAdapter
+import com.huihe.module_home.ui.adapter.MoreRvAdapter
+import com.huihe.module_home.ui.adapter.TelRvAdapter
 import com.jph.takephoto.model.TResult
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.common.BaseConstant
-import com.kotlin.base.ext.callPhone
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ext.viewPhoto
@@ -48,14 +45,12 @@ import com.kotlin.provider.event.SearchHouseEvent
 import com.kotlin.provider.event.ShareEvent
 import com.kotlin.provider.router.RouterPath
 import com.qiniu.android.storage.UploadManager
-import com.uuzuche.lib_zxing.activity.CodeUtils
 import kotlinx.android.synthetic.main.fragment_house_detail.*
 import kotlinx.android.synthetic.main.layout_right_title_house_detail.*
 import kotlinx.android.synthetic.main.layout_tel_dialog.view.*
 import kotlinx.android.synthetic.main.pop_dialog_share.view.*
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.toast
 import top.limuyang2.ldialog.LDialog
 import top.limuyang2.ldialog.base.BaseLDialog
 import top.limuyang2.ldialog.base.ViewHandlerListener
@@ -134,10 +129,10 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
     }
 
     private fun initRvHouseDetailAdapter() {
-        house_detail_rvList.layoutManager = LinearLayoutManager(context)
-        houseDetailTvAdapter = HouseDetailRvAdapter(context, this)
-        houseDetailTvAdapter.setRecyclerview(house_detail_rvList)
-        house_detail_rvList.adapter = houseDetailTvAdapter
+//        house_detail_rvList.layoutManager = LinearLayoutManager(context)
+//        houseDetailTvAdapter = HouseDetailRvAdapter(context, this)
+//        houseDetailTvAdapter.setRecyclerview(house_detail_rvList)
+//        house_detail_rvList.adapter = houseDetailTvAdapter
     }
 
     private fun initListener() {
@@ -216,7 +211,10 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
                 showCirculateSelectDialog()
             }
             context!!.resources.getString(R.string.more_edit_info) -> {
-                startActivity<SetOwnerInfoActivity>(HomeConstant.KEY_HOUSE_ID to id,HomeConstant.KEY_OWNER_NAME to houseDetail?.ownerName)
+                startActivity<SetOwnerInfoActivity>(
+                    HomeConstant.KEY_HOUSE_ID to id,
+                    HomeConstant.KEY_OWNER_NAME to houseDetail?.ownerName
+                )
             }
             context!!.resources.getString(R.string.more_new_phone) -> {
                 showNewPhoneDialog()

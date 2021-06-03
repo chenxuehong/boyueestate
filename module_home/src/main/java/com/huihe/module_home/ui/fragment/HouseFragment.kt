@@ -17,8 +17,8 @@ import com.huihe.module_home.presenter.HousePresenter
 import com.huihe.module_home.presenter.view.SecondHandHouseView
 import com.huihe.module_home.ui.activity.HouseDetailActivity
 import com.huihe.module_home.ui.activity.SearchHouseActivity
-import com.huihe.module_home.ui.adpter.RvAreaDistrictAdapter
-import com.huihe.module_home.ui.adpter.SecondHandHouseAdapter
+import com.huihe.module_home.ui.adapter.RvAreaDistrictAdapter
+import com.huihe.module_home.ui.adapter.SecondHandHouseAdapter
 import com.huihe.module_home.ui.inter.RefreshListener
 import com.huihe.module_home.ui.widget.ISearchResultListener
 import com.huihe.module_home.ui.widget.SearchResultViewController
