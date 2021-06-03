@@ -38,6 +38,10 @@ interface UserApi {
     @GET("users/imPrincipal")
     fun getUserInfoFormIm(): Observable<BaseResp<IMUserInfo?>>
 
-    @GET("share/system/configs")
-    fun getSplashBanner(): Observable<BaseResp<SplashBannerRep?>>
+    @GET("share/system/config")
+    fun getSystemConfig(): Observable<BaseResp<SystemConfigRep?>>
+
+    @PUT("api/v1/users")
+    fun setUserInfo(
+        @Body userInfoReq: SetUserInfoReq): Observable<BaseResp<SetUserInfoRep?>>
 }

@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import com.alibaba.android.arouter.launcher.ARouter
 import com.darsh.multipleimageselect.helpers.Constants
 import com.huihe.usercenter.R
+import com.huihe.usercenter.data.protocol.SetUserInfoRep
+import com.huihe.usercenter.data.protocol.SetUserInfoReq
 import com.huihe.usercenter.data.protocol.UserInfo
 import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
@@ -15,20 +17,26 @@ import com.huihe.usercenter.presenter.MePresenter
 import com.huihe.usercenter.presenter.view.MeView
 import com.huihe.usercenter.ui.activity.*
 import com.huihe.usercenter.ui.widget.MeItemView
+import com.jph.takephoto.model.TResult
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.loadHeadUrl
 import com.kotlin.base.ext.onClick
-import com.kotlin.base.ui.fragment.BaseMvpFragment
+import com.kotlin.base.ui.fragment.BaseTakePhotoFragment
+import com.kotlin.base.utils.LogUtils
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.router.RouterPath
+import com.qiniu.android.storage.UploadManager
 import com.uuzuche.lib_zxing.activity.CaptureActivity
 import com.uuzuche.lib_zxing.activity.CodeUtils
 import kotlinx.android.synthetic.main.fragment_me.*
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 
-class MeFragment : BaseMvpFragment<MePresenter>(), MeView {
+class MeFragment : BaseTakePhotoFragment<MePresenter>(), MeView {
 
+    var mLocalFilResult: TResult? = null
+    var mUploadManager: UploadManager? = null
+    lateinit var setUserInfoReq:SetUserInfoReq
     override fun injectComponent() {
         DaggerUserComponent.builder().activityComponent(mActivityComponent).userModule(
             UserModule()
@@ -65,10 +73,47 @@ class MeFragment : BaseMvpFragment<MePresenter>(), MeView {
             val intent = Intent(context, CaptureActivity::class.java)
             startActivityForResult(intent, Constants.REQUEST_CODE)
         }
+        clMeUserInfo.onClick {
+            showAlertView(true)
+        }
+    }
+
+    override fun takeSuccess(result: TResult?) {
+        super.takeSuccess(result)
+        this.mLocalFilResult = result
+        mPresenter.getUploadToken()
+    }
+
+    override fun onGetUploadTokenResult(result: String?) {
+        mUploadManager?.put(
+            mLocalFilResult?.image?.originalPath, null, result,
+            { key, info, response ->
+                var mRemoteFileUrl = response?.get("hash") as String
+
+                setUserInfoReq.avatar = mRemoteFileUrl
+                LogUtils.d("test", mRemoteFileUrl)
+                mPresenter.setUserInfo(setUserInfoReq)
+
+            }, null
+        )
+    }
+
+    override fun onSetUserInfo(t: SetUserInfoRep?) {
+        refreshUserInfo()
     }
 
     private fun initData() {
+        initUpdateManager()
+        setUserInfoReq = SetUserInfoReq()
+        refreshUserInfo()
+    }
+
+    private fun refreshUserInfo() {
         mPresenter?.getUserInfo()
+    }
+
+    private fun initUpdateManager() {
+        mUploadManager = UploadManager()
     }
 
     override fun onUserInfo(t: UserInfo?) {

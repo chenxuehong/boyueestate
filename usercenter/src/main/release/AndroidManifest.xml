@@ -10,6 +10,7 @@
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
         <activity android:name=".ui.activity.MainActivity"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
         <activity android:name=".ui.activity.CommunityManagerActivity"/>
         <activity android:name=".ui.activity.DistrictActivity"/>

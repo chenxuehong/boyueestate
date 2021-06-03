@@ -10,7 +10,7 @@ import com.kotlin.base.R
  */
 object GlideUtils {
   fun loadImage(context: Context, url: Any, imageView: ImageView) {
-        Glide.with(context).load(url).placeholder(R.drawable.is_empty).error(R.drawable.is_empty).centerCrop().into(imageView)
+        Glide.with(context).load(url).into(imageView)
     }
 
     fun loadImageFitCenter(context: Context, url: Any, imageView: ImageView) {

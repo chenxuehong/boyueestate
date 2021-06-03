@@ -11,6 +11,7 @@ import com.eightbitlab.rxbus.registerInBus
 import com.huihe.usercenter.R
 import com.huihe.usercenter.ui.fragment.MeFragment
 import com.kotlin.base.common.AppManager
+import com.kotlin.base.ui.activity.BaseActivity
 import com.kotlin.provider.event.MessageBadgeEvent
 import com.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.activity_main.*
@@ -18,7 +19,7 @@ import org.jetbrains.anko.toast
 import java.util.*
 
 @Route(path = RouterPath.UserCenter.PATH_MAIN)
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private var pressTime: Long = 0
     //Fragment 栈管理

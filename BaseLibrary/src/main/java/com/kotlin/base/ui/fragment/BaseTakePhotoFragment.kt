@@ -12,7 +12,9 @@ import com.bigkoo.alertview.OnItemClickListener
 import com.jph.takephoto.app.TakePhoto
 import com.jph.takephoto.app.TakePhotoImpl
 import com.jph.takephoto.compress.CompressConfig
+import com.jph.takephoto.model.CropOptions
 import com.jph.takephoto.model.TResult
+import com.kotlin.base.data.protocol.ErrorBean
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.utils.DateUtils
 import com.tbruyelle.rxpermissions2.Permission
@@ -21,11 +23,15 @@ import io.reactivex.functions.Consumer
 import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 import java.io.File
+import java.lang.Error
 import java.security.Permissions
+import javax.inject.Inject
 
 abstract class BaseTakePhotoFragment<T : BasePresenter<*>> : BaseMvpFragment<T>(),
     TakePhoto.TakeResultListener {
 
+    @Inject
+    lateinit var a:ErrorBean
     private lateinit var mTakePhoto: TakePhoto
     private lateinit var mTempFile: File
     private lateinit var rxPermissions: RxPermissions
@@ -38,6 +44,7 @@ abstract class BaseTakePhotoFragment<T : BasePresenter<*>> : BaseMvpFragment<T>(
         mTakePhoto = TakePhotoImpl(this, this)
         mTakePhoto.onCreate(savedInstanceState)
         rxPermissions = RxPermissions(activity!!)
+        a = ErrorBean()
     }
 
     /*
@@ -73,7 +80,7 @@ abstract class BaseTakePhotoFragment<T : BasePresenter<*>> : BaseMvpFragment<T>(
     弹出选择框，默认实现
     可根据实际情况，自行修改
  */
-    protected fun showAlertView() {
+    protected fun showAlertView(isCrop:Boolean=false) {
         AlertView("选择图片", "", "取消", null, arrayOf("拍照", "相册"), context,
             AlertView.Style.ActionSheet, OnItemClickListener { _, position ->
                 mTakePhoto.onEnableCompress(CompressConfig.ofDefaultConfig(), false)
@@ -82,7 +89,18 @@ abstract class BaseTakePhotoFragment<T : BasePresenter<*>> : BaseMvpFragment<T>(
                         RxPermissions(activity!!).request(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA).subscribe(Consumer<Boolean>{
                             if (it){
                                 createTempFile()
-                                mTakePhoto.onPickFromCapture(Uri.fromFile(mTempFile))
+                                if (isCrop){
+                                    mTakePhoto.onPickFromCapture(Uri.fromFile(mTempFile))
+                                }else{
+                                    mTakePhoto.onPickFromCaptureWithCrop(Uri.fromFile(mTempFile),
+                                        CropOptions.Builder()
+                                            .setAspectX(1)
+                                            .setAspectY(1)
+                                            .setWithOwnCrop(true)
+                                            .create()
+                                    )
+                                }
+
                             }
                         })
 
@@ -90,7 +108,19 @@ abstract class BaseTakePhotoFragment<T : BasePresenter<*>> : BaseMvpFragment<T>(
                     1 -> {
                         RxPermissions(activity!!).request(Manifest.permission.CAMERA).subscribe(Consumer<Boolean>{
                             if (it){
-                                mTakePhoto.onPickFromGallery()
+
+                                if (isCrop){
+                                    createTempFile()
+                                    mTakePhoto.onPickFromGalleryWithCrop(Uri.fromFile(mTempFile),
+                                        CropOptions.Builder()
+                                            .setAspectX(1)
+                                            .setAspectY(1)
+                                            .setWithOwnCrop(true)
+                                            .create())
+                                }else{
+                                    mTakePhoto.onPickFromGallery()
+                                }
+
                             }
                         })
                     }

@@ -1,5 +1,7 @@
 package com.huihe.usercenter.presenter
 
+import com.huihe.usercenter.data.protocol.SetUserInfoRep
+import com.huihe.usercenter.data.protocol.SetUserInfoReq
 import com.huihe.usercenter.data.protocol.UserInfo
 import com.huihe.usercenter.presenter.view.MeView
 import com.huihe.usercenter.service.UserService
@@ -24,5 +26,30 @@ class MePresenter @Inject constructor(): BasePresenter<MeView>(){
                     mView?.onUserInfo(t)
                 }
             },lifecycleProvider)
+    }
+
+    fun setUserInfo(userInfoReq: SetUserInfoReq) {
+        var userInfo = UserPrefsUtils.getUserInfo()
+        userInfoReq.uid = userInfo?.uid
+        service.setUserInfo(userInfoReq)
+            .execute(object :BaseSubscriber<SetUserInfoRep?>(mView){
+
+                override fun onNext(t: SetUserInfoRep?) {
+                    super.onNext(t)
+                    mView?.onSetUserInfo(t)
+                }
+            },lifecycleProvider)
+    }
+
+
+    fun getUploadToken() {
+        mView?.showLoading("正在上传...")
+        service.getUploadToken()
+            .execute(object : BaseSubscriber<String?>(mView) {
+                override fun onNext(t: String?) {
+                    super.onNext(t)
+                    mView?.onGetUploadTokenResult(t)
+                }
+            }, lifecycleProvider)
     }
 }

@@ -4,6 +4,7 @@ import com.huihe.usercenter.data.api.UserApi
 import com.huihe.usercenter.data.protocol.*
 import com.kotlin.base.data.net.RetrofitFactory
 import com.kotlin.base.data.protocol.BaseResp
+import com.kotlin.provider.data.api.UploadApi
 import com.kotlin.provider.data.protocol.District
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -52,8 +53,18 @@ class UserRepository @Inject constructor(){
             .getUserInfoFormIm()
     }
 
-    fun getSplashBanner(): Observable<BaseResp<SplashBannerRep?>> {
+    fun getSystemConfig(): Observable<BaseResp<SystemConfigRep?>> {
         return RetrofitFactory.instance.create(UserApi::class.java)
-            .getSplashBanner()
+            .getSystemConfig()
+    }
+
+    fun getUploadToken(): Observable<BaseResp<String?>> {
+        return RetrofitFactory.instance.create(UploadApi::class.java)
+            .getUploadToken()
+    }
+
+    fun setUserInfo(userInfoReq: SetUserInfoReq):  Observable<BaseResp<SetUserInfoRep?>> {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .setUserInfo(userInfoReq)
     }
 }

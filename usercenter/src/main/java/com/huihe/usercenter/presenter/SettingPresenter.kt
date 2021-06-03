@@ -1,11 +1,13 @@
 package com.huihe.usercenter.presenter
 
+import com.huihe.usercenter.data.protocol.SystemConfigRep
 import com.huihe.usercenter.presenter.view.SettingView
 import com.huihe.usercenter.service.UserService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber
 import com.kotlin.base.rx.DataNullException
+import com.kotlin.provider.constant.UserConstant
 import javax.inject.Inject
 
 class SettingPresenter @Inject constructor() : BasePresenter<SettingView>(){
