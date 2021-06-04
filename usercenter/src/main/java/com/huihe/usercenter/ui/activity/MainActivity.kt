@@ -1,7 +1,7 @@
 package com.huihe.usercenter.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
@@ -17,11 +17,9 @@ import com.huihe.usercenter.presenter.view.MainView
 import com.huihe.usercenter.ui.fragment.MeFragment
 import com.kotlin.base.common.AppManager
 import com.kotlin.base.common.BaseConstant
-import com.kotlin.base.ui.activity.BaseActivity
 import com.kotlin.base.ui.activity.BaseMvpActivity
 import com.kotlin.base.utils.AppPrefsUtils
 import com.kotlin.base.utils.LogUtils
-import com.kotlin.provider.event.CloseMainActvityEvent
 import com.kotlin.provider.event.MessageBadgeEvent
 import com.kotlin.provider.router.RouterPath
 import com.kotlin.provider.utils.UserPrefsUtils
@@ -67,6 +65,11 @@ class MainActivity : BaseMvpActivity<MainPresenter>(),MainView {
         initData()
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        mBottomNavBar.selectTab(0)
+    }
+
     override fun injectComponent() {
         DaggerUserComponent.builder().activityComponent(mActivityComponent).userModule(UserModule())
             .build().inject(this)
@@ -88,7 +91,6 @@ class MainActivity : BaseMvpActivity<MainPresenter>(),MainView {
         mStack.add(mCustomerFragment)
         mStack.add(mMsgFragment)
         mStack.add(mMeFragment)
-
     }
 
     /*
@@ -131,12 +133,6 @@ class MainActivity : BaseMvpActivity<MainPresenter>(),MainView {
             .subscribe { t: MessageBadgeEvent ->
                 run {
                     mBottomNavBar.checkMsgBadge(t.isVisible)
-                }
-            }.registerInBus(this)
-        Bus.observe<CloseMainActvityEvent>()
-            .subscribe { t: CloseMainActvityEvent ->
-                run {
-                    changeFragment(0)
                 }
             }.registerInBus(this)
     }

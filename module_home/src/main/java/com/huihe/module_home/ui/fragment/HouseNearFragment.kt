@@ -38,7 +38,8 @@ class HouseNearFragment : BaseFragment() {
     val fragments: MutableList<Fragment> = mutableListOf()
     var mPoiSearch: PoiSearch? = null
     var cenpt: LatLng? = null
-
+    var mapPoiInfo = HashMap<Int,List<PoiInfo>>()
+    var mCurIndex = 0
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,23 +52,42 @@ class HouseNearFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var mapJson = arguments?.getString(HomeConstant.KEY_MAP_BEAN)
+        mCurIndex = 0
         mapInfo =
             Gson().fromJson<ItemHouseDetail.MapInfo>(mapJson, ItemHouseDetail.MapInfo::class.java)
+        initAdapter()
         initMap()
         initListener()
-        initAdapter()
     }
 
     private fun initListener() {
         Bus.observe<AllPoiEvent>()
             .subscribe {
-                var poiInfos = it.poiInfos
-                updateMapMarkers(poiInfos)
+                mapPoiInfo.put(it.index,it.poiInfos)
+                updateMapMarkers()
             }.registerInBus(this)
+        house_near_viewPager.addOnPageChangeListener(object :ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(state: Int) {
 
+            }
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+
+            }
+
+            override fun onPageSelected(position: Int) {
+                mCurIndex = position
+                updateMapMarkers()
+            }
+        })
     }
 
-    private fun updateMapMarkers(poiInfos: List<PoiInfo>) {
+    private fun updateMapMarkers() {
+        var poiInfos = mapPoiInfo.get(mCurIndex)
         if (poiInfos != null && poiInfos.isNotEmpty()) {
             val optons = MarkerOptions()
             val locView = View.inflate(context!!,R.layout.layout_loc,null)
@@ -161,9 +181,21 @@ class HouseNearFragment : BaseFragment() {
         house_near_MapView?.removeViewAt(2)
     }
 
+    override fun onStop() {
+        house_near_MapView?.onPause()
+        super.onStop()
+    }
+
+    override fun onStart() {
+        house_near_MapView?.onResume()
+        super.onStart()
+    }
+
     override fun onDestroy() {
         try {
-            mPoiSearch?.destroy();
+            mPoiSearch?.destroy()
+            mapPoiInfo?.clear()
+            house_near_MapView?.onDestroy()
             Bus.unregister(this)
         } catch (e: Exception) {
         }

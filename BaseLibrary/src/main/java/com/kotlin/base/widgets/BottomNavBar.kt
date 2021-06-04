@@ -45,7 +45,6 @@ class BottomNavBar @JvmOverloads constructor(
                 .setInactiveIconResource(R.drawable.nav_bar_me_normal)
                 .setActiveColorResource(R.color.common_blue)
                 .setInActiveColorResource(R.color.text_normal)
-
         //设置底部导航模式及样式
         setMode(BottomNavigationBar.MODE_FIXED)
         setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC)

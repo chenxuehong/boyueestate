@@ -5,24 +5,20 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import com.alibaba.android.arouter.launcher.ARouter
-import com.eightbitlab.rxbus.Bus
 import com.huihe.usercenter.R
 import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.SettingPresenter
 import com.huihe.usercenter.presenter.view.SettingView
 import com.huihe.usercenter.ui.activity.AboutusActivity
-import com.kotlin.base.common.AppManager
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.utils.AppPrefsUtils
 import com.kotlin.base.utils.DataCleanManager
-import com.kotlin.provider.event.CloseMainActvityEvent
 import com.kotlin.provider.router.RouterPath
 import com.kotlin.provider.utils.UserPrefsUtils
 import kotlinx.android.synthetic.main.fragment_setting.*
@@ -107,6 +103,5 @@ class SettingFragment : BaseMvpFragment<SettingPresenter>(), SettingView {
         AppPrefsUtils.putString(BaseConstant.KEY_SP_TOKEN, "")
         ARouter.getInstance().build(RouterPath.UserCenter.PATH_LOGIN).navigation()
         activity?.finish()
-        Bus.send(CloseMainActvityEvent())
     }
 }

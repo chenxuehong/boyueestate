@@ -159,6 +159,25 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
                     .cityName("上海市")
             )
         }
+        house_map_MapView?.map?.setOnMarkerClickListener {
+            curZoomLevel = when (type) {
+                1 -> {
+                    14.7f
+                }
+                3 -> {
+                    18f
+                }
+                else -> {
+                    18f
+                }
+            }
+            changeType(curZoomLevel)
+            var mapStatus = house_map_MapView?.map?.mapStatus
+            if (mapStatus != null) {
+                changeMapStatus(mapStatus.target)
+            }
+            true
+        }
         house_map_MapView?.map?.setOnMapStatusChangeListener(object :
             BaiduMap.OnMapStatusChangeListener {
             override fun onMapStatusChangeStart(p0: MapStatus?) {
@@ -252,27 +271,7 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
     override fun onGetHouseMapResult(t: MutableList<MapAreaRep>?) {
         try {
             house_map_MapView?.map?.clear()
-            house_map_MapView?.map?.setOnMarkerClickListener {
-                when (type) {
-                    1 -> {
-                        curZoomLevel = 14.7f
-                    }
-                    3 -> {
-                        curZoomLevel = 18f
-                    }
-                    else -> {
-                        curZoomLevel = 18f
-                    }
-                }
-                changeType(curZoomLevel)
-                var mapStatus = house_map_MapView?.map?.mapStatus
-                if (mapStatus != null) {
-                    changeMapStatus(mapStatus.target)
-                }
-                true
-            }
             t?.forEach { item ->
-
                 //圆心位置
                 val center = LatLng(item?.latitude!!, item?.longitude!!)
                 //构建Marker图标
