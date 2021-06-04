@@ -2,12 +2,12 @@ package com.huihe.module_home.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.gson.Gson
+import com.eightbitlab.rxbus.Bus
+import com.eightbitlab.rxbus.registerInBus
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.FollowRep
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
@@ -15,7 +15,7 @@ import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HouseFollowPresenter
 import com.huihe.module_home.presenter.view.HouseFollowView
 import com.huihe.module_home.ui.activity.AddFollowActivity
-import com.huihe.module_home.ui.adpter.HouseFollowRvAdapter
+import com.huihe.module_home.ui.adapter.HouseFollowRvAdapter
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ext.startLoading
@@ -23,7 +23,6 @@ import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.provider.constant.HomeConstant
 import kotlinx.android.synthetic.main.fragment_house_follow.*
-import kotlinx.android.synthetic.main.layout_refresh.view.*
 
 class HouseFollowFragment : BaseMvpFragment<HouseFollowPresenter>(), HouseFollowView {
 
@@ -33,7 +32,6 @@ class HouseFollowFragment : BaseMvpFragment<HouseFollowPresenter>(), HouseFollow
     private var mPageSize: Int = 30
     lateinit var houseFollowRvAdapter: HouseFollowRvAdapter
 
-    val REQUEST_CODE_ADD_FOLLOW:Int =100
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -83,8 +81,13 @@ class HouseFollowFragment : BaseMvpFragment<HouseFollowPresenter>(), HouseFollow
         house_follow_titleBar.getRightView().onClick {
             val intent = Intent(context,AddFollowActivity::class.java)
             intent.putExtra(HomeConstant.KEY_HOUSE_ID,houseId)
-            startActivityForResult(intent,REQUEST_CODE_ADD_FOLLOW)
+            startActivity(intent)
         }
+        Bus.observe<FollowRep.FollowBean>()
+            .subscribe {
+                houseFollowRvAdapter?.dataList?.add(0,it)
+                houseFollowRvAdapter?.notifyItemChanged(0)
+            }.registerInBus(this)
     }
 
     private fun initData() {
@@ -145,15 +148,11 @@ class HouseFollowFragment : BaseMvpFragment<HouseFollowPresenter>(), HouseFollow
             MultiStateView.VIEW_STATE_ERROR
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_ADD_FOLLOW){
-            var json = data?.getStringExtra(HomeConstant.KEY_FOLLOW_BEAN)
-            if (!TextUtils.isEmpty(json)){
-                var followBean = Gson().fromJson<FollowRep.FollowBean>(json,FollowRep.FollowBean::class.java)
-                houseFollowRvAdapter?.dataList?.add(0,followBean)
-                houseFollowRvAdapter?.notifyItemChanged(0)
-            }
+    override fun onDestroy() {
+        try {
+            Bus.unregister(this)
+        } catch (e: Exception) {
         }
+        super.onDestroy()
     }
 }

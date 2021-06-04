@@ -106,10 +106,10 @@ abstract class BaseTakePhotoFragment<T : BasePresenter<*>> : BaseMvpFragment<T>(
 
                     }
                     1 -> {
-                        RxPermissions(activity!!).request(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA).subscribe(Consumer<Boolean>{
-                            if (it){
 
-                                if (isCrop){
+                        if(isCrop) {
+                            RxPermissions(activity!!).request(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA).subscribe(Consumer<Boolean>{
+                                if (it){
                                     createTempFile()
                                     mTakePhoto.onPickFromGalleryWithCrop(Uri.fromFile(mTempFile),
                                         CropOptions.Builder()
@@ -117,12 +117,18 @@ abstract class BaseTakePhotoFragment<T : BasePresenter<*>> : BaseMvpFragment<T>(
                                             .setAspectY(1)
                                             .setWithOwnCrop(true)
                                             .create())
-                                }else{
+
+                                }
+                            })
+                        }else{
+                            RxPermissions(activity!!).request(Manifest.permission.CAMERA).subscribe(Consumer<Boolean>{
+                                if (it){
                                     mTakePhoto.onPickFromGallery()
                                 }
+                            })
 
-                            }
-                        })
+                        }
+
                     }
                 }
 

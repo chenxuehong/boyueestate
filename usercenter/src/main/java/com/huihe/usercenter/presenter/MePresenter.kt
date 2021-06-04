@@ -8,6 +8,7 @@ import com.huihe.usercenter.service.UserService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber
+import com.kotlin.base.rx.DataNullException
 import com.kotlin.provider.utils.UserPrefsUtils
 import javax.inject.Inject
 
@@ -36,7 +37,14 @@ class MePresenter @Inject constructor(): BasePresenter<MeView>(){
 
                 override fun onNext(t: SetUserInfoRep?) {
                     super.onNext(t)
-                    mView?.onSetUserInfo(t)
+                    mView?.onSetUserInfo()
+                }
+
+                override fun onError(e: Throwable) {
+                    super.onError(e)
+                    if(e is DataNullException){
+                        mView?.onSetUserInfo()
+                    }
                 }
             },lifecycleProvider)
     }

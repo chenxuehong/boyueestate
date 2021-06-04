@@ -5,7 +5,7 @@ import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HousePhoneLogPresenter
 import com.huihe.module_home.presenter.view.HousePhoneLogView
-import com.huihe.module_home.ui.adpter.HousePhoneLogRvAdapter
+import com.huihe.module_home.ui.adapter.HousePhoneLogRvAdapter
 import com.kotlin.base.ui.fragment.BaseRefreshFragment
 import com.kotlin.provider.constant.HomeConstant
 

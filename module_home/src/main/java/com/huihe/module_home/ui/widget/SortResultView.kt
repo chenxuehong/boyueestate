@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.module_home.data.protocol.SortReq
 import com.huihe.module_home.injection.module.CustomersModule
-import com.huihe.module_home.ui.adpter.SortRvAdapter
+import com.huihe.module_home.ui.adapter.SortRvAdapter
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 class SortResultView {
     private val sorts =

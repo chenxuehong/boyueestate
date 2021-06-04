@@ -21,13 +21,13 @@ data class ItemHouseDetail(
         var floorage: Float?,
         var hShape: String?,
         var label: String?,
-        var ownerTel: String?,
-        var ownerName: String?
+        var ownerTel: String?
     )
 
     data class DetailInfo(
         var leftTitle: String?,
-        var content: String?
+        var content: String?,
+        var isTitle:Boolean=false
     )
 
     data class OwnerInfo(

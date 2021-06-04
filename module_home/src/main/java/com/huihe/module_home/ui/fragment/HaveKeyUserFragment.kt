@@ -16,7 +16,7 @@ import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HaveKeyUserPresenter
 import com.huihe.module_home.presenter.view.HaveKeyUserView
-import com.huihe.module_home.ui.adpter.PhotoRvAdapter
+import com.huihe.module_home.ui.adapter.PhotoRvAdapter
 import com.jph.takephoto.model.TResult
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.initInflater

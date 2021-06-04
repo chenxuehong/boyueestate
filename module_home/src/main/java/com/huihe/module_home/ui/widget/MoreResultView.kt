@@ -10,7 +10,7 @@ import com.huihe.module_home.data.protocol.MoreSearchBean
 import com.huihe.module_home.data.protocol.RoomNumReq
 import com.huihe.module_home.ext.enable
 import com.huihe.module_home.injection.module.CustomersModule
-import com.huihe.module_home.ui.adpter.MoreSearchAdapter
+import com.huihe.module_home.ui.adapter.MoreSearchAdapter
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.widgets.ItemSpaceDecoration
 import kotlinx.android.synthetic.main.layout_search_by_more.view.*

@@ -14,7 +14,7 @@ import com.huihe.module_home.presenter.HouseTakeLookPresenter
 import com.huihe.module_home.presenter.view.HouseTakeLookView
 import com.huihe.module_home.ui.activity.HouseDetailActivity
 import com.huihe.module_home.ui.activity.HouseTakeLookRecordInsertActivity
-import com.huihe.module_home.ui.adpter.HouseTakeLookRecordRvAdapter
+import com.huihe.module_home.ui.adapter.HouseTakeLookRecordRvAdapter
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ext.setVisible

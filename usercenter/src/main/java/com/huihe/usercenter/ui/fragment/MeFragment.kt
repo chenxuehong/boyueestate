@@ -98,7 +98,7 @@ class MeFragment : BaseTakePhotoFragment<MePresenter>(), MeView {
         )
     }
 
-    override fun onSetUserInfo(t: SetUserInfoRep?) {
+    override fun onSetUserInfo() {
         refreshUserInfo()
     }
 

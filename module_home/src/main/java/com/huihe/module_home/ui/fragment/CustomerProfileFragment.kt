@@ -13,7 +13,7 @@ import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.CustomerProfilePresenter
 import com.huihe.module_home.presenter.view.CustomerProfileView
 import com.huihe.module_home.ui.activity.HouseDetailActivity
-import com.huihe.module_home.ui.adpter.CustomerProfileRvAdapter
+import com.huihe.module_home.ui.adapter.CustomerProfileRvAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.provider.constant.CustomerConstant
 import com.kotlin.provider.constant.HomeConstant

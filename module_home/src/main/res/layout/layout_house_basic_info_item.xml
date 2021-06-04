@@ -134,7 +134,7 @@
         app:layout_constraintLeft_toRightOf="@id/tvHouseDetailTel"
         app:layout_constraintRight_toLeftOf="@id/tvHouseDetailTakeLook"
         android:layout_width="0dp"
-        android:text="跟进"
+        android:text="写跟进"
         android:textColor="@color/white"
         android:background="@drawable/call_bg"
         android:gravity="center"
@@ -178,43 +178,4 @@
         android:paddingTop="@dimen/dp_12"
         android:paddingBottom="@dimen/dp_12"
         android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/tvHouseDetailOwnerInfo"
-        android:layout_marginTop="@dimen/dp_16"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvHouseDetailTel"
-        android:layout_width="match_parent"
-        android:textSize="@dimen/sp_15"
-        android:textColor="@color/color_333333"
-        android:textStyle="bold"
-        android:text="业主信息"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/tvHouseDetailOwnerName"
-        android:layout_marginTop="@dimen/dp_10"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvHouseDetailOwnerInfo"
-        android:layout_width="0dp"
-        app:layout_constraintRight_toLeftOf="@id/tvHouseDetailOwnerNameValue"
-        android:textSize="@dimen/sp_15"
-        android:textColor="@color/color_666666"
-        android:text="业主姓名"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/tvHouseDetailOwnerNameValue"
-        app:layout_constraintLeft_toRightOf="@id/tvHouseDetailOwnerName"
-        app:layout_constraintTop_toBottomOf="@id/tvHouseDetailOwnerInfo"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_width="wrap_content"
-        android:textSize="@dimen/sp_15"
-        android:textColor="@color/color_666666"
-        android:text="张三"
-        android:maxLength="10"
-        android:gravity="center_vertical"
-        android:lines="1"
-        android:ellipsize="end"
-        android:layout_height="@dimen/dp_40"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
