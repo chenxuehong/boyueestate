@@ -106,7 +106,7 @@ abstract class BaseTakePhotoFragment<T : BasePresenter<*>> : BaseMvpFragment<T>(
 
                     }
                     1 -> {
-                        RxPermissions(activity!!).request(Manifest.permission.CAMERA).subscribe(Consumer<Boolean>{
+                        RxPermissions(activity!!).request(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA).subscribe(Consumer<Boolean>{
                             if (it){
 
                                 if (isCrop){

@@ -41,7 +41,7 @@ interface UserApi {
     @GET("share/system/config")
     fun getSystemConfig(): Observable<BaseResp<SystemConfigRep?>>
 
-    @PUT("api/v1/users")
+    @PUT("users")
     fun setUserInfo(
         @Body userInfoReq: SetUserInfoReq): Observable<BaseResp<SetUserInfoRep?>>
 }
