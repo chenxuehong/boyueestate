@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.eightbitlab.rxbus.Bus
 import com.huihe.customercenter.R
 import com.huihe.customercenter.injection.component.DaggerCustomersComponent
 import com.huihe.customercenter.injection.module.CustomersModule
@@ -15,6 +16,7 @@ import com.huihe.customercenter.presenter.view.AddCustomerFollowView
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.provider.constant.CustomerConstant
+import com.kotlin.provider.event.AddCustomerFollowEvent
 import kotlinx.android.synthetic.main.fragment_customer_add_follow.*
 import org.jetbrains.anko.support.v4.toast
 
@@ -67,5 +69,6 @@ class AddCustomerFollowFragment : BaseMvpFragment<AddCustomerFollowPresenter>(),
         val intent = Intent()
         activity?.setResult(Activity.RESULT_OK, intent)
         activity?.finish()
+        Bus.send(AddCustomerFollowEvent())
     }
 }

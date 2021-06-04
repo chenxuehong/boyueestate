@@ -58,4 +58,8 @@ class UserServiceImpl @Inject constructor() : UserService {
     override fun setUserInfo(userInfoReq: SetUserInfoReq): Observable<SetUserInfoRep?> {
         return repository.setUserInfo(userInfoReq).convert()
     }
+
+    override fun setPushInfo(uid: String?, registrationId: String): Observable<SetPushRep?> {
+        return repository.setPushInfo(uid,registrationId).convert()
+    }
 }

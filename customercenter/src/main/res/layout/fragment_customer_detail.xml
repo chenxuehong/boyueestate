@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.kotlin.base.widgets.HeaderBar
+        android:id="@+id/customer_detail_titleBar"
+        app:isShowBack="true"
+        android:layout_width="match_parent"
+        app:rightTitleLayout="@layout/layout_right_title_customer_detail"
+        android:background="@color/main_color"
+        android:layout_height="wrap_content" />
+    <com.kennyc.view.MultiStateView
+        android:id="@+id/customer_detail_mMultiStateView"
+        style="@style/MultiStateStyle"
+        android:layout_height="match_parent">
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_scrollFlags="scroll"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/layout_customer_detail_maininfo_item"/>
+                    <include layout="@layout/layout_customer_detail_helperinfo_item"/>
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/customer_detail_TabLayout"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_44"
+                        app:tabGravity="center"
+                        android:background="@color/color_f7f7f7"
+                        app:tabMode="fixed"
+                        app:tabSelectedTextColor="@color/main_color"
+                        app:tabTextAppearance="@style/TabLayoutTextStyle"
+                        app:tabTextColor="@color/color_333333" />
+                </LinearLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/customer_detail_Viewpager"
+                android:layout_width="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_height="match_parent"/>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </com.kennyc.view.MultiStateView>
+</LinearLayout>

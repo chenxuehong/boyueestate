@@ -204,8 +204,9 @@ class HouseDetailRvAdapter(mContext: Context?, var mListener: OnListener) :
 
         val optons = MarkerOptions()
         val latLng = LatLng(mapInfo?.latitude!!, mapInfo?.longitude!!)
+        val locView = View.inflate(mContext,R.layout.layout_loc,null)
         val bitmap = BitmapDescriptorFactory
-            .fromResource(R.drawable.location)
+            .fromView(locView)
         optons.position(latLng)
             .icon(bitmap)
         var addOverlay = mBaiduMap?.addOverlay(optons)

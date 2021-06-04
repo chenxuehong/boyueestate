@@ -10,5 +10,6 @@ class CustomerConstant {
         const val KEY_CUSTOMER_MOBILE = "customerMobile"
         const val KEY_CUSTOMER_SEARCH = "customerSearch"
         const val KEY_IS_CORNUCOPIA = "isCornucopia"
+        const val KEY_BASIC_INFO = "basicInfo"
     }
 }

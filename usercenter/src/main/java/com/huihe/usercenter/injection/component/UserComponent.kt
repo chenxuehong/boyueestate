@@ -2,6 +2,7 @@ package com.huihe.usercenter.injection.component
 
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.ui.activity.LoginActivity
+import com.huihe.usercenter.ui.activity.MainActivity
 import com.huihe.usercenter.ui.fragment.*
 import com.kotlin.base.injection.PerComponentScope
 import com.kotlin.base.injection.component.ActivityComponent
@@ -23,4 +24,5 @@ interface UserComponent {
     fun inject(fragment: DeptInfoFragment)
     fun inject(fragment: MeFragment)
     fun inject(fragment: ResultCommunityFragment)
+    fun inject(activity: MainActivity)
 }

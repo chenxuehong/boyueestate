@@ -4,9 +4,7 @@ data class CustomerDetailBean(
     var type:Int=0,
     var mainInfo:CustomerMainInfo?=null,
     var helperInfo:HelperInfo?=null,
-    var basicInfo:CustomerBasicInfo?=null,
-    var rewarks:String?=null,
-    var createUserInfo:CreateUserInfo?=null
+    var basicInfoList:MutableList<BasicInfo>?=null
 ){
     data class CustomerMainInfo(
         var customerType:Int?,
@@ -29,20 +27,33 @@ data class CustomerDetailBean(
         var icon:Int?
     )
 
-    data class CustomerBasicInfo(
-        var customerName:String?,
-        var source:String?,
-        var demandFloor:String?,
-        var demandHouseType:String?,
-        var demandArea:String?,
-        var demandBeat:String?,
-        var isSubstitution:String?,
-        var demandBudget:String?,
-        var viewHouseDate:String?,
-        var isFirstHouse:String?,
-        var successDate:String?,
-        var isStyle:String?
-    )
+    data class BasicInfo(
+        var type:Int,
+      var customerBasicInfo:CustomerBasicInfo?=null,
+      var rewarks:String?=null,
+      var createUserInfo:CreateUserInfo?=null
+    ){
+        data class CustomerBasicInfo(
+            var customerName:String?,
+            var source:String?,
+            var demandFloor:String?,
+            var demandHouseType:String?,
+            var demandArea:String?,
+            var demandBeat:String?,
+            var isSubstitution:String?,
+            var demandBudget:String?,
+            var viewHouseDate:String?,
+            var isFirstHouse:String?,
+            var successDate:String?,
+            var isStyle:String?
+        )
+        data class CreateUserInfo(
+            var createUserName:String?,
+            var createDate:String?,
+            var updateUserName:String?,
+            var updateDate:String?
+        )
+    }
 
     data class ItemBasicInfo(
         var title:String?,
@@ -50,8 +61,4 @@ data class CustomerDetailBean(
         var isTitle:Boolean
     )
 
-    data class CreateUserInfo(
-        var createUserName:String?,
-        var createDate:String?
-    )
 }

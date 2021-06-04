@@ -44,4 +44,8 @@ interface UserApi {
     @PATCH("users")
     fun setUserInfo(
         @Body userInfoReq: SetUserInfoReq): Observable<BaseResp<SetUserInfoRep?>>
+
+    @PATCH("users/mobTechId")
+    fun setPushInfo(
+        @Body setPushReq: SetPushReq): Observable<BaseResp<SetPushRep?>>
 }

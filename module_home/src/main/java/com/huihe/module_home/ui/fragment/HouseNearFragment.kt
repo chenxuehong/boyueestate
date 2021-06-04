@@ -8,17 +8,25 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
-import com.baidu.mapapi.search.poi.*
+import com.baidu.mapapi.search.core.PoiInfo
+import com.baidu.mapapi.search.poi.PoiSearch
+import com.eightbitlab.rxbus.Bus
+import com.eightbitlab.rxbus.registerInBus
 import com.google.gson.Gson
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.ItemHouseDetail
-import com.huihe.module_home.ext.MyOnGetPoiSearchResultListener
 import com.huihe.module_home.ui.adapter.HouseNearFragmentAdapter
 import com.kotlin.base.ui.fragment.BaseFragment
 import com.kotlin.base.utils.DensityUtils
 import com.kotlin.provider.constant.HomeConstant
+import com.kotlin.provider.event.AllPoiEvent
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Consumer
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_house_near.*
 import kotlinx.android.synthetic.main.layout_window_mark.view.*
+import java.util.concurrent.TimeUnit
 
 
 class HouseNearFragment : BaseFragment() {
@@ -26,10 +34,11 @@ class HouseNearFragment : BaseFragment() {
     lateinit var mapInfo: ItemHouseDetail.MapInfo
     val titles: MutableList<String> = mutableListOf("交通", "教育", "医疗", "生活", "附近")
     val searchKeyWords: MutableList<String> = mutableListOf("公交", "教育", "医疗", "生活", "小区")
+    var infoWindow: InfoWindow? = null
     val fragments: MutableList<Fragment> = mutableListOf()
     var mPoiSearch: PoiSearch? = null
-    var mListenerList: MutableList<MyOnGetPoiSearchResultListener> = mutableListOf()
     var cenpt: LatLng? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,34 +53,97 @@ class HouseNearFragment : BaseFragment() {
         var mapJson = arguments?.getString(HomeConstant.KEY_MAP_BEAN)
         mapInfo =
             Gson().fromJson<ItemHouseDetail.MapInfo>(mapJson, ItemHouseDetail.MapInfo::class.java)
+        initMap()
+        initListener()
         initAdapter()
-        initView()
+    }
+
+    private fun initListener() {
+        Bus.observe<AllPoiEvent>()
+            .subscribe {
+                var poiInfos = it.poiInfos
+                updateMapMarkers(poiInfos)
+            }.registerInBus(this)
+
+    }
+
+    private fun updateMapMarkers(poiInfos: List<PoiInfo>) {
+        if (poiInfos != null && poiInfos.isNotEmpty()) {
+            val optons = MarkerOptions()
+            val locView = View.inflate(context!!,R.layout.layout_loc,null)
+            val bitmap = BitmapDescriptorFactory
+                .fromView(locView)
+            val bundle = Bundle()
+            bundle.putString("marker", mapInfo.villageName)
+            bundle.putDouble("latitude", mapInfo?.latitude!!)
+            bundle.putDouble("longitude", mapInfo?.longitude!!)
+            optons.position(cenpt)
+                .extraInfo(bundle)
+                .icon(bitmap)
+            var addOverlay = house_near_MapView?.map?.addOverlay(optons)
+
+            house_near_MapView?.map?.setOnMarkerClickListener { marker ->
+                house_near_MapView?.map?.hideInfoWindow()
+                val extraInfo = marker.extraInfo
+                var title = extraInfo.getString("marker")
+                var latitude = extraInfo.getDouble("latitude")
+                var longitude = extraInfo.getDouble("longitude")
+                val windowList = mutableListOf<InfoWindow>()
+                val windowView = View.inflate(context, R.layout.layout_window_mark, null)
+                windowView.tvMarkTitle.text = title
+                infoWindow = InfoWindow(
+                    windowView,
+                    LatLng(latitude, longitude),
+                    DensityUtils.dp2px(context, -15f)
+                )
+                windowList.add(infoWindow!!)
+                house_near_MapView?.map?.showInfoWindows(windowList)
+                true
+            }
+            house_near_MapView?.map?.clear()
+            poiInfos?.forEach { item ->
+                var location = item.location
+                val optons = MarkerOptions()
+                val latLng = LatLng(location?.latitude!!, location?.longitude!!)
+                val bundle = Bundle()
+                bundle.putString("marker", item.name)
+                bundle.putDouble("latitude", location?.latitude!!)
+                bundle.putDouble("longitude", location?.longitude!!)
+
+                val locView = View.inflate(context!!,R.layout.layout_loc,null)
+                val bitmap = BitmapDescriptorFactory
+                    .fromView(locView)
+                optons.position(latLng)
+                    .extraInfo(bundle)
+                    .icon(bitmap)
+                var addOverlay = house_near_MapView?.map?.addOverlay(optons)
+            }
+        }
+
     }
 
     private fun initAdapter() {
-        mListenerList.add(HouseNearStatusFragment())
-        mListenerList.add(HouseNearStatusFragment())
-        mListenerList.add(HouseNearStatusFragment())
-        mListenerList.add(HouseNearStatusFragment())
-        mListenerList.add(HouseNearStatusFragment())
-        fragments.add(mListenerList[0] as Fragment)
-        fragments.add(mListenerList[1] as Fragment)
-        fragments.add(mListenerList[2] as Fragment)
-        fragments.add(mListenerList[3] as Fragment)
-        fragments.add(mListenerList[4] as Fragment)
+        searchKeyWords.forEachIndexed { index, item ->
+            fragments.add(
+                getFragmentWithArg(
+                    HouseNearStatusFragment(),
+                    HomeConstant.KEY_LATITUDE to mapInfo?.latitude,
+                    HomeConstant.KEY_LONGITUDE to mapInfo?.longitude,
+                    HomeConstant.KEY_TITLE to item,
+                    HomeConstant.KEY_INDEX to index
+                )
+            )
+        }
         house_near_viewPager.offscreenPageLimit = 1
         house_near_tabLayout.setupWithViewPager(house_near_viewPager)
         house_near_viewPager.adapter =
             HouseNearFragmentAdapter(childFragmentManager, titles, fragments)
     }
 
-    private fun initView() {
+    private fun initMap() {
         if (mapInfo?.latitude == null || mapInfo?.longitude == null) {
-//           Log.i()
             return
         }
-
-
         var mBaiduMap = house_near_MapView?.map
         mBaiduMap?.mapType = BaiduMap.MAP_TYPE_NORMAL
 
@@ -87,117 +159,15 @@ class HouseNearFragment : BaseFragment() {
         //改变地图状态
         mBaiduMap?.setMapStatus(mMapStatusUpdate)
         house_near_MapView?.removeViewAt(2)
-        mPoiSearch = PoiSearch.newInstance()
-        mPoiSearch?.setOnGetPoiSearchResultListener(listener)
-        mPoiSearch?.searchNearby(
-            PoiNearbySearchOption()
-                .location(cenpt)
-                .radius(5000)
-                .pageCapacity(20)
-                .keyword(searchKeyWords[0])
-                .pageNum(0)
-        )
-        house_near_viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-
-            }
-
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-
-            }
-
-            override fun onPageSelected(position: Int) {
-                mPoiSearch?.searchNearby(
-                    PoiNearbySearchOption()
-                        .location(cenpt)
-                        .radius(5000)
-                        .keyword(searchKeyWords[position])
-                        .pageCapacity(20)
-                        .pageNum(0)
-                )
-            }
-        })
     }
 
     override fun onDestroy() {
-        mPoiSearch?.destroy();
-        mListenerList?.clear()
+        try {
+            mPoiSearch?.destroy();
+            Bus.unregister(this)
+        } catch (e: Exception) {
+        }
         super.onDestroy()
     }
 
-    var infoWindow:InfoWindow?=null
-    var listener: OnGetPoiSearchResultListener = object : OnGetPoiSearchResultListener {
-
-        override fun onGetPoiResult(poiResult: PoiResult) {
-            mListenerList.forEach { listener ->
-                listener?.onGetPoiResult(poiResult)
-            }
-            val optons = MarkerOptions()
-            val bitmap = BitmapDescriptorFactory
-                .fromResource(R.drawable.location)
-            val bundle = Bundle()
-            bundle.putString("marker",mapInfo.villageName)
-            bundle.putDouble("latitude",mapInfo?.latitude!!)
-            bundle.putDouble("longitude",mapInfo?.longitude!!)
-            optons.position(cenpt)
-                .extraInfo(bundle)
-                .icon(bitmap)
-            var addOverlay = house_near_MapView?.map?.addOverlay(optons)
-
-            house_near_MapView?.map?.setOnMarkerClickListener { marker ->
-                house_near_MapView?.map?.hideInfoWindow()
-                val extraInfo = marker.extraInfo
-                var title = extraInfo.getString("marker")
-                var latitude = extraInfo.getDouble("latitude")
-                var longitude = extraInfo.getDouble("longitude")
-                val windowList = mutableListOf<InfoWindow>()
-                val windowView = View.inflate(context,R.layout.layout_window_mark,null)
-                windowView.tvMarkTitle.text = title
-                infoWindow = InfoWindow(windowView, LatLng(latitude,longitude),DensityUtils.dp2px(context,-15f))
-                windowList.add(infoWindow!!)
-                house_near_MapView?.map?.showInfoWindows(windowList)
-                true
-            }
-            var allPoi = poiResult.allPoi
-            house_near_MapView?.map?.clear()
-            allPoi?.forEach { item ->
-                var location = item.location
-                val optons = MarkerOptions()
-                val latLng = LatLng(location?.latitude!!, location?.longitude!!)
-                val bundle = Bundle()
-                bundle.putString("marker",item.name)
-                bundle.putDouble("latitude",location?.latitude!!)
-                bundle.putDouble("longitude",location?.longitude!!)
-                val bitmap = BitmapDescriptorFactory
-                    .fromResource(R.drawable.location)
-                optons.position(latLng)
-                    .extraInfo(bundle)
-                    .icon(bitmap)
-                var addOverlay = house_near_MapView?.map?.addOverlay(optons)
-            }
-        }
-
-        override fun onGetPoiDetailResult(poiDetailSearchResult: PoiDetailSearchResult) {
-            mListenerList.forEach { listener ->
-                listener?.onGetPoiDetailResult(poiDetailSearchResult)
-            }
-        }
-
-        override fun onGetPoiIndoorResult(poiIndoorResult: PoiIndoorResult) {
-            mListenerList.forEach { listener ->
-                listener?.onGetPoiIndoorResult(poiIndoorResult)
-            }
-        }
-
-        //废弃
-        override fun onGetPoiDetailResult(poiDetailResult: PoiDetailResult) {
-            mListenerList.forEach { listener ->
-                listener?.onGetPoiDetailResult(poiDetailResult)
-            }
-        }
-    }
 }

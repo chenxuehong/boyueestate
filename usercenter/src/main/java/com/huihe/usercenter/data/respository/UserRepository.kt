@@ -67,4 +67,9 @@ class UserRepository @Inject constructor(){
         return RetrofitFactory.instance.create(UserApi::class.java)
             .setUserInfo(userInfoReq)
     }
+
+    fun setPushInfo(uid: String?, registrationId: String):  Observable<BaseResp<SetPushRep?>> {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .setPushInfo(SetPushReq(uid,registrationId))
+    }
 }

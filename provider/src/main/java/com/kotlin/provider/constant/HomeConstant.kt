@@ -15,5 +15,9 @@ class HomeConstant {
         const val KEY_OWNER_NAME = "ownerName"
         const val KEY_VILLAGE_NAME = "villageName"
         const val KEY_SCHOOL_ID = "schoolId"
+        const val KEY_LATITUDE = "latitude"
+        const val KEY_LONGITUDE = "longitude"
+        const val KEY_TITLE = "title"
+        const val KEY_INDEX = "index"
     }
 }

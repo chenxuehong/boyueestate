@@ -26,4 +26,5 @@ interface UserService {
     fun getSystemConfig():Observable<SystemConfigRep?>
     fun getUploadToken(): Observable<String?>
     fun setUserInfo(userInfoReq: SetUserInfoReq):  Observable<SetUserInfoRep?>
+    fun setPushInfo(uid: String?, registrationId: String): Observable<SetPushRep?>
 }

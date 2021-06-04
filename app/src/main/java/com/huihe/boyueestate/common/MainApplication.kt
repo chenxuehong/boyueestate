@@ -17,10 +17,7 @@ import com.kotlin.base.common.AppManager
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.event.LoginEvent
 import com.kotlin.base.utils.AppPrefsUtils
-import com.kotlin.provider.event.ChatEvent
-import com.kotlin.provider.event.ErrorEntity
-import com.kotlin.provider.event.MessageLoginEvent
-import com.kotlin.provider.event.ShareEvent
+import com.kotlin.provider.event.*
 import com.kotlin.provider.router.RouterPath
 import com.kotlin.provider.utils.UserPrefsUtils
 import com.mob.MobSDK
@@ -29,6 +26,7 @@ import com.tencent.qcloud.tim.uikit.TUIKit
 import com.tencent.qcloud.tim.uikit.base.IMApplication
 import com.tencent.qcloud.tim.uikit.base.IUIKitCallBack
 import com.tencent.qcloud.tim.uikit.utils.PopWindowUtil
+import com.tencent.qcloud.tim.uikit.utils.ThirdPushTokenMgr
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
@@ -59,6 +57,10 @@ class MainApplication : IMApplication() {
         Bus.observe<ChatEvent>()
             .subscribe {
                 chat(it)
+            }.registerInBus(this)
+        Bus.observe<PushIMEvent>()
+            .subscribe {
+                ThirdPushTokenMgr.getInstance().setPushTokenToTIM()
             }.registerInBus(this)
         //在使用SDK各组件之前初始化context信息，传入ApplicationContext
         SDKInitializer.initialize(this);

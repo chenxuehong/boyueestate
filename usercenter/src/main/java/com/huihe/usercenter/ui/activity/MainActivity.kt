@@ -9,18 +9,30 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.huihe.usercenter.R
+import com.huihe.usercenter.data.protocol.SetPushRep
+import com.huihe.usercenter.injection.component.DaggerUserComponent
+import com.huihe.usercenter.injection.module.UserModule
+import com.huihe.usercenter.presenter.MainPresenter
+import com.huihe.usercenter.presenter.view.MainView
 import com.huihe.usercenter.ui.fragment.MeFragment
 import com.kotlin.base.common.AppManager
+import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ui.activity.BaseActivity
+import com.kotlin.base.ui.activity.BaseMvpActivity
+import com.kotlin.base.utils.AppPrefsUtils
+import com.kotlin.base.utils.LogUtils
+import com.kotlin.provider.event.CloseMainActvityEvent
 import com.kotlin.provider.event.MessageBadgeEvent
 import com.kotlin.provider.router.RouterPath
+import com.kotlin.provider.utils.UserPrefsUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 import java.util.*
 
 @Route(path = RouterPath.UserCenter.PATH_MAIN)
-class MainActivity : BaseActivity() {
+class MainActivity : BaseMvpActivity<MainPresenter>(),MainView {
 
+    val TAG:String = MainActivity::javaClass.name
     private var pressTime: Long = 0
     //Fragment 栈管理
     private val mStack = Stack<Fragment>()
@@ -52,6 +64,13 @@ class MainActivity : BaseActivity() {
         initBottomNav()
         changeFragment(0)
         initObserve()
+        initData()
+    }
+
+    override fun injectComponent() {
+        DaggerUserComponent.builder().activityComponent(mActivityComponent).userModule(UserModule())
+            .build().inject(this)
+        mPresenter.mView = this
     }
 
     /*
@@ -114,6 +133,24 @@ class MainActivity : BaseActivity() {
                     mBottomNavBar.checkMsgBadge(t.isVisible)
                 }
             }.registerInBus(this)
+        Bus.observe<CloseMainActvityEvent>()
+            .subscribe { t: CloseMainActvityEvent ->
+                run {
+                    changeFragment(0)
+                }
+            }.registerInBus(this)
+    }
+
+    private fun initData() {
+        var userInfo = UserPrefsUtils.getUserInfo()
+        mPresenter.setPushInfo(
+            userInfo?.uid,
+            AppPrefsUtils.getString(BaseConstant.KEY_SP_REGISTRATIONID)
+        )
+    }
+
+    override fun onPushSuccess(t: SetPushRep?) {
+        LogUtils.i(TAG,"onPushSuccess")
     }
 
     /*
@@ -136,4 +173,6 @@ class MainActivity : BaseActivity() {
             AppManager.instance.exitApp(this)
         }
     }
+
+
 }
