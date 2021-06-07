@@ -222,4 +222,6 @@
     <string name="bargainPriceUsers">推荐人</string>
     <string name="bargainPriceUsers_input">请选择 推荐人</string>
 
+    <string name="houseDetailURL">%s%s/uid/%s/ip/%s</string>
+
 </resources>

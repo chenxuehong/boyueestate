@@ -31,6 +31,8 @@ import com.huihe.module_home.ui.adapter.MoreRvAdapter
 import com.huihe.module_home.ui.adapter.TelRvAdapter
 import com.jph.takephoto.model.TResult
 import com.kennyc.view.MultiStateView
+import com.kotlin.base.common.BaseConstant
+import com.kotlin.base.common.BaseConstant.Companion.HouseDetailURL
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ext.viewPhoto
@@ -225,53 +227,41 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
     private fun showShare() {
         var decorView = activity?.window?.decorView
         val contentView = View.inflate(context, R.layout.pop_dialog_share, null)
+        var title = "${houseDetail?.villageInfoResponse?.name ?: ""}"
+        var content = "推荐好房"
+        var imagePath = ""
+        var imgUrl = getImgUrl()
+        var shareUrl = getShareUrl()
         contentView.pop_dialog_share_fl_Wechat.onClick {
             if (mShareCustomPopWindow != null) {
                 mShareCustomPopWindow?.dissmiss()
             }
-            if (houseDetail != null) {
-                var imagUrls = houseDetail?.imagUrls ?: mutableListOf()
-                var imgUrl = ""
-                if (imagUrls.size > 0) {
-                    imgUrl = imagUrls[0].url ?: ""
-                }
-                var userInfo = UserPrefsUtils.getUserInfo()
-                Bus.send(
-                    ShareEvent(
-                        0,
-                        "${houseDetail?.villageInfoResponse?.name ?: ""}",
-                        "推荐好房",
-                        "",
-                        imgUrl,
-                        "http://billion.housevip.cn/#/house/${houseDetail?.id ?: ""}/uid/${userInfo?.uid?:""}/ip/1",
-                        ""
-                    )
+            Bus.send(
+                ShareEvent(
+                    0,
+                    title,
+                    content,
+                    imagePath,
+                    imgUrl,
+                    shareUrl,
+                    ""
                 )
-            }
+            )
         }
         contentView.pop_dialog_share_fl_wechatmoments.onClick {
             if (mShareCustomPopWindow != null)
                 mShareCustomPopWindow?.dissmiss()
-            if (houseDetail != null) {
-                var imagUrls = houseDetail?.imagUrls ?: mutableListOf()
-                var imgUrl = ""
-                if (imagUrls.size > 0) {
-                    imgUrl = imagUrls[0].url ?: ""
-                }
-                var userInfo = UserPrefsUtils.getUserInfo()
-                Bus.send(
-                    ShareEvent(
-                        1,
-                        "${houseDetail?.villageInfoResponse?.name ?: ""}-${houseDetail?.building
-                            ?: ""}-${houseDetail?.hNum ?: ""}",
-                        "",
-                        "",
-                        imgUrl,
-                        "http://billion.housevip.cn/#/house/${houseDetail?.id ?: ""}/uid/${userInfo?.uid?:""}/ip/1",
-                        ""
-                    )
+            Bus.send(
+                ShareEvent(
+                    1,
+                    title,
+                    content,
+                    imagePath,
+                    imgUrl,
+                    shareUrl,
+                    ""
                 )
-            }
+            )
         }
         contentView.pop_dialog_share_tv_cancel.onClick {
             if (mShareCustomPopWindow != null)
@@ -286,6 +276,28 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
             .setOutsideTouchable(true)
             .create().showAtLocation(decorView, Gravity.BOTTOM, 0, 0)
 
+    }
+
+    private fun getShareUrl(): String? {
+        var userInfo = UserPrefsUtils.getUserInfo()
+        return String.format(resources.getString(R.string.houseDetailURL),
+            BaseConstant.HouseDetail_BASE_URL,
+            houseDetail?.id,
+            userInfo?.uid?:"",
+            BaseConstant.ip
+        )
+    }
+
+    private fun getImgUrl():String {
+        if (houseDetail != null) {
+            var imagUrls = houseDetail?.imagUrls ?: mutableListOf()
+            var imgUrl = ""
+            if (imagUrls.size > 0) {
+                imgUrl = imagUrls[0].url ?: ""
+            }
+            return imgUrl
+        }
+        return ""
     }
 
     private fun showSetImageUerDialog() {

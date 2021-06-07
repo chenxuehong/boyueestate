@@ -11,6 +11,10 @@ class BaseConstant{
         const val SERVER_ADDRESS_DEBUG = "http://estate.ccp520.com/api/v1/"
         // 伯约
         const val SERVER_ADDRESS = "http://106.14.197.40/api/v1/"
+        // 分享
+        const val HouseDetail_BASE_URL = "http://billion.housevip.cn/#/house/"
+        const val ip = "1"
+
         //SP表名
         const val TABLE_PREFS = "estate"
         //Token Key
