@@ -36,7 +36,6 @@ class HouseNearFragment : BaseFragment() {
     val searchKeyWords: MutableList<String> = mutableListOf("公交", "教育", "医疗", "生活", "小区")
     var infoWindow: InfoWindow? = null
     val fragments: MutableList<Fragment> = mutableListOf()
-    var mPoiSearch: PoiSearch? = null
     var cenpt: LatLng? = null
     var mapPoiInfo = HashMap<Int,List<PoiInfo>>()
     var mCurIndex = 0
@@ -181,21 +180,24 @@ class HouseNearFragment : BaseFragment() {
         house_near_MapView?.removeViewAt(2)
     }
 
-    override fun onStop() {
+    override fun onPause() {
         house_near_MapView?.onPause()
-        super.onStop()
+        super.onPause()
     }
 
-    override fun onStart() {
+    override fun onResume() {
         house_near_MapView?.onResume()
-        super.onStart()
+        super.onResume()
     }
 
     override fun onDestroy() {
         try {
-            mPoiSearch?.destroy()
-            mapPoiInfo?.clear()
-            house_near_MapView?.onDestroy()
+            if(mapPoiInfo!=null){
+                mapPoiInfo?.clear()
+            }
+            if(house_near_MapView!=null){
+                house_near_MapView?.onDestroy()
+            }
             Bus.unregister(this)
         } catch (e: Exception) {
         }

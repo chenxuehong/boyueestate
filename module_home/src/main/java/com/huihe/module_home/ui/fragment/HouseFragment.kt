@@ -84,6 +84,12 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
         isHouseSelect = arguments?.getBoolean(HomeConstant.KEY_IS_HOUSE_SELECT, false) ?: false
         var villageName = arguments?.getString(HomeConstant.KEY_VILLAGE_NAME)
         var schoolId = arguments?.getString(HomeConstant.KEY_SCHOOL_ID)
+        var villageIdsStr = arguments?.getString(HomeConstant.KEY_VILLAGE_IDS)?:""
+        villageIds = if (TextUtils.isEmpty(villageIdsStr)){
+            null
+        }else{
+            villageIdsStr.split(",").toMutableList()
+        }
         mSearchReq = SearchReq()
         if (!TextUtils.isEmpty(villageName)) {
             mSearchReq.villageName = villageName

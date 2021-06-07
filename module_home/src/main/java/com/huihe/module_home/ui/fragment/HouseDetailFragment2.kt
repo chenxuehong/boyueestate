@@ -32,7 +32,6 @@ import com.huihe.module_home.ui.adapter.TelRvAdapter
 import com.jph.takephoto.model.TResult
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.common.BaseConstant
-import com.kotlin.base.common.BaseConstant.Companion.HouseDetailURL
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ext.viewPhoto

@@ -15,6 +15,7 @@ object RouterPath{
             const val PATH_COMMUNITY_MANAGER = "/userCenter/CommunityManager"
             const val PATH_DISTRICT = "/userCenter/District" // 学区
             const val PATH_ADDRESSBOOK = "/userCenter/AddressBook"
+            const val PATH_SEARCHHOUSELIST_ACTIVITY = "/userCenter/SearchHouseListActivity"
         }
     }
     //首页模块
