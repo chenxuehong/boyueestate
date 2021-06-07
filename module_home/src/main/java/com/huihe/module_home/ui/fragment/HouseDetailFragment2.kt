@@ -42,6 +42,7 @@ import com.kotlin.base.utils.YuanFenConverter
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.event.OwnerInfoPutEvent
 import com.kotlin.provider.event.ShareEvent
+import com.kotlin.provider.utils.UserPrefsUtils
 import com.qiniu.android.storage.UploadManager
 import com.youth.banner.Banner
 import com.youth.banner.config.IndicatorConfig
@@ -234,6 +235,7 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
                 if (imagUrls.size > 0) {
                     imgUrl = imagUrls[0].url ?: ""
                 }
+                var userInfo = UserPrefsUtils.getUserInfo()
                 Bus.send(
                     ShareEvent(
                         0,
@@ -241,7 +243,7 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
                         "推荐好房",
                         "",
                         imgUrl,
-                        "http://billion.housevip.cn/#/house/${houseDetail?.id ?: ""}/uid/1/ip/1",
+                        "http://billion.housevip.cn/#/house/${houseDetail?.id ?: ""}/uid/${userInfo?.uid?:""}/ip/1",
                         ""
                     )
                 )
@@ -256,6 +258,7 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
                 if (imagUrls.size > 0) {
                     imgUrl = imagUrls[0].url ?: ""
                 }
+                var userInfo = UserPrefsUtils.getUserInfo()
                 Bus.send(
                     ShareEvent(
                         1,
@@ -264,7 +267,7 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
                         "",
                         "",
                         imgUrl,
-                        "http://billion.housevip.cn/#/house/${houseDetail?.id ?: ""}/uid/1/ip/1",
+                        "http://billion.housevip.cn/#/house/${houseDetail?.id ?: ""}/uid/${userInfo?.uid?:""}/ip/1",
                         ""
                     )
                 )
@@ -532,7 +535,7 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
             startActivity<HouseTakeLookRecordActivity>(HomeConstant.KEY_CODE to houseDetail?.houseCode)
         }
         tvHouseDetailLog.onClick {
-            startActivity<HouseTakeLookRecordActivity>(HomeConstant.KEY_HOUSE_CODE to houseDetail?.houseCode)
+            startActivity<HouseLogHomeActivity>(HomeConstant.KEY_HOUSE_CODE to houseDetail?.houseCode)
         }
     }
 
