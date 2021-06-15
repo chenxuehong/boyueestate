@@ -2,10 +2,13 @@ package com.huihe.module_home.ui.fragment
 
 import android.graphics.Point
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.alibaba.android.arouter.launcher.ARouter
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
 import com.baidu.mapapi.search.district.DistrictSearch
@@ -22,7 +25,9 @@ import com.huihe.module_home.ui.widget.ISearchResultListener
 import com.huihe.module_home.ui.widget.SearchResultViewController
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.utils.LogUtils
+import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.data.protocol.District
+import com.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.fragment_findhousebymap.*
 import kotlinx.android.synthetic.main.layout_area_num.view.*
 import kotlinx.android.synthetic.main.layout_house_map.*
@@ -30,6 +35,44 @@ import kotlinx.android.synthetic.main.layout_house_map.*
 
 class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapView,
     ISearchResultListener {
+
+    val WHAT_ADDOVERLAY = 100
+
+    internal var mHandler: Handler = object : Handler() {
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            var item: MapAreaRep = msg.obj as MapAreaRep
+            //圆心位置
+            val center = LatLng(item?.latitude!!, item?.longitude!!)
+            //构建Marker图标
+            var contentView: View
+            when (type) {
+                2 -> {
+                    contentView = View.inflate(context, R.layout.layout_dis_num, null)
+                    contentView.tvAreaTitle.text = "${item?.name ?: ""}(${item?.num ?: ""})"
+                }
+                else -> {
+                    contentView = View.inflate(context, R.layout.layout_area_num, null)
+                    contentView.tvAreaTitle.text = item?.name ?: ""
+                    contentView.tvAreaNum.text = "${item?.num ?: ""}套"
+                }
+            }
+
+            val bitmap = BitmapDescriptorFactory.fromView(contentView)
+            //构建MarkerOption，用于在地图上添加Marker
+            val option: OverlayOptions = MarkerOptions()
+                .position(center)
+                .icon(bitmap)
+            //在地图上显示文本
+            var addOverlay = house_map_MapView?.map?.addOverlay(option)
+            // 携带参数
+            if (type == 2) {
+                val bundle = Bundle()
+                bundle.putString(HomeConstant.KEY_VILLAGE_IDS, item?.id ?: "")
+                addOverlay?.extraInfo = bundle
+            }
+        }
+    }
 
     val TAG = HouseMapFragment::class.java.simpleName
     private lateinit var mSearchResultViewController: SearchResultViewController
@@ -150,24 +193,30 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
         house_map_MapView?.removeViewAt(2)
         var mBaiduMap = house_map_MapView?.map
         mBaiduMap?.mapType = BaiduMap.MAP_TYPE_NORMAL
-        var mDistrictSearch = DistrictSearch.newInstance();
-        mDistrictSearch.setOnDistrictSearchListener(mDistrictSearchlistener);
+        mDistrictSearch = DistrictSearch.newInstance()
+        mDistrictSearch?.setOnDistrictSearchListener(mDistrictSearchlistener)
         house_map_MapView?.map?.setOnMapLoadedCallback {
             // 左上
-            mDistrictSearch.searchDistrict(
+            mDistrictSearch?.searchDistrict(
                 DistrictSearchOption()
                     .cityName("上海市")
             )
         }
         house_map_MapView?.map?.setOnMarkerClickListener {
             curZoomLevel = when (type) {
-                1 -> {
+                0 -> {
                     14.7f
                 }
-                3 -> {
+                1 -> {
                     18f
                 }
                 else -> {
+                    val extraInfo: Bundle = it.extraInfo
+                    val villageIds = extraInfo.getString(HomeConstant.KEY_VILLAGE_IDS) ?: ""
+                    ARouter.getInstance()
+                        .build(RouterPath.UserCenter.PATH_SEARCHHOUSELIST_ACTIVITY)
+                        .withString(HomeConstant.KEY_VILLAGE_IDS, villageIds)
+                        .navigation()
                     18f
                 }
             }
@@ -268,27 +317,27 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
         )
     }
 
-    override fun onGetHouseMapResult(t: MutableList<MapAreaRep>?) {
+    override fun onGetHouseMapResult(list: MutableList<MapAreaRep>?) {
         try {
             house_map_MapView?.map?.clear()
-            t?.forEach { item ->
-                //圆心位置
-                val center = LatLng(item?.latitude!!, item?.longitude!!)
-                //构建Marker图标
-                val contentView = View.inflate(context, R.layout.layout_area_num, null)
-                contentView.tvAreaTitle.text = item?.name ?: ""
-                contentView.tvAreaNum.text = "${item?.num ?: ""}套"
-                val bitmap = BitmapDescriptorFactory.fromView(contentView)
-                //构建MarkerOption，用于在地图上添加Marker
-                val option: OverlayOptions = MarkerOptions()
-                    .position(center)
-                    .icon(bitmap)
-                //在地图上显示文本
-                var addOverlay = house_map_MapView?.map?.addOverlay(option)
+            mHandler.removeMessages(WHAT_ADDOVERLAY)
+            list?.forEach { item ->
+                val msg = Message.obtain()
+                msg.what = WHAT_ADDOVERLAY
+                msg.obj = item
+                mHandler.sendMessage(msg)
             }
         } catch (e: Exception) {
             LogUtils.i(TAG, e.toString())
         }
+    }
+
+    private fun getData(t: MutableList<MapAreaRep>?, maxCount: Int): MutableList<MapAreaRep> {
+        var data = t ?: mutableListOf()
+        if (data.size > maxCount) {
+            return data.subList(0, maxCount)
+        }
+        return data
     }
 
     override fun onGetAreaBeanListResult(list: MutableList<District>?) {
@@ -359,18 +408,22 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
     }
 
     override fun onResume() {
-        super.onResume()
         house_map_MapView?.onResume()
+        super.onResume()
     }
 
     override fun onPause() {
-        super.onPause()
         house_map_MapView?.onPause()
+        super.onPause()
     }
 
     override fun onDestroy() {
-        mDistrictSearch?.destroy()
-        house_map_MapView?.onDestroy()
+        try {
+            mDistrictSearch?.destroy()
+            mHandler.removeMessages(WHAT_ADDOVERLAY)
+            house_map_MapView?.onDestroy()
+        } catch (e: Exception) {
+        }
         super.onDestroy()
     }
 }

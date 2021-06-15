@@ -22,11 +22,6 @@ import androidx.fragment.app.FragmentManager;
 
 import com.tencent.imsdk.v2.V2TIMConversation;
 import com.tencent.imsdk.v2.V2TIMGroupAtInfo;
-import com.tencent.liteav.trtcvideocalldemo.ui.SelectContactActivity;
-import com.tencent.liteav.login.UserModel;
-import com.tencent.liteav.model.ITRTCAVCall;
-import com.tencent.liteav.trtcaudiocalldemo.ui.TRTCAudioCallActivity;
-import com.tencent.liteav.trtcvideocalldemo.ui.TRTCVideoCallActivity;
 import com.tencent.qcloud.tim.uikit.R;
 import com.tencent.qcloud.tim.uikit.TUIKit;
 import com.tencent.qcloud.tim.uikit.base.IUIKitCallBack;
@@ -436,17 +431,17 @@ public class InputLayout extends InputLayoutUI implements View.OnClickListener, 
             TUIKitLog.i(TAG, "startAudioCall checkPermission failed");
             return;
         }
-        if (mChatLayout.getChatInfo().getType() == V2TIMConversation.V2TIM_C2C) {
-            List<UserModel> contactList = new ArrayList<>();
-            UserModel model = new UserModel();
-            model.userId = mChatLayout.getChatInfo().getId();
-            model.userName = mChatLayout.getChatInfo().getChatName();
-            model.userSig = TUIKitConfigs.getConfigs().getGeneralConfig().getUserSig();
-            contactList.add(model);
-            TRTCAudioCallActivity.startCallSomeone(mActivity.getApplicationContext(), contactList);
-        } else {
-            SelectContactActivity.start(mActivity.getApplicationContext(), mChatLayout.getChatInfo().getId(), ITRTCAVCall.TYPE_AUDIO_CALL);
-        }
+//        if (mChatLayout.getChatInfo().getType() == V2TIMConversation.V2TIM_C2C) {
+//            List<UserModel> contactList = new ArrayList<>();
+//            UserModel model = new UserModel();
+//            model.userId = mChatLayout.getChatInfo().getId();
+//            model.userName = mChatLayout.getChatInfo().getChatName();
+//            model.userSig = TUIKitConfigs.getConfigs().getGeneralConfig().getUserSig();
+//            contactList.add(model);
+//            TRTCAudioCallActivity.startCallSomeone(mActivity.getApplicationContext(), contactList);
+//        } else {
+//            SelectContactActivity.start(mActivity.getApplicationContext(), mChatLayout.getChatInfo().getId(), ITRTCAVCall.TYPE_AUDIO_CALL);
+//        }
     }
 
     @Override
@@ -456,17 +451,17 @@ public class InputLayout extends InputLayoutUI implements View.OnClickListener, 
             TUIKitLog.i(TAG, "startVideoCall checkPermission failed");
             return;
         }
-        if (mChatLayout.getChatInfo().getType() == V2TIMConversation.V2TIM_C2C) {
-            List<UserModel> contactList = new ArrayList<>();
-            UserModel model = new UserModel();
-            model.userId = mChatLayout.getChatInfo().getId();
-            model.userName = mChatLayout.getChatInfo().getChatName();
-            model.userSig = TUIKitConfigs.getConfigs().getGeneralConfig().getUserSig();
-            contactList.add(model);
-            TRTCVideoCallActivity.startCallSomeone(mActivity.getApplicationContext(), contactList);
-        } else {
-            SelectContactActivity.start(mActivity.getApplicationContext(), mChatLayout.getChatInfo().getId(), ITRTCAVCall.TYPE_VIDEO_CALL);
-        }
+//        if (mChatLayout.getChatInfo().getType() == V2TIMConversation.V2TIM_C2C) {
+//            List<UserModel> contactList = new ArrayList<>();
+//            UserModel model = new UserModel();
+//            model.userId = mChatLayout.getChatInfo().getId();
+//            model.userName = mChatLayout.getChatInfo().getChatName();
+//            model.userSig = TUIKitConfigs.getConfigs().getGeneralConfig().getUserSig();
+//            contactList.add(model);
+//            TRTCVideoCallActivity.startCallSomeone(mActivity.getApplicationContext(), contactList);
+//        } else {
+//            SelectContactActivity.start(mActivity.getApplicationContext(), mChatLayout.getChatInfo().getId(), ITRTCAVCall.TYPE_VIDEO_CALL);
+//        }
     }
 
     @Override

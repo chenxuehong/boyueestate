@@ -1,6 +1,7 @@
 package com.huihe.usercenter.ui.activity
 
 import android.widget.FrameLayout
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.huihe.usercenter.R
 import com.kotlin.base.ui.activity.BaseTitleActivity
@@ -8,6 +9,7 @@ import com.kotlin.base.ui.fragment.BaseFragment
 import com.kotlin.base.widgets.HeaderBar
 import com.kotlin.provider.router.RouterPath
 
+@Route(path = RouterPath.UserCenter.PATH_SEARCHHOUSELIST_ACTIVITY)
 class SearchHouseListActivity : BaseTitleActivity(){
 
     private val mHouseFragment by lazy {

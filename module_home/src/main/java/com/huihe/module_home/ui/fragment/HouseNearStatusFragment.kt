@@ -96,4 +96,11 @@ class HouseNearStatusFragment : BaseFragment() {
             adapter = houseNearRvAdapter
         }
     }
+
+    override fun onDestroy() {
+        if (mPoiSearch!=null){
+            mPoiSearch?.destroy()
+        }
+        super.onDestroy()
+    }
 }

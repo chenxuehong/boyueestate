@@ -20,8 +20,6 @@ import com.tencent.imsdk.v2.V2TIMMessage;
 import com.tencent.imsdk.v2.V2TIMSoundElem;
 import com.tencent.imsdk.v2.V2TIMTextElem;
 import com.tencent.imsdk.v2.V2TIMVideoElem;
-import com.tencent.liteav.model.CallModel;
-import com.tencent.liteav.model.LiveModel;
 import com.tencent.qcloud.tim.uikit.R;
 import com.tencent.qcloud.tim.uikit.TUIKit;
 import com.tencent.qcloud.tim.uikit.utils.DateTimeUtil;
@@ -661,94 +659,94 @@ public class MessageInfoUtil {
         return msgInfo;
     }
 
-    private static void liveMessageInfo(V2TIMMessage timMessage, Context context, MessageInfo msgInfo, boolean isGroup, String data, Gson gson) {
-        String content;
-        MessageCustom messageCustom = null;
-        try {
-            messageCustom = gson.fromJson(data, MessageCustom.class);
-            if (!TextUtils.isEmpty(messageCustom.businessID) && messageCustom.businessID.equals(MessageCustom.BUSINESS_ID_GROUP_CREATE)) {
-                msgInfo.setMsgType(MessageInfo.MSG_TYPE_GROUP_CREATE);
-                String message = TUIKitConstants.covert2HTMLString(messageCustom.opUser) + messageCustom.content;
-                msgInfo.setExtra(message);
-            } else if (!TextUtils.isEmpty(messageCustom.businessID) && messageCustom.businessID.equals(MessageCustom.BUSINESS_ID_LIVE_GROUP)) {
-                Gson liveGson = new Gson();
-                LiveMessageInfo liveMessageInfo = liveGson.fromJson(data, LiveMessageInfo.class);
-                String anchorName;
-                if (!TextUtils.isEmpty(liveMessageInfo.anchorName)) {
-                    anchorName = liveMessageInfo.anchorName;
-                } else {
-                    anchorName = liveMessageInfo.roomName;
-                }
-                content = anchorName + TUIKit.getAppContext().getString(R.string.live_room);
-                msgInfo.setExtra(content);
-            } else if (LiveModel.isLiveRoomSignal(messageCustom.data)) {
-                LiveModel liveModel = LiveModel.convert2LiveData(timMessage);
-                content = liveModel.message;
-                msgInfo.setMsgType(MessageInfo.MSG_TYPE_TEXT);
-                msgInfo.setExtra(content);
-            } else {
-                CallModel callModel = CallModel.convert2VideoCallData(timMessage);
-                if (callModel != null) {
-                    String senderShowName = timMessage.getSender();
-                    if (!TextUtils.isEmpty(timMessage.getNameCard())) {
-                        senderShowName = timMessage.getNameCard();
-                    } else if (!TextUtils.isEmpty(timMessage.getFriendRemark())) {
-                        senderShowName = timMessage.getFriendRemark();
-                    } else if (!TextUtils.isEmpty(timMessage.getNickName())) {
-                        senderShowName = timMessage.getNickName();
-                    }
-                    switch (callModel.action) {
-                        case CallModel.VIDEO_CALL_ACTION_DIALING:
-                            content = isGroup ? ("\"" + senderShowName + "\"" + context.getString(R.string.start_group_call)) : (context.getString(R.string.start_call));
-                            break;
-                        case CallModel.VIDEO_CALL_ACTION_SPONSOR_CANCEL:
-                            content = isGroup ? context.getString(R.string.cancle_group_call) : context.getString(R.string.cancle_call);
-                            break;
-                        case CallModel.VIDEO_CALL_ACTION_LINE_BUSY:
-                            content = isGroup ? ("\"" + senderShowName + "\"" + context.getString(R.string.line_busy)) : context.getString(R.string.other_line_busy);
-                            break;
-                        case CallModel.VIDEO_CALL_ACTION_REJECT:
-                            content = isGroup ? ("\"" + senderShowName + "\"" + context.getString(R.string.reject_group_calls)) : context.getString(R.string.reject_calls);
-                            break;
-                        case CallModel.VIDEO_CALL_ACTION_SPONSOR_TIMEOUT:
-                            if (isGroup && callModel.invitedList != null && callModel.invitedList.size() == 1
-                                    && callModel.invitedList.get(0).equals(timMessage.getSender())) {
-                                content = "\"" + senderShowName + "\"" + context.getString(R.string.no_response_call);
-                            } else {
-                                StringBuilder inviteeShowStringBuilder = new StringBuilder();
-                                if (callModel.invitedList != null && callModel.invitedList.size() > 0) {
-                                    for (String invitee : callModel.invitedList) {
-                                        inviteeShowStringBuilder.append(invitee).append("、");
-                                    }
-                                    if (inviteeShowStringBuilder.length() > 0) {
-                                        inviteeShowStringBuilder.delete(inviteeShowStringBuilder.length() - 1, inviteeShowStringBuilder.length());
-                                    }
-                                }
-                                content = isGroup ? ("\"" + inviteeShowStringBuilder.toString() + "\"" + context.getString(R.string.no_response_call)) : context.getString(R.string.no_response_call);
-                            }
-                            break;
-                        case CallModel.VIDEO_CALL_ACTION_ACCEPT:
-                            content = isGroup ? ("\"" + senderShowName + "\"" + context.getString(R.string.accept_call)) : context.getString(R.string.accept_call);
-                            break;
-                        case CallModel.VIDEO_CALL_ACTION_HANGUP:
-                            content = isGroup ? context.getString(R.string.stop_group_call) : context.getString(R.string.stop_call_tip) + DateTimeUtil.formatSecondsTo00(callModel.duration);
-                            break;
-                        default:
-                            content = context.getString(R.string.invalid_command);
-                            break;
-                    }
-                    if (isGroup) {
-                        msgInfo.setMsgType(MessageInfo.MSG_TYPE_GROUP_AV_CALL_NOTICE);
-                    } else {
-                        msgInfo.setMsgType(MessageInfo.MSG_TYPE_TEXT);
-                    }
-                    msgInfo.setExtra(content);
-                }
-            }
-        } catch (Exception e) {
-            TUIKitLog.e(TAG, "invalid json: " + data + ", exception:" + e);
-        }
-    }
+//    private static void liveMessageInfo(V2TIMMessage timMessage, Context context, MessageInfo msgInfo, boolean isGroup, String data, Gson gson) {
+//        String content;
+//        MessageCustom messageCustom = null;
+//        try {
+//            messageCustom = gson.fromJson(data, MessageCustom.class);
+//            if (!TextUtils.isEmpty(messageCustom.businessID) && messageCustom.businessID.equals(MessageCustom.BUSINESS_ID_GROUP_CREATE)) {
+//                msgInfo.setMsgType(MessageInfo.MSG_TYPE_GROUP_CREATE);
+//                String message = TUIKitConstants.covert2HTMLString(messageCustom.opUser) + messageCustom.content;
+//                msgInfo.setExtra(message);
+//            } else if (!TextUtils.isEmpty(messageCustom.businessID) && messageCustom.businessID.equals(MessageCustom.BUSINESS_ID_LIVE_GROUP)) {
+//                Gson liveGson = new Gson();
+//                LiveMessageInfo liveMessageInfo = liveGson.fromJson(data, LiveMessageInfo.class);
+//                String anchorName;
+//                if (!TextUtils.isEmpty(liveMessageInfo.anchorName)) {
+//                    anchorName = liveMessageInfo.anchorName;
+//                } else {
+//                    anchorName = liveMessageInfo.roomName;
+//                }
+//                content = anchorName + TUIKit.getAppContext().getString(R.string.live_room);
+//                msgInfo.setExtra(content);
+//            } else if (LiveModel.isLiveRoomSignal(messageCustom.data)) {
+//                LiveModel liveModel = LiveModel.convert2LiveData(timMessage);
+//                content = liveModel.message;
+//                msgInfo.setMsgType(MessageInfo.MSG_TYPE_TEXT);
+//                msgInfo.setExtra(content);
+//            } else {
+//                CallModel callModel = CallModel.convert2VideoCallData(timMessage);
+//                if (callModel != null) {
+//                    String senderShowName = timMessage.getSender();
+//                    if (!TextUtils.isEmpty(timMessage.getNameCard())) {
+//                        senderShowName = timMessage.getNameCard();
+//                    } else if (!TextUtils.isEmpty(timMessage.getFriendRemark())) {
+//                        senderShowName = timMessage.getFriendRemark();
+//                    } else if (!TextUtils.isEmpty(timMessage.getNickName())) {
+//                        senderShowName = timMessage.getNickName();
+//                    }
+//                    switch (callModel.action) {
+//                        case CallModel.VIDEO_CALL_ACTION_DIALING:
+//                            content = isGroup ? ("\"" + senderShowName + "\"" + context.getString(R.string.start_group_call)) : (context.getString(R.string.start_call));
+//                            break;
+//                        case CallModel.VIDEO_CALL_ACTION_SPONSOR_CANCEL:
+//                            content = isGroup ? context.getString(R.string.cancle_group_call) : context.getString(R.string.cancle_call);
+//                            break;
+//                        case CallModel.VIDEO_CALL_ACTION_LINE_BUSY:
+//                            content = isGroup ? ("\"" + senderShowName + "\"" + context.getString(R.string.line_busy)) : context.getString(R.string.other_line_busy);
+//                            break;
+//                        case CallModel.VIDEO_CALL_ACTION_REJECT:
+//                            content = isGroup ? ("\"" + senderShowName + "\"" + context.getString(R.string.reject_group_calls)) : context.getString(R.string.reject_calls);
+//                            break;
+//                        case CallModel.VIDEO_CALL_ACTION_SPONSOR_TIMEOUT:
+//                            if (isGroup && callModel.invitedList != null && callModel.invitedList.size() == 1
+//                                    && callModel.invitedList.get(0).equals(timMessage.getSender())) {
+//                                content = "\"" + senderShowName + "\"" + context.getString(R.string.no_response_call);
+//                            } else {
+//                                StringBuilder inviteeShowStringBuilder = new StringBuilder();
+//                                if (callModel.invitedList != null && callModel.invitedList.size() > 0) {
+//                                    for (String invitee : callModel.invitedList) {
+//                                        inviteeShowStringBuilder.append(invitee).append("、");
+//                                    }
+//                                    if (inviteeShowStringBuilder.length() > 0) {
+//                                        inviteeShowStringBuilder.delete(inviteeShowStringBuilder.length() - 1, inviteeShowStringBuilder.length());
+//                                    }
+//                                }
+//                                content = isGroup ? ("\"" + inviteeShowStringBuilder.toString() + "\"" + context.getString(R.string.no_response_call)) : context.getString(R.string.no_response_call);
+//                            }
+//                            break;
+//                        case CallModel.VIDEO_CALL_ACTION_ACCEPT:
+//                            content = isGroup ? ("\"" + senderShowName + "\"" + context.getString(R.string.accept_call)) : context.getString(R.string.accept_call);
+//                            break;
+//                        case CallModel.VIDEO_CALL_ACTION_HANGUP:
+//                            content = isGroup ? context.getString(R.string.stop_group_call) : context.getString(R.string.stop_call_tip) + DateTimeUtil.formatSecondsTo00(callModel.duration);
+//                            break;
+//                        default:
+//                            content = context.getString(R.string.invalid_command);
+//                            break;
+//                    }
+//                    if (isGroup) {
+//                        msgInfo.setMsgType(MessageInfo.MSG_TYPE_GROUP_AV_CALL_NOTICE);
+//                    } else {
+//                        msgInfo.setMsgType(MessageInfo.MSG_TYPE_TEXT);
+//                    }
+//                    msgInfo.setExtra(content);
+//                }
+//            }
+//        } catch (Exception e) {
+//            TUIKitLog.e(TAG, "invalid json: " + data + ", exception:" + e);
+//        }
+//    }
 
     private static int TIMElemType2MessageInfoType(int type) {
         switch (type) {

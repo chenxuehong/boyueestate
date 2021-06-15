@@ -69,10 +69,9 @@ class AboutUsFragment : BaseMvpFragment<AboutUsPresenter>(), AboutUsView {
         var versionCode = DeviceUtils.getVersionCode(context!!)
         try {
 
-            if (versionCode < serverAppVersion.toInt()) {
+            if (versionCode < serverAppVersion.toFloat()) {
                 // 有新版本
                 if (isCheckUpdate) {
-
                     var intent =
                         Intent(Intent.ACTION_VIEW, Uri.parse("http://download.housevip.cn/rf15"))
                     startActivity(intent)
