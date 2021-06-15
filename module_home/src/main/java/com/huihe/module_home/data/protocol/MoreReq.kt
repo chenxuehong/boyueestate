@@ -1,7 +1,7 @@
 package com.huihe.module_home.data.protocol
 
 data class MoreReq(
-    var hFlag: Int?=null,
+    var hFlag: Int?=0,
     var days: Int?=null,
     var myHouse: Int?=null,
     var hasKey: Int?=null,

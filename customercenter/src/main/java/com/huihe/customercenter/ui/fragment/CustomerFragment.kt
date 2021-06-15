@@ -40,7 +40,7 @@ class CustomerFragment : BaseFragment() {
         fragments.clear()
         titles.add("买卖")
         titles.add("租赁")
-        titles.add("淘宝池")
+        titles.add("聚宝盆")
         fragments.add(getStatusFragment(2, null))
         fragments.add(getStatusFragment(1, null))
         fragments.add(getStatusFragment(2, 1))

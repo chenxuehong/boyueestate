@@ -23,6 +23,7 @@ import com.huihe.module_home.presenter.view.FindHouseByMapView
 import com.huihe.module_home.ui.adapter.RvAreaDistrictAdapter
 import com.huihe.module_home.ui.widget.ISearchResultListener
 import com.huihe.module_home.ui.widget.SearchResultViewController
+import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.utils.LogUtils
 import com.kotlin.provider.constant.HomeConstant
@@ -216,6 +217,7 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
                     ARouter.getInstance()
                         .build(RouterPath.UserCenter.PATH_SEARCHHOUSELIST_ACTIVITY)
                         .withString(HomeConstant.KEY_VILLAGE_IDS, villageIds)
+                        .withInt(BaseConstant.KEY_STATUS,BaseConstant.KEY_STATUS_MAP)
                         .navigation()
                     18f
                 }
@@ -403,8 +405,13 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
         mPresenter?.getVillages()
     }
 
-    override fun getModuleType(): Int {
-        return SearchResultViewController.MODULE_MAP_HOUSE_FRAGMENT
+    override fun getSortModules(): MutableList<Int> {
+        return mutableListOf(
+            CustomersModule.SearchType.AreaType,
+            CustomersModule.SearchType.FloorsType,
+            CustomersModule.SearchType.PriceType,
+            CustomersModule.SearchType.MoreType
+        )
     }
 
     override fun onResume() {

@@ -23,6 +23,7 @@ import com.huihe.module_home.ui.inter.RefreshListener
 import com.huihe.module_home.ui.widget.ISearchResultListener
 import com.huihe.module_home.ui.widget.SearchResultViewController
 import com.kennyc.view.MultiStateView
+import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ext.setVisible
 import com.kotlin.base.ext.startLoading
@@ -55,7 +56,14 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     private var villageIds: MutableList<String>? = null
     private var mRvAreaDistrictAdapter: RvAreaDistrictAdapter? = null
     private var isHouseSelect: Boolean = false
+    private var uiStatus: Int = BaseConstant.KEY_STATUS_DEFAULT
     var mSearchReq: SearchReq = SearchReq()
+    var mSortModules =  mutableListOf(
+        CustomersModule.SearchType.FloorsType,
+        CustomersModule.SearchType.PriceType,
+        CustomersModule.SearchType.MoreType,
+        CustomersModule.SearchType.SortType
+    )
 
     init {
         hasMoreData = true
@@ -82,6 +90,7 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isHouseSelect = arguments?.getBoolean(HomeConstant.KEY_IS_HOUSE_SELECT, false) ?: false
+        uiStatus = arguments?.getInt(BaseConstant.KEY_STATUS, BaseConstant.KEY_STATUS_DEFAULT) ?: BaseConstant.KEY_STATUS_DEFAULT
         var villageName = arguments?.getString(HomeConstant.KEY_VILLAGE_NAME)
         var schoolId = arguments?.getString(HomeConstant.KEY_SCHOOL_ID)
         var villageIdsStr = arguments?.getString(HomeConstant.KEY_VILLAGE_IDS)?:""
@@ -97,6 +106,7 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
         if (!TextUtils.isEmpty(schoolId)) {
             mSearchReq.schoolIds = mutableListOf(schoolId?:"")
         }
+        showUI(uiStatus)
         initView()
         initRefreshLayout()
         initData()
@@ -109,7 +119,6 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
             LinearLayoutManager(context)
         mGoodsAdapter = SecondHandHouseAdapter(context!!)
         layoutRefreshContentView?.customers_mRecyclerView?.adapter = mGoodsAdapter
-        layoutRefreshContentView?.customersSearch?.setVisible(true)
         layoutRefreshContentView?.customersSearch?.onClick {
             startActivityForResult<SearchHouseActivity>(REQUEST_CODE_SEARCH)
         }
@@ -135,6 +144,23 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
             mSearchResultViewController.getAllViews(this),
             layoutRefreshContentView
         )
+    }
+
+    private fun showUI(uiStatus: Int) {
+        when(uiStatus){
+            BaseConstant.KEY_STATUS_MAP->{
+                // 隐藏区域排序
+                mSortModules?.remove(CustomersModule.SearchType.AreaType)
+                // 隐藏搜索按钮和清除按钮
+                layoutRefreshContentView?.customersSearch?.setVisible(false)
+            }
+            else->{
+                // 显示区域排序
+                mSortModules?.add(CustomersModule.SearchType.AreaType)
+                // 显示搜索按钮和清除按钮
+                layoutRefreshContentView?.customersSearch?.setVisible(true)
+            }
+        }
     }
 
     override fun onSearchResult(iSearchResult: ISearchResult?, showTip: String, floorsType: Int) {
@@ -238,8 +264,8 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
         mPresenter?.getVillages()
     }
 
-    override fun getModuleType(): Int {
-        return SearchResultViewController.MODULE_HOUSE_FRAGMENT
+    override fun getSortModules(): MutableList<Int> {
+        return mSortModules
     }
 
     override fun onDataIsNull() {

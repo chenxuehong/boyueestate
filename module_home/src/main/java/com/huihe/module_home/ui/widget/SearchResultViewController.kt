@@ -22,18 +22,32 @@ class SearchResultViewController : ISearchView {
     override fun getAllViews(listener: ISearchResultListener): MutableList<View> {
         mListener = listener
         popupViews?.clear()
-        // 区域
-        popupViews!!.add(getView(CustomersModule.SearchType.AreaType))
-        // 楼层
-        popupViews!!.add(getView(CustomersModule.SearchType.FloorsType))
-        // 价格
-        popupViews!!.add(getView(CustomersModule.SearchType.PriceType))
-        // 更多
-        popupViews!!.add(getView(CustomersModule.SearchType.MoreType))
-        var moduleType = mListener?.getModuleType()
-        if (MODULE_HOUSE_FRAGMENT == moduleType){
-            // 排序
-            popupViews!!.add(getView(CustomersModule.SearchType.SortType))
+        var modules = mListener?.getSortModules()
+        modules?.apply {
+            forEach {item->
+                when(item){
+                    CustomersModule.SearchType.AreaType->{
+                        // 区域
+                        popupViews!!.add(getView(CustomersModule.SearchType.AreaType))
+                    }
+                    CustomersModule.SearchType.FloorsType->{
+                        // 楼层
+                        popupViews!!.add(getView(CustomersModule.SearchType.FloorsType))
+                    }
+                    CustomersModule.SearchType.PriceType->{
+                        // 价格
+                        popupViews!!.add(getView(CustomersModule.SearchType.PriceType))
+                    }
+                    CustomersModule.SearchType.MoreType->{
+                        // 更多
+                        popupViews!!.add(getView(CustomersModule.SearchType.MoreType))
+                    }
+                    CustomersModule.SearchType.SortType->{
+                        // 排序
+                        popupViews!!.add(getView(CustomersModule.SearchType.SortType))
+                    }
+                }
+            }
         }
         return popupViews!!
     }
@@ -66,10 +80,6 @@ class SearchResultViewController : ISearchView {
         return inflate
     }
 
-    companion object{
-        val MODULE_HOUSE_FRAGMENT: Int=1000
-        val MODULE_MAP_HOUSE_FRAGMENT: Int=1001
-    }
     fun detach() {
         mContext = null
         if (popupViews != null) {

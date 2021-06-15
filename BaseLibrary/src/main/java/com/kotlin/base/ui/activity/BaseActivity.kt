@@ -8,6 +8,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.FrameLayout
+import com.alibaba.android.arouter.launcher.ARouter
 import com.kotlin.base.common.AppManager
 import com.kotlin.base.ext.hideKeyboard
 import com.kotlin.base.ui.fragment.BaseFragment
@@ -22,7 +23,7 @@ open class BaseActivity : RxAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        ARouter.getInstance().inject(this)
         AppManager.instance.addActivity(this)
     }
 
