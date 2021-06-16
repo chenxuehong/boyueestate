@@ -21,7 +21,8 @@ data class ItemHouseDetail(
         var floorage: Float?,
         var hShape: String?,
         var label: String?,
-        var ownerTel: String?
+        var ownerTel: String?,
+        var isCirculation: Int?
     )
 
     data class DetailInfo(

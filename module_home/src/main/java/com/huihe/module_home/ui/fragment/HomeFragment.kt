@@ -25,7 +25,9 @@ import com.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.layout_fragment_home.*
 import kotlinx.android.synthetic.main.layout_tel_dialog.view.*
 import com.darsh.multipleimageselect.helpers.Constants.REQUEST_CODE
+import com.eightbitlab.rxbus.Bus
 import com.kotlin.provider.constant.HomeConstant
+import com.kotlin.provider.event.ResetEvent
 import com.uuzuche.lib_zxing.activity.CaptureActivity
 import com.uuzuche.lib_zxing.activity.CodeUtils
 import org.jetbrains.anko.support.v4.toast
@@ -34,7 +36,6 @@ import org.jetbrains.anko.support.v4.toast
 @Route(path = RouterPath.HomeCenter.PATH_HOME)
 class HomeFragment : BaseFragment() {
 
-    val REQUEST_CODE_ADD_HOUSE = 1000
     val fragments = ArrayList<Fragment>()
     val data: MutableList<String> = mutableListOf(
         BaseApplication.context.resources.getString(R.string.insert_house),
@@ -59,15 +60,16 @@ class HomeFragment : BaseFragment() {
         home_tabLayout?.setupWithViewPager(home_viewPager)
         val titles = ArrayList<String>()
         fragments.clear()
-        titles.add("二手房")
-        titles.add("地图找房")
+        titles.add("首页")
         fragments.add(HouseFragment())
-        fragments.add(HouseMapFragment())
         home_viewPager.adapter = BaseFragmentStatePageAdapter(
             childFragmentManager,
             titles,
             fragments
         )
+        flClearRefresh.onClick {
+            Bus.send(ResetEvent())
+        }
         home_fl_add.onClick {
             showPopWindow(home_fl_add)
         }
@@ -106,7 +108,7 @@ class HomeFragment : BaseFragment() {
         when (item) {
             BaseApplication.context.resources.getString(R.string.insert_house) -> {
                 val intent = Intent(context, AddHouseActivity::class.java)
-                startActivityForResult(intent, REQUEST_CODE_ADD_HOUSE)
+                startActivity(intent)
             }
             BaseApplication.context.resources.getString(R.string.scan) -> {
                 val intent = Intent(context, CaptureActivity::class.java)
@@ -118,13 +120,7 @@ class HomeFragment : BaseFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_ADD_HOUSE) {
-            fragments?.forEach { fragment ->
-                if (fragment is RefreshListener){
-                    (fragment as RefreshListener).refreshData()
-                }
-            }
-        }else if (requestCode == REQUEST_CODE) {
+        if (requestCode == REQUEST_CODE) {
             //处理扫描结果（在界面上显示）
             if (null != data) {
                 var bundle: Bundle? = data.extras ?: return

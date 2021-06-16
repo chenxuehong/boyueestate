@@ -38,7 +38,7 @@ class ProgressLoading private constructor(context: Context, theme: Int) : Dialog
             //获取动画视图
             val loadingView = mDialog.find<ImageView>(R.id.iv_loading)
             loadingTipView = mDialog.find<TextView>(R.id.tv_loading_tip)
-            animDrawable = loadingView.background as AnimationDrawable
+            animDrawable = loadingView.drawable as AnimationDrawable
 
             return mDialog
         }

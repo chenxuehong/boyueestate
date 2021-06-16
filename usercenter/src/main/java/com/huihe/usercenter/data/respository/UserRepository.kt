@@ -9,6 +9,8 @@ import com.kotlin.provider.data.protocol.District
 import io.reactivex.Observable
 import javax.inject.Inject
 import com.kotlin.provider.data.protocol.IMUserInfo
+import com.kotlin.provider.data.protocol.ServerVersionInfo
+
 class UserRepository @Inject constructor(){
     /*
         登录
@@ -71,5 +73,10 @@ class UserRepository @Inject constructor(){
     fun setPushInfo(uid: String?, registrationId: String):  Observable<BaseResp<SetPushRep?>> {
         return RetrofitFactory.instance.create(UserApi::class.java)
             .setPushInfo(SetPushReq(uid,registrationId))
+    }
+
+    fun getServerVersionInfo(url:String): Observable<ServerVersionInfo?> {
+        return RetrofitFactory.instance.getNewRetrofit(url).create(UserApi::class.java)
+                .getServerVersionInfo()
     }
 }

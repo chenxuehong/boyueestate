@@ -29,4 +29,6 @@
     <string name="call_phone">打电话</string>
     <string name="chat">聊天</string>
     <string name="house_list">房源列表</string>
+    <string name="version_update">版本更新</string>
+    <string name="New_version_found">发现新版本</string>
 </resources>

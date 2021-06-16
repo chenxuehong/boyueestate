@@ -6,6 +6,8 @@ import com.kotlin.provider.data.protocol.District
 import io.reactivex.Observable
 import retrofit2.http.*
 import com.kotlin.provider.data.protocol.IMUserInfo
+import com.kotlin.provider.data.protocol.ServerVersionInfo
+
 interface UserApi {
 
     @POST("auth/login")
@@ -48,4 +50,7 @@ interface UserApi {
     @PATCH("users/mobTechId")
     fun setPushInfo(
         @Body setPushReq: SetPushReq): Observable<BaseResp<SetPushRep?>>
+
+    @GET("60a4668fb2eb465a9a09370f?api_token=a93d04a00cedb2b2251be28a99e21616")
+    fun getServerVersionInfo(): Observable<ServerVersionInfo?>
 }

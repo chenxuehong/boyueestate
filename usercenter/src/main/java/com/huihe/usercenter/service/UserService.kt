@@ -3,6 +3,7 @@ package com.huihe.usercenter.service
 import com.huihe.usercenter.data.protocol.*
 import com.kotlin.provider.data.protocol.District
 import com.kotlin.provider.data.protocol.IMUserInfo
+import com.kotlin.provider.data.protocol.ServerVersionInfo
 import io.reactivex.Observable
 
 /*
@@ -27,4 +28,5 @@ interface UserService {
     fun getUploadToken(): Observable<String?>
     fun setUserInfo(userInfoReq: SetUserInfoReq):  Observable<SetUserInfoRep?>
     fun setPushInfo(uid: String?, registrationId: String): Observable<SetPushRep?>
+    fun getServerVersionInfo(url:String): Observable<ServerVersionInfo?>
 }

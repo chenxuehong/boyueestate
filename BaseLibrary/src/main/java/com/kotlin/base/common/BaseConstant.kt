@@ -5,6 +5,7 @@ package com.kotlin.base.common
  */
 class BaseConstant{
     companion object {
+        const val project_name = "boyueEstate"
         //七牛服务地址
 //        const val IMAGE_SERVER_ADDRESS = "http://osea2fxp7.bkt.clouddn.com/"
         // 伯约测试服务器地址
@@ -14,6 +15,7 @@ class BaseConstant{
 //        const val SERVER_ADDRESS = "http://106.14.197.40/api/v1/"
         // 分享
         const val HouseDetail_BASE_URL = "http://billion.housevip.cn/#/house/"
+        const val VERSION_INFO_URL = "http://api.bq04.com/apps/latest/"
         // 伯约ip
         const val ip = "1"
 

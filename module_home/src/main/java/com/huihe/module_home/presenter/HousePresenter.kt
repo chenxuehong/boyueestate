@@ -75,7 +75,7 @@ class HousePresenter @Inject constructor() : BasePresenter<SecondHandHouseView>(
         if (!checkNetWork()) {
             return
         }
-        var gettVillages = UserPrefsUtils.gettVillages()
+        var gettVillages = UserPrefsUtils.getVillages()
         if (gettVillages!=null){
             mView.onGetAreaBeanListResult(gettVillages)
             return

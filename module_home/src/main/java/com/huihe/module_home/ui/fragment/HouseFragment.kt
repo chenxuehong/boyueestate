@@ -6,8 +6,12 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.eightbitlab.rxbus.Bus
+import com.eightbitlab.rxbus.registerInBus
 import com.google.gson.Gson
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.*
@@ -19,7 +23,6 @@ import com.huihe.module_home.ui.activity.HouseDetailActivity
 import com.huihe.module_home.ui.activity.SearchHouseActivity
 import com.huihe.module_home.ui.adapter.RvAreaDistrictAdapter
 import com.huihe.module_home.ui.adapter.SecondHandHouseAdapter
-import com.huihe.module_home.ui.inter.RefreshListener
 import com.huihe.module_home.ui.widget.ISearchResultListener
 import com.huihe.module_home.ui.widget.SearchResultViewController
 import com.kennyc.view.MultiStateView
@@ -29,8 +32,11 @@ import com.kotlin.base.ext.setVisible
 import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
+import com.kotlin.base.utils.ReflectionUtil
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.data.protocol.District
+import com.kotlin.provider.event.AddHouseEvent
+import com.kotlin.provider.event.ResetEvent
 import com.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.fragment_secondhandhouse.*
 import kotlinx.android.synthetic.main.layout_refresh.view.*
@@ -39,7 +45,7 @@ import org.jetbrains.anko.support.v4.startActivityForResult
 
 @Route(path = RouterPath.HomeCenter.PATH_HOUSE_FRAGMENT)
 class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
-    ISearchResultListener, RefreshListener {
+    ISearchResultListener {
 
     private val TAG: String? = HouseFragment::class.java.simpleName
     private var mCurrentPage: Int = 1
@@ -48,7 +54,7 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     private var mGoodsAdapter: SecondHandHouseAdapter? = null
     private lateinit var layoutRefreshContentView: View
     private lateinit var mSearchResultViewController: SearchResultViewController
-    private val headers = arrayOf("区域", "楼层", "价格", "有效", "排序")
+    private var headers = arrayOf("区域", "楼层", "价格", "有效", "排序")
     private var mFloorRanges: MutableList<FloorReq>? = null
     private var mPriceRanges: MutableList<PriceReq>? = null
     private var sortReq: SortReq? = SortReq()
@@ -58,7 +64,7 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     private var isHouseSelect: Boolean = false
     private var uiStatus: Int = BaseConstant.KEY_STATUS_DEFAULT
     var mSearchReq: SearchReq = SearchReq()
-    var mSortModules =  mutableListOf(
+    var mSortModules = mutableListOf(
         CustomersModule.SearchType.FloorsType,
         CustomersModule.SearchType.PriceType,
         CustomersModule.SearchType.MoreType,
@@ -90,13 +96,14 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isHouseSelect = arguments?.getBoolean(HomeConstant.KEY_IS_HOUSE_SELECT, false) ?: false
-        uiStatus = arguments?.getInt(BaseConstant.KEY_STATUS, BaseConstant.KEY_STATUS_DEFAULT) ?: BaseConstant.KEY_STATUS_DEFAULT
+        uiStatus = arguments?.getInt(BaseConstant.KEY_STATUS, BaseConstant.KEY_STATUS_DEFAULT)
+            ?: BaseConstant.KEY_STATUS_DEFAULT
         var villageName = arguments?.getString(HomeConstant.KEY_VILLAGE_NAME)
         var schoolId = arguments?.getString(HomeConstant.KEY_SCHOOL_ID)
-        var villageIdsStr = arguments?.getString(HomeConstant.KEY_VILLAGE_IDS)?:""
-        villageIds = if (TextUtils.isEmpty(villageIdsStr)){
+        var villageIdsStr = arguments?.getString(HomeConstant.KEY_VILLAGE_IDS) ?: ""
+        villageIds = if (TextUtils.isEmpty(villageIdsStr)) {
             null
-        }else{
+        } else {
             villageIdsStr.split(",").toMutableList()
         }
         mSearchReq = SearchReq()
@@ -104,24 +111,79 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
             mSearchReq.villageName = villageName
         }
         if (!TextUtils.isEmpty(schoolId)) {
-            mSearchReq.schoolIds = mutableListOf(schoolId?:"")
+            mSearchReq.schoolIds = mutableListOf(schoolId ?: "")
         }
-        showUI(uiStatus)
+        initEvent()
         initView()
+        initRvAdapter()
+        initDropDownMenu()
         initRefreshLayout()
         initData()
+    }
+
+    private fun initEvent() {
+        Bus.observe<AddHouseEvent>()
+            .subscribe {
+                loadData()
+            }.registerInBus(this)
+        Bus.observe<ResetEvent>()
+            .subscribe {
+                mFloorRanges = null
+                mPriceRanges = null
+                villageIds = null
+                sortReq = SortReq()
+                moreReq = MoreReq()
+                mSearchReq = SearchReq()
+                showLoading()
+                setTabText(0, "区域")
+                setTabText(1, "楼层")
+                setTabText(2, "价格")
+                setTabText(3, "有效")
+                setTabText(4, "排序")
+                loadData()
+            }.registerInBus(this)
+    }
+
+    fun setTabText(position: Int, title: String?) {
+        var tabMenuView: LinearLayout? = null
+        try {
+            tabMenuView = ReflectionUtil.getValue(dropDownMenu, "tabMenuView") as LinearLayout
+            var tab = getTab(position, tabMenuView)
+            tab?.text = title
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun getTab(position: Int, tabMenuView: LinearLayout): TextView? {
+        var selectIndex = -1
+        for (index in 0 until tabMenuView.childCount) {
+            var childAt = tabMenuView.getChildAt(position)
+            if (childAt is TextView) {
+                selectIndex++
+                if (selectIndex == position) {
+                    return childAt
+                }
+            }
+        }
+        return null
     }
 
     private fun initView() {
         layoutRefreshContentView =
             LayoutInflater.from(context).inflate(R.layout.layout_refresh, null)
+        layoutRefreshContentView?.customersSearch?.onClick {
+            startActivityForResult<SearchHouseActivity>(REQUEST_CODE_SEARCH)
+        }
+        showUI(uiStatus)
+    }
+
+    private fun initRvAdapter() {
         layoutRefreshContentView?.customers_mRecyclerView?.layoutManager =
             LinearLayoutManager(context)
         mGoodsAdapter = SecondHandHouseAdapter(context!!)
         layoutRefreshContentView?.customers_mRecyclerView?.adapter = mGoodsAdapter
-        layoutRefreshContentView?.customersSearch?.onClick {
-            startActivityForResult<SearchHouseActivity>(REQUEST_CODE_SEARCH)
-        }
         mGoodsAdapter?.setOnItemClickListener(object :
 
             BaseRecyclerViewAdapter.OnItemClickListener<House> {
@@ -137,6 +199,9 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
                 }
             }
         })
+    }
+
+    private fun initDropDownMenu() {
         mSearchResultViewController =
             SearchResultViewController(context!!, dropDownMenu.isShowing)
         dropDownMenu.setDropDownMenu(
@@ -147,17 +212,19 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     }
 
     private fun showUI(uiStatus: Int) {
-        when(uiStatus){
-            BaseConstant.KEY_STATUS_MAP->{
+        when (uiStatus) {
+            BaseConstant.KEY_STATUS_MAP -> {
                 // 隐藏区域排序
                 mSortModules?.remove(CustomersModule.SearchType.AreaType)
-                // 隐藏搜索按钮和清除按钮
+                headers = arrayOf("楼层", "价格", "有效", "排序")
+                // 隐藏搜索按钮
                 layoutRefreshContentView?.customersSearch?.setVisible(false)
             }
-            else->{
+            else -> {
                 // 显示区域排序
-                mSortModules?.add(CustomersModule.SearchType.AreaType)
-                // 显示搜索按钮和清除按钮
+                mSortModules?.add(0, CustomersModule.SearchType.AreaType)
+                headers = arrayOf("区域", "楼层", "价格", "有效", "排序")
+                // 显示搜索按钮
                 layoutRefreshContentView?.customersSearch?.setVisible(true)
             }
         }
@@ -224,6 +291,7 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
         //退出activity前关闭菜单
         dropDownMenu?.closeMenu()
         mSearchResultViewController?.detach()
+        Bus.unregister(this)
         super.onDestroyView()
     }
 
@@ -264,7 +332,7 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
         mPresenter?.getVillages()
     }
 
-    override fun getSortModules(): MutableList<Int> {
+    override fun getSearchModules(): MutableList<Int> {
         return mSortModules
     }
 
@@ -310,10 +378,6 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
                 layoutRefreshContentView?.customers_mBGARefreshLayout?.finishLoadMoreWithNoMoreData()
             }
         }
-    }
-
-    override fun refreshData() {
-        loadData()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

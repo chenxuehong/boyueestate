@@ -123,7 +123,8 @@ fun getConvertHouseDetailData(houseDetail: HouseDetail?): MutableList<ItemHouseD
                 houseDetail?.floorage,
                 houseDetail?.hShape,
                 houseDetail?.label,
-                houseDetail?.ownerTel
+                houseDetail?.ownerTel,
+                houseDetail?.isCirculation
             )
         ),
         // 房源详情

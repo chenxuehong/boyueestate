@@ -10,7 +10,7 @@ class ResultCommunityPresenter @Inject constructor() : BasePresenter<ResultCommu
 
     var data :MutableList<District.ZoneBean.VillageBean> = mutableListOf()
     fun getVillages(keyword: String) {
-        var villages = UserPrefsUtils.gettVillages()
+        var villages = UserPrefsUtils.getVillages()
         var data = getConvertData(villages,keyword)
         mView?.onGetAreaBeanListResult(data)
     }

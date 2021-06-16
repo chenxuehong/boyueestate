@@ -14,8 +14,9 @@ import com.kotlin.provider.router.RouterPath
 @Route(path = RouterPath.UserCenter.PATH_SEARCHHOUSELIST_ACTIVITY)
 class SearchHouseListActivity : BaseTitleActivity(){
 
+    @JvmField
     @Autowired(name = BaseConstant.KEY_STATUS)
-    open var status:Int = BaseConstant.KEY_STATUS_DEFAULT
+    var status:Int = BaseConstant.KEY_STATUS_DEFAULT
 
     private val mHouseFragment by lazy {
         ARouter.getInstance()

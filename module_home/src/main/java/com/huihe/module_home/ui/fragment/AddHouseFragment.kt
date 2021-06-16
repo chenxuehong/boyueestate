@@ -22,6 +22,7 @@ import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.widgets.NecessaryTitleInputView
 import com.kotlin.base.widgets.NecessaryTitleSelectView
+import com.kotlin.provider.event.AddHouseEvent
 import com.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.fragment_add_house.*
 import org.jetbrains.anko.support.v4.toast
@@ -191,6 +192,7 @@ class AddHouseFragment : BaseMvpFragment<AddHousePresenter>(), AddHouseView{
     }
 
     override fun onAddHouseInfoSuccess(t: SetHouseInfoRep?) {
+        Bus.send(AddHouseEvent())
         activity?.finish()
     }
 

@@ -1,15 +1,17 @@
 package com.kotlin.base.data.net
 
-import cn.qqtheme.framework.AppConfig
 import com.kotlin.base.BuildConfig
+import com.kotlin.base.common.BaseApplication
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.utils.AppPrefsUtils
+import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 import java.util.concurrent.TimeUnit
 
 /*
@@ -25,10 +27,15 @@ class RetrofitFactory private constructor(){
     }
 
     private val interceptor:Interceptor
-    private val retrofit:Retrofit
+    private var retrofit:Retrofit
+    private val cacheFile:File
 
     //初始化
     init {
+        cacheFile = File(
+            BaseApplication.context.externalCacheDir,
+            BaseConstant.project_name
+        )
         //通用拦截
         interceptor = Interceptor {
             chain -> val request = chain.request()
@@ -55,11 +62,21 @@ class RetrofitFactory private constructor(){
                 .build()
     }
 
+    fun getNewRetrofit(url:String):Retrofit{
+       return Retrofit.Builder()
+            .baseUrl(url)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .client(initClient())
+            .build()
+    }
+
     /*
         OKHttp创建
      */
     private fun initClient():OkHttpClient{
         return OkHttpClient.Builder()
+//                .cache(Cache(cacheFile, 1024 * 1024 * 50))
                 .addInterceptor(initLogInterceptor())
                 .addInterceptor(interceptor)
                 .connectTimeout(10,TimeUnit.SECONDS)

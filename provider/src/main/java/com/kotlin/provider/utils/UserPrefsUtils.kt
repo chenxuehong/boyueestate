@@ -4,11 +4,14 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.utils.AppPrefsUtils
+import com.kotlin.base.utils.DateUtils
 import com.kotlin.provider.data.protocol.District
 import com.kotlin.provider.data.protocol.IMUserInfo
 
 
 object UserPrefsUtils {
+
+    var firstLoadVillage = true
     /*
        退出登录时，传入null,清空存储
     */
@@ -34,12 +37,16 @@ object UserPrefsUtils {
         val gson = Gson()
         var villageList = gson.toJson(villages)
         AppPrefsUtils.putString(BaseConstant.KEY_SP_VILLAGES, villageList)
+        firstLoadVillage = false
     }
 
     /*
       获取小区数据
    */
-    fun gettVillages():MutableList<District>? {
+    fun getVillages():MutableList<District>? {
+        if (firstLoadVillage){
+            return null
+        }
         val gson = Gson()
         var json = AppPrefsUtils.getString(BaseConstant.KEY_SP_VILLAGES) ?: ""
         var typeToken = object : TypeToken<MutableList<District>?>() {}

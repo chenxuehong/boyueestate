@@ -11,5 +11,5 @@ interface ISearchResultListener {
         type: Int
     )
     fun startLoad(adapter: RvAreaDistrictAdapter?)
-    fun getSortModules():MutableList<Int>
+    fun getSearchModules():MutableList<Int>
 }

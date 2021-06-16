@@ -56,7 +56,11 @@ class SecondHandHouseAdapter (context: Context) : BaseRecyclerViewAdapter<House,
         var argePrice = YuanFenConverter.getRoundFloor(amount)
         holder.itemView.item_customers_tv_sprice.text = "$argePrice${"万/m²"}"
         var split = customer?.label?.split(";")
-
+        var toMutableList = split?.toMutableList()
+        if (customer.isCirculation ==1){
+            toMutableList?.add("流通")
+            split  = toMutableList?.toList()
+        }
         holder.itemView.item_customers_tags.tags = if (split!=null && split.size>5) split?.subList(0,4) else getNotNullData(split)
 
     }

@@ -6,6 +6,7 @@ import com.huihe.usercenter.data.respository.UserRepository
 import com.huihe.usercenter.service.UserService
 import com.kotlin.base.ext.convert
 import com.kotlin.provider.data.protocol.District
+import com.kotlin.provider.data.protocol.ServerVersionInfo
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -61,5 +62,9 @@ class UserServiceImpl @Inject constructor() : UserService {
 
     override fun setPushInfo(uid: String?, registrationId: String): Observable<SetPushRep?> {
         return repository.setPushInfo(uid,registrationId).convert()
+    }
+
+    override fun getServerVersionInfo(url:String): Observable<ServerVersionInfo?> {
+        return repository.getServerVersionInfo(url)
     }
 }

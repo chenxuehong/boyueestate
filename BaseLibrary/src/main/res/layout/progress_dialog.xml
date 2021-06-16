@@ -8,7 +8,7 @@
             android:id="@+id/iv_loading"
             style="@style/WrapWrap"
             android:layout_gravity="center"
-            android:background="@drawable/progress_dialog_anim"/>
+            android:src="@drawable/progress_dialog_anim"/>
 
     <TextView
         android:id="@+id/tv_loading_tip"

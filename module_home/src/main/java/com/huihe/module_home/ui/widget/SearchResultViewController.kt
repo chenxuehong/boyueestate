@@ -22,7 +22,7 @@ class SearchResultViewController : ISearchView {
     override fun getAllViews(listener: ISearchResultListener): MutableList<View> {
         mListener = listener
         popupViews?.clear()
-        var modules = mListener?.getSortModules()
+        var modules = mListener?.getSearchModules()
         modules?.apply {
             forEach {item->
                 when(item){

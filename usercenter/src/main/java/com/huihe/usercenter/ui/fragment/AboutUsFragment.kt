@@ -16,6 +16,7 @@ import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.activity.WebViewActivity
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.utils.DeviceUtils
+import com.kotlin.provider.data.protocol.ServerVersionInfo
 import kotlinx.android.synthetic.main.fragment_about_us.*
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
@@ -65,25 +66,25 @@ class AboutUsFragment : BaseMvpFragment<AboutUsPresenter>(), AboutUsView {
         mPresenter.getServerVersionInfo()
     }
 
-    override fun onServerAppVersion(serverAppVersion: String) {
+    override fun onServerAppVersion(serverAppVersion: ServerVersionInfo?) {
         var versionCode = DeviceUtils.getVersionCode(context!!)
         try {
-
-            if (versionCode < serverAppVersion.toFloat()) {
+            var version = serverAppVersion?.version
+            if (versionCode < version?.toFloat()!!) {
                 // 有新版本
                 if (isCheckUpdate) {
                     var intent =
-                        Intent(Intent.ACTION_VIEW, Uri.parse("http://download.housevip.cn/rf15"))
+                        Intent(Intent.ACTION_VIEW, Uri.parse(serverAppVersion?.update_url?:""))
                     startActivity(intent)
                 } else {
-                    tvCheckUpdateTitle.text = "有新版本"
+                    tvServerVersion.text = "有新版本:${serverAppVersion?.versionShort?:""}"
                 }
 
             } else {
                 if (isCheckUpdate) {
                     toast("已经是最新版本!")
                 } else {
-                    tvCheckUpdateTitle.text = "已经是最新版本"
+                    tvServerVersion.text = "已经是最新版本"
                 }
             }
         } catch (e: Exception) {

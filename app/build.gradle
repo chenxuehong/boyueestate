@@ -11,7 +11,7 @@ android {
         applicationId "com.huihe.boyueestate"
         minSdkVersion min_sdk_version
         targetSdkVersion target_sdk_version
-        versionCode 21101
+        versionCode 21100
         versionName "21.1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true

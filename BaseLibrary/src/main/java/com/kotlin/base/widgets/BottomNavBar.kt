@@ -23,6 +23,11 @@ class BottomNavBar @JvmOverloads constructor(
                 .setInactiveIconResource(R.drawable.nav_bar_home_normal)
                 .setActiveColorResource(R.color.common_blue)
                 .setInActiveColorResource(R.color.text_normal)
+        //地图
+        val mapItem = BottomNavigationItem(R.drawable.nav_bar_ditu_press,resources.getString(R.string.nav_bar_map))
+                .setInactiveIconResource(R.drawable.nav_bar_ditu_mormal)
+                .setActiveColorResource(R.color.common_blue)
+                .setInActiveColorResource(R.color.text_normal)
 
         //客源
         val customerItem = BottomNavigationItem(R.drawable.nav_bar_customer_press,resources.getString(R.string.nav_bar_customer))
@@ -51,6 +56,7 @@ class BottomNavBar @JvmOverloads constructor(
         setBarBackgroundColor(R.color.common_white)
         //添加Tab
         addItem(homeItem)
+                .addItem(mapItem)
                 .addItem(customerItem)
                 .addItem(msgItem)
                 .addItem(userItem)

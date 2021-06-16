@@ -531,6 +531,11 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
         tvHouseDetailFloorageValue.text = "${basicInfo?.floorage}m²"
         tvHouseDetailHShapeValue.text = "${basicInfo?.hShape}"
         var split = basicInfo?.label?.split(";")
+        var toMutableList = split?.toMutableList()
+        if (basicInfo?.isCirculation ==1){
+            toMutableList?.add("流通")
+            split  = toMutableList?.toList()
+        }
         houseDetailTags.tags =
             if (split != null && split.size > 5) split?.subList(0, 4) else getNotNullData(
                 split

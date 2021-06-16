@@ -11,7 +11,7 @@
        android:background="@color/main_color"
        android:orientation="horizontal">
        <FrameLayout
-           android:layout_width="@dimen/dp_60"
+           android:layout_width="@dimen/dp_88"
            android:layout_height="@dimen/dp_44">
 
        </FrameLayout>
@@ -25,9 +25,22 @@
            app:tabSelectedTextColor="@color/common_white"
            app:tabTextAppearance="@style/TabLayoutTextStyle"
            app:tabTextColor="@color/color_999999" />
+
+       <FrameLayout
+           android:id="@+id/flClearRefresh"
+           android:layout_width="@dimen/dp_44"
+           android:layout_height="@dimen/dp_44">
+
+           <ImageView
+               android:layout_gravity="center"
+               android:src="@drawable/clear_refresh"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"/>
+       </FrameLayout>
+
        <FrameLayout
            android:id="@+id/home_fl_add"
-           android:layout_width="@dimen/dp_60"
+           android:layout_width="@dimen/dp_44"
            android:layout_height="@dimen/dp_44">
 
            <ImageView

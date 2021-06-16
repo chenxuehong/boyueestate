@@ -11,6 +11,7 @@
     <string name="no_data_tip">暂无数据~~~</string>
 
     <string name="nav_bar_home">首页</string>
+    <string name="nav_bar_map">地图</string>
     <string name="nav_bar_customer">客源</string>
     <string name="nav_bar_msg">消息</string>
     <string name="nav_bar_user">我的</string>

@@ -6,6 +6,8 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
@@ -31,8 +33,11 @@ import com.kotlin.base.ext.setVisible
 import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
+import com.kotlin.base.utils.ReflectionUtil
 import com.kotlin.provider.constant.CustomerConstant
 import com.kotlin.provider.event.AddCustomerEvent
+import com.kotlin.provider.event.ResetCustomerEvent
+import com.kotlin.provider.event.ResetEvent
 import kotlinx.android.synthetic.main.layout_fragment_trannsaction.*
 import kotlinx.android.synthetic.main.layout_refresh.view.*
 import org.jetbrains.anko.support.v4.startActivity
@@ -120,6 +125,44 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
                 loadData()
                 activity?.finish()
             }.registerInBus(this)
+        Bus.observe<ResetCustomerEvent>()
+            .subscribe {
+                status = 1
+                mMoreReq = MoreReq()
+                mSortReq = SortReq()
+                mCustomerSearchReq = CustomerSearchReq()
+                isCornucopia = null
+                showLoading()
+                headers.forEachIndexed { index, item ->
+                    setTabText(index, item)
+                }
+                loadData()
+            }.registerInBus(this)
+    }
+
+    fun setTabText(position: Int, title: String?) {
+        var tabMenuView: LinearLayout? = null
+        try {
+            tabMenuView = ReflectionUtil.getValue(dropDownMenu, "tabMenuView") as LinearLayout
+            var tab = getTab(position, tabMenuView)
+            tab?.text = title
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun getTab(position: Int, tabMenuView: LinearLayout): TextView? {
+        var selectIndex = -1
+        for (index in 0 until tabMenuView.childCount) {
+            var childAt = tabMenuView.getChildAt(position)
+            if (childAt is TextView) {
+                selectIndex++
+                if (selectIndex == position) {
+                    return childAt
+                }
+            }
+        }
+        return null
     }
 
     private fun initRefreshLayout() {

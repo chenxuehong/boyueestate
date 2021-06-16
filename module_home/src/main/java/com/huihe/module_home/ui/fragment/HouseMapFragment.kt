@@ -14,6 +14,8 @@ import com.baidu.mapapi.model.LatLng
 import com.baidu.mapapi.search.district.DistrictSearch
 import com.baidu.mapapi.search.district.DistrictSearchOption
 import com.baidu.mapapi.search.district.OnGetDistricSearchResultListener
+import com.eightbitlab.rxbus.Bus
+import com.eightbitlab.rxbus.registerInBus
 import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.*
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
@@ -28,6 +30,7 @@ import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.utils.LogUtils
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.data.protocol.District
+import com.kotlin.provider.event.AddHouseEvent
 import com.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.fragment_findhousebymap.*
 import kotlinx.android.synthetic.main.layout_area_num.view.*
@@ -77,7 +80,7 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
 
     val TAG = HouseMapFragment::class.java.simpleName
     private lateinit var mSearchResultViewController: SearchResultViewController
-    private val headers = arrayOf("区域", "楼层", "价格", "更多")
+    private val headers = arrayOf("楼层", "价格", "更多")
     var layoutContentView: View? = null
     var dm: DisplayMetrics? = null
     var leftTopPtLL: LatLng? = null
@@ -185,8 +188,16 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
         curZoomLevel = 12f
         dm = DisplayMetrics()
         activity?.windowManager?.defaultDisplay?.getMetrics(dm)
+        initEvent()
         initView()
         initMap()
+    }
+
+    private fun initEvent() {
+        Bus.observe<AddHouseEvent>()
+            .subscribe {
+                initData()
+            }.registerInBus(this)
     }
 
     private fun initMap() {
@@ -204,12 +215,13 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
             )
         }
         house_map_MapView?.map?.setOnMarkerClickListener {
+//            点击行政区  zoomLevel =14.7  点击片区   zoomLevel  = 19   点击小区 zoomLevel  =19
             curZoomLevel = when (type) {
                 0 -> {
                     14.7f
                 }
                 1 -> {
-                    18f
+                    19f
                 }
                 else -> {
                     val extraInfo: Bundle = it.extraInfo
@@ -256,9 +268,10 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
     }
 
     private fun changeType(zoom: Float) {
+//        层级显示  type=0  zoomLevel <14.5    type=1    18> zoomLevel>14.5     type=2   zoomLevel>18
         type = if (zoom < 14.5) {
             0
-        } else if (zoom > 14.5 && zoom < 16) {
+        } else if (zoom > 14.5 && zoom < 18) {
             1
         } else {
             2
@@ -405,9 +418,8 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
         mPresenter?.getVillages()
     }
 
-    override fun getSortModules(): MutableList<Int> {
+    override fun getSearchModules(): MutableList<Int> {
         return mutableListOf(
-            CustomersModule.SearchType.AreaType,
             CustomersModule.SearchType.FloorsType,
             CustomersModule.SearchType.PriceType,
             CustomersModule.SearchType.MoreType
@@ -427,6 +439,7 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
     override fun onDestroy() {
         try {
             mDistrictSearch?.destroy()
+            Bus.unregister(this)
             mHandler.removeMessages(WHAT_ADDOVERLAY)
             house_map_MapView?.onDestroy()
         } catch (e: Exception) {
