@@ -10,7 +10,7 @@ import com.tencent.qcloud.tim.uikit.utils.ThirdPushTokenMgr
 class MyMobPushCallback : MobPushCallback<String> {
 
     override fun onCallback(rid: String) {
-        LogUtils.i(TAG, "RegistrationId: $rid")
+        LogUtils.i(TAG, ": $rid")
         AppPrefsUtils.putString(BaseConstant.KEY_SP_REGISTRATIONID, rid)
         MobPush.getDeviceToken {
             ThirdPushTokenMgr.getInstance().thirdPushToken = it

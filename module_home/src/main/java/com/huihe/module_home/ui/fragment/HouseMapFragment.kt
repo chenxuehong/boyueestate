@@ -8,6 +8,8 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import com.alibaba.android.arouter.launcher.ARouter
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
@@ -25,14 +27,17 @@ import com.huihe.module_home.presenter.view.FindHouseByMapView
 import com.huihe.module_home.ui.adapter.RvAreaDistrictAdapter
 import com.huihe.module_home.ui.widget.ISearchResultListener
 import com.huihe.module_home.ui.widget.SearchResultViewController
+import com.kennyc.view.MultiStateView
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.utils.LogUtils
+import com.kotlin.base.utils.ReflectionUtil
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.data.protocol.District
 import com.kotlin.provider.event.AddHouseEvent
+import com.kotlin.provider.event.ResetMapEvent
 import com.kotlin.provider.router.RouterPath
-import kotlinx.android.synthetic.main.fragment_findhousebymap.*
+import kotlinx.android.synthetic.main.fragment_findhousebymap.dropDownMenu
 import kotlinx.android.synthetic.main.layout_area_num.view.*
 import kotlinx.android.synthetic.main.layout_house_map.*
 
@@ -198,6 +203,41 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
             .subscribe {
                 initData()
             }.registerInBus(this)
+        Bus.observe<ResetMapEvent>()
+            .subscribe {
+                showLoading()
+                resetReqData()
+                headers.forEachIndexed { index, item ->
+                    setTabText(index, item)
+                }
+                initData()
+            }.registerInBus(this)
+    }
+
+    fun setTabText(position: Int, title: String?) {
+        var tabMenuView: LinearLayout? = null
+        try {
+            tabMenuView = ReflectionUtil.getValue(dropDownMenu, "tabMenuView") as LinearLayout
+            var tabs = getTab(tabMenuView)
+            tabs[position].text = title
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    var list = mutableListOf<TextView>()
+    private fun getTab(tabMenuView: LinearLayout): MutableList<TextView> {
+        if (list.size>0){
+            return list
+        }
+        for (index in 0 until tabMenuView.childCount) {
+            var childAt = tabMenuView.getChildAt(index)
+            if (childAt is TextView) {
+                list.add(childAt)
+            }
+        }
+        return list
     }
 
     private fun initMap() {
@@ -332,6 +372,14 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
         )
     }
 
+    fun resetReqData(){
+        mFloorRanges =null
+        mPriceRanges=null
+        moreReq = MoreReq()
+        villageIds = null
+        type = 0
+    }
+
     override fun onGetHouseMapResult(list: MutableList<MapAreaRep>?) {
         try {
             house_map_MapView?.map?.clear()
@@ -413,7 +461,10 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
     /**
      * @desc 加载小区数据
      */
-    override fun startLoad(adapter: RvAreaDistrictAdapter?) {
+    override fun startLoad(
+        adapter: RvAreaDistrictAdapter?,
+        mMultiStateView: MultiStateView
+    ) {
         mRvAreaDistrictAdapter = adapter
         mPresenter?.getVillages()
     }

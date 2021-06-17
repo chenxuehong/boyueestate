@@ -64,7 +64,7 @@ import top.limuyang2.ldialog.base.ViewHolder
 /**
  * 房源详情
  */
-class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), HouseDetailView{
+class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), HouseDetailView {
 
     var mLocalFilResult: TResult? = null
     var id: String? = null
@@ -88,7 +88,7 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
     var mShareCustomPopWindow: CustomPopWindow? = null
     var mCallPopWindow: CustomPopWindow? = null
 
-    val titles = mutableListOf<String>("跟进","基本资料","相关人","图片")
+    val titles = mutableListOf<String>("跟进", "基本资料", "相关人", "图片")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -279,15 +279,16 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
 
     private fun getShareUrl(): String? {
         var userInfo = UserPrefsUtils.getUserInfo()
-        return String.format(resources.getString(R.string.houseDetailURL),
+        return String.format(
+            resources.getString(R.string.houseDetailURL),
             BaseConstant.HouseDetail_BASE_URL,
             houseDetail?.id,
-            userInfo?.uid?:"",
+            userInfo?.uid ?: "",
             BaseConstant.ip
         )
     }
 
-    private fun getImgUrl():String {
+    private fun getImgUrl(): String {
         if (houseDetail != null) {
             var imagUrls = houseDetail?.imagUrls ?: mutableListOf()
             var imgUrl = ""
@@ -372,11 +373,12 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
             mPresenter?.setHouseInfo(
                 SetHouseInfoReq(
                     id,
-                    circulation = if (item == resources.getString(R.string.Circulate)) {
+                    isCirculation = if (item == resources.getString(R.string.Circulate)) {
                         1
                     } else {
                         0
-                    }
+                    },
+                    hFlag = houseDetail?.hFlag
                 )
 
             )
@@ -503,16 +505,16 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
             setIndicatorSelectedColorRes(R.color.white)
             setIndicatorGravity(IndicatorConfig.Direction.CENTER)
             setBannerGalleryMZ(
-              resources.getDimensionPixelOffset(R.dimen.dp_6),
+                resources.getDimensionPixelOffset(R.dimen.dp_6),
                 0.8f
             )
 
             setOnBannerListener { data, position ->
-               onViewPhoto(
+                onViewPhoto(
                     (data as HouseDetail.ImagUrlsBean).url ?: "",
-                    getPhotoList(bannerList?: mutableListOf()),
+                    getPhotoList(bannerList ?: mutableListOf()),
                     position,
-                   banner!!
+                    banner!!
                 )
             }
 
@@ -524,7 +526,7 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
         tvHouseDetailTitle.text =
             "${basicInfo?.villageName}-${basicInfo?.building}-${basicInfo?.hNum}"
         tvHouseDetailPrice.text = "${basicInfo?.price}万"
-        var amount =  basicInfo?.floorage?.toBigDecimal()
+        var amount = basicInfo?.floorage?.toBigDecimal()
             ?.let { basicInfo?.price?.div(it) }
         var argePrice = YuanFenConverter.getRoundFloor(amount)
         tvHouseDetailArgePrice.text = "${argePrice}万/m²"
@@ -532,9 +534,9 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
         tvHouseDetailHShapeValue.text = "${basicInfo?.hShape}"
         var split = basicInfo?.label?.split(";")
         var toMutableList = split?.toMutableList()
-        if (basicInfo?.isCirculation ==1){
+        if (basicInfo?.isCirculation == 1) {
             toMutableList?.add("流通")
-            split  = toMutableList?.toList()
+            split = toMutableList?.toList()
         }
         houseDetailTags.tags =
             if (split != null && split.size > 5) split?.subList(0, 4) else getNotNullData(
@@ -542,7 +544,7 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
             )
 
         tvHouseDetailTel.onClick {
-           onShowTelListDialog(id,tvHouseDetailTel)
+            onShowTelListDialog(id, tvHouseDetailTel)
         }
         tvHouseDetailFollow.onClick {
             startActivity<AddFollowActivity>(HomeConstant.KEY_HOUSE_ID to id)
@@ -561,31 +563,32 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
         // 跟进
         var houseFollowFragment = HouseFollowFragment()
         val args = Bundle()
-        args.putString(HomeConstant.KEY_HOUSE_CODE,houseDetail?.houseCode)
-        args.putString(HomeConstant.KEY_HOUSE_ID,id)
+        args.putString(HomeConstant.KEY_HOUSE_CODE, houseDetail?.houseCode)
+        args.putString(HomeConstant.KEY_HOUSE_ID, id)
         houseFollowFragment.arguments = args
         fragments.add(houseFollowFragment)
         // 基础资料
         var houseBasicInfoFragment = HouseBasicInfoFragment()
         val houseBasicInfoArgs = Bundle()
-        houseBasicInfoArgs.putString(HomeConstant.KEY_HOUSE_DETAIL,Gson().toJson(itemHouseDetail))
+        houseBasicInfoArgs.putString(HomeConstant.KEY_HOUSE_DETAIL, Gson().toJson(itemHouseDetail))
         houseBasicInfoFragment.arguments = houseBasicInfoArgs
         fragments.add(houseBasicInfoFragment)
         // 相关人
         var houseOwnerInfoFragment = HouseOwnerInfoFragment()
         val houseOwnerInfoArgs = Bundle()
-        houseOwnerInfoArgs.putString(HomeConstant.KEY_HOUSE_DETAIL,Gson().toJson(itemHouseDetail))
-        houseOwnerInfoArgs.putString(HomeConstant.KEY_HOUSE_ID,id)
+        houseOwnerInfoArgs.putString(HomeConstant.KEY_HOUSE_DETAIL, Gson().toJson(itemHouseDetail))
+        houseOwnerInfoArgs.putString(HomeConstant.KEY_HOUSE_ID, id)
         houseOwnerInfoFragment.arguments = houseOwnerInfoArgs
         fragments.add(houseOwnerInfoFragment)
         // 图片
         var housePhotoInfoFragment = HousePhotoInfoFragment()
         val housePhotoInfoArgs = Bundle()
-        housePhotoInfoArgs.putString(HomeConstant.KEY_HOUSE_DETAIL,Gson().toJson(itemHouseDetail))
+        housePhotoInfoArgs.putString(HomeConstant.KEY_HOUSE_DETAIL, Gson().toJson(itemHouseDetail))
         housePhotoInfoFragment.arguments = housePhotoInfoArgs
         fragments.add(housePhotoInfoFragment)
 
-        houseDetailItemViewpager.adapter = HouseDetailFragmentAdapter(childFragmentManager,titles,fragments)
+        houseDetailItemViewpager.adapter =
+            HouseDetailFragmentAdapter(childFragmentManager, titles, fragments)
     }
 
     private fun getNotNullData(split: List<String>?): List<String> {

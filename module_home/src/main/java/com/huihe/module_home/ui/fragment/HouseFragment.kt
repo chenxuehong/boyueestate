@@ -61,6 +61,7 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     private var moreReq: MoreReq? = MoreReq()
     private var villageIds: MutableList<String>? = null
     private var mRvAreaDistrictAdapter: RvAreaDistrictAdapter? = null
+    private var  mAreaMultiStateView:MultiStateView?=null
     private var isHouseSelect: Boolean = false
     private var uiStatus: Int = BaseConstant.KEY_STATUS_DEFAULT
     var mSearchReq: SearchReq = SearchReq()
@@ -135,11 +136,9 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
                 moreReq = MoreReq()
                 mSearchReq = SearchReq()
                 showLoading()
-                setTabText(0, "区域")
-                setTabText(1, "楼层")
-                setTabText(2, "价格")
-                setTabText(3, "有效")
-                setTabText(4, "排序")
+                headers.forEachIndexed { index, item ->
+                    setTabText(index, item)
+                }
                 loadData()
             }.registerInBus(this)
     }
@@ -148,26 +147,26 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
         var tabMenuView: LinearLayout? = null
         try {
             tabMenuView = ReflectionUtil.getValue(dropDownMenu, "tabMenuView") as LinearLayout
-            var tab = getTab(position, tabMenuView)
-            tab?.text = title
+            var tabs = getTab(tabMenuView)
+            tabs[position].text = title
 
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
-    private fun getTab(position: Int, tabMenuView: LinearLayout): TextView? {
-        var selectIndex = -1
+    var list = mutableListOf<TextView>()
+    private fun getTab(tabMenuView: LinearLayout): MutableList<TextView> {
+        if (list.size>0){
+            return list
+        }
         for (index in 0 until tabMenuView.childCount) {
-            var childAt = tabMenuView.getChildAt(position)
+            var childAt = tabMenuView.getChildAt(index)
             if (childAt is TextView) {
-                selectIndex++
-                if (selectIndex == position) {
-                    return childAt
-                }
+                list.add(childAt)
             }
         }
-        return null
+        return list
     }
 
     private fun initView() {
@@ -287,12 +286,13 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
         mCurrentPage = 1
     }
 
-    override fun onDestroyView() {
+    override fun onDestroy() {
         //退出activity前关闭菜单
         dropDownMenu?.closeMenu()
+        list?.clear()
         mSearchResultViewController?.detach()
         Bus.unregister(this)
-        super.onDestroyView()
+        super.onDestroy()
     }
 
     private fun initRefreshLayout() {
@@ -325,11 +325,17 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
 
     override fun onGetAreaBeanListResult(list: MutableList<District>?) {
         mRvAreaDistrictAdapter?.setData(list ?: mutableListOf())
+        mAreaMultiStateView?.viewState =
+            MultiStateView.VIEW_STATE_CONTENT
     }
 
-    override fun startLoad(adapter: RvAreaDistrictAdapter?) {
+    override fun startLoad(
+        adapter: RvAreaDistrictAdapter?,
+        mMultiStateView: MultiStateView
+    ) {
         mRvAreaDistrictAdapter = adapter
         mPresenter?.getVillages()
+       this.mAreaMultiStateView= mMultiStateView
     }
 
     override fun getSearchModules(): MutableList<Int> {
@@ -339,10 +345,14 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     override fun onDataIsNull() {
         layoutRefreshContentView?.customers_mMultiStateView?.viewState =
             MultiStateView.VIEW_STATE_EMPTY
+        mAreaMultiStateView?.viewState =
+            MultiStateView.VIEW_STATE_EMPTY
     }
 
     override fun onError(text: String) {
         layoutRefreshContentView?.customers_mMultiStateView?.viewState =
+            MultiStateView.VIEW_STATE_ERROR
+        mAreaMultiStateView?.viewState =
             MultiStateView.VIEW_STATE_ERROR
     }
 

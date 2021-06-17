@@ -144,25 +144,25 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
         var tabMenuView: LinearLayout? = null
         try {
             tabMenuView = ReflectionUtil.getValue(dropDownMenu, "tabMenuView") as LinearLayout
-            var tab = getTab(position, tabMenuView)
-            tab?.text = title
+            var tabs = getTab(tabMenuView)
+            tabs[position].text = title
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
-    private fun getTab(position: Int, tabMenuView: LinearLayout): TextView? {
-        var selectIndex = -1
+    var list = mutableListOf<TextView>()
+    private fun getTab(tabMenuView: LinearLayout): MutableList<TextView> {
+        if (list.size>0){
+            return list
+        }
         for (index in 0 until tabMenuView.childCount) {
-            var childAt = tabMenuView.getChildAt(position)
+            var childAt = tabMenuView.getChildAt(index)
             if (childAt is TextView) {
-                selectIndex++
-                if (selectIndex == position) {
-                    return childAt
-                }
+                list.add(childAt)
             }
         }
-        return null
+        return list
     }
 
     private fun initRefreshLayout() {
@@ -322,6 +322,7 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
         try {
             mSearchResultViewController?.detach()
             Bus.unregister(this)
+            list?.clear()
         } catch (e: Exception) {
         }
         super.onDestroy()

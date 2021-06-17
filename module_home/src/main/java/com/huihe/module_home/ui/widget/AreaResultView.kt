@@ -9,6 +9,7 @@ import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.ui.adapter.AreaNameRvAdapter
 import com.huihe.module_home.ui.adapter.RvAreaDistrictAdapter
 import com.huihe.module_home.ui.adapter.RvZoneAdapter
+import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.provider.data.protocol.District
 import kotlinx.android.synthetic.main.layout_search_by_area.view.*
@@ -39,6 +40,7 @@ class AreaResultView {
                 CustomersModule.SearchType.AreaType
             )
         }
+        view.mMultiStateView.startLoading()
     }
 
     fun View.initRvAreaDistrictName(mContext: Context) {
@@ -55,7 +57,7 @@ class AreaResultView {
             }
         )
         rvAreaDistrictName.adapter = mRvAreaDistrictAdapter
-        mListener?.startLoad(mRvAreaDistrictAdapter)
+        mListener?.startLoad(mRvAreaDistrictAdapter,mMultiStateView)
     }
 
     fun View.initRvZone(

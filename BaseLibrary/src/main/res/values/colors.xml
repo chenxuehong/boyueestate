@@ -32,4 +32,6 @@
     <color name="drop_down_selected">#443DDD</color>
     <color name="drop_down_unselected">#333333</color>
     <color name="tao_bg_color">#99673AB7</color>
+    <color name="color_99000000">#99000000</color>
+    <color name="color_33000000">#33000000</color>
 </resources>

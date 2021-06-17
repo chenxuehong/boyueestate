@@ -90,7 +90,7 @@ class MainActivity : BaseMvpActivity<MainPresenter>(), MainView {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        mBottomNavBar.selectTab(0)
+        mBottomNavBar?.selectTab(0)
     }
 
     override fun injectComponent() {
@@ -192,16 +192,16 @@ class MainActivity : BaseMvpActivity<MainPresenter>(), MainView {
     private fun showCheckUpdateTip(serverAppVersion: ServerVersionInfo?) {
         mCheckUpdateDialog = LDialog.init(supportFragmentManager)
             .setLayoutRes(R.layout.dialog_apk_update)
-            .setBackgroundDrawableRes(R.drawable.common_white_radius_bg)
-            .setGravity(Gravity.CENTER)
+            .setBackgroundDrawableRes(R.drawable.bg_update)
+            .setGravity(Gravity.CENTER_HORIZONTAL)
             .setCancelableOutside(false)
             .setWidthScale(0.75f)
-            .setHeightDp(250f)
+            .setHeightDp(300f)
             .setViewHandlerListener(object : ViewHandlerListener() {
                 override fun convertView(holder: ViewHolder, dialog: BaseLDialog<*>) {
 
                     var log = serverAppVersion?.changelog ?: "暂无更新日志"
-                    holder.getView<TextView>(R.id.dialog_apk_update_tv_title).text = resources.getString(R.string.New_version_found)
+                    holder.getView<TextView>(R.id.dialog_apk_update_tv_title).text = "${resources.getString(R.string.New_version_found)}: ${serverAppVersion?.versionShort}"
                     holder.getView<TextView>(R.id.dialog_apk_update_tv_versionInfo).text = log
                     holder.getView<TextView>(R.id.dialog_apk_update_iv_close).onClick {
                         dialog.dismiss()

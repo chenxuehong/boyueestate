@@ -144,5 +144,12 @@
         <item name="android:layout_height">@dimen/dp_0_5</item>
         <item name="android:layout_width">match_parent</item>
     </style>
-
+    <style name="user_scroll_with_bar">
+        <item name="android:overScrollMode">never</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:paddingEnd">@dimen/dp_6</item>
+        <item name="android:scrollbarThumbVertical">@drawable/user_shape_scroll_thumb_bg</item>
+        <item name="android:scrollbarTrackVertical">@drawable/user_shape_scroll_track_bg</item>
+        <item name="android:scrollbarSize">@dimen/dp_1</item>
+    </style>
 </resources>

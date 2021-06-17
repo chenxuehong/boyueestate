@@ -367,7 +367,7 @@ class HouseDetailFragment : BaseTakePhotoFragment<HouseDetailPresenter>(), House
             mPresenter?.setHouseInfo(
                 SetHouseInfoReq(
                     id,
-                    circulation = if (item == resources.getString(R.string.Circulate)) {
+                    isCirculation = if (item == resources.getString(R.string.Circulate)) {
                         1
                     } else {
                         0

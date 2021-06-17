@@ -1,70 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingTop="@dimen/dp_100"
+    android:id="@+id/dialog_apk_update_ll"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <LinearLayout
-        android:id="@+id/dialog_apk_update_ll"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/dialog_apk_update_tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_35"
-        android:orientation="vertical">
+        android:text="发现新版本"
+        android:textColor="@color/color_333333"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
-        <ImageView
-            android:scaleType="centerCrop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/apk_update_bg" />
-
-        <TextView
-            android:id="@+id/dialog_apk_update_tv_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="39dp"
-            android:layout_marginRight="39dp"
-            android:textColor="@color/color_333333"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
+    <ScrollView
+        android:layout_width="match_parent"
+        style="@style/user_scroll_with_bar"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_weight="1"
+        android:paddingRight="@dimen/dp_3"
+        android:layout_height="0dp">
         <TextView
             android:id="@+id/dialog_apk_update_tv_versionInfo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="39dp"
-            android:layout_marginTop="@dimen/dp_10"
-            android:maxLines="3"
-            android:ellipsize="end"
-            android:layout_marginRight="39dp"
-            android:lineSpacingExtra="3dp"
+            android:layout_height="match_parent"
+            android:lineSpacingMultiplier="1.3"
+            android:minHeight="@dimen/dp_44"
             android:textColor="@color/color_333333"
             android:textSize="12sp" />
+    </ScrollView>
 
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44">
+        <TextView
+            android:id="@+id/dialog_apk_update_iv_close"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/dp_44"
+            android:background="@drawable/common_line_radius_bg"
+            android:gravity="center"
+            android:text="@string/appstore_deal_later"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_14"></TextView>
         <TextView
             android:id="@+id/dialog_apk_update_tv_update"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_28"
-            android:layout_marginLeft="39dp"
-            android:layout_marginTop="@dimen/dp_12"
-            android:layout_marginRight="39dp"
-            android:layout_marginBottom="@dimen/dp_14"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/dp_24"
+            android:layout_weight="1"
+            android:layout_height="@dimen/dp_44"
             android:background="@drawable/common_maincolor_radius_bg"
             android:gravity="center"
             android:text="@string/version_update"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_14"></TextView>
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/dialog_apk_update_iv_close"
-        android:layout_width="@dimen/dp_44"
-        android:layout_height="@dimen/dp_44"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/eui_custom_close" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/apk_update_arrow" />
-
-</RelativeLayout>
+</LinearLayout>
