@@ -39,6 +39,9 @@
         <meta-data
             android:name="com.mob.mobpush.debugLevel"
             android:value="4" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
     </application>
 
 </manifest>

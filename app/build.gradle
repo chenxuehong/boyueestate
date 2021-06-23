@@ -46,6 +46,21 @@ android {
 //            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    // 多渠道打包方式
+    productFlavors {
+        "boyue_debug" {
+            versionName "offline"
+            versionCode 21102
+            // 配置不同的String，key：config_file，value：offline.properties
+            resValue("string", "config_file", "offline.properties")
+        }
+        "boyue_relase" {}
+        "ebai_debug" {}
+        "ebai_relase" {}
+    }
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
     dexOptions {
         dexInProcess true
         preDexLibraries true
@@ -105,11 +120,11 @@ MobSDK {
                 appId "141600"
                 appKey "44051b9fa4f043f095a41b84873f7e70"
             }
-//
-//            VIVO {
-//                appId "105461314"
-//                appKey "4d165d448c2e75090cf6ca99c9181ee3"
-//            }
+
+            VIVO {
+                appId "105491404"
+                appKey "28814ab72c0fa8309df53c626cd7b80b"
+            }
         }
     }
 }
