@@ -1,4 +1,4 @@
-package com.huihe.boyueestate.injection.module
+package com.huihe.ebai.injection.module
 
 import com.huihe.usercenter.service.UserService
 import com.huihe.usercenter.service.iml.UserServiceImpl

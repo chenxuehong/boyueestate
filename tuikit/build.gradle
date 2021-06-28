@@ -17,7 +17,7 @@ android {
             targetSdkVersion target_sdk_version
             versionCode 1
             versionName "1.0"
-
+            flavorDimensions "default"
             testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         }
@@ -46,7 +46,6 @@ android {
         }
 //        maven { url "https://mirrors.tencent.com/repository/maven/tencent_public"}
     }
-
 }
 
 dependencies {

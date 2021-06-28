@@ -1,4 +1,4 @@
-package com.huihe.boyueestate.presenter.view
+package com.huihe.ebai.presenter.view
 
 import com.kotlin.base.presenter.view.BaseView
 

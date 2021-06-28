@@ -1,4 +1,4 @@
-package com.huihe.boyueestate
+package com.huihe.ebai
 
 import org.junit.Test
 

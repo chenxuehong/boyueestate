@@ -20,7 +20,7 @@ android {
         targetSdkVersion target_sdk_version
         versionCode 1
         versionName "1.0"
-
+        flavorDimensions "default"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 //        consumerProguardFiles 'consumer-rules.pro'
     }

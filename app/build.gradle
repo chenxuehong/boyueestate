@@ -8,13 +8,14 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion compile_sdk_version
     defaultConfig {
-        applicationId "com.huihe.boyueestate"
+        applicationId "com.huihe.ebai"
         minSdkVersion min_sdk_version
         targetSdkVersion target_sdk_version
         versionCode 21102
         versionName "21.1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        flavorDimensions "default"
     }
     signingConfigs {
         release {
@@ -46,21 +47,7 @@ android {
 //            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    // 多渠道打包方式
-    productFlavors {
-        "boyue_debug" {
-            versionName "offline"
-            versionCode 21102
-            // 配置不同的String，key：config_file，value：offline.properties
-            resValue("string", "config_file", "offline.properties")
-        }
-        "boyue_relase" {}
-        "ebai_debug" {}
-        "ebai_relase" {}
-    }
-    productFlavors.all {
-        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
-    }
+
     dexOptions {
         dexInProcess true
         preDexLibraries true

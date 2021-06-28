@@ -10,5 +10,8 @@
         <activity android:name=".ui.activity.SetCustomerInfoActivity"/>
         <activity android:name=".ui.activity.AddCustomerActivity"/>
         <activity android:name=".ui.activity.CustomerSearchActivity"/>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
     </application>
 </manifest>

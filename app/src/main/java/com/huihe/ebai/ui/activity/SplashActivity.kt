@@ -1,11 +1,11 @@
-package com.huihe.boyueestate.ui.activity
+package com.huihe.ebai.ui.activity
 
 import android.os.Bundle
-import com.huihe.boyueestate.R
-import com.huihe.boyueestate.injection.component.DaggerSplashComponent
-import com.huihe.boyueestate.injection.module.SplashModule
-import com.huihe.boyueestate.presenter.SplashPresenter
-import com.huihe.boyueestate.presenter.view.SplashView
+import com.huihe.ebai.R
+import com.huihe.ebai.injection.component.DaggerSplashComponent
+import com.huihe.ebai.injection.module.SplashModule
+import com.huihe.ebai.presenter.SplashPresenter
+import com.huihe.ebai.presenter.view.SplashView
 import com.huihe.usercenter.ui.activity.MainActivity
 import com.huihe.usercenter.utils.MessageService
 import com.kotlin.base.ui.activity.BaseMvpActivity

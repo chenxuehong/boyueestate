@@ -44,23 +44,6 @@
         <activity android:name=".component.activity.ContractsListActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"/>
-        <activity
-            android:name="com.tencent.liteav.trtcvideocalldemo.ui.SelectContactActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.tencent.liteav.trtcaudiocalldemo.ui.TRTCAudioCallActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name="com.tencent.liteav.trtcvideocalldemo.ui.TRTCVideoCallActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-
         <provider
             android:name=".utils.TUIKitFileProvider"
             android:authorities="com.tencent.qcloud.tim.uikit.fileprovider"
@@ -70,7 +53,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths_public" />
         </provider>
-
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
     </application>
 
 </manifest>

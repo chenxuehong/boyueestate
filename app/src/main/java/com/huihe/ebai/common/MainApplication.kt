@@ -1,4 +1,4 @@
-package com.huihe.boyueestate.common
+package com.huihe.ebai.common
 
 import android.widget.Toast
 import cn.sharesdk.framework.Platform
@@ -8,11 +8,11 @@ import com.baidu.mapapi.CoordType
 import com.baidu.mapapi.SDKInitializer
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
-import com.huihe.boyueestate.R
-import com.huihe.boyueestate.push.CustomNotification
-import com.huihe.boyueestate.push.MyMobPushCallback
-import com.huihe.boyueestate.push.MyMobPushReceiver
-import com.huihe.boyueestate.share.ShareSdkUtil
+import com.huihe.ebai.R
+import com.huihe.ebai.push.CustomNotification
+import com.huihe.ebai.push.MyMobPushCallback
+import com.huihe.ebai.push.MyMobPushReceiver
+import com.huihe.ebai.share.ShareSdkUtil
 import com.kotlin.base.common.AppManager
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.event.LoginEvent
@@ -25,13 +25,11 @@ import com.mob.pushsdk.MobPush
 import com.tencent.qcloud.tim.uikit.TUIKit
 import com.tencent.qcloud.tim.uikit.base.IMApplication
 import com.tencent.qcloud.tim.uikit.base.IUIKitCallBack
-import com.tencent.qcloud.tim.uikit.utils.PopWindowUtil
 import com.tencent.qcloud.tim.uikit.utils.ThirdPushTokenMgr
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import org.jetbrains.anko.runOnUiThread
-import org.jetbrains.anko.share
 import org.jetbrains.anko.toast
 import java.util.HashMap
 import java.util.concurrent.TimeUnit

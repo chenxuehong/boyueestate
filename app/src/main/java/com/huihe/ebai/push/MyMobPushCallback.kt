@@ -1,4 +1,4 @@
-package com.huihe.boyueestate.push
+package com.huihe.ebai.push
 
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.utils.AppPrefsUtils

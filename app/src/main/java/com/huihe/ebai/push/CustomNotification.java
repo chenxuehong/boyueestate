@@ -1,4 +1,4 @@
-package com.huihe.boyueestate.push;
+package com.huihe.ebai.push;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -12,7 +12,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.text.TextUtils;
 
-import com.huihe.boyueestate.R;
+import com.huihe.ebai.R;
 import com.mob.MobSDK;
 import com.mob.pushsdk.MobPushNotifyMessage;
 import com.mob.pushsdk.MobPushTailorNotification;

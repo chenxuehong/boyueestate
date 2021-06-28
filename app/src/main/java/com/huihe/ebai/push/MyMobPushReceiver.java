@@ -1,4 +1,4 @@
-package com.huihe.boyueestate.push;
+package com.huihe.ebai.push;
 
 import android.content.Context;
 import android.util.Log;

@@ -1,4 +1,4 @@
-package com.huihe.boyueestate.share;
+package com.huihe.ebai.share;
 
 import android.text.TextUtils;
 

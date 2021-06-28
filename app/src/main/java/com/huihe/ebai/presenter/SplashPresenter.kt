@@ -1,14 +1,12 @@
-package com.huihe.boyueestate.presenter
+package com.huihe.ebai.presenter
 
-import com.huihe.boyueestate.presenter.view.SplashView
+import com.huihe.ebai.presenter.view.SplashView
 import com.huihe.usercenter.data.protocol.SystemConfigRep
 import com.huihe.usercenter.service.UserService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber
 import com.kotlin.provider.constant.UserConstant
-import io.reactivex.Observable
-import java.util.function.Function
 import javax.inject.Inject
 
 class SplashPresenter @Inject constructor() : BasePresenter<SplashView>(){

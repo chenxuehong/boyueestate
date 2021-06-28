@@ -1,7 +1,7 @@
-package com.huihe.boyueestate.injection.component
+package com.huihe.ebai.injection.component
 
-import com.huihe.boyueestate.injection.module.SplashModule
-import com.huihe.boyueestate.ui.activity.SplashActivity
+import com.huihe.ebai.injection.module.SplashModule
+import com.huihe.ebai.ui.activity.SplashActivity
 import com.kotlin.base.injection.PerComponentScope
 import com.kotlin.base.injection.component.ActivityComponent
 import dagger.Component

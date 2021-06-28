@@ -2,7 +2,9 @@
     package="com.kotlin.provider" >
 
     <application>
-
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
     </application>
 
 </manifest>
