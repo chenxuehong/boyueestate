@@ -17,6 +17,7 @@ import com.kotlin.base.common.AppManager
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.event.LoginEvent
 import com.kotlin.base.utils.AppPrefsUtils
+import com.kotlin.provider.BuildConfig
 import com.kotlin.provider.event.*
 import com.kotlin.provider.router.RouterPath
 import com.kotlin.provider.utils.UserPrefsUtils
@@ -105,7 +106,7 @@ class MainApplication : IMApplication() {
     }
 
     private fun initModePush() {
-        MobSDK.init(this, "3270be52b22ee", "872ca12218b61bc3b588d795fc52b3da")
+        MobSDK.init(this, BuildConfig.MobpushAppkey, BuildConfig.MobpushAppSecret)
         MobPush.setNotifyIcon(R.drawable.splash)
         MobPush.setShowBadge(true)
         myMobPushReceiver = MyMobPushReceiver()

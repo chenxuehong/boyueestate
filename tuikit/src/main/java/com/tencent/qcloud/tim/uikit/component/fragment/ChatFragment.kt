@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.kotlin.base.ui.fragment.BaseFragment
-import com.kotlin.provider.router.RouterPath
 import com.tencent.qcloud.tim.uikit.R
 import com.tencent.qcloud.tim.uikit.component.TitleBarLayout
-import com.tencent.qcloud.tim.uikit.config.Constants
+import com.tencent.qcloud.tim.uikit.config.MessageConstants
 import com.tencent.qcloud.tim.uikit.modules.chat.base.ChatInfo
 import com.tencent.qcloud.tim.uikit.modules.chat.layout.message.MessageLayout
 import com.tencent.qcloud.tim.uikit.modules.message.MessageInfo
@@ -37,7 +35,7 @@ class ChatFragment : BaseFragment() {
 
     fun initView() {
         val bundle = arguments
-        mChatInfo = bundle!!.getSerializable(Constants.CHAT_INFO) as ChatInfo
+        mChatInfo = bundle!!.getSerializable(MessageConstants.CHAT_INFO) as ChatInfo
         if (mChatInfo == null) {
             return
         }

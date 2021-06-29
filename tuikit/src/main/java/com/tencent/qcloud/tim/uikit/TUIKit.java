@@ -14,7 +14,7 @@ import com.tencent.imsdk.v2.V2TIMValueCallback;
 import com.tencent.qcloud.tim.uikit.base.IMEventListener;
 import com.tencent.qcloud.tim.uikit.base.IUIKitCallBack;
 import com.tencent.qcloud.tim.uikit.component.activity.ChatActivity;
-import com.tencent.qcloud.tim.uikit.config.Constants;
+import com.tencent.qcloud.tim.uikit.config.MessageConstants;
 import com.tencent.qcloud.tim.uikit.config.TUIKitConfigs;
 import com.tencent.qcloud.tim.uikit.modules.chat.base.ChatInfo;
 
@@ -135,7 +135,7 @@ public class TUIKit {
         chatInfo.setId(id);
         chatInfo.setChatName(chatName);
         Intent intent = new Intent(context, ChatActivity.class);
-        intent.putExtra(Constants.CHAT_INFO, chatInfo);
+        intent.putExtra(MessageConstants.CHAT_INFO, chatInfo);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }

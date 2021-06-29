@@ -33,5 +33,6 @@ class BaseConstant{
 
         // 小区列表 key
         const val KEY_SP_VILLAGES = "Villages"
+
     }
 }

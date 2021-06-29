@@ -14,7 +14,7 @@ import com.tencent.imsdk.v2.V2TIMConversation
 import com.tencent.qcloud.tim.uikit.R
 import com.tencent.qcloud.tim.uikit.base.BaseFragment
 import com.tencent.qcloud.tim.uikit.component.activity.ChatActivity
-import com.tencent.qcloud.tim.uikit.config.Constants
+import com.tencent.qcloud.tim.uikit.config.MessageConstants
 import com.tencent.qcloud.tim.uikit.modules.chat.base.ChatInfo
 import com.tencent.qcloud.tim.uikit.modules.conversation.ConversationLayout
 import com.tencent.qcloud.tim.uikit.modules.conversation.ConversationListLayout
@@ -75,7 +75,7 @@ class ConversationFragment : BaseFragment(), ConversationManagerKit.MessageUnrea
         chatInfo.id = conversationInfo.id
         chatInfo.chatName = conversationInfo.title
         val intent = Intent(context, ChatActivity::class.java)
-        intent.putExtra(Constants.CHAT_INFO, chatInfo)
+        intent.putExtra(MessageConstants.CHAT_INFO, chatInfo)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }

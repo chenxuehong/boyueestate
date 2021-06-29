@@ -9,7 +9,6 @@ android {
         targetSdkVersion target_sdk_version
         versionCode 1
         versionName "1.0"
-        flavorDimensions "default"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 //        consumerProguardFiles 'consumer-rules.pro'
     }
@@ -19,9 +18,25 @@ android {
         }
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //配置APP变量
+            // 亿百房公司编码
+            buildConfigField ('String', 'CompanyCode', '"19290"')
+            buildConfigField ('int', 'MessageAppID', "1400530379")
+            buildConfigField ('String', 'MobpushAppkey', '"m32e95c3f2c263"')
+            buildConfigField ('String', 'MobpushAppSecret', '"435d531902b97d0f95a077f38e75092b"')
+        }
         release {
             minifyEnabled false
 //            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //配置APP变量
+            // 亿百房公司编码
+            buildConfigField ('String', 'CompanyCode', '"19290"')
+            buildConfigField ('int', 'MessageAppID', "1400530379")
+            buildConfigField ('String', 'MobpushAppkey', '"m32e95c3f2c263"')
+            buildConfigField ('String', 'MobpushAppSecret', '"435d531902b97d0f95a077f38e75092b"')
         }
     }
 }

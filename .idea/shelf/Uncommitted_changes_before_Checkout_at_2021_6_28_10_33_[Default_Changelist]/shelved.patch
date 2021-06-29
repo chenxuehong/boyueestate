@@ -1,0 +1,34 @@
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>apply plugin: 'com.android.application'\r\n\r\napply plugin: 'kotlin-android'\r\n\r\napply plugin: 'kotlin-android-extensions'\r\napply plugin: 'com.mob.sdk'\r\napply plugin: 'kotlin-kapt'\r\nandroid {\r\n    compileSdkVersion compile_sdk_version\r\n    defaultConfig {\r\n        applicationId \"com.huihe.boyueestate\"\r\n        minSdkVersion min_sdk_version\r\n        targetSdkVersion target_sdk_version\r\n        versionCode 21102\r\n        versionName \"21.1.2\"\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n        multiDexEnabled true\r\n    }\r\n    signingConfigs {\r\n        release {\r\n            storeFile file(KEYSTORE_FILE)\r\n            storePassword KEYSTORE_PASSWORD\r\n            keyAlias = KEYSTORE_ALIAS\r\n            keyPassword KEYSTORE_PASSWORD\r\n        }\r\n        debug {\r\n            storeFile file(KEYSTORE_FILE)\r\n            storePassword KEYSTORE_PASSWORD\r\n            keyAlias = KEYSTORE_ALIAS\r\n            keyPassword KEYSTORE_PASSWORD\r\n        }\r\n    }\r\n    buildTypes {\r\n        release {\r\n            signingConfig signingConfigs.release\r\n//            minifyEnabled true //开启混淆编译\r\n//            shrinkResources true //移除无用资源\r\n//            zipAlignEnabled true //zipalign优化\r\n//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n        debug {\r\n            signingConfig signingConfigs.debug\r\n//            minifyEnabled true //开启混淆编译\r\n//            shrinkResources true //移除无用资源\r\n//            zipAlignEnabled true //zipalign优化\r\n//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    // 多渠道打包方式\r\n    productFlavors {\r\n        \"boyue_debug\" {\r\n            versionName \"offline\"\r\n            versionCode 21102\r\n            // 配置不同的String，key：config_file，value：offline.properties\r\n            resValue(\"string\", \"config_file\", \"offline.properties\")\r\n        }\r\n        \"boyue_relase\" {}\r\n        \"ebai_debug\" {}\r\n        \"ebai_relase\" {}\r\n    }\r\n    productFlavors.all {\r\n        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]\r\n    }\r\n    dexOptions {\r\n        dexInProcess true\r\n        preDexLibraries true\r\n        javaMaxHeapSize \"6g\"\r\n    }\r\n    lintOptions {\r\n        //某些资源报错\r\n        disable 'MissingTranslation'\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n    configurations.all {\r\n        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'\r\n    }\r\n}\r\n\r\nMobSDK {\r\n /*   fp true //严格模式   暂时不需要授权*/\r\n    gui true\r\n    appKey \"3270be52b22ee\"\r\n    appSecret \"872ca12218b61bc3b588d795fc52b3da\"\r\n    // 调用分享\r\n    ShareSDK {\r\n        loopShare false\r\n        //平台配置信息\r\n        devInfo {\r\n            Wechat {\r\n                appId \"wx5058cd7c4c9d9bec\"\r\n                appSecret \"29828f4fde064e4be28dab53956e68b1\"\r\n            }\r\n            WechatMoments {\r\n                appId \"wx5058cd7c4c9d9bec\"\r\n                appSecret \"29828f4fde064e4be28dab53956e68b1\"\r\n            }\r\n        }\r\n    }\r\n    // 调用MobPush\r\n    MobPush {\r\n        debugLevel 4\r\n        devInfo {\r\n            HUAWEI {\r\n                appId \"104363651\"\r\n                appKey \"CgB6e3x9+2XGAS+TdGkzhh9i3HXFqkh3B0UvYJiFo2WvHnFQgQF9RugXpBmuRpMeZvAzW2IbRJcGXzlJOqia+EaA\"\r\n            }\r\n            XIAOMI {\r\n                appId \"2882303761519940641\"\r\n                appKey \"5731994046641\"\r\n            }\r\n\r\n            OPPO {\r\n                appKey \"5dde8a3e247944e5b4c9318d73101b27\"\r\n                appSecret \"56bab0ca6e2442649831143ebfbea550\"\r\n            }\r\n            MEIZU{\r\n                appId \"141600\"\r\n                appKey \"44051b9fa4f043f095a41b84873f7e70\"\r\n            }\r\n\r\n            VIVO {\r\n                appId \"105491404\"\r\n                appKey \"28814ab72c0fa8309df53c626cd7b80b\"\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\ndependencies {\r\n    implementation project(':provider')\r\n    //Dagger2\r\n    kapt \"com.google.dagger:dagger-compiler:$dagger_version\"\r\n    if (isUserModule.toBoolean()) {\r\n        implementation project(':usercenter')\r\n    }\r\n    implementation project(':module_home')\r\n    implementation project(':customercenter')\r\n    implementation project(':tuikit')\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision 11ec6035c5ab46b664c22d8478e37e62e3776a18)
++++ app/build.gradle	(date 1624623269670)
+@@ -5,6 +5,7 @@
+ apply plugin: 'kotlin-android-extensions'
+ apply plugin: 'com.mob.sdk'
+ apply plugin: 'kotlin-kapt'
++
+ android {
+     compileSdkVersion compile_sdk_version
+     defaultConfig {
+@@ -49,12 +50,11 @@
+     // 多渠道打包方式
+     productFlavors {
+         "boyue_debug" {
+-            versionName "offline"
+-            versionCode 21102
+-            // 配置不同的String，key：config_file，value：offline.properties
+-            resValue("string", "config_file", "offline.properties")
++
+         }
+-        "boyue_relase" {}
++        "boyue_relase" {
++
++        }
+         "ebai_debug" {}
+         "ebai_relase" {}
+     }

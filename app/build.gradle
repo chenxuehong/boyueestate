@@ -69,26 +69,27 @@ android {
 MobSDK {
  /*   fp true //严格模式   暂时不需要授权*/
     gui true
-    appKey "3270be52b22ee"
-    appSecret "872ca12218b61bc3b588d795fc52b3da"
+    appKey "m32e95c3f2c263"
+    appSecret "435d531902b97d0f95a077f38e75092b"
     // 调用分享
     ShareSDK {
         loopShare false
         //平台配置信息
         devInfo {
             Wechat {
-                appId "wx5058cd7c4c9d9bec"
-                appSecret "29828f4fde064e4be28dab53956e68b1"
+                appId "wx1c6fdfdd4786cca4"
+                appSecret "99358d4d14dbdb9147519694ab0b2376"
             }
             WechatMoments {
-                appId "wx5058cd7c4c9d9bec"
-                appSecret "29828f4fde064e4be28dab53956e68b1"
+                appId "wx1c6fdfdd4786cca4"
+                appSecret "99358d4d14dbdb9147519694ab0b2376"
             }
         }
     }
     // 调用MobPush
     MobPush {
         debugLevel 4
+        /*亿百房五大厂商配置需要修改*/
         devInfo {
             HUAWEI {
                 appId "104363651"
