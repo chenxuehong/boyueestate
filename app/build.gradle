@@ -15,6 +15,7 @@ android {
         versionName "21.1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        flavorDimensions "default"
     }
     signingConfigs {
         release {
@@ -48,15 +49,11 @@ android {
     }
     // 多渠道打包方式
     productFlavors {
-        "boyue_debug" {
-            versionName "offline"
-            versionCode 21102
-            // 配置不同的String，key：config_file，value：offline.properties
-            resValue("string", "config_file", "offline.properties")
-        }
-        "boyue_relase" {}
-        "ebai_debug" {}
-        "ebai_relase" {}
+        "huawei" {}
+        "xiaomi" {}
+        "oppo" {}
+        "meizu" {}
+        "vivo" {}
     }
     productFlavors.all {
         flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
