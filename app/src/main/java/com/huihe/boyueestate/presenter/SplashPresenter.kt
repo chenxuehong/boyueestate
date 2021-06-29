@@ -7,8 +7,6 @@ import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber
 import com.kotlin.provider.constant.UserConstant
-import io.reactivex.Observable
-import java.util.function.Function
 import javax.inject.Inject
 
 class SplashPresenter @Inject constructor() : BasePresenter<SplashView>(){

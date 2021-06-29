@@ -25,13 +25,11 @@ import com.mob.pushsdk.MobPush
 import com.tencent.qcloud.tim.uikit.TUIKit
 import com.tencent.qcloud.tim.uikit.base.IMApplication
 import com.tencent.qcloud.tim.uikit.base.IUIKitCallBack
-import com.tencent.qcloud.tim.uikit.utils.PopWindowUtil
 import com.tencent.qcloud.tim.uikit.utils.ThirdPushTokenMgr
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import org.jetbrains.anko.runOnUiThread
-import org.jetbrains.anko.share
 import org.jetbrains.anko.toast
 import java.util.HashMap
 import java.util.concurrent.TimeUnit
