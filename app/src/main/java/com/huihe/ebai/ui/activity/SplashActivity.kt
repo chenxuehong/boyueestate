@@ -8,6 +8,7 @@ import com.huihe.ebai.presenter.SplashPresenter
 import com.huihe.ebai.presenter.view.SplashView
 import com.huihe.usercenter.ui.activity.MainActivity
 import com.huihe.usercenter.utils.MessageService
+import com.kotlin.base.ext.isHasConfig
 import com.kotlin.base.ui.activity.BaseMvpActivity
 import com.kotlin.base.utils.GlideUtils
 import com.kotlin.provider.common.afterLogin
@@ -29,7 +30,9 @@ class SplashActivity : BaseMvpActivity<SplashPresenter>(),
         super.onCreate(savedInstanceState)
         var messageService = MessageService()
         setContentView(R.layout.activity_splash)
-        mPresenter?.getSplashBanner()
+        if (isHasConfig()){
+            mPresenter?.getSplashBanner()
+        }
         ivSplashBanner.postDelayed(
             {
                 afterLogin {

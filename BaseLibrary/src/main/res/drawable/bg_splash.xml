@@ -6,9 +6,9 @@
         </shape>
     </item>
 
-    <item android:top="@dimen/dp_80">
+    <item >
         <bitmap
-            android:gravity="center_horizontal|top"
+            android:gravity="center"
             android:src="@drawable/splash" />
     </item>
 

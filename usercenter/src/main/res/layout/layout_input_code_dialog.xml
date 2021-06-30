@@ -7,7 +7,7 @@
     <EditText
         android:id="@+id/etCode"
         android:layout_margin="@dimen/dp_24"
-        android:background="@drawable/common_white_radius_bg"
+        android:background="@drawable/common_line_radius_bg"
         android:hint="@string/please_input_code"
         android:gravity="center"
         android:layout_width="match_parent"
@@ -22,5 +22,5 @@
         android:layout_gravity="center_horizontal"
         android:textSize="@dimen/sp_18"
         android:layout_width="@dimen/dp_80"
-        android:layout_height="@dimen/dp_40"/>
+        android:layout_height="@dimen/dp_30"/>
 </LinearLayout>

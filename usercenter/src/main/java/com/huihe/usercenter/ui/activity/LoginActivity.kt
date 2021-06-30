@@ -101,7 +101,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
                                 dialog.dismiss()
                             },{
                                 // 设置失败
-                                toast("请输入正确的公司编码!")
+                                toast(it)
                             }
                         )
                     }

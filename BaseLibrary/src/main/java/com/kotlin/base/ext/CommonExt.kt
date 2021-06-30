@@ -245,12 +245,16 @@ fun afterNoSetConfig(method: () -> Unit) {
     }
 }
 
-fun afterSetConfigInfo(code: String, onSuccess: () -> Unit, onFail: () -> Unit) {
-    var configInfo = AppPrefsUtils.setConfigInfo(code)
-    if (configInfo != null) {
-        onSuccess()
+fun afterSetConfigInfo(code: String, onSuccess: () -> Unit, onFail: (msg:String) -> Unit) {
+    if (TextUtils.isEmpty(code)){
+        onFail("公司编码不能为空！")
     }else{
-        onFail()
+        var configInfo = AppPrefsUtils.setConfigInfo(code)
+        if (configInfo != null) {
+            onSuccess()
+        }else{
+            onFail("请输入正确的公司编码!")
+        }
     }
 }
 
