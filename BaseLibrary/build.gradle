@@ -12,6 +12,11 @@ android {
         versionName "1.0"
         flavorDimensions "default"
     }
+    sourceSets{
+        main{
+            assets.srcDirs = ['assets']
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false

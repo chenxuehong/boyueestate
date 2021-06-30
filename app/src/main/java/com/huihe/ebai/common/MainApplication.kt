@@ -13,6 +13,7 @@ import com.huihe.ebai.push.CustomNotification
 import com.huihe.ebai.push.MyMobPushCallback
 import com.huihe.ebai.push.MyMobPushReceiver
 import com.huihe.ebai.share.ShareSdkUtil
+import com.ibai.message.TUIKit
 import com.kotlin.base.common.AppManager
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.event.LoginEvent
@@ -23,10 +24,6 @@ import com.kotlin.provider.router.RouterPath
 import com.kotlin.provider.utils.UserPrefsUtils
 import com.mob.MobSDK
 import com.mob.pushsdk.MobPush
-import com.tencent.qcloud.tim.uikit.TUIKit
-import com.tencent.qcloud.tim.uikit.base.IMApplication
-import com.tencent.qcloud.tim.uikit.base.IUIKitCallBack
-import com.tencent.qcloud.tim.uikit.utils.ThirdPushTokenMgr
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
@@ -36,7 +33,7 @@ import java.util.HashMap
 import java.util.concurrent.TimeUnit
 
 
-class MainApplication : IMApplication() {
+class MainApplication : com.ibai.message.base.IMApplication() {
 
     private var myMobPushReceiver: MyMobPushReceiver? = null
     override fun onCreate() {
@@ -59,7 +56,7 @@ class MainApplication : IMApplication() {
             }.registerInBus(this)
         Bus.observe<PushIMEvent>()
             .subscribe {
-                ThirdPushTokenMgr.getInstance().setPushTokenToTIM()
+                com.ibai.message.utils.ThirdPushTokenMgr.getInstance().setPushTokenToTIM()
             }.registerInBus(this)
         //在使用SDK各组件之前初始化context信息，传入ApplicationContext
         SDKInitializer.initialize(this);
@@ -73,7 +70,7 @@ class MainApplication : IMApplication() {
         TUIKit.login(
             messageLoginEvent.userId,
             messageLoginEvent.userSign,
-            object : IUIKitCallBack {
+            object : com.ibai.message.base.IUIKitCallBack {
                 override fun onSuccess(data: Any) {
                     Bus.send(ErrorEntity("登录成功", ErrorEntity.TYPE_LOGIN_SUCCESS))
                 }

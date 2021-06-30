@@ -23,7 +23,9 @@ import com.kotlin.base.rx.BaseFunc
 import com.kotlin.base.rx.BaseFuncBoolean
 import com.kotlin.base.rx.BaseSubscriber
 import com.kotlin.base.ui.activity.PhotoViewActivity
+import com.kotlin.base.utils.AppPrefsUtils
 import com.kotlin.base.utils.GlideUtils
+import com.kotlin.base.utils.LogUtils
 import com.kotlin.base.utils.amin.AnimationConstants
 import com.kotlin.base.widgets.DefaultTextWatcher
 import com.kotlin.base.widgets.GridViewItemDecoration
@@ -32,6 +34,9 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.find
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStreamReader
 
 
 //Kotlin通用扩展
@@ -201,4 +206,86 @@ fun View.viewPhoto(
     intent.putExtra(AnimationConstants.ACTIVITY_ANIMATION_PIVOTY, centery)
     intent.putExtra(AnimationConstants.ACTIVITY_ANIMATION_ENABLE, true)
     context?.startActivity(intent)
+}
+
+fun readJsonStrFromAssets(fileName: String, context: Context): String {
+    //将json数据变成字符串
+    val stringBuilder = StringBuilder()
+    try {
+
+        //获取assets资源管理器
+        val assetManager = context.assets
+        //通过管理器打开文件并读取
+        val bf = BufferedReader(
+            InputStreamReader(
+                assetManager.open(fileName)
+            )
+        )
+        var line: String?
+        while (bf.readLine().also { line = it } != null) {
+            stringBuilder.append(line)
+        }
+    } catch (e: IOException) {
+        e.printStackTrace()
+    }
+    return stringBuilder.toString()
+}
+
+
+//Kotlin通用扩展
+
+fun isHasConfig(): Boolean {
+    var configInfo = AppPrefsUtils.getConfigInfo()
+    return configInfo != null
+}
+
+fun afterNoSetConfig(method: () -> Unit) {
+    if (!isHasConfig()) {
+        method()
+    }
+}
+
+fun afterSetConfigInfo(code: String, onSuccess: () -> Unit, onFail: () -> Unit) {
+    var configInfo = AppPrefsUtils.setConfigInfo(code)
+    if (configInfo != null) {
+        onSuccess()
+    }else{
+        onFail()
+    }
+}
+
+fun getMessageAppID():Int{
+    var configInfo = AppPrefsUtils.getConfigInfo()
+    if (configInfo==null){
+        LogUtils.e("configInfo","getMessageAppID,configInfo is null")
+        return -1
+    }
+    return configInfo.MessageAppID
+}
+
+fun getCompanyCode():String{
+    var configInfo = AppPrefsUtils.getConfigInfo()
+    if (configInfo==null){
+        LogUtils.e("configInfo","getCompanyCode,configInfo is null")
+        return ""
+    }
+    return configInfo.CompanyCode
+}
+
+fun getServerAddress():String{
+    var configInfo = AppPrefsUtils.getConfigInfo()
+    if (configInfo==null){
+        LogUtils.e("configInfo","getServerAddress,configInfo is null")
+        return ""
+    }
+    return configInfo.ServerAddress
+}
+
+fun getIp():String{
+    var configInfo = AppPrefsUtils.getConfigInfo()
+    if (configInfo==null){
+        LogUtils.e("configInfo","getIp,configInfo is null")
+        return ""
+    }
+    return configInfo.ip
 }

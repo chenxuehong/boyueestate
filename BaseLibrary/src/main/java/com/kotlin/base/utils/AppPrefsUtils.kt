@@ -3,8 +3,11 @@ package com.kotlin.base.utils
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
+import com.google.gson.Gson
 import com.kotlin.base.common.BaseApplication
 import com.kotlin.base.common.BaseConstant
+import com.kotlin.base.data.protocol.Configs
+import com.kotlin.base.ext.readJsonStrFromAssets
 
 /*
     SP工具类
@@ -101,5 +104,33 @@ object AppPrefsUtils {
     fun remove(key: String) {
         ed.remove(key)
         ed.commit()
+    }
+
+    /**
+     * @desc 从asset读取配置文件，转成对应数据模型
+     */
+    fun getConfigList():MutableList<Configs.ConfigBean>{
+        val jsonStr: String = readJsonStrFromAssets("config_constant.json", BaseApplication.context)
+        var configsBean = Gson().fromJson<Configs>(jsonStr, Configs::class.java)
+        return configsBean.configs
+    }
+
+    fun setConfigInfo(companyCode:String):Configs.ConfigBean?{
+        var configList = getConfigList()
+        var configInfo:Configs.ConfigBean?=null
+        configList.forEach {item->
+            if (item.CompanyCode.equals(companyCode)){
+                configInfo = item
+            }
+        }
+        if (configInfo!=null){
+            AppPrefsUtils.putString(BaseConstant.KEY_CONFIG_INFO, Gson().toJson(configInfo))
+        }
+        return configInfo
+    }
+
+    fun getConfigInfo():Configs.ConfigBean?{
+        var configInfoStr = AppPrefsUtils.getString(BaseConstant.KEY_CONFIG_INFO) ?: ""
+        return Gson().fromJson<Configs.ConfigBean>(configInfoStr,Configs.ConfigBean::class.java)
     }
 }

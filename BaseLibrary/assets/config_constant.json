@@ -1,0 +1,24 @@
+{
+  "configs": [
+    {
+      "BoyueState": {
+        "MessageAppID ": 1400530379,
+        "CompanyCode ": "19290",
+        "ServerAddress ": "http://106.14.197.40/api/v1/",
+        "ip": "1"
+      },
+      "Jixiang": {
+        "MessageAppID ": 1400493154,
+        "CompanyCode ": "236183",
+        "ServerAddress ": "http://47.99.236.183/api/v1/",
+        "ip": "3"
+      },
+      "BaFu": {
+        "MessageAppID ": 1400493176,
+        "CompanyCode ": "160181",
+        "ServerAddress ": "http://101.133.160.181/api/v1/",
+        "ip": "2"
+      }
+    }
+  ]
+}

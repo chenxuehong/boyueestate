@@ -11,8 +11,8 @@ android {
         applicationId "com.huihe.ebai"
         minSdkVersion min_sdk_version
         targetSdkVersion target_sdk_version
-        versionCode 21102
-        versionName "21.1.2"
+        versionCode 21101
+        versionName "21.1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         flavorDimensions "default"
@@ -126,5 +126,5 @@ dependencies {
     }
     implementation project(':module_home')
     implementation project(':customercenter')
-    implementation project(':tuikit')
+    implementation project(':message')
 }

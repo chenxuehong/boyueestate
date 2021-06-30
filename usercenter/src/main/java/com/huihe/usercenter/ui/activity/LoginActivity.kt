@@ -15,6 +15,8 @@ import com.huihe.usercenter.presenter.LoginPresenter
 import com.huihe.usercenter.presenter.view.LoginView
 import com.kotlin.base.common.AppManager
 import com.kotlin.base.common.BaseConstant
+import com.kotlin.base.ext.afterNoSetConfig
+import com.kotlin.base.ext.afterSetConfigInfo
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.activity.BaseMvpActivity
 import com.kotlin.base.utils.AppPrefsUtils
@@ -49,6 +51,9 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
         mloginBtn.enable(mMobileEt) { isBtnEnable() }
         mloginBtn.enable(mPwdEt) { isBtnEnable() }
         mloginBtn.onClick(this)
+        afterNoSetConfig{
+            showEnterCode()
+        }
     }
 
     /*
@@ -72,7 +77,10 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
     }
 
     override fun onLoginResult(result: String) {
-        showEnterCode()
+        mloginBtn.postDelayed(Runnable {
+            toast("登录成功")
+            ARouter.getInstance().build(RouterPath.UserCenter.PATH_MAIN).navigation()
+        },500)
     }
 
     private fun showEnterCode() {
@@ -81,19 +89,21 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
             .setBackgroundDrawableRes(R.drawable.common_white_radius_bg)
             .setGravity(Gravity.CENTER)
             .setWidthScale(0.75f)
+            .setCancelableOutside(false)
             .setViewHandlerListener(object : ViewHandlerListener() {
                 override fun convertView(holder: ViewHolder, dialog: BaseLDialog<*>) {
                     var etCode = holder.getView<TextView>(R.id.etCode)
                     holder.getView<TextView>(R.id.tvConfirm).onClick {
-                        if (etCode.text.trim() != BuildConfig.CompanyCode){
-                            toast("请输入正确的公司编码!")
-                            return@onClick
-                        }
-                        dialog.dismiss()
-                        mloginBtn.postDelayed(Runnable {
-                            toast("登录成功")
-                            ARouter.getInstance().build(RouterPath.UserCenter.PATH_MAIN).navigation()
-                        },500)
+                        afterSetConfigInfo(
+                            etCode.text.trim().toString(),
+                            {
+                                // 设置成功
+                                dialog.dismiss()
+                            },{
+                                // 设置失败
+                                toast("请输入正确的公司编码!")
+                            }
+                        )
                     }
                 }
             }).show()

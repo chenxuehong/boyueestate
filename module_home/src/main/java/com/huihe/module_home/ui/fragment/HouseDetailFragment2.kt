@@ -32,6 +32,7 @@ import com.huihe.module_home.ui.adapter.TelRvAdapter
 import com.jph.takephoto.model.TResult
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.common.BaseConstant
+import com.kotlin.base.ext.getIp
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ext.startLoading
 import com.kotlin.base.ext.viewPhoto
@@ -284,7 +285,7 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
             BaseConstant.HouseDetail_BASE_URL,
             houseDetail?.id,
             userInfo?.uid ?: "",
-            BaseConstant.ip
+            getIp()
         )
     }
 

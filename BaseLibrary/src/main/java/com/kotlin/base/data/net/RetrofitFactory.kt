@@ -3,6 +3,7 @@ package com.kotlin.base.data.net
 import com.kotlin.base.BuildConfig
 import com.kotlin.base.common.BaseApplication
 import com.kotlin.base.common.BaseConstant
+import com.kotlin.base.ext.getServerAddress
 import com.kotlin.base.utils.AppPrefsUtils
 import okhttp3.Cache
 import okhttp3.Interceptor
@@ -50,7 +51,7 @@ class RetrofitFactory private constructor(){
 
         //Retrofit实例化
         retrofit = Retrofit.Builder()
-                .baseUrl(BaseConstant.SERVER_ADDRESS)
+                .baseUrl(getServerAddress())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(initClient())
