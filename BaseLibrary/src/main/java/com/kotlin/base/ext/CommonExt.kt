@@ -293,3 +293,49 @@ fun getIp():String{
     }
     return configInfo.ip
 }
+
+fun getXmPushBuid():Long{
+    var configInfo = AppPrefsUtils.getConfigInfo()
+    if (configInfo==null){
+        LogUtils.e("configInfo","getXmPushBuid,configInfo is null")
+        return 0L
+    }
+    return configInfo.XM_PUSH_BUZID
+}
+
+fun getHWPushBuid():Long{
+    var configInfo = AppPrefsUtils.getConfigInfo()
+    if (configInfo==null){
+        LogUtils.e("configInfo","getHWPushBuid,configInfo is null")
+        return 0L
+    }
+    return configInfo.HW_PUSH_BUZID
+}
+
+fun getMeiZhuPushBuid():Long{
+    var configInfo = AppPrefsUtils.getConfigInfo()
+    if (configInfo==null){
+        LogUtils.e("configInfo","getMeiZhuPushBuid,configInfo is null")
+        return 0L
+    }
+    return configInfo.MEIZHU_PUSH_BUZID
+}
+
+fun getVivoPushBuid():Long{
+    var configInfo = AppPrefsUtils.getConfigInfo()
+    if (configInfo==null){
+        LogUtils.e("configInfo","getVivoPushBuid,configInfo is null")
+        return 0L
+    }
+    return configInfo.VIVO_PUSH_BUZID
+}
+
+
+fun getOppoPushBuid():Long{
+    var configInfo = AppPrefsUtils.getConfigInfo()
+    if (configInfo==null){
+        LogUtils.e("configInfo","getVivoPushBuid,configInfo is null")
+        return 0L
+    }
+    return configInfo.OPPO_PUSH_BUZID
+}

@@ -8,6 +8,12 @@ import com.tencent.imsdk.TIMCallBack;
 import com.tencent.imsdk.TIMManager;
 import com.tencent.imsdk.TIMOfflinePushToken;
 
+import static com.kotlin.base.ext.CommonExtKt.getHWPushBuid;
+import static com.kotlin.base.ext.CommonExtKt.getMeiZhuPushBuid;
+import static com.kotlin.base.ext.CommonExtKt.getOppoPushBuid;
+import static com.kotlin.base.ext.CommonExtKt.getVivoPushBuid;
+import static com.kotlin.base.ext.CommonExtKt.getXmPushBuid;
+
 public class ThirdPushTokenMgr {
     private String mThirdPushToken;
     private boolean mIsTokenSet;
@@ -40,15 +46,15 @@ public class ThirdPushTokenMgr {
         }
         TIMOfflinePushToken param = null;
         if (IMFunc.isBrandXiaoMi()) {
-            param = new TIMOfflinePushToken(MessageConstant.XM_PUSH_BUZID, token);
+            param = new TIMOfflinePushToken(getXmPushBuid(), token);
         } else if (IMFunc.isBrandHuawei()) {
-            param = new TIMOfflinePushToken(MessageConstant.HW_PUSH_BUZID, token);
+            param = new TIMOfflinePushToken(getHWPushBuid(), token);
         } else if (IMFunc.isBrandOppo()) {
-            param = new TIMOfflinePushToken(MessageConstant.OPPO_PUSH_BUZID, token);
+            param = new TIMOfflinePushToken(getOppoPushBuid(), token);
         } else if (IMFunc.isBrandMeizu()) {
-            param = new TIMOfflinePushToken(MessageConstant.MEIZHU_PUSH_BUZID, token);
+            param = new TIMOfflinePushToken(getMeiZhuPushBuid(), token);
         } else if (IMFunc.isBrandVivo()) {
-            param = new TIMOfflinePushToken(MessageConstant.VIVO_PUSH_BUZID, token);
+            param = new TIMOfflinePushToken(getVivoPushBuid(), token);
         } else {
             return;
         }

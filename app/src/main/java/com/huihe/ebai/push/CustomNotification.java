@@ -19,9 +19,9 @@ import com.mob.pushsdk.MobPushTailorNotification;
 
 public class CustomNotification extends MobPushTailorNotification {
     // 代码格式：常量名所有字母大写，单词间以下划线分割，待修改
-    private static final String CHANNELID = "CHANNEL_BOYUE_NOTIFY";
-    private static final String CHANNELNAME = "CHANNEL_TEACHPAY";
-    private static final String MY_ACTION = "com.huihe.boyue.notifyclick";
+    private static final String CHANNELID = "CHANNEL_IBAI_NOTIFY";
+    private static final String CHANNELNAME = "CHANNEL_IBAI";
+    private static final String MY_ACTION = "com.huihe.ibai.notifyclick";
     private static final String TAG = CustomNotification.class.getSimpleName();
 
     @Override

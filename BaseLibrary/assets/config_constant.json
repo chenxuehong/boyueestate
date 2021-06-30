@@ -1,24 +1,40 @@
 {
   "configs": [
     {
-      "BoyueState": {
-        "MessageAppID ": 1400530379,
-        "CompanyCode ": "19290",
-        "ServerAddress ": "http://106.14.197.40/api/v1/",
-        "ip": "1"
-      },
-      "Jixiang": {
-        "MessageAppID ": 1400493154,
-        "CompanyCode ": "236183",
-        "ServerAddress ": "http://47.99.236.183/api/v1/",
-        "ip": "3"
-      },
-      "BaFu": {
-        "MessageAppID ": 1400493176,
-        "CompanyCode ": "160181",
-        "ServerAddress ": "http://101.133.160.181/api/v1/",
-        "ip": "2"
-      }
+      "PName": "HouseBaiE",
+      "MessageAppID": 1400530379,
+      "CompanyCode": "19290",
+      "ServerAddress": "http://106.14.197.40/api/v1/",
+      "ip": "1",
+      "XM_PUSH_BUZID": 18264,
+      "HW_PUSH_BUZID": 18265,
+      "MEIZHU_PUSH_BUZID": 18266,
+      "VIVO_PUSH_BUZID": 18267,
+      "OPPO_PUSH_BUZID": 18268
+    },
+    {
+      "PName": "BaFu",
+      "MessageAppID": 1400493176,
+      "CompanyCode": "160181",
+      "ServerAddress": "http://101.133.160.181/api/v1/",
+      "ip": "2",
+      "XM_PUSH_BUZID": 18269,
+      "HW_PUSH_BUZID": 18270,
+      "MEIZHU_PUSH_BUZID": 18271,
+      "VIVO_PUSH_BUZID": 18272,
+      "OPPO_PUSH_BUZID": 18273
+    },
+    {
+      "PName": "Jixiang",
+      "MessageAppID": 1400493154,
+      "CompanyCode": "236183",
+      "ServerAddress": "http://47.99.236.183/api/v1/",
+      "ip": "3",
+      "XM_PUSH_BUZID": 18274,
+      "HW_PUSH_BUZID": 18275,
+      "MEIZHU_PUSH_BUZID": 18276,
+      "VIVO_PUSH_BUZID": 18277,
+      "OPPO_PUSH_BUZID": 18278
     }
   ]
 }

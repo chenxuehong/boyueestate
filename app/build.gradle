@@ -92,26 +92,26 @@ MobSDK {
         /*亿百房五大厂商配置需要修改*/
         devInfo {
             HUAWEI {
-                appId "104363651"
-                appKey "CgB6e3x9+2XGAS+TdGkzhh9i3HXFqkh3B0UvYJiFo2WvHnFQgQF9RugXpBmuRpMeZvAzW2IbRJcGXzlJOqia+EaA"
+                appId "104477325"
+                appKey "CgB6e3x9YXdsEvboI7rHEzr98expD8UjXze76nm2i1E4NDrjPtGPsOoL2uls6BqIWDwbzgPe8WvnOxQxgo3Aah+9"
             }
             XIAOMI {
-                appId "2882303761519940641"
-                appKey "5731994046641"
+                appId "2882303761519973678"
+                appKey "5981997358678"
             }
 
             OPPO {
-                appKey "5dde8a3e247944e5b4c9318d73101b27"
-                appSecret "56bab0ca6e2442649831143ebfbea550"
+                appKey "f7d5acaf9269404a89870faa8a14870f"
+                appSecret "461277ca3f564900ac580ec939301933"
             }
             MEIZU{
-                appId "141600"
-                appKey "44051b9fa4f043f095a41b84873f7e70"
+                appId "142421"
+                appKey "e715b4ce624d491a8fdfd196d6be68f7"
             }
 
             VIVO {
-                appId "105491404"
-                appKey "28814ab72c0fa8309df53c626cd7b80b"
+                appId "105492839"
+                appKey "d806ebe235dd1e3320c19c37b90d67ff"
             }
         }
     }
