@@ -30,11 +30,11 @@
       "CompanyCode": "236183",
       "ServerAddress": "http://47.99.236.183/api/v1/",
       "ip": "3",
-      "XM_PUSH_BUZID": 18274,
-      "HW_PUSH_BUZID": 18275,
-      "MEIZHU_PUSH_BUZID": 18276,
-      "VIVO_PUSH_BUZID": 18277,
-      "OPPO_PUSH_BUZID": 18278
+      "XM_PUSH_BUZID": 18275,
+      "HW_PUSH_BUZID": 18276,
+      "MEIZHU_PUSH_BUZID": 18277,
+      "VIVO_PUSH_BUZID": 18278,
+      "OPPO_PUSH_BUZID": 18279
     }
   ]
 }

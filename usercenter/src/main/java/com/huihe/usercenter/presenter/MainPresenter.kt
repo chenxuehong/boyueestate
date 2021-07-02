@@ -8,6 +8,7 @@ import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber
+import com.kotlin.base.rx.DataNullException
 import com.kotlin.provider.data.protocol.ServerVersionInfo
 import com.kotlin.provider.event.PushIMEvent
 import javax.inject.Inject
@@ -24,6 +25,13 @@ class MainPresenter @Inject constructor(): BasePresenter<MainView>() {
                 override fun onNext(t: SetPushRep?) {
                     super.onNext(t)
                     mView?.onPushSuccess(t)
+                }
+
+                override fun onError(e: Throwable) {
+                    super.onError(e)
+                    if(e is DataNullException){
+                        mView?.onPushSuccess(null)
+                    }
                 }
             },lifecycleProvider)
     }
