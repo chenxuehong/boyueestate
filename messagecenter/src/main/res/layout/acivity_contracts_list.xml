@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.tencent.qcloud.tim.uikit.modules.contact.ContactListView
+    <com.bafuestate.message.modules.contact.ContactListView
         android:id="@+id/activity_contracts_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

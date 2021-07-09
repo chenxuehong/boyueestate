@@ -14,7 +14,7 @@
         android:paddingLeft="14.85dp"
         android:orientation="horizontal">
 
-        <com.tencent.qcloud.tim.uikit.modules.conversation.base.ConversationIconView
+        <com.bafuestate.message.modules.conversation.base.ConversationIconView
             android:id="@+id/conversation_icon"
             android:layout_width="@dimen/conversation_avatar_width"
             android:layout_height="@dimen/conversation_avatar_height" />
@@ -78,7 +78,7 @@
                 android:textSize="12.86sp" />
 
 
-            <com.tencent.qcloud.tim.uikit.component.UnreadCountTextView
+            <com.bafuestate.message.component.UnreadCountTextView
                 android:id="@+id/conversation_unread"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

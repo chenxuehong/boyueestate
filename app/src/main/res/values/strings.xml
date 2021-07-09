@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">伯约地产</string>
-    <string name="splash_bottom_title">以奋斗者为本</string>
+    <string name="app_name">八福地产</string>
+    <string name="splash_bottom_title">安得广厦千万间</string>
+    <string name="splash_bottom_title2">大庇天下寒士俱欢颜</string>
 </resources>

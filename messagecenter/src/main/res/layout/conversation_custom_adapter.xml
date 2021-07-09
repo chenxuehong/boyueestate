@@ -15,7 +15,7 @@
         android:paddingRight="10dp"
         android:paddingTop="10dp">
 
-        <com.tencent.qcloud.tim.uikit.modules.conversation.base.ConversationIconView
+        <com.bafuestate.message.modules.conversation.base.ConversationIconView
             android:id="@+id/conversation_icon"
             android:layout_width="match_parent"
             android:layout_height="200dp" />
@@ -54,7 +54,7 @@
             android:textColor="@color/list_bottom_text_bg" />
 
 
-        <com.tencent.qcloud.tim.uikit.component.UnreadCountTextView
+        <com.bafuestate.message.component.UnreadCountTextView
             android:id="@+id/conversation_unread"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

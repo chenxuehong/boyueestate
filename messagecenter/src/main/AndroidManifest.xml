@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.tencent.qcloud.tim.uikit">
+    package="com.bafuestate.message">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -12,36 +12,36 @@
     <application
         android:theme="@style/AppTheme">
         <activity
-            android:name=".component.video.CameraActivity"
+            android:name="com.bafuestate.message.component.video.CameraActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".component.activity.ChatActivity"
+            android:name="com.bafuestate.message.component.activity.ChatActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".component.video.VideoViewActivity"
+            android:name="com.bafuestate.message.component.video.VideoViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-            android:name=".component.photoview.PhotoViewActivity"
+            android:name="com.bafuestate.message.component.photoview.PhotoViewActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".modules.group.info.GroupInfoActivity"
+            android:name="com.bafuestate.message.modules.group.info.GroupInfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".modules.group.info.StartGroupMemberSelectActivity"
+            android:name="com.bafuestate.message.modules.group.info.StartGroupMemberSelectActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".component.SelectionActivity"
+            android:name="com.bafuestate.message.component.SelectionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".modules.group.apply.GroupApplyManagerActivity"
+            android:name="com.bafuestate.message.modules.group.apply.GroupApplyManagerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
-            android:name=".modules.group.apply.GroupApplyMemberActivity"
+            android:name="com.bafuestate.message.modules.group.apply.GroupApplyMemberActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-        <activity android:name=".component.activity.ContractsListActivity"
+        <activity android:name="com.bafuestate.message.component.activity.ContractsListActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"/>
         <activity
@@ -62,8 +62,8 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <provider
-            android:name=".utils.TUIKitFileProvider"
-            android:authorities="com.tencent.qcloud.tim.uikit.fileprovider"
+            android:name="com.bafuestate.message.utils.TUIKitFileProvider"
+            android:authorities="com.bafuestate.message.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

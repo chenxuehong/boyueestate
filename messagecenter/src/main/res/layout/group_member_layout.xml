@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
 
-    <com.tencent.qcloud.tim.uikit.component.TitleBarLayout
+    <com.bafuestate.message.component.TitleBarLayout
         android:id="@+id/group_member_title_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/page_title_height" />

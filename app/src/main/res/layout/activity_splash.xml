@@ -5,13 +5,24 @@
 
     <TextView
         android:layout_gravity="bottom"
-        android:layout_marginBottom="@dimen/dp_80"
+        android:layout_marginBottom="@dimen/dp_130"
         android:textColor="@color/common_white"
         android:textSize="@dimen/sp_38"
         android:text="@string/splash_bottom_title"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/dp_80"
+        android:textColor="@color/common_white"
+        android:textSize="@dimen/sp_20"
+        android:text="@string/splash_bottom_title2"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <ImageView
         android:scaleType="fitXY"
         android:id="@+id/ivSplashBanner"

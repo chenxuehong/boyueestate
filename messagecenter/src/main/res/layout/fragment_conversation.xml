@@ -11,7 +11,7 @@
         android:background="@color/main_color"
         app:isShowBack="false"
         app:titleText="@string/msg" />
-    <com.tencent.qcloud.tim.uikit.modules.conversation.ConversationLayout
+    <com.bafuestate.message.modules.conversation.ConversationLayout
         android:id="@+id/fragment_conversationLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
