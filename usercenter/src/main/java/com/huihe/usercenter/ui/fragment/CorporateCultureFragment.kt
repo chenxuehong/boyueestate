@@ -8,6 +8,7 @@ import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.CorporateCulturePresenter
 import com.huihe.usercenter.presenter.view.CorporateCultureView
 import com.huihe.usercenter.ui.adapter.CorporateCultureRvAdapter
+import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ui.activity.WebViewActivity
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseTitleRefreshFragment
@@ -53,7 +54,7 @@ class CorporateCultureFragment :
                 item: CorporateCultureRep.CorporateCulture,
                 position: Int
             ) {
-                var url = "http://billion.housevip.cn/#/content/${item.workNo}/ip/1"
+                var url = "http://billion.housevip.cn/#/content/${item.workNo}/ip/${BaseConstant.ip}"
                 startActivity<WebViewActivity>(WebViewActivity.KET_URL to url)
             }
         })

@@ -51,11 +51,7 @@ class RetrofitFactory private constructor(){
         //Retrofit实例化
         retrofit = Retrofit.Builder()
                 .baseUrl(
-                    if (BuildConfig.BUILD_TYPE.equals("release")){
-                    BaseConstant.SERVER_ADDRESS
-                }else{
-                    BaseConstant.SERVER_ADDRESS_DEBUG
-                })
+                    BaseConstant.SERVER_ADDRESS)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(initClient())
