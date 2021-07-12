@@ -19,16 +19,14 @@ android {
     }
     buildTypes {
         debug {
-            minifyEnabled false
-//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
             //配置APP变量
             // 房百亿
             buildConfigField ('String', 'MobpushAppkey', '"m32e95c3f2c263"')
             buildConfigField ('String', 'MobpushAppSecret', '"435d531902b97d0f95a077f38e75092b"')
         }
         release {
-            minifyEnabled false
-//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+           
             //配置APP变量
             // 房百亿
             buildConfigField ('String', 'MobpushAppkey', '"m32e95c3f2c263"')

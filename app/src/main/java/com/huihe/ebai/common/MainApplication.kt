@@ -103,7 +103,7 @@ class MainApplication : com.ibai.message.base.IMApplication() {
     }
 
     private fun initModePush() {
-        MobSDK.init(this, BuildConfig.MobpushAppkey, BuildConfig.MobpushAppSecret)
+        MobSDK.init(this, "m32e95c3f2c263", "435d531902b97d0f95a077f38e75092b")
         MobPush.setNotifyIcon(R.drawable.splash)
         MobPush.setShowBadge(true)
         myMobPushReceiver = MyMobPushReceiver()
