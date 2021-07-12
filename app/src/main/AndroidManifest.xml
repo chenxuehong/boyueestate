@@ -35,7 +35,7 @@
         </activity>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="8kutsdYWk96syU2PY8KZKWwZvImyt3Cr" />
+            android:value="6X1hscVFAFk26mZjzha6mFqi7QgDLgEj" />
         <meta-data
             android:name="com.mob.mobpush.debugLevel"
             android:value="4" />
