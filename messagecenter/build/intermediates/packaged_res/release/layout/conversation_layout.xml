@@ -1,0 +1,4 @@
+<com.bafuestate.message.modules.conversation.ConversationListLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/conversation_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
