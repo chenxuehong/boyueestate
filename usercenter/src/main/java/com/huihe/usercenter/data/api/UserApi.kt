@@ -51,6 +51,6 @@ interface UserApi {
     fun setPushInfo(
         @Body setPushReq: SetPushReq): Observable<BaseResp<SetPushRep?>>
 
-    @GET("60a4668fb2eb465a9a09370f?api_token=a93d04a00cedb2b2251be28a99e21616")
+    @GET("60ed80c123389f64d2fb6603?api_token=a93d04a00cedb2b2251be28a99e21616")
     fun getServerVersionInfo(): Observable<ServerVersionInfo?>
 }
