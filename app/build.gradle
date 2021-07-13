@@ -126,5 +126,5 @@ dependencies {
     }
     implementation project(':module_home')
     implementation project(':customercenter')
-    implementation project(':message')
+    implementation project(':messagecenter')
 }
