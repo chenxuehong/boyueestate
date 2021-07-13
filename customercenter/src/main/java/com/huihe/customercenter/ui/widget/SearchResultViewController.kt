@@ -13,6 +13,9 @@ class SearchResultViewController : ISearchView {
     private var mContext: Context? = null
     private var mIsShowing: Boolean = false
     private var popupViews: MutableList<View>? = null
+    var createUserView : CreateUserView?=null
+    var moreView : MoreView?=null
+    var sortView : SortView?=null
 
     constructor(context: Context, isShowing: Boolean) {
         mContext = context
@@ -39,7 +42,8 @@ class SearchResultViewController : ISearchView {
         when (searchType) {
             CustomersModule.SearchType.CreateUserType -> {
                 inflate = View.inflate(mContext, R.layout.layout_search_by_create_user, null)
-                CreateUserView().initCreateUserView(mContext!!, mListener,inflate)
+                createUserView = CreateUserView()
+                createUserView?.initCreateUserView(mContext!!, mListener,inflate)
             }
             CustomersModule.SearchType.StatusType -> {
                 inflate = View.inflate(mContext, R.layout.layout_search_by_status, null)
@@ -47,12 +51,14 @@ class SearchResultViewController : ISearchView {
             }
             CustomersModule.SearchType.MoreType -> {
                 inflate = View.inflate(mContext, R.layout.layout_search_by_more, null)
-                MoreView().initMoreView(mContext!!, mListener,inflate)
+                moreView = MoreView()
+                moreView?.initMoreView(mContext!!, mListener,inflate)
             }
             else// 排序
             -> {
                 inflate = View.inflate(mContext, R.layout.layout_search_by_sort, null)
-                SortView().initSortView(mContext!!, mListener,inflate)
+                sortView = SortView()
+                sortView?.initSortView(mContext!!, mListener,inflate)
             }
         }
         return inflate
@@ -64,6 +70,15 @@ class SearchResultViewController : ISearchView {
         if (popupViews != null) {
             popupViews!!.clear()
             popupViews = null
+        }
+        if (createUserView!=null){
+            createUserView?.clearData()
+        }
+        if (moreView!=null){
+            moreView?.clearData()
+        }
+        if (sortView!=null){
+            sortView?.clearData()
         }
     }
 }

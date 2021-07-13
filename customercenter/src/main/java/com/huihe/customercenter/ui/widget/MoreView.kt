@@ -107,4 +107,14 @@ class MoreView {
         isTakeLook = null
         isCollection = null
     }
+
+    fun clearData(){
+        if (datas!=null){
+            datas.clear()
+        }
+        userType = null
+        isOwn = null
+        isTakeLook = null
+        isCollection = null
+    }
 }

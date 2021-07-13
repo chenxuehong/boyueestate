@@ -37,14 +37,14 @@ android {
             minifyEnabled true //开启混淆编译
             shrinkResources true //移除无用资源
             zipAlignEnabled true //zipalign优化
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles 'proguard-rules.pro'
         }
         debug {
             signingConfig signingConfigs.debug
             minifyEnabled true //开启混淆编译
             shrinkResources true //移除无用资源
             zipAlignEnabled true //zipalign优化
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles 'proguard-rules.pro'
         }
     }
 

@@ -86,4 +86,9 @@ class BottomNavBar @JvmOverloads constructor(
             mMsgBadge.hide()
         }
     }
+
+    fun clearData(){
+        removeAllViews()
+
+    }
 }

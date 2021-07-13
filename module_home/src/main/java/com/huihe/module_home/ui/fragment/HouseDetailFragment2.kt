@@ -83,13 +83,15 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
     var REQUEST_CODE_PUTHOUSE_INFO: Int = 102
     var requestCode: Int = request_code_get_house_picture
     var imageUser: String? = null
-    lateinit var mUploadManager: UploadManager
+    var mUploadManager: UploadManager?=null
     var banner: Banner<HouseDetail.ImagUrlsBean, ImageAdapter>? = null
     var mMorePopWindow: CustomPopWindow? = null
     var mShareCustomPopWindow: CustomPopWindow? = null
     var mCallPopWindow: CustomPopWindow? = null
-
+    var mSetImageUerDialog: LDialog? = null
+    var mNewPhoneDialog: LDialog? = null
     val titles = mutableListOf<String>("跟进", "基本资料", "相关人", "图片")
+    var houseDetailFragmentAdapter:HouseDetailFragmentAdapter?=null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -302,7 +304,7 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
     }
 
     private fun showSetImageUerDialog() {
-        val mLDialog = LDialog.init(childFragmentManager)
+        mSetImageUerDialog = LDialog.init(childFragmentManager)
             .setLayoutRes(R.layout.layout_set_imageuser_dialog)
             .setBackgroundDrawableRes(R.drawable.new_phone_dialog_bg)
             .setGravity(Gravity.CENTER)
@@ -329,7 +331,7 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
     }
 
     private fun showNewPhoneDialog() {
-        LDialog.init(childFragmentManager)
+       mNewPhoneDialog = LDialog.init(childFragmentManager)
             .setLayoutRes(R.layout.layout_phone_dialog)
             .setBackgroundDrawableRes(R.drawable.new_phone_dialog_bg)
             .setGravity(Gravity.CENTER)
@@ -438,7 +440,7 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
     }
 
     override fun onGetUploadTokenResult(result: String?) {
-        mUploadManager.put(
+        mUploadManager?.put(
             mLocalFilResult?.image?.originalPath, null, result,
             { key, info, response ->
                 var mRemoteFileUrl = response?.get("hash") as String
@@ -587,9 +589,10 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
         housePhotoInfoArgs.putString(HomeConstant.KEY_HOUSE_DETAIL, Gson().toJson(itemHouseDetail))
         housePhotoInfoFragment.arguments = housePhotoInfoArgs
         fragments.add(housePhotoInfoFragment)
-
-        houseDetailItemViewpager.adapter =
+        houseDetailFragmentAdapter =
             HouseDetailFragmentAdapter(childFragmentManager, titles, fragments)
+        houseDetailItemViewpager.adapter = houseDetailFragmentAdapter
+
     }
 
     private fun getNotNullData(split: List<String>?): List<String> {
@@ -657,6 +660,13 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
             mCirculatePicker?.dismiss()
             mShareCustomPopWindow?.dissmiss()
             mCallPopWindow?.dissmiss()
+            mSetImageUerDialog?.dismiss()
+            mNewPhoneDialog?.dismiss()
+            houseDetailFragmentAdapter?.clearData()
+            titles?.clear()
+            mUploadManager = null
+            ivCollection?.setBackgroundDrawable(null)
+            houseDetail = null
         } catch (e: Exception) {
         }
         super.onDestroy()

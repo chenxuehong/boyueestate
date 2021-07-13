@@ -37,6 +37,16 @@ android {
         }
 //        maven { url "https://mirrors.tencent.com/repository/maven/tencent_public"}
     }
+    buildTypes {
+        release {
+            minifyEnabled true //开启混淆编译
+            proguardFiles 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled true //开启混淆编译
+            proguardFiles 'proguard-rules.pro'
+        }
+    }
 }
 
 dependencies {

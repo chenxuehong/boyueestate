@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 open class BaseFragmentStatePageAdapter : FragmentStatePagerAdapter {
 
     private var titles: MutableList<String>? = null
-    private var fragments: List<Fragment>? = null
+    private var fragments: MutableList<Fragment>? = null
 
     constructor(
         fm: FragmentManager,
@@ -15,11 +15,11 @@ open class BaseFragmentStatePageAdapter : FragmentStatePagerAdapter {
         fragments: List<Fragment>
     ) : super(fm) {
         this.titles = titles
-        this.fragments = fragments
+        this.fragments = fragments.toMutableList()
     }
 
     constructor(fm: FragmentManager, fragments: List<Fragment>) : super(fm) {
-        this.fragments = fragments
+        this.fragments = fragments.toMutableList()
     }
 
     override fun getItem(i: Int): Fragment {
@@ -44,5 +44,10 @@ open class BaseFragmentStatePageAdapter : FragmentStatePagerAdapter {
         return if (titles != null) {
             titles!![position]
         } else super.getPageTitle(position)
+    }
+
+    fun clearData() {
+        titles?.clear()
+        fragments?.clear()
     }
 }

@@ -155,4 +155,8 @@ class HouseBasicInfoRvItemAdapter(mContext: Context) :
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    fun onDestory(){
+        houseDetailMapview?.onDestroy()
+    }
 }

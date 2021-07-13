@@ -89,6 +89,8 @@ class CustomerDetailFragment :
     }
 
     lateinit var list :MutableList<CustomerDetailBean>
+    var customerDetailFragmentAdapter :CustomerDetailFragmentAdapter?=null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -273,11 +275,12 @@ class CustomerDetailFragment :
             CustomerConstant.KEY_CUSTOMER_CODE to mCustomerDetailRep?.customerCode))
         fragments.add(getFragmentWithArg(CustomerBasicInfoFragment(),
             CustomerConstant.KEY_BASIC_INFO to Gson().toJson(list[2].basicInfoList)))
-        customer_detail_Viewpager.adapter = CustomerDetailFragmentAdapter(
+        customerDetailFragmentAdapter = CustomerDetailFragmentAdapter(
             childFragmentManager,
             titles,
             fragments
         )
+        customer_detail_Viewpager.adapter = customerDetailFragmentAdapter
     }
 
     fun onPhoneCall(view: View, mobile: MutableList<String>?) {
@@ -610,6 +613,7 @@ class CustomerDetailFragment :
             callPopWindow?.dissmiss()
             mMorePopWindow?.dissmiss()
             updateStatusPicker?.dismiss()
+            customerDetailFragmentAdapter?.clearData()
         } catch (e: Exception) {
         }
         super.onDestroy()

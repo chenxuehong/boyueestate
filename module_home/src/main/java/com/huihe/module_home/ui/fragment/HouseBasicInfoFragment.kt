@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_house_basic_info.*
 
 class HouseBasicInfoFragment : BaseFragment(){
 
+    var houseBasicInfoRvItemAdapter : HouseBasicInfoRvItemAdapter?=null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,13 +39,21 @@ class HouseBasicInfoFragment : BaseFragment(){
 
     private fun initAdapter(houseDetail:ItemHouseDetail) {
         rvHouseBasicInfo.vertical()
-        var houseBasicInfoRvItemAdapter = HouseBasicInfoRvItemAdapter(context!!)
-        houseBasicInfoRvItemAdapter.setRecylerview(rvHouseBasicInfo)
+        houseBasicInfoRvItemAdapter = HouseBasicInfoRvItemAdapter(context!!)
+        houseBasicInfoRvItemAdapter?.setRecylerview(rvHouseBasicInfo)
         rvHouseBasicInfo.adapter = houseBasicInfoRvItemAdapter
-        houseBasicInfoRvItemAdapter.setData(mutableListOf(
+        houseBasicInfoRvItemAdapter?.setData(mutableListOf(
             ItemHouseDetail(detailInfoList= houseDetail.detailInfoList),
             ItemHouseDetail(rewarks= houseDetail.rewarks),
             ItemHouseDetail(mapInfo= houseDetail.mapInfo)
         ))
+    }
+
+    override fun onDestroy() {
+        try {
+            houseBasicInfoRvItemAdapter?.onDestory()
+        } catch (e: Exception) {
+        }
+        super.onDestroy()
     }
 }

@@ -39,6 +39,7 @@ class HouseNearFragment : BaseFragment() {
     var cenpt: LatLng? = null
     var mapPoiInfo = HashMap<Int,List<PoiInfo>>()
     var mCurIndex = 0
+    var houseNearFragmentAdapter :HouseNearFragmentAdapter?=null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -155,8 +156,10 @@ class HouseNearFragment : BaseFragment() {
         }
         house_near_viewPager.offscreenPageLimit = 1
         house_near_tabLayout.setupWithViewPager(house_near_viewPager)
-        house_near_viewPager.adapter =
+        houseNearFragmentAdapter =
             HouseNearFragmentAdapter(childFragmentManager, titles, fragments)
+        house_near_viewPager.adapter = houseNearFragmentAdapter
+
     }
 
     private fun initMap() {
@@ -195,6 +198,12 @@ class HouseNearFragment : BaseFragment() {
             if(mapPoiInfo!=null){
                 mapPoiInfo?.clear()
             }
+            houseNearFragmentAdapter?.clearData()
+            mapPoiInfo?.clear()
+            fragments?.clear()
+            titles?.clear()
+            searchKeyWords?.clear()
+            infoWindow = null
             if(house_near_MapView!=null){
                 house_near_MapView?.onDestroy()
             }

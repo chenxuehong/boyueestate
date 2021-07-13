@@ -15,6 +15,8 @@ import kotlinx.android.synthetic.main.activity_customer_log.view.*
 
 class CustomerLogActivity : BaseTitleActivity() {
 
+    var customerLogFragmentAdapter : CustomerLogFragmentAdapter ?=null
+
     override fun initTitle(baseTitleHeaderBar: HeaderBar) {
         baseTitleHeaderBar.setTitle(resources.getString(R.string.log))
     }
@@ -27,8 +29,9 @@ class CustomerLogActivity : BaseTitleActivity() {
         var code = intent.extras.getString(CustomerConstant.KEY_CUSTOMER_CODE)
         val view = View.inflate(this, R.layout.activity_customer_log, null)
         val fragments = getFragments(code)
-        view.customerLogViewpager.adapter =
+        customerLogFragmentAdapter =
             CustomerLogFragmentAdapter(supportFragmentManager, titles, fragments)
+        view.customerLogViewpager.adapter = customerLogFragmentAdapter
         view.customerLogTabLayout.setupWithViewPager(view.customerLogViewpager)
         baseTitleContentView.addView(view)
     }
@@ -46,4 +49,11 @@ class CustomerLogActivity : BaseTitleActivity() {
         return mutableListOf(customerLogFragment, customerTelLogFragment)
     }
 
+    override fun onDestroy() {
+        try {
+            customerLogFragmentAdapter?.clearData()
+        } catch (e: Exception) {
+        }
+        super.onDestroy()
+    }
 }

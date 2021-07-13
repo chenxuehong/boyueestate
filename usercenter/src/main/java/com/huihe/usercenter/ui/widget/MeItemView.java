@@ -14,6 +14,9 @@ import androidx.annotation.Nullable;
 import com.huihe.usercenter.R;
 
 public class MeItemView extends LinearLayout {
+
+    private ImageView ivLeftIcon;
+
     public MeItemView(Context context) {
         this(context, null);
     }
@@ -36,7 +39,7 @@ public class MeItemView extends LinearLayout {
         Boolean isShowLine = typedArray.getBoolean(R.styleable.meItemView_isShowLine, false);
         typedArray.recycle();
 
-        ImageView ivLeftIcon = findViewById(R.id.ivMeLeftIcon);
+        ivLeftIcon = findViewById(R.id.ivMeLeftIcon);
         tvTitle = findViewById(R.id.tvMeTitle);
         tvContent = findViewById(R.id.tvMeContent);
         View line = findViewById(R.id.meLine);
@@ -52,5 +55,17 @@ public class MeItemView extends LinearLayout {
 
     public void setContent(String content){
         tvContent.setText(content);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        onDestory();
+        super.onDetachedFromWindow();
+    }
+
+    public void onDestory(){
+        if (ivLeftIcon!=null){
+            ivLeftIcon.setImageDrawable(null);
+        }
     }
 }

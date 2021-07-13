@@ -20,6 +20,8 @@ class HouseLogHomeFragment : BaseFragment() {
         BaseApplication.context.resources.getString(R.string.phone_log))
     var mFragments:ArrayList<Fragment> = ArrayList()
     var houseCode:String?=null
+    var homeHouseLogRvAdapter :HomeHouseLogRvAdapter?=null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,10 +40,12 @@ class HouseLogHomeFragment : BaseFragment() {
     private fun initAdapter() {
         mFragments = getFragments()
         homeHouseLogTabLayout.setupWithViewPager(homeHouseLogViewpager)
-        homeHouseLogViewpager.adapter = HomeHouseLogRvAdapter(
+        var homeHouseLogRvAdapter = HomeHouseLogRvAdapter(
             childFragmentManager,
             mTitles,
-            mFragments)
+            mFragments
+        )
+        homeHouseLogViewpager.adapter = homeHouseLogRvAdapter
     }
 
     private fun getFragments(): ArrayList<Fragment> {
@@ -54,5 +58,15 @@ class HouseLogHomeFragment : BaseFragment() {
         mFragments.add(houseLogFragment)
         mFragments.add(housePhoneLogFragment)
         return mFragments
+    }
+
+    override fun onDestroy() {
+        try {
+            if (homeHouseLogRvAdapter!=null){
+                homeHouseLogRvAdapter?.clearData()
+            }
+        } catch (e: Exception) {
+        }
+        super.onDestroy()
     }
 }

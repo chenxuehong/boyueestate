@@ -62,4 +62,8 @@ class SortView {
             }
         }
     }
+
+    fun clearData(){
+        sorts?.clear()
+    }
 }

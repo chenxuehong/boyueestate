@@ -34,4 +34,5 @@
     <string name="New_version_found">发现新版本</string>
     <string name="please_input_code">请输入公司编码</string>
     <string name="confirm">确认</string>
+    <string name="prompting">提醒</string>
 </resources>

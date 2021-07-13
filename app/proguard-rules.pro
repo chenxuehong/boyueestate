@@ -300,8 +300,11 @@
 -keep class com.tencent.imsdk.** { *; }
 
 #百度地图不混淆
--keep class com.baidu.** { *; }
--keep class mapsdkvi.com.** {*;}
+-keep class com.baidu.** {*;}
+-keep class vi.com.** {*;}
+-keep class com.baidu.vi.** {*;}
+-dontwarn com.baidu.**
+
 # 线上日志收集
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}

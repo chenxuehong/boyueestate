@@ -92,4 +92,9 @@ class CreateUserView {
         rvlabel2.adapter = adapter
         adapter.setData(children!!)
     }
+
+    fun clearData(){
+        mCheckedDeptUserRep = null
+        mCheckList?.clear()
+    }
 }
