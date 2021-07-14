@@ -12,7 +12,7 @@ import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.SettingPresenter
 import com.huihe.usercenter.presenter.view.SettingView
-import com.huihe.usercenter.ui.activity.AboutusActivity
+import com.huihe.usercenter.ui.activity.AboutUsActivity
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.onClick
@@ -55,7 +55,7 @@ class SettingFragment : BaseMvpFragment<SettingPresenter>(), SettingView {
 
     private fun initView() {
         mIvAboutUs.onClick {
-            startActivity<AboutusActivity>()
+            startActivity<AboutUsActivity>()
         }
         mIvClearCache.onClick {
             DataCleanManager.clearAllCache(context)
