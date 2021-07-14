@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.huihe.ebai">
 
     <!--华为推送权限配置-->
     <permission
         android:name="com.huihe.ebai.permission.PROCESS_PUSH_MSG"
         android:protectionLevel="signatureOrSystem" />
-    <uses-permission android:name="com.eghuihe.teachpay.permission.PROCESS_PUSH_MSG" />
+
+    <uses-permission android:name="com.huihe.ebai.permission.PROCESS_PUSH_MSG" />
 
     <!--小米推送权限配置-->
     <permission
@@ -26,7 +28,8 @@
 
         <activity android:name="com.huihe.ebai.ui.activity.SplashActivity"
             android:fitsSystemWindows="true"
-            android:theme="@style/Theme.welcome">
+            android:theme="@style/Theme.welcome"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

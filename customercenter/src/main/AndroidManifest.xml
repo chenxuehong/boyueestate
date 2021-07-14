@@ -2,13 +2,21 @@
     package="com.huihe.customercenter" >
     <application
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.CustomerDetailActivity"/>
-        <activity android:name=".ui.activity.CustomerFollowActivity"/>
-        <activity android:name=".ui.activity.AddCustomerFollowActivity"/>
-        <activity android:name=".ui.activity.CustomerLogActivity"/>
-        <activity android:name=".ui.activity.CustomerInfoEditActivity"/>
-        <activity android:name=".ui.activity.SetCustomerInfoActivity"/>
-        <activity android:name=".ui.activity.AddCustomerActivity"/>
-        <activity android:name=".ui.activity.CustomerSearchActivity"/>
+        <activity android:name=".ui.activity.CustomerDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.CustomerFollowActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.AddCustomerFollowActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.CustomerLogActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.CustomerInfoEditActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.SetCustomerInfoActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.AddCustomerActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.CustomerSearchActivity"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>
