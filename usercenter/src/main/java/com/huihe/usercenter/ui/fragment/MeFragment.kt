@@ -70,8 +70,10 @@ class MeFragment : BaseTakePhotoFragment<MePresenter>(), MeView {
             }
         }
         flMeScan.onClick {
-            val intent = Intent(context, CaptureActivity::class.java)
-            startActivityForResult(intent, Constants.REQUEST_CODE)
+            requestScan {
+                val intent = Intent(context, CaptureActivity::class.java)
+                startActivityForResult(intent, Constants.REQUEST_CODE)
+            }
         }
         clMeUserInfo.onClick {
             showAlertView(true)
