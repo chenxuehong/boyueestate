@@ -11,8 +11,8 @@ android {
         applicationId "com.huihe.boyueestate"
         minSdkVersion min_sdk_version
         targetSdkVersion target_sdk_version
-        versionCode 21102
-        versionName "21.1.2"
+        versionCode 21103
+        versionName "21.1.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         flavorDimensions "default"
@@ -34,10 +34,10 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
-//            minifyEnabled true //开启混淆编译
-//            shrinkResources true //移除无用资源
-//            zipAlignEnabled true //zipalign优化
-//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled true //开启混淆编译
+            shrinkResources true //移除无用资源
+            zipAlignEnabled true //zipalign优化
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
             signingConfig signingConfigs.debug
@@ -73,6 +73,12 @@ android {
     }
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+    }
+    /*配置应用名称*/
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            outputFileName = "boyue-${defaultConfig.versionName}.apk"
+        }
     }
 }
 
