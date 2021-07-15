@@ -9,7 +9,7 @@
     <item android:top="@dimen/dp_80">
         <bitmap
             android:gravity="center_horizontal|top"
-            android:src="@drawable/splash" />
+            android:src="@drawable/bafulogo" />
     </item>
 
 </layer-list>

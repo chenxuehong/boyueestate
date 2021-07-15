@@ -15,6 +15,8 @@ import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.activity.BaseMvpActivity
 import com.kotlin.base.utils.AppPrefsUtils
+import com.kotlin.base.utils.DensityUtils
+import com.kotlin.base.utils.GlideUtils
 import com.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.toast
@@ -36,7 +38,11 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
     }
 
     private fun initView() {
-
+        GlideUtils.loadRoundImage(
+            this,
+            R.drawable.splash,
+            iv_left_splash,
+            DensityUtils.dp2px(this,16f))
         mloginBtn.enable(mMobileEt) { isBtnEnable() }
         mloginBtn.enable(mPwdEt) { isBtnEnable() }
         mloginBtn.onClick(this)

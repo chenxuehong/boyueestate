@@ -3,6 +3,8 @@ package com.kotlin.base.utils
 import android.content.Context
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.kotlin.base.R
 
 /*
@@ -35,5 +37,18 @@ object GlideUtils {
 
     fun clearMemory(context:Context){
         Glide.get(context).clearMemory()
+    }
+
+    fun loadRoundImage(context:Context,url:Any,imageView: ImageView,radius:Int){
+        Glide.with(context)
+            .load(url)
+            .override(imageView.getWidth(), imageView.getHeight())
+            .apply(
+                RequestOptions.centerCropTransform()
+                    .placeholder(R.drawable.is_empty)
+                    .error(R.drawable.is_empty)
+                    .transform(RoundedCorners(radius))
+            )
+            .into(imageView)
     }
 }
