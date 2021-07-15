@@ -1,8 +1,11 @@
 package com.kotlin.base.ui.fragment
 
+import android.Manifest
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.tbruyelle.rxpermissions2.RxPermissions
 import com.trello.rxlifecycle3.components.support.RxFragment
+import io.reactivex.functions.Consumer
 
 /*
     Fragment基类，业务无关
@@ -39,6 +42,15 @@ open class BaseFragment : RxFragment(){
         }
         fragment.arguments = arg
         return fragment
+    }
+
+    fun requestScan(method:()->Unit){
+        RxPermissions(activity!!).request(Manifest.permission.CAMERA).subscribe(
+            Consumer<Boolean>{
+                if (it){
+                    method()
+                }
+            })
     }
 }
 
