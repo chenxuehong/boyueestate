@@ -111,8 +111,10 @@ class HomeFragment : BaseFragment() {
                 startActivity(intent)
             }
             BaseApplication.context.resources.getString(R.string.scan) -> {
-                val intent = Intent(context, CaptureActivity::class.java)
-                startActivityForResult(intent, REQUEST_CODE)
+                requestScan{
+                    val intent = Intent(context, CaptureActivity::class.java)
+                    startActivityForResult(intent, REQUEST_CODE)
+                }
             }
         }
         mCustomPopWindow?.dissmiss()
