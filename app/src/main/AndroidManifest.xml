@@ -26,7 +26,8 @@
 
         <activity android:name=".ui.activity.SplashActivity"
             android:fitsSystemWindows="true"
-            android:theme="@style/Theme.welcome">
+            android:theme="@style/Theme.welcome"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

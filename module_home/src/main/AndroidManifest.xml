@@ -2,29 +2,45 @@
     package="com.huihe.module_home" >
     <application
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.HouseDetailActivity"/>
-        <activity android:name=".ui.activity.HouseFollowActivity"/>
-        <activity android:name=".ui.activity.HouseTakeLookRecordActivity"/>
-        <activity android:name=".ui.activity.HouseLogHomeActivity"/>
-        <activity android:name=".ui.activity.SetHouseInfoActivity"/>
-        <activity android:name=".ui.activity.CustomerProfileActivity"/>
-        <activity android:name=".ui.activity.AddFollowActivity"/>
-        <activity android:name=".ui.activity.HouseTakeLookRecordInsertActivity"/>
+        <activity android:name=".ui.activity.HouseDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.HouseFollowActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.HouseTakeLookRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.HouseLogHomeActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.SetHouseInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.CustomerProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.AddFollowActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.HouseTakeLookRecordInsertActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.activity.HouseNearActivity"/>
+        <activity android:name=".ui.activity.HouseNearActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.activity.HouseSelectActivity"/>
-        <activity android:name=".ui.activity.AddHouseActivity"/>
+        <activity android:name=".ui.activity.HouseSelectActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.AddHouseActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.activity.SearchHouseActivity"/>
+        <activity android:name=".ui.activity.SearchHouseActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.activity.EntrustUserActivity"/>
-        <activity android:name=".ui.activity.HaveKeyUserActivity"/>
-        <activity android:name=".ui.activity.SoleUserActivity"/>
+        <activity android:name=".ui.activity.EntrustUserActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.HaveKeyUserActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.SoleUserActivity"
+            android:screenOrientation="portrait" />
 
 
         <activity android:name=".ui.activity.SetOwnerInfoActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            android:screenOrientation="portrait" />
 
     </application>
 </manifest>
