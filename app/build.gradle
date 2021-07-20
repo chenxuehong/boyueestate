@@ -5,6 +5,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.mob.sdk'
 apply plugin: 'kotlin-kapt'
+apply from: 'tinker-support.gradle'
+
 android {
     compileSdkVersion compile_sdk_version
     defaultConfig {
@@ -16,6 +18,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         flavorDimensions "default"
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
     }
     signingConfigs {
         release {
@@ -37,10 +43,12 @@ android {
             minifyEnabled true //开启混淆编译
             shrinkResources true //移除无用资源
             zipAlignEnabled true //zipalign优化
+            buildConfigField("String", "BUGLY_APP_ID", '"75d3f4d522"')
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
             signingConfig signingConfigs.debug
+            buildConfigField("String", "BUGLY_APP_ID", '"75d3f4d522"')
 //            minifyEnabled true //开启混淆编译
 //            shrinkResources true //移除无用资源
 //            zipAlignEnabled true //zipalign优化
@@ -142,4 +150,10 @@ dependencies {
     implementation project(':module_home')
     implementation project(':customercenter')
     implementation project(':messagecenter')
+
+    //implementation 'com.tencent.bugly:crashreport:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.3.4
+    implementation "com.tencent.bugly:crashreport_upgrade:$bugly_crashreport_upgrade_version"
+    // 指定tinker依赖版本（注：应用升级1.3.5版本起，不再内置tinker）
+    implementation "com.tencent.tinker:tinker-android-lib:$tinker_lib_version"
+//    implementation 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
 }

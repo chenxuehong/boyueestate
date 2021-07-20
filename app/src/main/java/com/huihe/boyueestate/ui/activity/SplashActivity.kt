@@ -6,6 +6,7 @@ import com.huihe.boyueestate.injection.component.DaggerSplashComponent
 import com.huihe.boyueestate.injection.module.SplashModule
 import com.huihe.boyueestate.presenter.SplashPresenter
 import com.huihe.boyueestate.presenter.view.SplashView
+import com.huihe.boyueestate.utils.HotfixManager
 import com.huihe.usercenter.ui.activity.MainActivity
 import com.huihe.usercenter.utils.MessageService
 import com.kotlin.base.ui.activity.BaseMvpActivity
@@ -29,6 +30,8 @@ class SplashActivity : BaseMvpActivity<SplashPresenter>(),
         super.onCreate(savedInstanceState)
         var messageService = MessageService()
         setContentView(R.layout.activity_splash)
+        // 热更新
+        HotfixManager.getInstance(applicationContext).checkHotfix()
         mPresenter?.getSplashBanner()
         ivSplashBanner.postDelayed(
             {

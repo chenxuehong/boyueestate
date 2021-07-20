@@ -383,3 +383,10 @@ public *;
 -keep public class * extends android.app.Service
 -keep class com.heytap.msp.** { *;}
 -keep class com.mob.pushsdk.plugins.oppo.** { *;}
+
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
+# tinker混淆规则
+-dontwarn com.tencent.tinker.**
+-keep class com.tencent.tinker.** { *; }
+ -keep class android.support.**{*;}

@@ -1,6 +1,8 @@
 package com.huihe.boyueestate.common
 
+import android.content.Context
 import android.widget.Toast
+import androidx.multidex.MultiDex
 import cn.sharesdk.framework.Platform
 import cn.sharesdk.framework.PlatformActionListener
 import com.alibaba.android.arouter.launcher.ARouter
@@ -8,11 +10,13 @@ import com.baidu.mapapi.CoordType
 import com.baidu.mapapi.SDKInitializer
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
+import com.huihe.boyueestate.BuildConfig
 import com.huihe.boyueestate.R
 import com.huihe.boyueestate.push.CustomNotification
 import com.huihe.boyueestate.push.MyMobPushCallback
 import com.huihe.boyueestate.push.MyMobPushReceiver
 import com.huihe.boyueestate.share.ShareSdkUtil
+import com.huihe.boyueestate.utils.HotfixManager
 import com.kotlin.base.common.AppManager
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.event.LoginEvent
@@ -31,7 +35,7 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import org.jetbrains.anko.runOnUiThread
 import org.jetbrains.anko.toast
-import java.util.HashMap
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -66,6 +70,11 @@ class MainApplication : IMApplication() {
         //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
         SDKInitializer.setCoordType(CoordType.BD09LL)
         initModePush()
+        try {
+            HotfixManager.getInstance(this).init(BuildConfig.BUGLY_APP_ID, BuildConfig.DEBUG)
+        } catch (throwable: Throwable) {
+            //
+        }
     }
 
     private fun imLogin(messageLoginEvent: MessageLoginEvent) {
@@ -177,10 +186,25 @@ class MainApplication : IMApplication() {
         TUIKit.startChat(AppManager.instance.currentActivity(), it?.id ?: "", it?.chatName ?: "")
     }
 
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+
+        try {
+            HotfixManager.installDependency()
+        } catch (throwable: Throwable) {
+            //
+        }
+    }
+
     override fun onTerminate() {
         Bus.unregister(this)
         if (myMobPushReceiver != null) {
             MobPush.removePushReceiver(myMobPushReceiver)
+        }
+        try {
+            HotfixManager.getInstance(this).unInit()
+        } catch (throwable: Throwable) {
+            //
         }
         super.onTerminate()
     }
