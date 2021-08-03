@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">UserCenter</string>
+
     <string name="account_enter_tip">请输入账号</string>
     <string name="password_enter_tip">请输入密码</string>
     <string name="login_top_title">以奋斗为本</string>
     <string name="login">登录</string>
+
     <string name="mine">我的</string>
     <string name="area_manager">区域管理</string>
     <string name="district_manager">学区管理</string>
@@ -33,4 +35,11 @@
     <string name="appstore_deal_later">稍后再说</string>
     <string name="New_version_found">发现新版本</string>
     <string name="prompting">提醒</string>
+    <string name="takeLookTask">带看任务</string>
+    <string name="to_start">待开始</string>
+    <string name="take_look">带看中</string>
+
+    <string name="corporateCulture">企业文化</string>
+    <string name="system">系统相关</string>
+
 </resources>

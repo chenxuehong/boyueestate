@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
 import com.darsh.multipleimageselect.helpers.Constants
 import com.huihe.usercenter.R
+import com.huihe.usercenter.data.protocol.MeItemBean
 import com.huihe.usercenter.data.protocol.SetUserInfoRep
 import com.huihe.usercenter.data.protocol.SetUserInfoReq
 import com.huihe.usercenter.data.protocol.UserInfo
@@ -16,12 +18,15 @@ import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.MePresenter
 import com.huihe.usercenter.presenter.view.MeView
 import com.huihe.usercenter.ui.activity.*
+import com.huihe.usercenter.ui.adapter.MeContentRvAdapter
 import com.huihe.usercenter.ui.widget.MeItemView
 import com.jph.takephoto.model.TResult
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.loadHeadUrl
 import com.kotlin.base.ext.onClick
+import com.kotlin.base.ext.vertical
 import com.kotlin.base.ui.fragment.BaseTakePhotoFragment
+import com.kotlin.base.utils.DensityUtils
 import com.kotlin.base.utils.LogUtils
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.router.RouterPath
@@ -36,6 +41,7 @@ class MeFragment : BaseTakePhotoFragment<MePresenter>(), MeView {
 
     var mLocalFilResult: TResult? = null
     var mUploadManager: UploadManager? = null
+    var meContentRvAdapter : MeContentRvAdapter? = null
     lateinit var setUserInfoReq:SetUserInfoReq
     override fun injectComponent() {
         DaggerUserComponent.builder().activityComponent(mActivityComponent).userModule(
@@ -60,15 +66,18 @@ class MeFragment : BaseTakePhotoFragment<MePresenter>(), MeView {
     }
 
     private fun initView() {
-        var childCount = llMeManager.childCount
-        for (i in 0 until childCount) {
-            var childAt = llMeManager.getChildAt(i)
-            if (childAt is MeItemView) {
-                childAt.onClick {
-                    onItemClicked(childAt.titleContent)
-                }
-            }
-        }
+        rvMeContent.vertical(4,DensityUtils.dp2px(context,15f))
+        meContentRvAdapter = MeContentRvAdapter(context!!)
+        rvMeContent.adapter = meContentRvAdapter
+//        var childCount = llMeManager.childCount
+//        for (i in 0 until childCount) {
+//            var childAt = llMeManager.getChildAt(i)
+//            if (childAt is MeItemView) {
+//                childAt.onClick {
+//                    onItemClicked(childAt.titleContent)
+//                }
+//            }
+//        }
         flMeScan.onClick {
             requestScan{
                 val intent = Intent(context, CaptureActivity::class.java)
@@ -108,20 +117,34 @@ class MeFragment : BaseTakePhotoFragment<MePresenter>(), MeView {
         initUpdateManager()
         setUserInfoReq = SetUserInfoReq()
         refreshUserInfo()
-    }
-
-    private fun refreshUserInfo() {
-        mPresenter?.getUserInfo()
+        initListData()
     }
 
     private fun initUpdateManager() {
         mUploadManager = UploadManager()
     }
 
+    private fun refreshUserInfo() {
+        mPresenter?.getUserInfo()
+    }
+
     override fun onUserInfo(t: UserInfo?) {
         ivMeHead.loadHeadUrl(t?.avatarUrl ?: "")
         tvMeUserName.text = t?.userName ?: ""
         tvMeDeptName.text = t?.deptName ?: ""
+    }
+
+    private fun initListData() {
+        val takeLookTaskList = mutableListOf(
+            MeItemBean.ItemData(resources.getString(R.string.takeLookTask),0,0),
+        )
+        val corporateCultureList = mutableListOf<MeItemBean.ItemData>()
+        val systemList = mutableListOf<MeItemBean.ItemData>()
+        var list = mutableListOf(
+            MeItemBean(resources.getString(R.string.takeLookTask),takeLookTaskList),
+            MeItemBean(resources.getString(R.string.corporateCulture),corporateCultureList),
+            MeItemBean(resources.getString(R.string.system),systemList)
+        )
     }
 
     private fun onItemClicked(titleContent: String?) {
