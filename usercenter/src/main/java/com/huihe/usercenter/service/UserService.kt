@@ -29,4 +29,5 @@ interface UserService {
     fun setUserInfo(userInfoReq: SetUserInfoReq):  Observable<SetUserInfoRep?>
     fun setPushInfo(uid: String?, registrationId: String): Observable<SetPushRep?>
     fun getServerVersionInfo(url:String): Observable<ServerVersionInfo?>
+    fun getLookTaskStaffStatic(type:Int) : Observable<LookTaskStaffStaticRep?>
 }

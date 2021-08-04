@@ -53,4 +53,8 @@ interface UserApi {
 
     @GET("60a4668fb2eb465a9a09370f?api_token=a93d04a00cedb2b2251be28a99e21616")
     fun getServerVersionInfo(): Observable<ServerVersionInfo?>
+
+    @GET("api/v1/look/task/staff/static")
+    fun getLookTaskStaffStatic(
+        @Query("type") type: Int): Observable<LookTaskStaffStaticRep?>
 }

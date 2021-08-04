@@ -79,4 +79,9 @@ class UserRepository @Inject constructor(){
         return RetrofitFactory.instance.getNewRetrofit(url).create(UserApi::class.java)
                 .getServerVersionInfo()
     }
+
+    fun getLookTaskStaffStatic(type: Int): Observable<LookTaskStaffStaticRep?> {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .getLookTaskStaffStatic(type)
+    }
 }

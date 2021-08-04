@@ -67,4 +67,8 @@ class UserServiceImpl @Inject constructor() : UserService {
     override fun getServerVersionInfo(url:String): Observable<ServerVersionInfo?> {
         return repository.getServerVersionInfo(url)
     }
+
+    override fun getLookTaskStaffStatic(type:Int) :Observable<LookTaskStaffStaticRep?>{
+        return repository.getLookTaskStaffStatic(type)
+    }
 }

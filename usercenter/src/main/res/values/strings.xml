@@ -38,8 +38,12 @@
     <string name="takeLookTask">带看任务</string>
     <string name="to_start">待开始</string>
     <string name="take_look">带看中</string>
+    <string name="in_summary">总结中</string>
+    <string name="under_review">审核中</string>
 
     <string name="corporateCulture">企业文化</string>
+    <string name="BehavioralScore">行为分</string>
+
     <string name="system">系统相关</string>
 
 </resources>
