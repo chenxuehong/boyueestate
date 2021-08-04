@@ -9,7 +9,7 @@ class BaseConstant{
         //七牛服务地址
 //        const val IMAGE_SERVER_ADDRESS = "http://osea2fxp7.bkt.clouddn.com/"
         // 伯约测试服务器地址
-        const val SERVER_ADDRESS_DEBUG = "http://106.14.197.40/api/v1/"
+        const val SERVER_ADDRESS_DEBUG = "http://estate.ccp520.com/api/v1/"
         // 伯约正式服务器地址
         const val SERVER_ADDRESS = "http://106.14.197.40/api/v1/"
 //        const val SERVER_ADDRESS = "http://106.14.197.40/api/v1/"

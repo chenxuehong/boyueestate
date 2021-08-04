@@ -25,4 +25,5 @@ interface UserComponent {
     fun inject(fragment: MeFragment)
     fun inject(fragment: ResultCommunityFragment)
     fun inject(activity: MainActivity)
+    fun inject(fragment: MineLookTaskFragment)
 }

@@ -5,12 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
 import com.darsh.multipleimageselect.helpers.Constants
 import com.huihe.usercenter.R
 import com.huihe.usercenter.data.protocol.MeItemBean
-import com.huihe.usercenter.data.protocol.SetUserInfoRep
 import com.huihe.usercenter.data.protocol.SetUserInfoReq
 import com.huihe.usercenter.data.protocol.UserInfo
 import com.huihe.usercenter.injection.component.DaggerUserComponent
@@ -18,9 +16,9 @@ import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.MePresenter
 import com.huihe.usercenter.presenter.view.MeView
 import com.huihe.usercenter.ui.activity.*
-import com.huihe.usercenter.ui.adapter.MeContentRvAdapter
-import com.huihe.usercenter.ui.widget.MeItemView
+import com.huihe.usercenter.ui.adapter.MeGroupRvAdapter
 import com.jph.takephoto.model.TResult
+import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.loadHeadUrl
 import com.kotlin.base.ext.onClick
@@ -37,11 +35,12 @@ import kotlinx.android.synthetic.main.fragment_me.*
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 
-class MeFragment : BaseTakePhotoFragment<MePresenter>(), MeView {
+class MeFragment : BaseTakePhotoFragment<MePresenter>(), MeView,
+    MeGroupRvAdapter.OnChildItemClickListener {
 
     var mLocalFilResult: TResult? = null
     var mUploadManager: UploadManager? = null
-    var meContentRvAdapter : MeContentRvAdapter? = null
+    var meContentRvAdapter : MeGroupRvAdapter? = null
     lateinit var setUserInfoReq:SetUserInfoReq
     override fun injectComponent() {
         DaggerUserComponent.builder().activityComponent(mActivityComponent).userModule(
@@ -66,18 +65,6 @@ class MeFragment : BaseTakePhotoFragment<MePresenter>(), MeView {
     }
 
     private fun initView() {
-        rvMeContent.vertical(4,DensityUtils.dp2px(context,15f))
-        meContentRvAdapter = MeContentRvAdapter(context!!)
-        rvMeContent.adapter = meContentRvAdapter
-//        var childCount = llMeManager.childCount
-//        for (i in 0 until childCount) {
-//            var childAt = llMeManager.getChildAt(i)
-//            if (childAt is MeItemView) {
-//                childAt.onClick {
-//                    onItemClicked(childAt.titleContent)
-//                }
-//            }
-//        }
         flMeScan.onClick {
             requestScan{
                 val intent = Intent(context, CaptureActivity::class.java)
@@ -135,20 +122,22 @@ class MeFragment : BaseTakePhotoFragment<MePresenter>(), MeView {
     }
 
     private fun initListData() {
-        val takeLookTaskList = mutableListOf(
-            MeItemBean.ItemData(resources.getString(R.string.takeLookTask),0,0),
-        )
-        val corporateCultureList = mutableListOf<MeItemBean.ItemData>()
-        val systemList = mutableListOf<MeItemBean.ItemData>()
-        var list = mutableListOf(
-            MeItemBean(resources.getString(R.string.takeLookTask),takeLookTaskList),
-            MeItemBean(resources.getString(R.string.corporateCulture),corporateCultureList),
-            MeItemBean(resources.getString(R.string.system),systemList)
-        )
+        rvMeContent.vertical(1,DensityUtils.dp2px(context,15f))
+        meContentRvAdapter = MeGroupRvAdapter(context!!)
+        meContentRvAdapter?.setOnChildItemClickListener(this)
+        rvMeContent.adapter = meContentRvAdapter
+        meContentRvAdapter?.init()
+        mPresenter.getLookTaskStatic(0)
     }
 
-    private fun onItemClicked(titleContent: String?) {
-        when (titleContent) {
+    override fun onItemClick(view: View, item: MeItemBean.ItemData, position: Int) {
+        when (item.title) {
+            resources.getString(R.string.to_start),resources.getString(R.string.take_look),
+            resources.getString(R.string.in_summary),resources.getString(R.string.under_review) -> {
+                // 待开始(status=0),带看中(status=1),总结中(status=2),审核中(status=3)
+                startActivity<MineLookTaskHomeActivity>(BaseConstant.KEY_STATUS to getStatus(item.title))
+            }
+
             resources.getString(R.string.area_manager) -> {
                 startActivity<CommunityManagerActivity>()
             }
@@ -165,6 +154,33 @@ class MeFragment : BaseTakePhotoFragment<MePresenter>(), MeView {
                 startActivity<SettingActivity>()
             }
         }
+    }
+
+    private fun getStatus(title: String): Int {
+        var status = 0
+        when (title){
+            resources.getString(R.string.to_start)->{
+                status =0
+            }
+            resources.getString(R.string.take_look)->{
+                status =1
+            }
+            resources.getString(R.string.in_summary)->{
+                status =2
+            }resources.getString(R.string.under_review)->{
+             status =3
+            }
+        }
+        return status
+    }
+
+    override fun onLookTaskStatic(
+        to_start: Int,
+        take_look: Int,
+        in_summary: Int,
+        under_review: Int
+    ) {
+        meContentRvAdapter?.setTakeLookCount(to_start,take_look,in_summary,under_review)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -187,5 +203,10 @@ class MeFragment : BaseTakePhotoFragment<MePresenter>(), MeView {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        meContentRvAdapter?.onDestory()
+        super.onDestroy()
     }
 }

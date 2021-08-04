@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.R
 import com.kotlin.base.data.protocol.ErrorBean
+import com.kotlin.base.ext.onClick
 import com.kotlin.base.ext.startLoading
+import com.kotlin.base.ext.vertical
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_refresh.*
@@ -51,9 +53,17 @@ abstract class BaseRefreshFragment<T : BasePresenter<*>, Adapter : BaseRecyclerV
     }
 
     fun initAdapter() {
-        refresh_mRecyclerView?.layoutManager = LinearLayoutManager(context)
+        refresh_mRecyclerView?.vertical(getColumn(),getSpace())
         mRvAdapter = getAdapter()
         refresh_mRecyclerView?.adapter = mRvAdapter
+    }
+
+    open fun getColumn(): Int {
+        return 1
+    }
+
+    open fun getSpace(): Int {
+        return 0
     }
 
     abstract fun getAdapter(): Adapter

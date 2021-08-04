@@ -79,4 +79,29 @@ class UserRepository @Inject constructor(){
         return RetrofitFactory.instance.getNewRetrofit(url).create(UserApi::class.java)
                 .getServerVersionInfo()
     }
+
+    fun getLookTaskStaffStatic(type: Int): Observable<BaseResp<MutableList<LookTaskStaffStaticRep.LookTaskStaffStatic>?>> {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .getLookTaskStaffStatic(type)
+    }
+
+    fun getLookTaskAdministratorsStatic(type: Int): Observable<BaseResp<MutableList<LookTaskStaffStaticRep.LookTaskStaffStatic>?>> {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .getLookTaskAdministratorsStatic(type)
+    }
+
+    fun getUserLevels(): Observable<BaseResp<Int?>> {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .getUserLevels()
+    }
+
+    fun getLookTaskStaffList(status: Int,pageNo: Int,pageSize: Int): Observable<BaseResp<MineLookTaskRep?>>  {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .getLookTaskStaffList(status,pageNo,pageSize)
+    }
+
+    fun getLookTaskAdministratorsList(status: Int,pageNo: Int,pageSize: Int): Observable<BaseResp<MineLookTaskRep?>>  {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .getLookTaskAdministratorsList(status,pageNo,pageSize)
+    }
 }

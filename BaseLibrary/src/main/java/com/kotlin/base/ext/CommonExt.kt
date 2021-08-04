@@ -176,6 +176,7 @@ fun RecyclerView.vertical(column: Int, space: Int) {
             )
         )
     }
+
 }
 
 fun RecyclerView.vertical() {

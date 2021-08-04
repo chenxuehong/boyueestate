@@ -27,6 +27,8 @@
     <ViewStub
         android:id="@+id/mRightVS"
         style="@style/WrapMatch"
+        android:paddingLeft="@dimen/common_padding"
+        android:paddingRight="@dimen/common_padding"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"/>
 </RelativeLayout>

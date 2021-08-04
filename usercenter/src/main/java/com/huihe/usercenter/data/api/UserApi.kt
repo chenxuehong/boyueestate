@@ -53,4 +53,28 @@ interface UserApi {
 
     @GET("60a4668fb2eb465a9a09370f?api_token=a93d04a00cedb2b2251be28a99e21616")
     fun getServerVersionInfo(): Observable<ServerVersionInfo?>
+
+    @GET("look/task/staff/static")
+    fun getLookTaskStaffStatic(
+        @Query("type") type: Int): Observable<BaseResp<MutableList<LookTaskStaffStaticRep.LookTaskStaffStatic>?>>
+
+
+    @GET("look/task/administrators/static")
+    fun getLookTaskAdministratorsStatic(
+        @Query("type") type: Int): Observable<BaseResp<MutableList<LookTaskStaffStaticRep.LookTaskStaffStatic>?>>
+
+    @GET("look/task/user/levels")
+    fun getUserLevels(): Observable<BaseResp<Int?>>
+
+    @GET("look/task/staff")
+    fun getLookTaskStaffList(
+        @Query("status") status: Int,
+        @Query("pageNo") pageNo: Int,
+        @Query("pageSize") pageSize: Int): Observable<BaseResp<MineLookTaskRep?>>
+
+    @GET("look/task/administrators")
+    fun getLookTaskAdministratorsList(
+        @Query("status") status: Int,
+        @Query("pageNo") pageNo: Int,
+        @Query("pageSize") pageSize: Int): Observable<BaseResp<MineLookTaskRep?>>
 }

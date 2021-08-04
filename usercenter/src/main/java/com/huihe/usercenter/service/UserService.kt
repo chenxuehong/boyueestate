@@ -29,4 +29,10 @@ interface UserService {
     fun setUserInfo(userInfoReq: SetUserInfoReq):  Observable<SetUserInfoRep?>
     fun setPushInfo(uid: String?, registrationId: String): Observable<SetPushRep?>
     fun getServerVersionInfo(url:String): Observable<ServerVersionInfo?>
+    fun getLookTaskStaffStatic(type:Int) : Observable<MutableList<LookTaskStaffStaticRep.LookTaskStaffStatic>?>
+    fun getLookTaskAdministratorsStatic(type:Int) : Observable<MutableList<LookTaskStaffStaticRep.LookTaskStaffStatic>?>
+    fun getUserLevels(): Observable<Int?>
+
+    fun getLookTaskStaffList(status: Int,pageNo: Int,pageSize: Int) : Observable<MineLookTaskRep?>
+    fun getLookTaskAdministratorsList(status: Int,pageNo: Int,pageSize: Int) : Observable<MineLookTaskRep?>
 }
