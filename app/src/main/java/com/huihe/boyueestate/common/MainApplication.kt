@@ -115,7 +115,7 @@ class MainApplication : IMApplication() {
 
     private fun initModePush() {
         MobSDK.init(this, "3270be52b22ee", "872ca12218b61bc3b588d795fc52b3da")
-        MobPush.setNotifyIcon(R.drawable.splash)
+        MobPush.setNotifyIcon(R.drawable.app_icon)
         MobPush.setShowBadge(true)
         myMobPushReceiver = MyMobPushReceiver()
         MobPush.setTailorNotification(CustomNotification::class.java)

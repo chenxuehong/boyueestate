@@ -49,9 +49,9 @@ public class CustomNotification extends MobPushTailorNotification {
         }
 
         if (Build.VERSION.SDK_INT >= 21) {
-            builder.setSmallIcon(R.drawable.splash);
+            builder.setSmallIcon(R.drawable.app_icon);
         } else {
-            builder.setSmallIcon(R.drawable.splash);
+            builder.setSmallIcon(R.drawable.app_icon);
         }
 
         String title = mobPushNotifyMessage.getTitle();
