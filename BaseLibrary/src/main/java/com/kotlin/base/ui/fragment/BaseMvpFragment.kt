@@ -66,18 +66,18 @@ abstract class BaseMvpFragment<T : BasePresenter<*>> : BaseFragment(), BaseView 
        显示加载框，默认实现
     */
     override fun showLoading() {
-        mLoadingDialog.showLoading(context?.resources?.getString(R.string.srl_footer_loading)!!)
+        mLoadingDialog?.showLoading(context?.resources?.getString(R.string.srl_footer_loading)!!)
     }
 
     override fun showLoading(tip: String) {
-        mLoadingDialog.showLoading(tip)
+        mLoadingDialog?.showLoading(tip)
     }
 
     /*
         隐藏加载框，默认实现
      */
     override fun hideLoading() {
-        mLoadingDialog.hideLoading()
+        mLoadingDialog?.hideLoading()
     }
 
     /*

@@ -40,6 +40,7 @@
     <string name="take_look">带看中</string>
     <string name="in_summary">总结中</string>
     <string name="under_review">审核中</string>
+    <string name="finished">已完成</string>
 
     <string name="corporateCulture">企业文化</string>
     <string name="BehavioralScore">行为分</string>

@@ -134,7 +134,7 @@ class MeFragment : BaseTakePhotoFragment<MePresenter>(), MeView,
         when (item.title) {
             resources.getString(R.string.to_start),resources.getString(R.string.take_look),
             resources.getString(R.string.in_summary),resources.getString(R.string.under_review) -> {
-                // 待开始(status=0),带看中(status=1),总结中(status=2),审核中(status=3)
+                // 待开始(status=0),带看中(status=1),总结中(status=2),审核中(status=3),已完成(status=4)
                 startActivity<MineLookTaskHomeActivity>(BaseConstant.KEY_STATUS to getStatus(item.title))
             }
 

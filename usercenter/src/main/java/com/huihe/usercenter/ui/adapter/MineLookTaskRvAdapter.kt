@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.usercenter.R
 import com.huihe.usercenter.data.protocol.MineLookTaskRep
+import com.kotlin.base.ext.convertNotNullStr
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import kotlinx.android.synthetic.main.layout_mine_looktask_item.view.*
@@ -31,19 +32,26 @@ class MineLookTaskRvAdapter(mContext: Context) :
             0->{
                 holder.itemView.tvStatus.text = mContext.resources.getString(R.string.to_start)
             }
-            2->{
+            1->{
                 holder.itemView.tvStatus.text = mContext.resources.getString(R.string.take_look)
             }
-            3->{
+            2->{
                 holder.itemView.tvStatus.text = mContext.resources.getString(R.string.in_summary)
             }
-            else->{
+            3->{
                 holder.itemView.tvStatus.text = mContext.resources.getString(R.string.under_review)
+            }
+            else ->{
+                holder.itemView.tvStatus.text = mContext.resources.getString(R.string.finished)
             }
         }
         var houseNum = getHouseCount(mineLookTask?.houseCode)
-        holder.itemView.tvLookTaskInfo1.text = "创建:${mineLookTask.createUser?:"无"} 带看:${mineLookTask.takeLookUser?:"无"} 陪看:${mineLookTask.accompanyUser?:"无"}"
-        val colorText = "带看房源:<font color = \"#FF0000\">${houseNum}套</font> 带看时间:<font color = \"#666666\">${mineLookTask.lookTime?:"无"}</font>"
+        var createUser = mineLookTask.createUser.convertNotNullStr("无")
+        var takeLookUser = mineLookTask.takeLookUser.convertNotNullStr("无")
+        var accompanyUser = mineLookTask.accompanyUser.convertNotNullStr("无")
+        var lookTime = mineLookTask.lookTime.convertNotNullStr("无")
+        holder.itemView.tvLookTaskInfo1.text = "创建:${createUser} 带看:${takeLookUser} 陪看:${ accompanyUser}"
+        val colorText = "带看房源:<font color = \"#FF0000\">${houseNum}套</font> 带看时间:<font color = \"#666666\">${lookTime}</font>"
         holder.itemView.tvLookTaskInfo2.text =  Html.fromHtml(colorText)
     }
 

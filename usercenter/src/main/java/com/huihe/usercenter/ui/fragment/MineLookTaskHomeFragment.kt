@@ -30,7 +30,8 @@ class MineLookTaskHomeFragment : BaseFragment() {
         BaseApplication.context.resources.getString(R.string.to_start),
         BaseApplication.context.resources.getString(R.string.take_look),
         BaseApplication.context.resources.getString(R.string.in_summary),
-        BaseApplication.context.resources.getString(R.string.under_review)
+        BaseApplication.context.resources.getString(R.string.under_review),
+        BaseApplication.context.resources.getString(R.string.finished)
     )
     val data: MutableList<String> = mutableListOf(
         BaseApplication.context.resources.getString(R.string.as_createUser),

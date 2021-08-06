@@ -37,7 +37,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvCustomerInfo"
         android:textColor="@color/color_666666"
-        android:lines="1"
+        android:maxLines="1"
         android:ellipsize="end"
         android:layout_marginTop="@dimen/dp_10"
         android:textSize="@dimen/sp_14"

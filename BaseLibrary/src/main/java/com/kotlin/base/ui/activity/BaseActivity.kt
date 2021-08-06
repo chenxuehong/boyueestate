@@ -1,17 +1,17 @@
 package com.kotlin.base.ui.activity
 
 import android.content.ComponentCallbacks2
-import android.content.Context
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.FrameLayout
 import com.alibaba.android.arouter.launcher.ARouter
+import com.bumptech.glide.Glide
 import com.kotlin.base.common.AppManager
 import com.kotlin.base.ext.hideKeyboard
 import com.kotlin.base.ui.fragment.BaseFragment
+import com.kotlin.base.utils.AppUtils
 import com.kotlin.base.utils.GlideUtils
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import org.jetbrains.anko.find
@@ -29,6 +29,8 @@ open class BaseActivity : RxAppCompatActivity() {
 
     override fun onDestroy() {
         AppManager.instance.finishActivity(this)
+        Glide.get(this).clearMemory()
+        AppUtils.fixInputMethodManagerLeak(this)
         super.onDestroy()
     }
 
