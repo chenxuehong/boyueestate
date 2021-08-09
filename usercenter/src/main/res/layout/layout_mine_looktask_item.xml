@@ -22,7 +22,6 @@
     <TextView
         android:id="@+id/tvStatus"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/common_red_radius_bg"
         app:layout_constraintRight_toRightOf="parent"
         android:gravity="center"
         android:textColor="@color/white"

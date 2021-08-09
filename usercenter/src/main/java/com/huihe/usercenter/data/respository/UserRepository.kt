@@ -95,13 +95,18 @@ class UserRepository @Inject constructor(){
             .getUserLevels()
     }
 
-    fun getLookTaskStaffList(status: Int,pageNo: Int,pageSize: Int): Observable<BaseResp<MineLookTaskRep?>>  {
+    fun getLookTaskStaffList(status: Int,type: Int?,pageNo: Int,pageSize: Int): Observable<BaseResp<MineLookTaskRep?>>  {
         return RetrofitFactory.instance.create(UserApi::class.java)
-            .getLookTaskStaffList(status,pageNo,pageSize)
+            .getLookTaskStaffList(status,type,pageNo,pageSize)
     }
 
-    fun getLookTaskAdministratorsList(status: Int,pageNo: Int,pageSize: Int): Observable<BaseResp<MineLookTaskRep?>>  {
+    fun getLookTaskAdministratorsList(status: Int,type: Int?,pageNo: Int,pageSize: Int): Observable<BaseResp<MineLookTaskRep?>>  {
         return RetrofitFactory.instance.create(UserApi::class.java)
-            .getLookTaskAdministratorsList(status,pageNo,pageSize)
+            .getLookTaskAdministratorsList(status,type,pageNo,pageSize)
+    }
+
+    fun getLookTaskDetail(takeLookId: String?): Observable<BaseResp<MutableList<LookTaskDetailRep>?>>  {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .getLookTaskDetail(takeLookId)
     }
 }

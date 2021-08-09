@@ -1,6 +1,8 @@
 package com.huihe.usercenter.ui.fragment
 
 import android.view.View
+import com.eightbitlab.rxbus.Bus
+import com.eightbitlab.rxbus.registerInBus
 import com.huihe.usercenter.data.protocol.MineLookTaskRep.MineLookTask
 import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
@@ -13,6 +15,8 @@ import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 
 import com.kotlin.base.ui.fragment.BaseRefreshFragment
 import com.kotlin.base.utils.DensityUtils
+import com.kotlin.provider.constant.UserConstant
+import com.kotlin.provider.event.LookTaskEvent
 import org.jetbrains.anko.support.v4.startActivity
 
 class MineLookTaskFragment :
@@ -20,6 +24,7 @@ class MineLookTaskFragment :
     MineLookTaskView, BaseRecyclerViewAdapter.OnItemClickListener<MineLookTask> {
 
     var status:Int=0
+    var type:Int?=null
     override fun injectComponent() {
         DaggerUserComponent.builder().activityComponent(mActivityComponent).userModule(
             UserModule()
@@ -28,7 +33,13 @@ class MineLookTaskFragment :
     }
 
     override fun initView() {
+        type = null
         status = arguments?.getInt(BaseConstant.KEY_STATUS, 0) ?: 0
+        Bus.observe<LookTaskEvent>()
+            .subscribe {
+                type = it.type
+                autoRefresh()
+            }.registerInBus(this)
     }
 
     override fun getSpace(): Int {
@@ -42,7 +53,7 @@ class MineLookTaskFragment :
     }
 
     override fun loadData(mCurrentPage: Int, mPageSize: Int) {
-        mPresenter?.getLookTaskList(status,mCurrentPage,mPageSize)
+        mPresenter?.getLookTaskList(status,type,mCurrentPage,mPageSize)
     }
 
     override fun addAllData(mRvAdapter: MineLookTaskRvAdapter, list: MutableList<MineLookTask>) {
@@ -58,6 +69,11 @@ class MineLookTaskFragment :
     }
 
     override fun onItemClick(view: View, item: MineLookTask, position: Int) {
-        startActivity<MineLookTaskDetailActivity>()
+        startActivity<MineLookTaskDetailActivity>(UserConstant.KEY_ID to item.id)
+    }
+
+    override fun onDestroy() {
+        Bus.unregister(this)
+        super.onDestroy()
     }
 }

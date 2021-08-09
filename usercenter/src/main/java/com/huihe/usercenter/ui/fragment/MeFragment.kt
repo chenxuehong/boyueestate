@@ -27,6 +27,7 @@ import com.kotlin.base.ui.fragment.BaseTakePhotoFragment
 import com.kotlin.base.utils.DensityUtils
 import com.kotlin.base.utils.LogUtils
 import com.kotlin.provider.constant.HomeConstant
+import com.kotlin.provider.constant.UserConstant
 import com.kotlin.provider.router.RouterPath
 import com.qiniu.android.storage.UploadManager
 import com.uuzuche.lib_zxing.activity.CaptureActivity
@@ -136,6 +137,12 @@ class MeFragment : BaseTakePhotoFragment<MePresenter>(), MeView,
             resources.getString(R.string.in_summary),resources.getString(R.string.under_review) -> {
                 // 待开始(status=0),带看中(status=1),总结中(status=2),审核中(status=3),已完成(status=4)
                 startActivity<MineLookTaskHomeActivity>(BaseConstant.KEY_STATUS to getStatus(item.title))
+            }
+
+            resources.getString(R.string.Store_data),
+            resources.getString(R.string.Department_data),
+            resources.getString(R.string.Employee_data) -> {
+                startActivity<BehaviourActivity>(UserConstant.KEY_TITLE to item.title)
             }
 
             resources.getString(R.string.area_manager) -> {

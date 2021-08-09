@@ -30,6 +30,7 @@ class BaseConstant{
         const val KEY_STATUS_DEFAULT = 0
         const val KEY_STATUS_MAP = 1
         const val KEY_ID = "id"
+        const val KEY_LEVELS = "levels"
 
         // 小区列表 key
         const val KEY_SP_VILLAGES = "Villages"

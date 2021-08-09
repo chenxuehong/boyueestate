@@ -17,14 +17,14 @@ class MineLookTaskPresenter @Inject constructor(): BasePresenter<MineLookTaskVie
     @Inject
     lateinit var service: UserService
 
-    fun getLookTaskList(status: Int,pageNo: Int,pageSize: Int) {
+    fun getLookTaskList(status: Int,type: Int?,pageNo: Int,pageSize: Int) {
         service?.getUserLevels()
             .flatMap(Function<Int?, Observable<MineLookTaskRep?>> {
 
                 return@Function if (it != null && it > 3) {
-                    service.getLookTaskStaffList(status,pageNo,pageSize)
+                    service.getLookTaskStaffList(status,type,pageNo,pageSize)
                 } else {
-                    service.getLookTaskAdministratorsList(status,pageNo,pageSize)
+                    service.getLookTaskAdministratorsList(status,type,pageNo,pageSize)
                 }
             }).execute(object : BaseSubscriber<MineLookTaskRep?>(mView) {
                 override fun onNext(t: MineLookTaskRep?) {

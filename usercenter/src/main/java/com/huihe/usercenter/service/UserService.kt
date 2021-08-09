@@ -33,6 +33,7 @@ interface UserService {
     fun getLookTaskAdministratorsStatic(type:Int) : Observable<MutableList<LookTaskStaffStaticRep.LookTaskStaffStatic>?>
     fun getUserLevels(): Observable<Int?>
 
-    fun getLookTaskStaffList(status: Int,pageNo: Int,pageSize: Int) : Observable<MineLookTaskRep?>
-    fun getLookTaskAdministratorsList(status: Int,pageNo: Int,pageSize: Int) : Observable<MineLookTaskRep?>
+    fun getLookTaskStaffList(status: Int,type: Int?,pageNo: Int,pageSize: Int) : Observable<MineLookTaskRep?>
+    fun getLookTaskAdministratorsList(status: Int,type: Int?,pageNo: Int,pageSize: Int) : Observable<MineLookTaskRep?>
+    fun getLookTaskDetail(takeLookId: String?) : Observable<MutableList<LookTaskDetailRep>?>
 }

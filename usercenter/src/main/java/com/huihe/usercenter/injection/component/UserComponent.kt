@@ -26,4 +26,7 @@ interface UserComponent {
     fun inject(fragment: ResultCommunityFragment)
     fun inject(activity: MainActivity)
     fun inject(fragment: MineLookTaskFragment)
+    fun inject(fragment: MineLookTaskDetailFragment)
+    fun inject(fragment: MineLookTaskHomeFragment)
+    fun inject(fragment: BehaviourFragment)
 }

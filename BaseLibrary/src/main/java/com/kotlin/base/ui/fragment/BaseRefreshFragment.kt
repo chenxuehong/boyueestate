@@ -96,6 +96,10 @@ abstract class BaseRefreshFragment<T : BasePresenter<*>, Adapter : BaseRecyclerV
         refresh_mBGARefreshLayout?.finishRefresh()
     }
 
+    fun autoRefresh(){
+        refresh_mBGARefreshLayout?.autoRefresh()
+    }
+
     fun resetNoMoreData() {
         refresh_mBGARefreshLayout?.resetNoMoreData()
     }

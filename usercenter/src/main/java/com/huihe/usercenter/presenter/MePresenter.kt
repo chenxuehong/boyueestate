@@ -1,6 +1,8 @@
 package com.huihe.usercenter.presenter
 
 import com.huihe.usercenter.data.protocol.*
+import com.huihe.usercenter.injection.module.UserModule.UserLevels.Companion.Administrators
+import com.huihe.usercenter.injection.module.UserModule.UserLevels.Companion.Staff
 import com.huihe.usercenter.presenter.view.MeView
 import com.huihe.usercenter.service.UserService
 import com.kotlin.base.common.BaseConstant
@@ -72,7 +74,7 @@ class MePresenter @Inject constructor() : BasePresenter<MeView>() {
     fun getLookTaskStatic(type: Int) {
         service.getUserLevels()
             .flatMap(Function<Int?, Observable<MutableList<LookTaskStaffStaticRep.LookTaskStaffStatic>?>> {
-
+                AppPrefsUtils.putString(BaseConstant.KEY_LEVELS,"${if (it != null && it <= 3) Administrators else Staff}")
                 return@Function if (it != null && it > 3) {
                     service.getLookTaskStaffStatic(type)
                 } else {

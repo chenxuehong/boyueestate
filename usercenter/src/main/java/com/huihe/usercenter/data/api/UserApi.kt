@@ -69,12 +69,18 @@ interface UserApi {
     @GET("look/task/staff")
     fun getLookTaskStaffList(
         @Query("status") status: Int,
+        @Query("type") type: Int?,
         @Query("pageNo") pageNo: Int,
         @Query("pageSize") pageSize: Int): Observable<BaseResp<MineLookTaskRep?>>
 
     @GET("look/task/administrators")
     fun getLookTaskAdministratorsList(
         @Query("status") status: Int,
+        @Query("type") type: Int?,
         @Query("pageNo") pageNo: Int,
         @Query("pageSize") pageSize: Int): Observable<BaseResp<MineLookTaskRep?>>
+
+    @GET("look/house/{takeLookId}")
+    fun getLookTaskDetail(
+        @Query("takeLookId") id: String?): Observable<BaseResp<MutableList<LookTaskDetailRep>?>>
 }

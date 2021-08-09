@@ -69,7 +69,7 @@ abstract class BaseMvpActivity<T : BasePresenter<*>> : BaseActivity(), BaseView 
     override fun hideLoading() {
         mLoadingDialog?.hideLoading()
     }
-:w
+
     /*
         错误信息提示，默认实现
      */

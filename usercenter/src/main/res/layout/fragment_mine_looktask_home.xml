@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         app:isShowBack="true"
         app:titleText="@string/takeLookTask"
-        app:rightTitleLayout="@layout/looktask_home_right_title"
+        app:rightText="@string/as_createUser"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

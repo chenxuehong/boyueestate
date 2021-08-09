@@ -17,6 +17,7 @@ import com.huihe.boyueestate.push.MyMobPushCallback
 import com.huihe.boyueestate.push.MyMobPushReceiver
 import com.huihe.boyueestate.share.ShareSdkUtil
 import com.huihe.boyueestate.utils.HotfixManager
+import com.huihe.usercenter.injection.module.UserModule
 import com.kotlin.base.common.AppManager
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.event.LoginEvent
@@ -108,6 +109,7 @@ class MainApplication : IMApplication() {
             override fun onComplete() {
                 UserPrefsUtils.putUserInfo(null)
                 AppPrefsUtils.putString(BaseConstant.KEY_SP_TOKEN, "")
+                AppPrefsUtils.putString(BaseConstant.KEY_LEVELS,"")
                 ARouter.getInstance().build(RouterPath.UserCenter.PATH_LOGIN).navigation()
             }
         })

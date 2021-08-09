@@ -30,18 +30,23 @@ class MineLookTaskRvAdapter(mContext: Context) :
         holder.itemView.tvCustomerInfo.text = "(${mineLookTask.customerName?:"无"})${mineLookTask.customerCode?:""}"
         when(mineLookTask.status?:0){
             0->{
+                holder.itemView.tvStatus.setBackgroundResource(R.drawable.common_red_radius_bg)
                 holder.itemView.tvStatus.text = mContext.resources.getString(R.string.to_start)
             }
             1->{
+                holder.itemView.tvStatus.setBackgroundResource(R.drawable.common_green_radius_bg)
                 holder.itemView.tvStatus.text = mContext.resources.getString(R.string.take_look)
             }
             2->{
+                holder.itemView.tvStatus.setBackgroundResource(R.drawable.common_yellow_radius_bg)
                 holder.itemView.tvStatus.text = mContext.resources.getString(R.string.in_summary)
             }
             3->{
+                holder.itemView.tvStatus.setBackgroundResource(R.drawable.common_review_radius_bg)
                 holder.itemView.tvStatus.text = mContext.resources.getString(R.string.under_review)
             }
             else ->{
+                holder.itemView.tvStatus.setBackgroundResource(R.drawable.common_green_radius_bg)
                 holder.itemView.tvStatus.text = mContext.resources.getString(R.string.finished)
             }
         }

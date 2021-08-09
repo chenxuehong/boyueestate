@@ -7,5 +7,7 @@ class UserConstant{
         const val KEY_MODILE_COVEIMAGE = "modile_coveImage"
         const val KEY_ANDROID_VERSION = "androidVersion"
         const val KEY_TAB_POSITION = "TAB_POSITION"
+        const val KEY_ID = "id"
+        const val KEY_TITLE = "title"
     }
 }

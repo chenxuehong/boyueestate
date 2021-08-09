@@ -80,11 +80,15 @@ class UserServiceImpl @Inject constructor() : UserService {
         return repository.getUserLevels().convert()
     }
 
-    override fun getLookTaskStaffList(status: Int,pageNo: Int,pageSize: Int): Observable<MineLookTaskRep?> {
-        return repository.getLookTaskStaffList(status,pageNo,pageSize).convert()
+    override fun getLookTaskStaffList(status: Int,type: Int?,pageNo: Int,pageSize: Int): Observable<MineLookTaskRep?> {
+        return repository.getLookTaskStaffList(status,type,pageNo,pageSize).convert()
     }
 
-    override fun getLookTaskAdministratorsList(status: Int,pageNo: Int,pageSize: Int): Observable<MineLookTaskRep?> {
-        return repository.getLookTaskAdministratorsList(status,pageNo,pageSize).convert()
+    override fun getLookTaskAdministratorsList(status: Int,type: Int?,pageNo: Int,pageSize: Int): Observable<MineLookTaskRep?> {
+        return repository.getLookTaskAdministratorsList(status,type,pageNo,pageSize).convert()
+    }
+
+    override fun getLookTaskDetail(takeLookId: String?): Observable<MutableList<LookTaskDetailRep>?> {
+        return repository.getLookTaskDetail(takeLookId).convert()
     }
 }
