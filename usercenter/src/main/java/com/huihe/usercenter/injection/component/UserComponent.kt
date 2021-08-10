@@ -29,4 +29,5 @@ interface UserComponent {
     fun inject(fragment: MineLookTaskDetailFragment)
     fun inject(fragment: MineLookTaskHomeFragment)
     fun inject(fragment: BehaviourFragment)
+    fun inject(fragment: InsertMineLookHouseFragment)
 }

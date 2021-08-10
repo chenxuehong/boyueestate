@@ -82,5 +82,9 @@ interface UserApi {
 
     @GET("look/house/{takeLookId}")
     fun getLookTaskDetail(
-        @Query("takeLookId") id: String?): Observable<BaseResp<MutableList<LookTaskDetailRep>?>>
+        @Path("takeLookId") id: String?): Observable<BaseResp<MutableList<LookTaskDetailRep>?>>
+
+    @DELETE("look/house/{id}")
+    fun deleteLookHouse(
+        @Path("id") id: String?):  Observable<BaseResp<Any>>
 }

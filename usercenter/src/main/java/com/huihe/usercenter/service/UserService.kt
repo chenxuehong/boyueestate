@@ -1,6 +1,7 @@
 package com.huihe.usercenter.service
 
 import com.huihe.usercenter.data.protocol.*
+import com.kotlin.base.rx.DataNullException
 import com.kotlin.provider.data.protocol.District
 import com.kotlin.provider.data.protocol.IMUserInfo
 import com.kotlin.provider.data.protocol.ServerVersionInfo
@@ -36,4 +37,5 @@ interface UserService {
     fun getLookTaskStaffList(status: Int,type: Int?,pageNo: Int,pageSize: Int) : Observable<MineLookTaskRep?>
     fun getLookTaskAdministratorsList(status: Int,type: Int?,pageNo: Int,pageSize: Int) : Observable<MineLookTaskRep?>
     fun getLookTaskDetail(takeLookId: String?) : Observable<MutableList<LookTaskDetailRep>?>
+    fun deleteLookHouse(id: String?): Observable<Any>
 }

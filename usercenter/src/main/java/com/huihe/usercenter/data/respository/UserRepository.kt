@@ -109,4 +109,9 @@ class UserRepository @Inject constructor(){
         return RetrofitFactory.instance.create(UserApi::class.java)
             .getLookTaskDetail(takeLookId)
     }
+
+    fun deleteLookHouse(id: String?):  Observable<BaseResp<Any>> {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .deleteLookHouse(id)
+    }
 }

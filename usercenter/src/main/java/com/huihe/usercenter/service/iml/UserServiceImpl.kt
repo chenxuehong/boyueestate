@@ -91,4 +91,8 @@ class UserServiceImpl @Inject constructor() : UserService {
     override fun getLookTaskDetail(takeLookId: String?): Observable<MutableList<LookTaskDetailRep>?> {
         return repository.getLookTaskDetail(takeLookId).convert()
     }
+
+    override fun deleteLookHouse(id: String?): Observable<Any> {
+        return repository.deleteLookHouse(id).convert()
+    }
 }
