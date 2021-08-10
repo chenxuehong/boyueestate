@@ -26,12 +26,13 @@ class MineLookTaskHomePresenter @Inject constructor() : BasePresenter<MineLookTa
 
                     override fun onNext(t: Int?) {
                         super.onNext(t)
+                        AppPrefsUtils.putString(BaseConstant.KEY_LEVELS,"${if (t != null && t <= 3) UserModule.UserLevels.Administrators else UserModule.UserLevels.Staff}")
                         mView?.onIsAdministrators(t != null && t <= 3)
                     }
 
                 }, lifecycleProvider)
         } else {
-            mView?.onIsAdministrators("$isAdministrators".equals(UserModule.UserLevels.Administrators))
+            mView?.onIsAdministrators(isAdministrators == UserModule.UserLevels.Administrators.toString())
         }
     }
 }
