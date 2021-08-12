@@ -78,4 +78,41 @@ class MineLookTaskDetailPresenter @Inject constructor() : BasePresenter<MineLook
                 }
             }, lifecycleProvider)
     }
+
+    fun doTransfer(id: String?, changeUserId: String?) {
+        mView.showLoading(BaseApplication.context.resources.getString(R.string.task_transferring))
+        service.doTransfer(id,changeUserId)
+            .execute(object : BaseSubscriber<Any>(mView) {
+
+                override fun onNext(t: Any) {
+                    super.onNext(t)
+                    mView.onTransferSuccess()
+                }
+
+                override fun onError(e: Throwable) {
+                    super.onError(e)
+                    if (e is DataNullException){
+                        mView.onTransferSuccess()
+                    }
+                }
+            }, lifecycleProvider)
+    }
+
+    fun deleteLookTask(id: String?) {
+        mView.showLoading(BaseApplication.context.resources.getString(R.string.task_canceling))
+        service.deleteLookTask(id)
+            .execute(object : BaseSubscriber<Any>(mView) {
+
+                override fun onNext(t: Any) {
+                    mView.onDeleteLookTaskSuccess()
+                }
+
+                override fun onError(e: Throwable) {
+                    super.onError(e)
+                    if (e is DataNullException){
+                        mView.onDeleteLookTaskSuccess()
+                    }
+                }
+            }, lifecycleProvider)
+    }
 }

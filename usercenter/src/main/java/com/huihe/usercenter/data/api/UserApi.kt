@@ -87,4 +87,18 @@ interface UserApi {
     @DELETE("look/house/{id}")
     fun deleteLookHouse(
         @Path("id") id: String?):  Observable<BaseResp<Any>>
+
+    @POST("look/house")
+    fun insertMineLookHouse(
+        @Body req: MineLookHouseReq): Observable<BaseResp<String>>
+
+    @PUT("look/task")
+    fun transferLookTask(
+        @Query("id") id: String?,
+        @Query("changeUserId") changeUserId: String?
+    ): Observable<BaseResp<Any>>
+
+    @DELETE("look/task/{id}")
+    fun deleteLookTask(
+        @Path("id") id: String?):  Observable<BaseResp<Any>>
 }

@@ -215,3 +215,25 @@ fun String?.convertNotNullStr(defaultStr:String):String{
         this?:""
     }
 }
+
+fun MutableList<String>.getString(split: String): String {
+    var stringBuffer = StringBuffer()
+    forEach {
+        stringBuffer.append(split)
+        stringBuffer.append(it)
+    }
+    return if (stringBuffer.length > 1) {
+        stringBuffer.substring(1)
+    } else {
+        ""
+    }
+}
+
+fun MutableList<String>.isRepeat(str:String,hasRepeat: () -> Unit){
+    forEach {
+       if (it == str){
+           hasRepeat()
+           return@forEach
+       }
+    }
+}

@@ -95,4 +95,16 @@ class UserServiceImpl @Inject constructor() : UserService {
     override fun deleteLookHouse(id: String?): Observable<Any> {
         return repository.deleteLookHouse(id).convert()
     }
+
+    override fun insertMineLookHouse(req: MineLookHouseReq): Observable<String> {
+        return repository.insertMineLookHouse(req).convert()
+    }
+
+    override fun doTransfer(id: String?, changeUserId: String?): Observable<Any> {
+        return repository.doTransfer(id,changeUserId).convert()
+    }
+
+    override fun deleteLookTask(id: String?): Observable<Any> {
+        return repository.deleteLookTask(id).convert()
+    }
 }

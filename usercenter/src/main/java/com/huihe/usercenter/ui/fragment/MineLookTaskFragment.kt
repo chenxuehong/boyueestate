@@ -37,7 +37,9 @@ class MineLookTaskFragment :
         status = arguments?.getInt(BaseConstant.KEY_STATUS, 0) ?: 0
         Bus.observe<LookTaskEvent>()
             .subscribe {
-                type = it.type
+                it?.apply {
+                    type = it.type
+                }
                 autoRefresh()
             }.registerInBus(this)
     }
@@ -69,7 +71,7 @@ class MineLookTaskFragment :
     }
 
     override fun onItemClick(view: View, item: MineLookTask, position: Int) {
-        startActivity<MineLookTaskDetailActivity>(UserConstant.KEY_ID to item.id)
+        startActivity<MineLookTaskDetailActivity>(UserConstant.KEY_ID to item.id,UserConstant.KEY_CUSTOMER_CODE to item.customerCode)
     }
 
     override fun onDestroy() {

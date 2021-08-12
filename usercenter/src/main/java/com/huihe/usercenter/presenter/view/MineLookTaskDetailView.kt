@@ -7,5 +7,7 @@ interface MineLookTaskDetailView :BaseView{
     fun onLookTaskDetail(t: MutableList<LookTaskDetailRep>?)
     fun onLookTaskDetailOperations(mOperationList: MutableList<String>)
     fun onDeleteLookHouseSuccess(index: Int)
+    fun onTransferSuccess()
+    fun onDeleteLookTaskSuccess()
 
 }

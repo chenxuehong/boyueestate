@@ -36,6 +36,7 @@ import com.kotlin.base.utils.ReflectionUtil
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.data.protocol.District
 import com.kotlin.provider.event.AddHouseEvent
+import com.kotlin.provider.event.HouseSelectEvent
 import com.kotlin.provider.event.ResetEvent
 import com.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.fragment_secondhandhouse.*
@@ -188,6 +189,7 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
             BaseRecyclerViewAdapter.OnItemClickListener<House> {
             override fun onItemClick(view: View, item: House, position: Int) {
                 if (isHouseSelect) {
+                    Bus.send(HouseSelectEvent(item.houseCode))
                     finishForSetResultStr(
                         HomeConstant.KEY_HOUSE_CODE,
                         item.houseCode!!,

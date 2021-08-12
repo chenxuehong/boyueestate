@@ -27,6 +27,7 @@ object RouterPath{
             const val PATH_HOUSE_DETIL = "/homeCenter/HouseDetail"
             const val PATH_HOUSE_FRAGMENT = "/homeCenter/HouseFragment"
             const val PATH_HOUSE_MAP_FRAGMENT = "/homeCenter/HouseMapFragment"
+            const val PATH_HOUSE_SELECT_ACTIVITY = "/homeCenter/HouseSelectActivity"
         }
     }
     class CustomerCenter{

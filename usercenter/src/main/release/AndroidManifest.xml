@@ -42,6 +42,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.BehaviourActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.MineLookHouseFollowActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 </manifest>

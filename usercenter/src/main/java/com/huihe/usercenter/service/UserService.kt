@@ -38,4 +38,7 @@ interface UserService {
     fun getLookTaskAdministratorsList(status: Int,type: Int?,pageNo: Int,pageSize: Int) : Observable<MineLookTaskRep?>
     fun getLookTaskDetail(takeLookId: String?) : Observable<MutableList<LookTaskDetailRep>?>
     fun deleteLookHouse(id: String?): Observable<Any>
+    fun insertMineLookHouse(req: MineLookHouseReq): Observable<String>
+    fun doTransfer(id: String?, changeUserId: String?): Observable<Any>
+    fun deleteLookTask(id: String?): Observable<Any>
 }

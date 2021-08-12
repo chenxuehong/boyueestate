@@ -114,4 +114,19 @@ class UserRepository @Inject constructor(){
         return RetrofitFactory.instance.create(UserApi::class.java)
             .deleteLookHouse(id)
     }
+
+    fun insertMineLookHouse(req: MineLookHouseReq):  Observable<BaseResp<String>>  {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .insertMineLookHouse(req)
+    }
+
+    fun doTransfer(id: String?, changeUserId: String?):  Observable<BaseResp<Any>>  {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .transferLookTask(id,changeUserId)
+    }
+
+    fun deleteLookTask(id: String?):  Observable<BaseResp<Any>> {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .deleteLookTask(id)
+    }
 }
