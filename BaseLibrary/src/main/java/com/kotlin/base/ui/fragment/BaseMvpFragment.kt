@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.eightbitlab.rxbus.Bus
 import com.kotlin.base.R
 import com.kotlin.base.common.BaseApplication
 import com.kotlin.base.injection.component.ActivityComponent
@@ -66,18 +67,18 @@ abstract class BaseMvpFragment<T : BasePresenter<*>> : BaseFragment(), BaseView 
        显示加载框，默认实现
     */
     override fun showLoading() {
-        mLoadingDialog.showLoading(context?.resources?.getString(R.string.srl_footer_loading)!!)
+        mLoadingDialog?.showLoading(context?.resources?.getString(R.string.srl_footer_loading)!!)
     }
 
     override fun showLoading(tip: String) {
-        mLoadingDialog.showLoading(tip)
+        mLoadingDialog?.showLoading(tip)
     }
 
     /*
         隐藏加载框，默认实现
      */
     override fun hideLoading() {
-        mLoadingDialog.hideLoading()
+        mLoadingDialog?.hideLoading()
     }
 
     /*

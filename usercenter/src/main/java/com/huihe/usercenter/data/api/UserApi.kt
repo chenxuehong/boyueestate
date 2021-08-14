@@ -53,4 +53,52 @@ interface UserApi {
 
     @GET("60a4668fb2eb465a9a09370f?api_token=a93d04a00cedb2b2251be28a99e21616")
     fun getServerVersionInfo(): Observable<ServerVersionInfo?>
+
+    @GET("look/task/staff/static")
+    fun getLookTaskStaffStatic(
+        @Query("type") type: Int): Observable<BaseResp<MutableList<LookTaskStaffStaticRep.LookTaskStaffStatic>?>>
+
+
+    @GET("look/task/administrators/static")
+    fun getLookTaskAdministratorsStatic(
+        @Query("type") type: Int): Observable<BaseResp<MutableList<LookTaskStaffStaticRep.LookTaskStaffStatic>?>>
+
+    @GET("look/task/user/levels")
+    fun getUserLevels(): Observable<BaseResp<Int?>>
+
+    @GET("look/task/staff")
+    fun getLookTaskStaffList(
+        @Query("status") status: Int,
+        @Query("type") type: Int?,
+        @Query("pageNo") pageNo: Int,
+        @Query("pageSize") pageSize: Int): Observable<BaseResp<MineLookTaskRep?>>
+
+    @GET("look/task/administrators")
+    fun getLookTaskAdministratorsList(
+        @Query("status") status: Int,
+        @Query("type") type: Int?,
+        @Query("pageNo") pageNo: Int,
+        @Query("pageSize") pageSize: Int): Observable<BaseResp<MineLookTaskRep?>>
+
+    @GET("look/house/{takeLookId}")
+    fun getLookTaskDetail(
+        @Path("takeLookId") id: String?): Observable<BaseResp<MutableList<LookTaskDetailRep>?>>
+
+    @DELETE("look/house/{id}")
+    fun deleteLookHouse(
+        @Path("id") id: String?):  Observable<BaseResp<Any>>
+
+    @POST("look/house")
+    fun insertMineLookHouse(
+        @Body req: MineLookHouseReq): Observable<BaseResp<String>>
+
+    @PUT("look/task")
+    fun transferLookTask(
+        @Query("id") id: String?,
+        @Query("changeUserId") changeUserId: String?
+    ): Observable<BaseResp<Any>>
+
+    @DELETE("look/task/{id}")
+    fun deleteLookTask(
+        @Path("id") id: String?):  Observable<BaseResp<Any>>
 }

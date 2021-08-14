@@ -32,6 +32,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.find
+import java.lang.IllegalArgumentException
 
 
 //Kotlin通用扩展
@@ -176,6 +177,7 @@ fun RecyclerView.vertical(column: Int, space: Int) {
             )
         )
     }
+
 }
 
 fun RecyclerView.vertical() {
@@ -201,4 +203,37 @@ fun View.viewPhoto(
     intent.putExtra(AnimationConstants.ACTIVITY_ANIMATION_PIVOTY, centery)
     intent.putExtra(AnimationConstants.ACTIVITY_ANIMATION_ENABLE, true)
     context?.startActivity(intent)
+}
+
+fun String?.convertNotNullStr(defaultStr:String):String{
+    if (defaultStr.isNullOrEmpty()){
+       throw IllegalArgumentException("defaultStr is null or notValue")
+    }
+    return if(isNullOrEmpty()){
+        defaultStr
+    }else{
+        this?:""
+    }
+}
+
+fun MutableList<String>.getString(split: String): String {
+    var stringBuffer = StringBuffer()
+    forEach {
+        stringBuffer.append(split)
+        stringBuffer.append(it)
+    }
+    return if (stringBuffer.length > 1) {
+        stringBuffer.substring(1)
+    } else {
+        ""
+    }
+}
+
+fun MutableList<String>.isRepeat(str:String,hasRepeat: () -> Unit){
+    forEach {
+       if (it == str){
+           hasRepeat()
+           return@forEach
+       }
+    }
 }

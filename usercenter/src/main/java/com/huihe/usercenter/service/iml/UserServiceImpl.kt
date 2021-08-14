@@ -67,4 +67,44 @@ class UserServiceImpl @Inject constructor() : UserService {
     override fun getServerVersionInfo(url:String): Observable<ServerVersionInfo?> {
         return repository.getServerVersionInfo(url)
     }
+
+    override fun getLookTaskStaffStatic(type:Int) :Observable<MutableList<LookTaskStaffStaticRep.LookTaskStaffStatic>?>{
+        return repository.getLookTaskStaffStatic(type).convert()
+    }
+
+    override fun getLookTaskAdministratorsStatic(type: Int): Observable<MutableList<LookTaskStaffStaticRep.LookTaskStaffStatic>?> {
+        return repository.getLookTaskAdministratorsStatic(type).convert()
+    }
+
+    override fun getUserLevels(): Observable<Int?> {
+        return repository.getUserLevels().convert()
+    }
+
+    override fun getLookTaskStaffList(status: Int,type: Int?,pageNo: Int,pageSize: Int): Observable<MineLookTaskRep?> {
+        return repository.getLookTaskStaffList(status,type,pageNo,pageSize).convert()
+    }
+
+    override fun getLookTaskAdministratorsList(status: Int,type: Int?,pageNo: Int,pageSize: Int): Observable<MineLookTaskRep?> {
+        return repository.getLookTaskAdministratorsList(status,type,pageNo,pageSize).convert()
+    }
+
+    override fun getLookTaskDetail(takeLookId: String?): Observable<MutableList<LookTaskDetailRep>?> {
+        return repository.getLookTaskDetail(takeLookId).convert()
+    }
+
+    override fun deleteLookHouse(id: String?): Observable<Any> {
+        return repository.deleteLookHouse(id).convert()
+    }
+
+    override fun insertMineLookHouse(req: MineLookHouseReq): Observable<String> {
+        return repository.insertMineLookHouse(req).convert()
+    }
+
+    override fun doTransfer(id: String?, changeUserId: String?): Observable<Any> {
+        return repository.doTransfer(id,changeUserId).convert()
+    }
+
+    override fun deleteLookTask(id: String?): Observable<Any> {
+        return repository.deleteLookTask(id).convert()
+    }
 }

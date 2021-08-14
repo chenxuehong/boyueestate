@@ -360,15 +360,3 @@ fun getConvertHouseDetailData(houseDetail: HouseDetail?): MutableList<ItemHouseD
     return houseList
 }
 
-fun MutableList<String>.getString(split: String): String {
-    var stringBuffer = StringBuffer()
-    forEach {
-        stringBuffer.append(split)
-        stringBuffer.append(it)
-    }
-    return if (stringBuffer.length > 1) {
-        stringBuffer.substring(1)
-    } else {
-        ""
-    }
-}

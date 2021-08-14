@@ -9,7 +9,7 @@ import javax.inject.Inject
 /*
     MVP中P层 基类
  */
-open class BasePresenter<T:BaseView>{
+abstract class BasePresenter<T:BaseView>{
 
     lateinit var mView:T
 
@@ -31,4 +31,9 @@ open class BasePresenter<T:BaseView>{
         mView.onError("网络不可用")
         return false
     }
+
+    open fun release(){
+
+    }
+
 }

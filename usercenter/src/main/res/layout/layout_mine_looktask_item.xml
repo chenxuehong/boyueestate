@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:padding="@dimen/dp_15"
+    android:background="@drawable/common_white_radius_bg"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvCustomerInfo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="@dimen/sp_16"
+        android:lines="1"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_333333"
+        android:layout_width="0dp"
+        app:layout_constraintRight_toLeftOf="@id/tvStatus"
+        android:layout_height="@dimen/dp_22"/>
+    <TextView
+        android:id="@+id/tvStatus"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintLeft_toRightOf="@id/tvCustomerInfo"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_22"/>
+
+    <TextView
+        android:id="@+id/tvLookTaskInfo1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCustomerInfo"
+        android:textColor="@color/color_666666"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_marginTop="@dimen/dp_10"
+        android:textSize="@dimen/sp_14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tvLookTaskInfo2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLookTaskInfo1"
+        android:textColor="@color/color_666666"
+        android:lines="1"
+        android:ellipsize="end"
+        android:layout_marginTop="@dimen/dp_10"
+        android:textSize="@dimen/sp_14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -79,4 +79,54 @@ class UserRepository @Inject constructor(){
         return RetrofitFactory.instance.getNewRetrofit(url).create(UserApi::class.java)
                 .getServerVersionInfo()
     }
+
+    fun getLookTaskStaffStatic(type: Int): Observable<BaseResp<MutableList<LookTaskStaffStaticRep.LookTaskStaffStatic>?>> {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .getLookTaskStaffStatic(type)
+    }
+
+    fun getLookTaskAdministratorsStatic(type: Int): Observable<BaseResp<MutableList<LookTaskStaffStaticRep.LookTaskStaffStatic>?>> {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .getLookTaskAdministratorsStatic(type)
+    }
+
+    fun getUserLevels(): Observable<BaseResp<Int?>> {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .getUserLevels()
+    }
+
+    fun getLookTaskStaffList(status: Int,type: Int?,pageNo: Int,pageSize: Int): Observable<BaseResp<MineLookTaskRep?>>  {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .getLookTaskStaffList(status,type,pageNo,pageSize)
+    }
+
+    fun getLookTaskAdministratorsList(status: Int,type: Int?,pageNo: Int,pageSize: Int): Observable<BaseResp<MineLookTaskRep?>>  {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .getLookTaskAdministratorsList(status,type,pageNo,pageSize)
+    }
+
+    fun getLookTaskDetail(takeLookId: String?): Observable<BaseResp<MutableList<LookTaskDetailRep>?>>  {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .getLookTaskDetail(takeLookId)
+    }
+
+    fun deleteLookHouse(id: String?):  Observable<BaseResp<Any>> {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .deleteLookHouse(id)
+    }
+
+    fun insertMineLookHouse(req: MineLookHouseReq):  Observable<BaseResp<String>>  {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .insertMineLookHouse(req)
+    }
+
+    fun doTransfer(id: String?, changeUserId: String?):  Observable<BaseResp<Any>>  {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .transferLookTask(id,changeUserId)
+    }
+
+    fun deleteLookTask(id: String?):  Observable<BaseResp<Any>> {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .deleteLookTask(id)
+    }
 }

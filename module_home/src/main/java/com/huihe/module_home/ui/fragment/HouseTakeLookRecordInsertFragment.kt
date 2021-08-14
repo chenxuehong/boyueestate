@@ -8,13 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.HouseTakeLookRep
-import com.huihe.module_home.ext.getString
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HouseTakeLookRecordInsertPresenter
 import com.huihe.module_home.presenter.view.HouseTakeLookRecordInsertView
 import com.huihe.module_home.ui.activity.HouseSelectActivity
+import com.kotlin.base.ext.getString
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.provider.constant.HomeConstant

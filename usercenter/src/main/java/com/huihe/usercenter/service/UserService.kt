@@ -1,6 +1,7 @@
 package com.huihe.usercenter.service
 
 import com.huihe.usercenter.data.protocol.*
+import com.kotlin.base.rx.DataNullException
 import com.kotlin.provider.data.protocol.District
 import com.kotlin.provider.data.protocol.IMUserInfo
 import com.kotlin.provider.data.protocol.ServerVersionInfo
@@ -29,4 +30,15 @@ interface UserService {
     fun setUserInfo(userInfoReq: SetUserInfoReq):  Observable<SetUserInfoRep?>
     fun setPushInfo(uid: String?, registrationId: String): Observable<SetPushRep?>
     fun getServerVersionInfo(url:String): Observable<ServerVersionInfo?>
+    fun getLookTaskStaffStatic(type:Int) : Observable<MutableList<LookTaskStaffStaticRep.LookTaskStaffStatic>?>
+    fun getLookTaskAdministratorsStatic(type:Int) : Observable<MutableList<LookTaskStaffStaticRep.LookTaskStaffStatic>?>
+    fun getUserLevels(): Observable<Int?>
+
+    fun getLookTaskStaffList(status: Int,type: Int?,pageNo: Int,pageSize: Int) : Observable<MineLookTaskRep?>
+    fun getLookTaskAdministratorsList(status: Int,type: Int?,pageNo: Int,pageSize: Int) : Observable<MineLookTaskRep?>
+    fun getLookTaskDetail(takeLookId: String?) : Observable<MutableList<LookTaskDetailRep>?>
+    fun deleteLookHouse(id: String?): Observable<Any>
+    fun insertMineLookHouse(req: MineLookHouseReq): Observable<String>
+    fun doTransfer(id: String?, changeUserId: String?): Observable<Any>
+    fun deleteLookTask(id: String?): Observable<Any>
 }

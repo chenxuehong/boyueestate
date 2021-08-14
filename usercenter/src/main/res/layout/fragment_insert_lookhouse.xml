@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.kotlin.base.widgets.NecessaryTitleSelectView
+        android:id="@+id/nsvLookHouse"
+        style="@style/MatchWrap"
+        app:leftTitleText="@string/lookHouse"
+        app:isNecessary="true"
+        app:isShowLine="true"
+        app:tipContentText="@string/select_lookHouse"/>
+
+    <com.kotlin.base.widgets.NecessaryTitleSelectView
+        android:id="@+id/nsvAccompanyLooker"
+        style="@style/MatchWrap"
+        app:leftTitleText="@string/AccompanyLook"
+        app:isNecessary="false"
+        app:isShowLine="true"
+        app:tipContentText="@string/select_AccompanyLook"/>
+    <TextView
+        android:id="@+id/tvFollowTitle"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/sp_15"
+        android:textColor="@color/color_333333"
+        android:text="@string/insertHouse_follow"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"/>
+    <EditText
+        android:id="@+id/etEditFollow"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+        android:padding="@dimen/dp_10"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/sp_14"
+        android:hint="@string/follow_input"
+        android:gravity="left|top"
+        android:background="@drawable/common_line_radius_bg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_120"/>
+    <TextView
+        android:id="@+id/tvAddHouse"
+        android:layout_width="match_parent"
+        android:textColor="@color/common_white"
+        android:layout_marginTop="@dimen/dp_33"
+        android:textSize="@dimen/sp_15"
+        android:gravity="center"
+        android:layout_marginLeft="@dimen/dp_24"
+        android:layout_marginRight="@dimen/dp_24"
+        android:text="@string/new_insert"
+        android:layout_marginBottom="@dimen/dp_24"
+        android:background="@drawable/common_maincolor_radius_bg"
+        android:layout_height="@dimen/dp_44"/>
+
+</LinearLayout>
