@@ -34,7 +34,7 @@ class MeGroupRvAdapter(mContext: Context) :
             MeItemBean.ItemData(mContext.resources.getString(R.string.Integral_record),R.drawable.log_manager,0)
         )
         val corporateCultureList = mutableListOf(
-            MeItemBean.ItemData(mContext.resources.getString(R.string.BehavioralScore),R.drawable.log_manager,0),
+//            MeItemBean.ItemData(mContext.resources.getString(R.string.BehavioralScore),R.drawable.log_manager,0),
             MeItemBean.ItemData(mContext.resources.getString(R.string.corporateCulture),R.drawable.log_manager,0),
             MeItemBean.ItemData(mContext.resources.getString(R.string.address_book),R.drawable.address_book,0)
         )
@@ -45,7 +45,7 @@ class MeGroupRvAdapter(mContext: Context) :
         )
         list = mutableListOf(
             MeItemBean(mContext.resources.getString(R.string.takeLookTask), takeLookTaskList!!),
-            MeItemBean(mContext.resources.getString(R.string.ranking), integralList!!),
+//            MeItemBean(mContext.resources.getString(R.string.ranking), integralList!!),
             MeItemBean(mContext.resources.getString(R.string.corporateCulture),corporateCultureList),
             MeItemBean(mContext.resources.getString(R.string.system),systemList)
         )
