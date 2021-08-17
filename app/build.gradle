@@ -147,6 +147,7 @@ dependencies {
     implementation project(':customercenter')
     implementation project(':messagecenter')
 
+    implementation "com.android.support:multidex:1.0.1" // 多dex配置，
     //implementation 'com.tencent.bugly:crashreport:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.3.4
     implementation "com.tencent.bugly:crashreport_upgrade:$bugly_crashreport_upgrade_version"
     // 指定tinker依赖版本（注：应用升级1.3.5版本起，不再内置tinker）
