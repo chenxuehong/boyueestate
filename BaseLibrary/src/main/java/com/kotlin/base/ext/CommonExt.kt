@@ -1,9 +1,12 @@
 package com.kotlin.base.ext
 
+import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.net.Uri
+import android.os.Build
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
+import com.jph.takephoto.model.CropOptions
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.R
 import com.kotlin.base.data.protocol.BaseResp
@@ -27,9 +31,11 @@ import com.kotlin.base.utils.GlideUtils
 import com.kotlin.base.utils.amin.AnimationConstants
 import com.kotlin.base.widgets.DefaultTextWatcher
 import com.kotlin.base.widgets.GridViewItemDecoration
+import com.tbruyelle.rxpermissions2.RxPermissions
 import com.trello.rxlifecycle3.LifecycleProvider
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.find
 import java.lang.IllegalArgumentException
@@ -205,14 +211,14 @@ fun View.viewPhoto(
     context?.startActivity(intent)
 }
 
-fun String?.convertNotNullStr(defaultStr:String):String{
-    if (defaultStr.isNullOrEmpty()){
-       throw IllegalArgumentException("defaultStr is null or notValue")
+fun String?.convertNotNullStr(defaultStr: String): String {
+    if (defaultStr.isNullOrEmpty()) {
+        throw IllegalArgumentException("defaultStr is null or notValue")
     }
-    return if(isNullOrEmpty()){
+    return if (isNullOrEmpty()) {
         defaultStr
-    }else{
-        this?:""
+    } else {
+        this ?: ""
     }
 }
 
@@ -229,11 +235,24 @@ fun MutableList<String>.getString(split: String): String {
     }
 }
 
-fun MutableList<String>.isRepeat(str:String,hasRepeat: () -> Unit){
+fun MutableList<String>.isRepeat(str: String, hasRepeat: () -> Unit) {
     forEach {
-       if (it == str){
-           hasRepeat()
-           return@forEach
-       }
+        if (it == str) {
+            hasRepeat()
+            return@forEach
+        }
+    }
+}
+
+fun Activity.requestLocaPermission(after: () -> Unit) {
+    if (Build.VERSION.SDK_INT >= 23) {
+        RxPermissions(this).request(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION).subscribe(
+            Consumer<Boolean>{
+            if (it){
+                after()
+            }
+        })
+    } else {
+        after()
     }
 }

@@ -32,6 +32,18 @@ class AppManager private constructor(){
         activityStack.remove(activity)
     }
 
+    /**
+     * 依据类名关闭指定的Activity
+     */
+    fun finishActivity(cls: Class<*>) {
+        for (activity in activityStack) {
+            if (activity::class.java == cls) {
+                finishActivity(activity)
+                break
+            }
+        }
+    }
+
     /*
         获取当前栈顶
      */

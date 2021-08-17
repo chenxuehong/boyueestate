@@ -1,6 +1,7 @@
 package com.huihe.usercenter.presenter
 
 import com.huihe.usercenter.R
+import com.huihe.usercenter.data.protocol.LookHouseReviewReq
 import com.huihe.usercenter.data.protocol.LookTaskDetailRep
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.view.MineLookTaskDetailView
@@ -25,7 +26,7 @@ class MineLookTaskDetailPresenter @Inject constructor() : BasePresenter<MineLook
     fun getLookTaskDetailOperator() {
         var isAdministrators = AppPrefsUtils.getString(BaseConstant.KEY_LEVELS)
         if (isAdministrators.isNullOrEmpty()) {
-            throw IllegalArgumentException("isAdministrators is null")
+            throw IllegalArgumentException("isAdministrators is null") as Throwable
         } else {
             mOperationList?.clear()
             mOperationList?.add( BaseApplication.context.resources.getString(R.string.looktask_insert_house))
@@ -115,4 +116,23 @@ class MineLookTaskDetailPresenter @Inject constructor() : BasePresenter<MineLook
                 }
             }, lifecycleProvider)
     }
+
+    fun lookHouseReview(req: LookHouseReviewReq) {
+        mView.showLoading(BaseApplication.context.resources.getString(R.string.committing))
+        service.lookHouseReview(req)
+            .execute(object : BaseSubscriber<Any>(mView) {
+
+                override fun onNext(t: Any) {
+                    mView.onLookHouseReviewSuccess()
+                }
+
+                override fun onError(e: Throwable) {
+                    super.onError(e)
+                    if (e is DataNullException){
+                        mView.onLookHouseReviewSuccess()
+                    }
+                }
+            }, lifecycleProvider)
+    }
+
 }

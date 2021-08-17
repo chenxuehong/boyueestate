@@ -119,8 +119,14 @@
     <string name="follow_content_input">请输入 跟进内容</string>
     <string name="takelook_house">带看房源</string>
     <string name="takelook_house_input">请选择 带看房源</string>
-    <string name="customer_evaluation">客户评价</string>
-    <string name="customer_evaluation_input">请输入 客户评价</string>
+    <string name="takelook_time">带看时间</string>
+    <string name="takelook_time_input">请选择 带看时间</string>
+    <string name="takelooker">带看人</string>
+    <string name="takelooker_input">请选择 带看人</string>
+    <string name="lookAccompany">陪看人</string>
+    <string name="lookAccompany_input">请选择 陪看人</string>
+    <string name="customer_follow">A跟进</string>
+    <string name="customer_follow_input">请输入 A跟进</string>
 
     <string name="phone_log">电话日志</string>
     <string name="house_num">房源数量</string>

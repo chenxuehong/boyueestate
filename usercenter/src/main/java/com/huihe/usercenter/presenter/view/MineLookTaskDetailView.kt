@@ -9,5 +9,6 @@ interface MineLookTaskDetailView :BaseView{
     fun onDeleteLookHouseSuccess(index: Int)
     fun onTransferSuccess()
     fun onDeleteLookTaskSuccess()
+    fun onLookHouseReviewSuccess()
 
 }

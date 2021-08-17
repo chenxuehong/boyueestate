@@ -612,6 +612,8 @@ class HouseDetailFragment2 : BaseTakePhotoFragment<HouseDetailPresenter>(), Hous
     override fun onError(text: String) {
         super.onError(text)
         requestCollecting = false
+        house_detail_mMultiStateView?.viewState =
+            MultiStateView.VIEW_STATE_CONTENT
     }
 
     override fun onReqCollectionResult(isInsert: Boolean?) {

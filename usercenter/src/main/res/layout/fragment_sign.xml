@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.baidu.mapapi.map.TextureMapView
+        android:id="@+id/mMapView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_220"
+        android:clickable="true" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPhoto"
+        app:layout_constraintTop_toBottomOf="@id/mMapView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvSign"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <TextView
+        android:id="@+id/tvSign"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="@dimen/dp_150"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="@dimen/sp_18"
+        android:text="@string/sign"
+        android:layout_marginBottom="@dimen/dp_30"
+        android:layout_height="@dimen/dp_150"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

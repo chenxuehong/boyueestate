@@ -347,11 +347,12 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
     override fun onDataIsNull() {
         layoutRefreshContentView?.customers_mMultiStateView?.viewState =
             MultiStateView.VIEW_STATE_EMPTY
-        mAreaMultiStateView?.viewState =
-            MultiStateView.VIEW_STATE_EMPTY
+//        mAreaMultiStateView?.viewState =
+//            MultiStateView.VIEW_STATE_EMPTY
     }
 
     override fun onError(text: String) {
+        super.onError(text)
         layoutRefreshContentView?.customers_mMultiStateView?.viewState =
             MultiStateView.VIEW_STATE_ERROR
         mAreaMultiStateView?.viewState =

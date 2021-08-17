@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.alibaba.android.arouter.launcher.ARouter
 import com.darsh.multipleimageselect.helpers.Constants
+import com.eightbitlab.rxbus.Bus
+import com.eightbitlab.rxbus.registerInBus
 import com.huihe.usercenter.R
 import com.huihe.usercenter.data.protocol.MeItemBean
 import com.huihe.usercenter.data.protocol.SetUserInfoReq
@@ -28,6 +30,7 @@ import com.kotlin.base.utils.DensityUtils
 import com.kotlin.base.utils.LogUtils
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.constant.UserConstant
+import com.kotlin.provider.event.MeRefreshEvent
 import com.kotlin.provider.router.RouterPath
 import com.qiniu.android.storage.UploadManager
 import com.uuzuche.lib_zxing.activity.CaptureActivity
@@ -75,6 +78,10 @@ class MeFragment : BaseTakePhotoFragment<MePresenter>(), MeView,
         clMeUserInfo.onClick {
             showAlertView(true)
         }
+        Bus.observe<MeRefreshEvent>()
+            .subscribe {
+                mPresenter?.getLookTaskStatic(0)
+            }.registerInBus(this)
     }
 
     override fun takeSuccess(result: TResult?) {
@@ -214,6 +221,7 @@ class MeFragment : BaseTakePhotoFragment<MePresenter>(), MeView,
 
     override fun onDestroy() {
         meContentRvAdapter?.onDestory()
+        Bus.unregister(this)
         super.onDestroy()
     }
 }

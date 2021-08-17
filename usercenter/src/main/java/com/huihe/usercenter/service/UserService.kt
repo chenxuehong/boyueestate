@@ -41,4 +41,10 @@ interface UserService {
     fun insertMineLookHouse(req: MineLookHouseReq): Observable<String>
     fun doTransfer(id: String?, changeUserId: String?): Observable<Any>
     fun deleteLookTask(id: String?): Observable<Any>
+    fun lookTaskFollow(req: MineLookHouseFollowReq): Observable<Any>
+    fun lookHouseAccompanyFollow(req: LookHouseAccompanyFollowReq): Observable<Any>
+    fun putLookTaskAudit(req: LookTaskAuditReq?): Observable<Any>
+    fun lookHouseReview(req: LookHouseReviewReq): Observable<Any>
+    fun accompanySign(req: SignReq?): Observable<Any>
+    fun takeSign(req: SignReq?): Observable<Any>
 }

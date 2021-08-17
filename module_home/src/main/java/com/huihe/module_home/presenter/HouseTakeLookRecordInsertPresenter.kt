@@ -1,6 +1,6 @@
 package com.huihe.module_home.presenter
 
-import com.huihe.module_home.data.protocol.HouseTakeLookRep
+import com.huihe.module_home.data.protocol.AddTakeLookRecordReq
 import com.huihe.module_home.presenter.view.HouseTakeLookRecordInsertView
 import com.huihe.module_home.service.HouseService
 import com.kotlin.base.ext.execute
@@ -14,12 +14,12 @@ class HouseTakeLookRecordInsertPresenter @Inject constructor(): BasePresenter<Ho
     @Inject
     lateinit var service: HouseService
 
-    fun addHouseTakeLookRecord(houseCodeList:MutableList<String>?=null,evaluate:String?=null,code:String?=null){
-        service?.addTakeLookRecord(
-            houseCodeList= houseCodeList,
-            evaluate =  evaluate,
-            code = code
-        ).execute(object :BaseSubscriber<HouseTakeLookRep.HouseTakeLook?>(mView){
+    fun addHouseTakeLookRecord(req: AddTakeLookRecordReq?){
+        service?.addTakeLookRecord(req).execute(object :BaseSubscriber<Any?>(mView){
+            override fun onNext(t: Any?) {
+                super.onNext(t)
+                mView?.onAddHouseTakeLookResult()
+            }
             override fun onError(e: Throwable) {
                 super.onError(e)
                 if (e is DataNullException){

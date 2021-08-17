@@ -31,4 +31,7 @@ interface UserComponent {
     fun inject(fragment: BehaviourFragment)
     fun inject(fragment: InsertMineLookHouseFragment)
     fun inject(fragment: MineLookHouseFollowFragment)
+    fun inject(fragment: AccompanyFollowFragment)
+    fun inject(fragment: LookTaskAuditFragment)
+    fun inject(fragment: SignFragment)
 }

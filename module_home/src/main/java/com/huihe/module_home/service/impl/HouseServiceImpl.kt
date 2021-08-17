@@ -115,11 +115,9 @@ class HouseServiceImpl @Inject constructor() : HouseService {
     }
 
     override fun addTakeLookRecord(
-        houseCodeList: MutableList<String>?,
-        evaluate: String?,
-        code: String?
-    ): Observable<HouseTakeLookRep.HouseTakeLook?> {
-        return repository.addHouseTakeLookRecord(houseCodeList,evaluate,code).convert()
+        req:AddTakeLookRecordReq?
+    ): Observable<Any?> {
+        return repository.addHouseTakeLookRecord(req).convert()
     }
 
     override fun getHouseLog(page: Int, size: Int, houseCode: String?) :Observable<HouseLogRep?>{

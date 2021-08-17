@@ -6,14 +6,11 @@ import com.huihe.usercenter.injection.module.UserModule.UserLevels.Companion.Sta
 import com.huihe.usercenter.presenter.view.MeView
 import com.huihe.usercenter.service.UserService
 import com.kotlin.base.common.BaseConstant
-import com.kotlin.base.data.protocol.BaseResp
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber
 import com.kotlin.base.rx.DataNullException
 import com.kotlin.base.utils.AppPrefsUtils
-import com.kotlin.base.utils.LogUtils
-import com.kotlin.provider.data.protocol.IMUserInfo
 import com.kotlin.provider.utils.UserPrefsUtils
 import io.reactivex.Observable
 import io.reactivex.functions.Function

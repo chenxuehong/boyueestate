@@ -161,4 +161,10 @@ abstract class BaseTitleRefreshFragment<T : BasePresenter<*>, Adapter : BaseRecy
         refreshTitle_mMultiStateView?.viewState =
             MultiStateView.VIEW_STATE_EMPTY
     }
+
+    override fun onError(text: String) {
+        super.onError(text)
+        refreshTitle_mMultiStateView?.viewState =
+            MultiStateView.VIEW_STATE_ERROR
+    }
 }

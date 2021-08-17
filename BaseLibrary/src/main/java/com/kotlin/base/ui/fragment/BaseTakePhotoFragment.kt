@@ -73,6 +73,7 @@ abstract class BaseTakePhotoFragment<T : BasePresenter<*>> : BaseMvpFragment<T>(
         错误信息提示，默认实现
      */
     override fun onError(text: String) {
+        super.onError(text)
         toast(text)
     }
 
@@ -121,7 +122,7 @@ abstract class BaseTakePhotoFragment<T : BasePresenter<*>> : BaseMvpFragment<T>(
                                 }
                             })
                         }else{
-                            RxPermissions(activity!!).request(Manifest.permission.CAMERA).subscribe(Consumer<Boolean>{
+                            RxPermissions(activity!!).request(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA).subscribe(Consumer<Boolean>{
                                 if (it){
                                     mTakePhoto.onPickFromGallery()
                                 }

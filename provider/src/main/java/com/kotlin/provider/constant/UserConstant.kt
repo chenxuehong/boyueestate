@@ -10,5 +10,8 @@ class UserConstant{
         const val KEY_ID = "id"
         const val KEY_TITLE = "title"
         const val KEY_CUSTOMER_CODE = "customerCode"
+        const val KEY_IS_TAKE_LOOK = "IsTakeLook"
+        const val KEY_LATITUDE = "latitude"
+        const val KEY_LONGITUDE = "longitude"
     }
 }

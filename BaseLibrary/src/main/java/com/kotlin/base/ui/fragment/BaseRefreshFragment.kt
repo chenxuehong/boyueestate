@@ -157,4 +157,10 @@ abstract class BaseRefreshFragment<T : BasePresenter<*>, Adapter : BaseRecyclerV
         refresh_mMultiStateView?.viewState =
             MultiStateView.VIEW_STATE_EMPTY
     }
+
+    override fun onError(text: String) {
+        super.onError(text)
+        refresh_mMultiStateView?.viewState =
+            MultiStateView.VIEW_STATE_ERROR
+    }
 }

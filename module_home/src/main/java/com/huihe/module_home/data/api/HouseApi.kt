@@ -81,10 +81,10 @@ interface HouseApi {
         @Query("code") code: String?
     ): Observable<BaseResp<HouseTakeLookRep?>>
 
-    @POST("take/look")
+    @POST("look/task")
     fun addHouseTakeLookRecord(
-        @Body req: AddTakeLookRecordReq
-    ): Observable<BaseResp<HouseTakeLookRep.HouseTakeLook?>>
+        @Body req: AddTakeLookRecordReq?
+    ): Observable<BaseResp<Any?>>
 
     @GET("house/log/list")
     fun getHouseLog(

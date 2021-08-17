@@ -31,6 +31,8 @@ class HouseTakeLookRecordFragment : BaseMvpFragment<HouseTakeLookPresenter>(),Ho
     private var mCurrentPage: Int = 1
     private var mPageSize: Int = 30
     private var code:String?=null
+    private var customer_id:String?=null
+    private var customer_name:String?=null
     private var isAdd:Boolean=false
     private var mHouseTakeLookRvAdapter: HouseTakeLookRecordRvAdapter?=null
 
@@ -54,6 +56,8 @@ class HouseTakeLookRecordFragment : BaseMvpFragment<HouseTakeLookPresenter>(),Ho
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         code = arguments?.getString(HomeConstant.KEY_CODE)
+        customer_id = arguments?.getString(HomeConstant.KEY_CUSTOMER_ID)
+        customer_name = arguments?.getString(HomeConstant.KEY_CUSTOMER_NAME)
         isAdd = arguments?.getBoolean(HomeConstant.KEY_IS_ADD,false)?:false
         initRefreshLayout()
         initView()
@@ -78,7 +82,11 @@ class HouseTakeLookRecordFragment : BaseMvpFragment<HouseTakeLookPresenter>(),Ho
         house_take_look_record_rvList.adapter = mHouseTakeLookRvAdapter
         house_take_look_titleBar?.getRightView()?.setVisible(isAdd)
         house_take_look_titleBar?.getRightView()?.onClick {
-            startActivityForResult<HouseTakeLookRecordInsertActivity>(REQUEST_CODE_INSERT,HomeConstant.KEY_CODE to code)
+            startActivityForResult<HouseTakeLookRecordInsertActivity>(REQUEST_CODE_INSERT,
+                HomeConstant.KEY_CODE to code,
+                HomeConstant.KEY_CUSTOMER_ID to customer_id,
+                HomeConstant.KEY_CUSTOMER_NAME to customer_name
+            )
         }
     }
 
@@ -98,6 +106,7 @@ class HouseTakeLookRecordFragment : BaseMvpFragment<HouseTakeLookPresenter>(),Ho
     }
 
     override fun onError(text: String) {
+        super.onError(text)
         house_take_look_record_mMultiStateView?.viewState =
             MultiStateView.VIEW_STATE_ERROR
     }
@@ -143,8 +152,7 @@ class HouseTakeLookRecordFragment : BaseMvpFragment<HouseTakeLookPresenter>(),Ho
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (REQUEST_CODE_INSERT == requestCode){
-            mCurrentPage = 1
-            loadData()
+            initData()
         }
     }
 }

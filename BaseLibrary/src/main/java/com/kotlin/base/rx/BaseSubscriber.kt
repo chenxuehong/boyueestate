@@ -23,8 +23,8 @@ open class BaseSubscriber<T>(val baseView: BaseView) : Observer<T> {
 
     override fun onError(e: Throwable) {
         baseView.hideLoading()
-        if (e is BaseException) {
-            when (e.msg) {
+        when (e) {
+            is BaseException -> when (e.msg) {
                 "登录超时" -> {
                     Bus.send(LoginEvent())
                 }
@@ -32,8 +32,8 @@ open class BaseSubscriber<T>(val baseView: BaseView) : Observer<T> {
                     baseView.onError(e.msg)
                 }
             }
-        } else if (e is DataNullException) {
-            baseView.onDataIsNull()
+            is DataNullException -> baseView.onDataIsNull()
+            else -> baseView.onError("网络异常")
         }
     }
 }

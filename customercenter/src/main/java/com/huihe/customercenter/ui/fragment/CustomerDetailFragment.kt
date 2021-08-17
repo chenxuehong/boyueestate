@@ -79,7 +79,7 @@ class CustomerDetailFragment :
         R.color.color_66999999
     )
 
-    var titles = mutableListOf("跟进","基础材料")
+    var titles = mutableListOf("跟进","基础资料")
     lateinit var helperInfoRvAdapter: HelperInfoRvAdapter
 
     lateinit var mPhoneView:View
@@ -334,6 +334,8 @@ class CustomerDetailFragment :
         ARouter.getInstance()
             .build(RouterPath.HomeCenter.PATH_TAKELOOK_RECORD)
             .withString(HomeConstant.KEY_CODE, customerCode)
+            .withString(HomeConstant.KEY_CUSTOMER_ID, id)
+            .withString(HomeConstant.KEY_CUSTOMER_NAME, mCustomerDetailRep?.customerName)
             .withBoolean(HomeConstant.KEY_IS_ADD, true)
             .navigation(context)
     }
@@ -603,6 +605,12 @@ class CustomerDetailFragment :
     override fun onSetCustomerStatusSuccess() {
         toast("修改成功")
         loadData()
+    }
+
+    override fun onError(text: String) {
+        super.onError(text)
+        customer_detail_mMultiStateView?.viewState =
+            MultiStateView.VIEW_STATE_ERROR
     }
 
     override fun onDestroy() {

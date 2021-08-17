@@ -318,6 +318,12 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
         }
     }
 
+    override fun onError(text: String) {
+        super.onError(text)
+        layoutRefreshContentView?.customers_mMultiStateView?.viewState =
+            MultiStateView.VIEW_STATE_ERROR
+    }
+
     override fun onDestroy() {
         try {
             mSearchResultViewController?.detach()

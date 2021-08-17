@@ -20,5 +20,7 @@ class HomeConstant {
         const val KEY_TITLE = "title"
         const val KEY_INDEX = "index"
         const val KEY_VILLAGE_IDS = "villageIds"
+        const val KEY_CUSTOMER_ID = "customer_id"
+        const val KEY_CUSTOMER_NAME = "customer_name"
     }
 }

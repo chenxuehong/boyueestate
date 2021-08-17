@@ -101,4 +101,28 @@ interface UserApi {
     @DELETE("look/task/{id}")
     fun deleteLookTask(
         @Path("id") id: String?):  Observable<BaseResp<Any>>
+
+    @PUT("look/house/take/follow")
+    fun lookTaskFollow(
+        @Body req: MineLookHouseFollowReq): Observable<BaseResp<Any>>
+
+    @PUT("look/house/accompany/follow")
+    fun lookHouseAccompanyFollow(
+        @Body req: LookHouseAccompanyFollowReq): Observable<BaseResp<Any>>
+
+    @PUT("look/task/audit")
+    fun putLookTaskAudit(
+        @Body req: LookTaskAuditReq?): Observable<BaseResp<Any>>
+
+    @PUT("look/house/review")
+    fun lookHouseReview(
+        @Body req: LookHouseReviewReq): Observable<BaseResp<Any>>
+
+    @PUT("look/house/accompany/sign")
+    fun accompanySign(
+        @Body req: SignReq?): Observable<BaseResp<Any>>
+
+    @PUT("look/house/take/sign")
+    fun takeSign(
+        @Body req: SignReq?): Observable<BaseResp<Any>>
 }

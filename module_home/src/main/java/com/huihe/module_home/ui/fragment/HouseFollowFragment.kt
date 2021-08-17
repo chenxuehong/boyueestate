@@ -144,6 +144,7 @@ class HouseFollowFragment : BaseMvpFragment<HouseFollowPresenter>(), HouseFollow
     }
 
     override fun onError(text: String) {
+        super.onError(text)
         house_follow_mMultiStateView?.viewState =
             MultiStateView.VIEW_STATE_ERROR
     }

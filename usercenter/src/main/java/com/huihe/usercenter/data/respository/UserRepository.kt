@@ -129,4 +129,34 @@ class UserRepository @Inject constructor(){
         return RetrofitFactory.instance.create(UserApi::class.java)
             .deleteLookTask(id)
     }
+
+    fun lookTaskFollow(req: MineLookHouseFollowReq):  Observable<BaseResp<Any>>  {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .lookTaskFollow(req)
+    }
+
+    fun lookHouseAccompanyFollow(req: LookHouseAccompanyFollowReq):  Observable<BaseResp<Any>> {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .lookHouseAccompanyFollow(req)
+    }
+
+    fun putLookTaskAudit(req: LookTaskAuditReq?):  Observable<BaseResp<Any>>  {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .putLookTaskAudit(req)
+    }
+
+    fun lookHouseReview(req: LookHouseReviewReq):  Observable<BaseResp<Any>> {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .lookHouseReview(req)
+    }
+
+    fun accompanySign(req: SignReq?):  Observable<BaseResp<Any>>  {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .accompanySign(req)
+    }
+
+    fun takeSign(req: SignReq?):  Observable<BaseResp<Any>>  {
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .takeSign(req)
+    }
 }

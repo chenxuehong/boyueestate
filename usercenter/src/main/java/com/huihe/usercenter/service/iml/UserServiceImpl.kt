@@ -107,4 +107,28 @@ class UserServiceImpl @Inject constructor() : UserService {
     override fun deleteLookTask(id: String?): Observable<Any> {
         return repository.deleteLookTask(id).convert()
     }
+
+    override fun lookTaskFollow(req: MineLookHouseFollowReq): Observable<Any> {
+        return repository.lookTaskFollow(req).convert()
+    }
+
+    override fun lookHouseAccompanyFollow(req: LookHouseAccompanyFollowReq): Observable<Any> {
+        return repository.lookHouseAccompanyFollow(req).convert()
+    }
+
+    override fun putLookTaskAudit(req: LookTaskAuditReq?): Observable<Any> {
+        return repository.putLookTaskAudit(req).convert()
+    }
+
+    override fun lookHouseReview(req: LookHouseReviewReq): Observable<Any> {
+        return repository.lookHouseReview(req).convert()
+    }
+
+    override fun accompanySign(req: SignReq?): Observable<Any> {
+        return repository.accompanySign(req).convert()
+    }
+
+    override fun takeSign(req: SignReq?): Observable<Any> {
+        return repository.takeSign(req).convert()
+    }
 }
