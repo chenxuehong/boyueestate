@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.mob.sdk'
 apply plugin: 'kotlin-kapt'
-apply from: 'tinker-support.gradle'
+//apply from: 'tinker-support.gradle'
 
 android {
     compileSdkVersion compile_sdk_version
@@ -87,7 +87,7 @@ android {
 }
 
 MobSDK {
- /*   fp true //严格模式   暂时不需要授权*/
+    fp true //严格模式   暂时不需要授权
     gui true
     appKey "3270be52b22ee"
     appSecret "872ca12218b61bc3b588d795fc52b3da"

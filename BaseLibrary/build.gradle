@@ -118,8 +118,8 @@ dependencies {
     //3种自定义样式，不使用就不导入
     api 'com.github.limuyang2.LDialog:custom_ldialog:1.0'
     api 'com.github.pinguo-zhouwei:CustomPopwindow:2.1.1'
-    api 'com.github.gzu-liyujiang.AndroidPicker:Common:2.0.0'
-    api 'com.github.gzu-liyujiang.AndroidPicker:WheelPicker:2.0.0'
+    api 'com.github.gzu-liyujiang.AndroidPicker:Common:4.0.1'
+    api 'com.github.gzu-liyujiang.AndroidPicker:WheelPicker:4.0.1'
     api 'cn.yipianfengye.android:zxing-library:2.2'
 }
 repositories {

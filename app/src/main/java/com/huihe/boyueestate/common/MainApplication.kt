@@ -10,7 +10,6 @@ import com.baidu.mapapi.CoordType
 import com.baidu.mapapi.SDKInitializer
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
-import com.huihe.boyueestate.BuildConfig
 import com.huihe.boyueestate.R
 import com.huihe.boyueestate.push.CustomNotification
 import com.huihe.boyueestate.push.MyMobPushCallback
@@ -72,7 +71,7 @@ class MainApplication : IMApplication() {
         SDKInitializer.setCoordType(CoordType.BD09LL)
         initModePush()
         try {
-            HotfixManager.getInstance(this).init(BuildConfig.BUGLY_APP_ID, BuildConfig.DEBUG)
+//            HotfixManager.getInstance(this).init(BuildConfig.BUGLY_APP_ID, BuildConfig.DEBUG)
         } catch (throwable: Throwable) {
             //
         }
