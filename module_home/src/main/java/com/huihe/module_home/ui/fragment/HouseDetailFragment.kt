@@ -11,7 +11,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
-import cn.qqtheme.framework.picker.SinglePicker
 import com.alibaba.android.arouter.launcher.ARouter
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
@@ -38,6 +37,7 @@ import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseTakePhotoFragment
 import com.kotlin.base.utils.DensityUtils
 import com.kotlin.base.utils.LogUtils
+import com.kotlin.base.widgets.picker.WheelPicker.picker.SinglePicker
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.constant.UserConstant
 import com.kotlin.provider.event.OwnerInfoPutEvent

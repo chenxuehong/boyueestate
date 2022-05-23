@@ -5,9 +5,6 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import cn.qqtheme.framework.entity.Province
-import cn.qqtheme.framework.picker.AddressPicker
-import cn.qqtheme.framework.picker.SinglePicker
 import com.alibaba.android.arouter.launcher.ARouter
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
@@ -16,7 +13,6 @@ import com.huihe.module_home.R
 import com.huihe.module_home.data.protocol.HouseDetail
 import com.huihe.module_home.data.protocol.SetHouseInfoRep
 import com.huihe.module_home.data.protocol.SetHouseInfoReq
-import com.huihe.module_home.ext.getConvertProvinceList
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.SetHouseInfoPresenter
@@ -27,6 +23,7 @@ import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.widgets.NecessaryTitleInputView
 import com.kotlin.base.widgets.NecessaryTitleSelectView
+import com.kotlin.base.widgets.picker.WheelPicker.picker.SinglePicker
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.data.protocol.District
 import com.kotlin.provider.router.RouterPath

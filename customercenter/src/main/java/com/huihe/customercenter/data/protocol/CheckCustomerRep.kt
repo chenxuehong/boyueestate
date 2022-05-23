@@ -1,9 +1,14 @@
 package com.huihe.customercenter.data.protocol
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class CheckCustomerRep(
     var isHave:Int,
     var list:MutableList<Customer>
-){
+):Parcelable{
+    @Parcelize
     data class Customer(
         var id:String?,
         var createDate:String?,
@@ -41,5 +46,5 @@ data class CheckCustomerRep(
         var updateUserName:String?,
         var userType:Int?,
         var viewHouseDate:Int?
-    )
+    ):Parcelable
 }

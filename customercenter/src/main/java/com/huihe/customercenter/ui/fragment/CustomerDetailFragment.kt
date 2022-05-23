@@ -11,8 +11,6 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import cn.qqtheme.framework.picker.SinglePicker
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.zhouwei.library.CustomPopWindow
 import com.google.gson.Gson
@@ -29,8 +27,8 @@ import com.kennyc.view.MultiStateView
 import com.kotlin.base.ext.*
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
-import com.kotlin.base.ui.fragment.BaseTitleRefreshFragment
 import com.kotlin.base.utils.DensityUtils
+import com.kotlin.base.widgets.picker.WheelPicker.picker.SinglePicker
 import com.kotlin.provider.constant.CustomerConstant
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.router.RouterPath
@@ -439,7 +437,11 @@ class CustomerDetailFragment :
         data.add(resources.getString(R.string.bargain))
         data.add(resources.getString(R.string.defer))
         data.add(resources.getString(R.string.delete))
-        updateStatusPicker = SinglePicker(activity, data)
+        updateStatusPicker =
+            SinglePicker(
+                activity,
+                data
+            )
         updateStatusPicker?.setCanceledOnTouchOutside(true)
         updateStatusPicker?.selectedIndex = 1
         updateStatusPicker?.setCycleDisable(true)

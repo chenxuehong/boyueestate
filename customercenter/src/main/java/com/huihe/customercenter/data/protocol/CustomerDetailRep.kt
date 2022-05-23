@@ -1,5 +1,9 @@
 package com.huihe.customercenter.data.protocol
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class CustomerDetailRep(
     var createDate:String?,
     var createUser:String?,
@@ -38,4 +42,4 @@ data class CustomerDetailRep(
     var updateUserName:String?,
     var userType:Int?,
     var viewHouseDate:String?
-)
+):Parcelable

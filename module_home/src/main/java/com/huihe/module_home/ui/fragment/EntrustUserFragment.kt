@@ -5,7 +5,6 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import cn.qqtheme.framework.picker.SinglePicker
 import com.alibaba.android.arouter.launcher.ARouter
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
@@ -22,6 +21,7 @@ import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.widgets.NecessaryTitleInputView
 import com.kotlin.base.widgets.NecessaryTitleSelectView
+import com.kotlin.base.widgets.picker.WheelPicker.picker.SinglePicker
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.event.OwnerInfoPutEvent
 import com.kotlin.provider.event.SearchHouseEvent
@@ -39,7 +39,7 @@ class EntrustUserFragment : BaseMvpFragment<EntrustUserPresenter>(), EntrustUser
     }
 
     var mEstateTypes :MutableList<String> = mutableListOf("住宅","办公楼","商品","车位")
-    var mEstateTypePicker:SinglePicker<String>?=null
+    var mEstateTypePicker: SinglePicker<String>?=null
     var mEntrustUserReq = EntrustUserReq()
     var houseId:String?=null
     override fun onCreateView(

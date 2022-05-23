@@ -5,7 +5,6 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import cn.qqtheme.framework.picker.SinglePicker
 import com.google.gson.Gson
 import com.huihe.customercenter.R
 import com.huihe.customercenter.data.protocol.CustomerDetailRep
@@ -19,6 +18,7 @@ import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.widgets.NecessaryTitleInputView
 import com.kotlin.base.widgets.NecessaryTitleSelectView
+import com.kotlin.base.widgets.picker.WheelPicker.picker.SinglePicker
 import com.kotlin.provider.constant.CustomerConstant
 import kotlinx.android.synthetic.main.fragment_customer_info_edit.*
 import org.jetbrains.anko.support.v4.toast

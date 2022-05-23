@@ -5,7 +5,6 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import cn.qqtheme.framework.picker.SinglePicker
 import com.alibaba.android.arouter.launcher.ARouter
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
@@ -22,6 +21,7 @@ import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.widgets.NecessaryTitleInputView
 import com.kotlin.base.widgets.NecessaryTitleSelectView
+import com.kotlin.base.widgets.picker.WheelPicker.picker.SinglePicker
 import com.kotlin.provider.event.AddHouseEvent
 import com.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.fragment_add_house.*
@@ -29,7 +29,7 @@ import org.jetbrains.anko.support.v4.toast
 
 class AddHouseFragment : BaseMvpFragment<AddHousePresenter>(), AddHouseView{
 
-    var mTransactionTypePicker:SinglePicker<String>?=null
+    var mTransactionTypePicker: SinglePicker<String>?=null
     var req:AddHouseInfoReq?=null
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -119,13 +119,14 @@ class AddHouseFragment : BaseMvpFragment<AddHousePresenter>(), AddHouseView{
 
     private fun selectTransactionType() {
         // 出售 0, 出租 1,租售 2
-        mTransactionTypePicker = SinglePicker(
-            activity, mutableListOf<String>(
-                "出售",
-                "出租",
-                "租售"
+        mTransactionTypePicker =
+            SinglePicker(
+                activity, mutableListOf<String>(
+                    "出售",
+                    "出租",
+                    "租售"
+                )
             )
-        )
         mTransactionTypePicker?.setCanceledOnTouchOutside(true)
         mTransactionTypePicker?.selectedIndex = 1
         mTransactionTypePicker?.setCycleDisable(true)

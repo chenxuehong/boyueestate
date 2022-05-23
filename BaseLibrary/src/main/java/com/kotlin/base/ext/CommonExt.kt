@@ -46,11 +46,11 @@ import java.lang.IllegalArgumentException
 
 /*
     扩展Observable执行
- */
-fun <T> Observable<T>.execute(
-    subscriber: BaseSubscriber<T>,
-    lifecycleProvider: LifecycleProvider<*>
-) {
+    */
+    fun <T> Observable<T>.execute(
+        subscriber: BaseSubscriber<T>,
+        lifecycleProvider: LifecycleProvider<*>
+    ) {
     this.subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .compose(lifecycleProvider.bindToLifecycle())

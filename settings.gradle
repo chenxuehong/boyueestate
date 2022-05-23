@@ -1,2 +1,3 @@
 include ':app',':BaseLibrary', ':provider', ':module_home', ':usercenter', ':customercenter', ':messagecenter'
 rootProject.name='BoyueEstate'
+include ':ServiceManager'

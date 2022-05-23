@@ -39,6 +39,7 @@ android {
 
 dependencies {
     implementation project(':provider')
+    implementation project(path: ':customercenter')
     //Dagger2
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     //ARouter

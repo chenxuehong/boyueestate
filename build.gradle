@@ -37,6 +37,7 @@ buildscript {
         maven {
             url "http://mvn.mob.com/android"
         }
+        maven {  url "https://jitpack.io" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.0'// 必须降低版本否则不支持热修复
@@ -53,10 +54,9 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url 'https://jitpack.io' }
+        maven {  url "https://jitpack.io" }
     }
 }
-
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

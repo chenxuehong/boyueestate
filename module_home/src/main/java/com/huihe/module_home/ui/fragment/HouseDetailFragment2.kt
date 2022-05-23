@@ -12,7 +12,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import cn.qqtheme.framework.picker.SinglePicker
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.example.zhouwei.library.CustomPopWindow
@@ -40,6 +39,7 @@ import com.kotlin.base.ui.fragment.BaseTakePhotoFragment
 import com.kotlin.base.utils.DensityUtils
 import com.kotlin.base.utils.LogUtils
 import com.kotlin.base.utils.YuanFenConverter
+import com.kotlin.base.widgets.picker.WheelPicker.picker.SinglePicker
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.event.OwnerInfoPutEvent
 import com.kotlin.provider.event.ShareEvent

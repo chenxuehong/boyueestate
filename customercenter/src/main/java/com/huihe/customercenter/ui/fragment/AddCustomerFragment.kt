@@ -5,7 +5,6 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import cn.qqtheme.framework.picker.SinglePicker
 import com.eightbitlab.rxbus.Bus
 import com.huihe.customercenter.R
 import com.huihe.customercenter.data.protocol.AddCustomerReq
@@ -17,6 +16,7 @@ import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.widgets.NecessaryTitleInputView
 import com.kotlin.base.widgets.NecessaryTitleSelectView
+import com.kotlin.base.widgets.picker.WheelPicker.picker.SinglePicker
 import com.kotlin.provider.event.AddCustomerEvent
 import kotlinx.android.synthetic.main.layout_fragment_add_customer.*
 import org.jetbrains.anko.support.v4.toast
@@ -24,8 +24,8 @@ import org.jetbrains.anko.support.v4.toast
 class AddCustomerFragment : BaseMvpFragment<AddCustomerPresenter>(),AddCustomerView {
 
     lateinit var req: AddCustomerReq
-    var mUserTypePicker:SinglePicker<String>?=null
-    var mCustomerTypePicker:SinglePicker<String>?=null
+    var mUserTypePicker: SinglePicker<String>?=null
+    var mCustomerTypePicker: SinglePicker<String>?=null
 
     override fun injectComponent() {
         DaggerCustomersComponent.builder().activityComponent(mActivityComponent).customersModule(
@@ -72,12 +72,13 @@ class AddCustomerFragment : BaseMvpFragment<AddCustomerPresenter>(),AddCustomerV
 
     private fun selectCustomerType() {
         // 出售 0, 出租 1,租售 2
-        mCustomerTypePicker = SinglePicker(
-            activity, mutableListOf<String>(
-                "买卖",
-                "租赁"
+        mCustomerTypePicker =
+            SinglePicker(
+                activity, mutableListOf<String>(
+                    "买卖",
+                    "租赁"
+                )
             )
-        )
         mCustomerTypePicker?.setCanceledOnTouchOutside(true)
         mCustomerTypePicker?.selectedIndex = 1
         mCustomerTypePicker?.setCycleDisable(true)
@@ -101,12 +102,13 @@ class AddCustomerFragment : BaseMvpFragment<AddCustomerPresenter>(),AddCustomerV
 
     private fun selectUserType() {
         // 出售 0, 出租 1,租售 2
-        mUserTypePicker = SinglePicker(
-            activity, mutableListOf<String>(
-                "公客",
-                "私客"
+        mUserTypePicker =
+            SinglePicker(
+                activity, mutableListOf<String>(
+                    "公客",
+                    "私客"
+                )
             )
-        )
         mUserTypePicker?.setCanceledOnTouchOutside(true)
         mUserTypePicker?.selectedIndex = 1
         mUserTypePicker?.setCycleDisable(true)

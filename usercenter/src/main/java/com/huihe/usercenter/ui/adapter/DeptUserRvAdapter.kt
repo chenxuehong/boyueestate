@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import cn.qqtheme.framework.entity.Province
 import com.huihe.usercenter.R
 
 import com.huihe.usercenter.data.protocol.DeptUserRep

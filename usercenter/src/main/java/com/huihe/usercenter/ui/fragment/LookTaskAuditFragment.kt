@@ -6,7 +6,6 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import cn.qqtheme.framework.picker.SinglePicker
 import com.eightbitlab.rxbus.Bus
 import com.huihe.usercenter.R
 import com.huihe.usercenter.data.protocol.LookTaskAuditReq
@@ -19,17 +18,17 @@ import com.kotlin.base.common.AppManager
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseMvpFragment
+import com.kotlin.base.widgets.picker.WheelPicker.picker.SinglePicker
 import com.kotlin.provider.constant.UserConstant
 import com.kotlin.provider.event.LookTaskEvent
 import com.kotlin.provider.event.MeRefreshEvent
-import com.kotlin.provider.event.RefreshLookTaskDetailEvent
 import kotlinx.android.synthetic.main.fragment_insert_lookhouse.*
 import kotlinx.android.synthetic.main.fragment_look_task_audit.*
 import org.jetbrains.anko.support.v4.toast
 
 class LookTaskAuditFragment : BaseMvpFragment<LookTaskAuditPresenter>(), LookTaskAuditView{
 
-    var mQualifiedPicker :SinglePicker<String>?=null
+    var mQualifiedPicker : SinglePicker<String>?=null
     var req: LookTaskAuditReq?=null
     var takeLookId:String? = null
     var customerCode:String? = null
@@ -87,12 +86,13 @@ class LookTaskAuditFragment : BaseMvpFragment<LookTaskAuditPresenter>(), LookTas
 
     private fun selectQualifiedDialog() {
         // 出售 0, 出租 1,租售 2
-        mQualifiedPicker = SinglePicker(
-            activity, mutableListOf<String>(
-                "是",
-                "否"
+        mQualifiedPicker =
+            SinglePicker(
+                activity, mutableListOf<String>(
+                    "是",
+                    "否"
+                )
             )
-        )
         mQualifiedPicker?.setCanceledOnTouchOutside(true)
         mQualifiedPicker?.selectedIndex = 1
         mQualifiedPicker?.setCycleDisable(true)

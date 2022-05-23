@@ -1,9 +1,14 @@
 package com.huihe.customercenter.data.protocol
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class CustomerTelLogRep(
    var list: MutableList<CustomerTelLog>?,
    var totalCount:Int?
-){
+):Parcelable{
+    @Parcelize
     data class CustomerTelLog(
         var afterRevision:String?,
         var beforeRevision:String?,
@@ -16,5 +21,5 @@ data class CustomerTelLogRep(
         var deptName:String?,
         var id:String?,
         var operationType:String?
-    )
+    ):Parcelable
 }
