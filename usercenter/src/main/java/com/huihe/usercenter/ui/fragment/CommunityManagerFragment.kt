@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
-import com.google.gson.Gson
 import com.huihe.usercenter.R
 import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
@@ -19,7 +18,6 @@ import com.huihe.usercenter.ui.adapter.CityRvAdapter
 import com.huihe.usercenter.ui.adapter.CountyRvAdapter
 import com.huihe.usercenter.ui.adapter.ProvinceRvAdapter
 import com.kotlin.base.common.BaseConstant
-import com.kotlin.base.event.VillageEvent
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ext.setVisible
@@ -27,7 +25,8 @@ import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.constant.UserConstant
-import com.kotlin.provider.data.protocol.District
+import com.huihe.boyueentities.protocol.common.District
+import com.kotlin.provider.event.VillageEvent
 import kotlinx.android.synthetic.main.fragment_community_manager.*
 import org.jetbrains.anko.support.v4.startActivity
 

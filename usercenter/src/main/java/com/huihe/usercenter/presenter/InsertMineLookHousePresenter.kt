@@ -1,9 +1,9 @@
 package com.huihe.usercenter.presenter
 
 import com.huihe.usercenter.R
-import com.huihe.usercenter.data.protocol.MineLookHouseReq
+import com.huihe.boyueentities.protocol.user.MineLookHouseReq
 import com.huihe.usercenter.presenter.view.InsertMineLookHouseView
-import com.huihe.usercenter.service.UserService
+import com.huihe.commonservice.service.user.UserService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber

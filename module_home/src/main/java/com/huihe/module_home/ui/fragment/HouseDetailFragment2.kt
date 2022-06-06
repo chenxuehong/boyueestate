@@ -17,7 +17,7 @@ import com.eightbitlab.rxbus.registerInBus
 import com.example.zhouwei.library.CustomPopWindow
 import com.google.gson.Gson
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.*
+import com.huihe.boyueentities.protocol.home.*
 import com.huihe.module_home.ext.getConvertHouseDetailData
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule

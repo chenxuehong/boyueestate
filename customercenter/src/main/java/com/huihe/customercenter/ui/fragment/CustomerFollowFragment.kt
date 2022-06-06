@@ -2,15 +2,13 @@ package com.huihe.customercenter.ui.fragment
 
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
-import com.huihe.customercenter.R
-import com.huihe.customercenter.data.protocol.CustomerFollowRep
+import com.huihe.boyueentities.protocol.customer.CustomerFollowRep
 import com.huihe.customercenter.injection.component.DaggerCustomersComponent
 import com.huihe.customercenter.injection.module.CustomersModule
 import com.huihe.customercenter.presenter.CustomerFollowPresenter
 import com.huihe.customercenter.presenter.view.CustomerFollowView
 import com.huihe.customercenter.ui.adapter.CustomerFollowRvAdapter
 import com.kotlin.base.ui.fragment.BaseRefreshFragment
-import com.kotlin.base.ui.fragment.BaseTitleRefreshFragment
 import com.kotlin.provider.constant.CustomerConstant
 import com.kotlin.provider.event.AddCustomerFollowEvent
 

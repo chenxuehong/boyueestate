@@ -1,10 +1,10 @@
 package com.huihe.usercenter.presenter
 
-import com.huihe.usercenter.data.protocol.*
+import com.huihe.boyueentities.protocol.user.*
 import com.huihe.usercenter.injection.module.UserModule.UserLevels.Companion.Administrators
 import com.huihe.usercenter.injection.module.UserModule.UserLevels.Companion.Staff
 import com.huihe.usercenter.presenter.view.MeView
-import com.huihe.usercenter.service.UserService
+import com.huihe.commonservice.service.user.UserService
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter

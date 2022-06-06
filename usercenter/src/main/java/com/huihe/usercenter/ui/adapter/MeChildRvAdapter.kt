@@ -5,13 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.usercenter.R
-import com.huihe.usercenter.data.protocol.MeItemBean
+import com.huihe.boyueentities.protocol.user.MeItemBean
 import com.kotlin.base.ext.initInflater
-import com.kotlin.base.ext.vertical
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
-import com.kotlin.base.utils.DensityUtils
 import kotlinx.android.synthetic.main.layout_me_child_item.view.*
-import kotlinx.android.synthetic.main.layout_me_group_item.view.*
 
 class MeChildRvAdapter(mContext: Context) :
     BaseRecyclerViewAdapter<MeItemBean.ItemData, MeChildRvAdapter.ViewHolder>(mContext) {

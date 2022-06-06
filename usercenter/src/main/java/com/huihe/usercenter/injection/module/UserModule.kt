@@ -1,8 +1,8 @@
 package com.huihe.usercenter.injection.module
 
 import androidx.annotation.IntDef
-import com.huihe.usercenter.service.UserService
-import com.huihe.usercenter.service.iml.UserServiceImpl
+import com.huihe.commonservice.service.user.UserService
+import com.huihe.commonservice.service.user.iml.UserServiceImpl
 import dagger.Module
 import dagger.Provides
 import java.lang.annotation.Retention

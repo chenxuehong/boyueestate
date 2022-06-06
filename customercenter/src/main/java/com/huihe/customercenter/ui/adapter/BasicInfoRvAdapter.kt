@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.customercenter.R
 
-import com.huihe.customercenter.data.protocol.CustomerDetailBean
+import com.huihe.boyueentities.protocol.customer.CustomerDetailBean
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.isFakeBoldText
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter

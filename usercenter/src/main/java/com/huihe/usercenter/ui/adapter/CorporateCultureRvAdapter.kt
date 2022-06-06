@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.usercenter.R
 
-import com.huihe.usercenter.data.protocol.CorporateCultureRep
+import com.huihe.boyueentities.protocol.user.CorporateCultureRep
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.loadUrl
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter

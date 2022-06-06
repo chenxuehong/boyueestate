@@ -1,12 +1,11 @@
 package com.huihe.customercenter.ui.fragment
 
-import com.huihe.customercenter.data.protocol.CustomerTelLogRep
+import com.huihe.boyueentities.protocol.customer.CustomerTelLogRep
 import com.huihe.customercenter.injection.component.DaggerCustomersComponent
 import com.huihe.customercenter.injection.module.CustomersModule
 import com.huihe.customercenter.presenter.CustomerTelLogPresenter
 import com.huihe.customercenter.presenter.view.CustomerTelLogView
 import com.huihe.customercenter.ui.adapter.CustomerTelLogRvAdapter
-import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.ui.fragment.BaseRefreshFragment
 import com.kotlin.provider.constant.CustomerConstant
 

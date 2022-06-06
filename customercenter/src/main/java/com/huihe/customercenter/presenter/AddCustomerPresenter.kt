@@ -1,15 +1,13 @@
 package com.huihe.customercenter.presenter
 
-import com.huihe.customercenter.data.protocol.AddCustomerReq
-import com.huihe.customercenter.data.protocol.CheckCustomerRep
+import com.huihe.boyueentities.protocol.customer.AddCustomerReq
+import com.huihe.boyueentities.protocol.customer.CheckCustomerRep
 import com.huihe.customercenter.presenter.view.AddCustomerView
-import com.huihe.customercenter.service.CustomerService
+import com.huihe.commonservice.service.customer.CustomerService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber
 import com.kotlin.base.rx.DataNullException
-import io.reactivex.Observable
-import io.reactivex.functions.Function
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 

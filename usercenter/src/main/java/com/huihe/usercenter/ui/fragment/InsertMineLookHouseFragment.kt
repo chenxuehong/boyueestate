@@ -9,7 +9,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.huihe.usercenter.R
-import com.huihe.usercenter.data.protocol.MineLookHouseReq
+import com.huihe.boyueentities.protocol.user.MineLookHouseReq
 import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.InsertMineLookHousePresenter

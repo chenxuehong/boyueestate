@@ -12,7 +12,7 @@ import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
 import com.google.gson.Gson
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.ItemHouseDetail
+import com.huihe.boyueentities.protocol.home.ItemHouseDetail
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.ui.activity.HouseNearActivity
 import com.huihe.module_home.ui.holder.ItemHouseDetailHolder

@@ -14,8 +14,10 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/BaseLibrary" />
+            <option value="$PROJECT_DIR$/CommonService" />
             <option value="$PROJECT_DIR$/ServiceManager" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/boyueentities" />
             <option value="$PROJECT_DIR$/customercenter" />
             <option value="$PROJECT_DIR$/messagecenter" />
             <option value="$PROJECT_DIR$/module_home" />

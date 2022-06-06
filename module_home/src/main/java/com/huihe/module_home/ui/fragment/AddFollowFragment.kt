@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import com.eightbitlab.rxbus.Bus
 import com.google.gson.Gson
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.FollowRep
+import com.huihe.boyueentities.protocol.home.FollowRep
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.AddFollowPresenter

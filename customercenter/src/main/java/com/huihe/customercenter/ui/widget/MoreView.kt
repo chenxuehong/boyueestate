@@ -4,8 +4,8 @@ import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.huihe.customercenter.R
-import com.huihe.customercenter.data.protocol.MoreReq
-import com.huihe.customercenter.data.protocol.MoreSearchBean
+import com.huihe.boyueentities.protocol.customer.MoreReq
+import com.huihe.boyueentities.protocol.customer.MoreSearchBean
 import com.huihe.customercenter.ext.enableList
 import com.huihe.customercenter.injection.module.CustomersModule
 import com.huihe.customercenter.ui.adapter.MoreSearchAdapter

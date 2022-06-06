@@ -1,8 +1,8 @@
 package com.huihe.usercenter.presenter
 
-import com.huihe.usercenter.data.protocol.LookHouseAccompanyFollowReq
+import com.huihe.boyueentities.protocol.user.LookHouseAccompanyFollowReq
 import com.huihe.usercenter.presenter.view.AccompanyFollowView
-import com.huihe.usercenter.service.UserService
+import com.huihe.commonservice.service.user.UserService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber

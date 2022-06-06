@@ -1,11 +1,11 @@
 package com.huihe.usercenter.presenter
 
 import com.huihe.usercenter.R
-import com.huihe.usercenter.data.protocol.LookHouseReviewReq
-import com.huihe.usercenter.data.protocol.LookTaskDetailRep
+import com.huihe.boyueentities.protocol.user.LookHouseReviewReq
+import com.huihe.boyueentities.protocol.user.LookTaskDetailRep
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.view.MineLookTaskDetailView
-import com.huihe.usercenter.service.UserService
+import com.huihe.commonservice.service.user.UserService
 import com.kotlin.base.common.BaseApplication
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.execute

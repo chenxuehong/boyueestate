@@ -3,19 +3,17 @@ package com.huihe.module_home.ui.adapter
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.HouseDetail
+import com.huihe.boyueentities.protocol.home.HouseDetail
 
-import com.huihe.module_home.data.protocol.ItemHouseDetail
+import com.huihe.boyueentities.protocol.home.ItemHouseDetail
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.ui.holder.*
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.widgets.GridViewItemDecoration
-import kotlinx.android.synthetic.main.layout_house_rewarks_info_item.view.*
 
 class HousePhotoInfoRvAdapter(mContext: Context,var listener:OnListener) :
     BaseRecyclerViewAdapter<ItemHouseDetail, RecyclerView.ViewHolder>(mContext) {

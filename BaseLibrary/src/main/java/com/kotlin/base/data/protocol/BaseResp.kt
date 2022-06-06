@@ -9,9 +9,8 @@ import kotlinx.android.parcel.Parcelize
     @msg:响应文字消息
     @data:具体响应业务对象
  */
-@Parcelize
-data class BaseResp<out T:Parcelable>(
+data class BaseResp<out T>(
     val status:Int,
     val msg:String,
     val data:T
-):Parcelable
+)

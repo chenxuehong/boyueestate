@@ -1,9 +1,9 @@
 package com.huihe.module_home.injection.module
 
-import com.huihe.module_home.service.HouseService
+import com.huihe.commonservice.service.house.HouseService
 
 import androidx.annotation.IntDef
-import com.huihe.module_home.service.impl.HouseServiceImpl
+import com.huihe.commonservice.service.house.impl.HouseServiceImpl
 import dagger.Module
 import dagger.Provides
 import java.lang.annotation.Retention

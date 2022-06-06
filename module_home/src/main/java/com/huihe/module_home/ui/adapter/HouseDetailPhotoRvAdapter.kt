@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.HouseDetail
+import com.huihe.boyueentities.protocol.home.HouseDetail
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.utils.GlideUtils
 
@@ -33,7 +33,7 @@ class HouseDetailPhotoRvAdapter(mContext: Context) :
         super.onBindViewHolder(holder, position)
         var imagUrlsBean = dataList[position]
         var viewHolder = holder
-        GlideUtils.loadImageDefault(mContext,imagUrlsBean?.url!!,viewHolder.itemView as ImageView)
+        GlideUtils.loadImage(mContext,imagUrlsBean?.url!!,viewHolder.itemView as ImageView)
     }
 
     inner class ViewHolder(itemView: View) :

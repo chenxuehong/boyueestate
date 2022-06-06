@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.HouseTakeLookRep
+import com.huihe.boyueentities.protocol.home.HouseTakeLookRep
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HouseTakeLookPresenter

@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.usercenter.R
-import com.huihe.usercenter.data.protocol.DeptUserRep
+import com.huihe.boyueentities.protocol.user.DeptUserRep
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import kotlinx.android.synthetic.main.layout_dept_user_item.view.*

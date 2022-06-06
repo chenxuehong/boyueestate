@@ -9,24 +9,18 @@ import androidx.viewpager.widget.ViewPager
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
 import com.baidu.mapapi.search.core.PoiInfo
-import com.baidu.mapapi.search.poi.PoiSearch
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.google.gson.Gson
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.ItemHouseDetail
+import com.huihe.boyueentities.protocol.home.ItemHouseDetail
 import com.huihe.module_home.ui.adapter.HouseNearFragmentAdapter
 import com.kotlin.base.ui.fragment.BaseFragment
 import com.kotlin.base.utils.DensityUtils
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.event.AllPoiEvent
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_house_near.*
 import kotlinx.android.synthetic.main.layout_window_mark.view.*
-import java.util.concurrent.TimeUnit
 
 
 class HouseNearFragment : BaseFragment() {

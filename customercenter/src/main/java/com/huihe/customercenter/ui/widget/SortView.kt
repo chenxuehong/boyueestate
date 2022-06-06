@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.huihe.customercenter.data.protocol.SortReq
+import com.huihe.boyueentities.protocol.customer.SortReq
 import com.huihe.customercenter.injection.module.CustomersModule
 import com.huihe.customercenter.ui.adapter.SortRvAdapter
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter

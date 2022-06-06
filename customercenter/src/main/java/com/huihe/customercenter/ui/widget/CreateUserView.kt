@@ -3,8 +3,8 @@ package com.huihe.customercenter.ui.widget
 import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.huihe.customercenter.data.protocol.DeptUserRep
-import com.huihe.customercenter.data.protocol.DeptUserResult
+import com.huihe.boyueentities.protocol.customer.DeptUserRep
+import com.huihe.boyueentities.protocol.customer.DeptUserResult
 import com.huihe.customercenter.ext.enableList
 import com.huihe.customercenter.injection.module.CustomersModule
 import com.huihe.customercenter.ui.adapter.DeptUsersRvAdapter

@@ -1,9 +1,8 @@
 package com.huihe.usercenter.presenter
 
-import com.huihe.usercenter.data.protocol.SignReq
+import com.huihe.boyueentities.protocol.user.SignReq
 import com.huihe.usercenter.presenter.view.SignView
-import com.huihe.usercenter.service.UserService
-import com.jph.takephoto.model.TResult
+import com.huihe.commonservice.service.user.UserService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber

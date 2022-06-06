@@ -1,8 +1,8 @@
 package com.huihe.module_home.presenter.view
 
-import com.huihe.module_home.data.protocol.MapAreaRep
+import com.huihe.boyueentities.protocol.home.MapAreaRep
 import com.kotlin.base.presenter.view.BaseView
-import com.kotlin.provider.data.protocol.District
+import com.huihe.boyueentities.protocol.common.District
 
 interface FindHouseByMapView : BaseView {
 

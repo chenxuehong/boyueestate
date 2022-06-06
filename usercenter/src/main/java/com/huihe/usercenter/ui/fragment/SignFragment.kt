@@ -12,7 +12,7 @@ import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
 import com.eightbitlab.rxbus.Bus
 import com.huihe.usercenter.R
-import com.huihe.usercenter.data.protocol.SignReq
+import com.huihe.boyueentities.protocol.user.SignReq
 import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.SignPresenter
@@ -31,7 +31,6 @@ import com.kotlin.base.utils.LogUtils
 import com.kotlin.provider.constant.UserConstant
 import com.kotlin.provider.event.LookTaskEvent
 import com.kotlin.provider.event.MeRefreshEvent
-import com.kotlin.provider.event.RefreshLookTaskDetailEvent
 import com.qiniu.android.storage.UploadManager
 import kotlinx.android.synthetic.main.fragment_sign.*
 import org.jetbrains.anko.support.v4.toast

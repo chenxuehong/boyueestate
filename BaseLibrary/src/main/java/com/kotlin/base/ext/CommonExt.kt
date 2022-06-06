@@ -100,19 +100,20 @@ fun View.enable(et: EditText, method: () -> Boolean) {
     })
 }
 
-/*
-    ImageView加载网络图片
- */
-fun ImageView.loadUrl(url: String?, placeholder: Int) {
-    GlideUtils.loadUrlImage(context, url, placeholder, this)
-}
+//fun ImageView.loadUrl(url: String?) {
+//    GlideUtils.loadImage(context, url, R.color.color_666666, this)
+//}
 
 fun ImageView.loadUrl(url: String?) {
-    GlideUtils.loadUrlImage(context, url, R.color.color_666666, this)
+    GlideUtils.loadImage(context, url, this)
+}
+
+fun ImageView.loadRoundedImage(url: String?, radius:Int) {
+    GlideUtils.loadRoundedImage(context, url, radius,this)
 }
 
 fun ImageView.loadHeadUrl(url: String?) {
-    GlideUtils.loadUrlImage(context, url, R.drawable.head_icon, this)
+    GlideUtils.loadHeadUrl(context, url, this)
 }
 
 /*
@@ -207,7 +208,7 @@ fun View.viewPhoto(
     val centery = (location[1] + getMeasuredHeight() / 2) as Int
     intent.putExtra(AnimationConstants.ACTIVITY_ANIMATION_PIVOTX, centerX)
     intent.putExtra(AnimationConstants.ACTIVITY_ANIMATION_PIVOTY, centery)
-    intent.putExtra(AnimationConstants.ACTIVITY_ANIMATION_ENABLE, true)
+    intent.putExtra(AnimationConstants.ACTIVITY_ANIMATION_ENABLE, false)
     context?.startActivity(intent)
 }
 

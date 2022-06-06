@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.gson.Gson
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.ItemHouseDetail
-import com.huihe.module_home.ui.adapter.HouseDetailOwnerRvAdapter
+import com.huihe.boyueentities.protocol.home.ItemHouseDetail
 import com.huihe.module_home.ui.adapter.HousePhotoInfoRvAdapter
 import com.kotlin.base.ext.vertical
 import com.kotlin.base.ext.viewPhoto

@@ -184,11 +184,11 @@
 
 #-----------处理实体类---------------
 -keep class com.kotlin.base.data.protocol.**{ *; }
--keep class com.huihe.customercenter.data.protocol.**{ *; }
+-keep class com.huihe.boyueentities.customer.**{ *; }
 -keep class com.ibai.message.modules.chat.base.**{ *; }
--keep class com.huihe.module_home.data.protocol.**{ *; }
+-keep class com.huihe.boyueentities.home.**{ *; }
 -keep class com.kotlin.provider.data.protocol.**{ *; }
--keep class com.huihe.usercenter.data.protocol.**{ *; }
+-keep class com.huihe.boyueentities.user.**{ *; }
 
 #-----------处理第三方依赖库---------
 

@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.FloorReq
+import com.huihe.boyueentities.protocol.home.FloorReq
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.ui.adapter.FloorsRvAdapter
 import com.kotlin.base.ext.enable

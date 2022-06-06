@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.usercenter.R
-import com.huihe.usercenter.data.protocol.MineLookTaskRep
+import com.huihe.boyueentities.protocol.user.MineLookTaskRep
 import com.kotlin.base.ext.convertNotNullStr
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter

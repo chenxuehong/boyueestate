@@ -1,6 +1,7 @@
 package com.huihe.boyueestate.ui.activity
 
 import android.os.Bundle
+import com.alibaba.android.arouter.launcher.ARouter
 import com.huihe.boyueestate.R
 import com.huihe.boyueestate.injection.component.DaggerSplashComponent
 import com.huihe.boyueestate.injection.module.SplashModule
@@ -12,13 +13,16 @@ import com.huihe.usercenter.utils.MessageService
 import com.kotlin.base.ui.activity.BaseMvpActivity
 import com.kotlin.base.utils.GlideUtils
 import com.kotlin.provider.common.afterLogin
-import com.kotlin.provider.utils.UserPrefsUtils
+import com.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.activity_splash.*
 import org.jetbrains.anko.startActivity
+import javax.inject.Inject
 
 class SplashActivity : BaseMvpActivity<SplashPresenter>(),
     SplashView {
 
+    @Inject
+    lateinit var messageService: MessageService
     override fun injectComponent() {
         DaggerSplashComponent.builder().activityComponent(mActivityComponent).splashModule(
             SplashModule()
@@ -28,39 +32,25 @@ class SplashActivity : BaseMvpActivity<SplashPresenter>(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var messageService = MessageService()
         setContentView(R.layout.activity_splash)
         // 热更新
         HotfixManager.getInstance(applicationContext).checkHotfix()
         mPresenter?.getSplashBanner()
-        ivSplashBanner.postDelayed(
-            {
-                afterLogin {
-                    var userInfo = UserPrefsUtils.getUserInfo()
-                    if (userInfo!=null){
-                        messageService.login(
-                            userInfo?.uid?:"",
-                            userInfo?.userSig?:"",
-                            object :MessageService.OnMessageListener{
-                                override fun onLoginSuccess() {
+        afterLogin {
+            messageService.login(null)
+            ARouter.getInstance().build(RouterPath.UserCenter.PATH_MAIN).navigation()
+        }
+        delayFinish();
+    }
 
-                                }
-
-                                override fun onLoginFail(message: String, code: Int) {
-                                }
-
-                            })
-                    }
-                    startActivity<MainActivity>()
-                }
-                finish()
-            },2000
-        )
-
+    private fun delayFinish() {
+        ivSplashBanner.postDelayed({
+            finish()
+        }, 3000)
     }
 
     override fun onBanner(banner: String) {
-        GlideUtils.loadImage(this,banner,ivSplashBanner)
+        GlideUtils.loadImage2(this,banner,ivSplashBanner)
     }
 
 }

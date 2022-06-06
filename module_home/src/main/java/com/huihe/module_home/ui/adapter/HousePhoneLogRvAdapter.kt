@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.module_home.R
 
-import com.huihe.module_home.data.protocol.HouseLog
+import com.huihe.boyueentities.protocol.home.HouseLog
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import kotlinx.android.synthetic.main.layout_phone_log_item.view.*
 

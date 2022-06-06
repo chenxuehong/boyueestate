@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.eightbitlab.rxbus.Bus
 import com.huihe.usercenter.R
-import com.huihe.usercenter.data.protocol.MineLookHouseFollowReq
+import com.huihe.boyueentities.protocol.user.MineLookHouseFollowReq
 import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.MineLookHouseFollowPresenter

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.module_home.R
 
-import com.huihe.module_home.data.protocol.CustomerProfileInfo
+import com.huihe.boyueentities.protocol.home.CustomerProfileInfo
 import com.kotlin.base.ext.getFirstChar
 import com.kotlin.base.ext.setVisible
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter

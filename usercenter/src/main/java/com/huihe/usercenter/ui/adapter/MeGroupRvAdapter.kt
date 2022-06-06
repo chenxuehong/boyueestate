@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.usercenter.R
-import com.huihe.usercenter.data.protocol.MeItemBean
+import com.huihe.boyueentities.protocol.user.MeItemBean
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.vertical
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter

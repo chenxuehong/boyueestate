@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.eightbitlab.rxbus.Bus
 import com.huihe.usercenter.R
-import com.huihe.usercenter.data.protocol.LookTaskAuditReq
+import com.huihe.boyueentities.protocol.user.LookTaskAuditReq
 import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.LookTaskAuditPresenter
@@ -22,7 +22,6 @@ import com.kotlin.base.widgets.picker.WheelPicker.picker.SinglePicker
 import com.kotlin.provider.constant.UserConstant
 import com.kotlin.provider.event.LookTaskEvent
 import com.kotlin.provider.event.MeRefreshEvent
-import kotlinx.android.synthetic.main.fragment_insert_lookhouse.*
 import kotlinx.android.synthetic.main.fragment_look_task_audit.*
 import org.jetbrains.anko.support.v4.toast
 

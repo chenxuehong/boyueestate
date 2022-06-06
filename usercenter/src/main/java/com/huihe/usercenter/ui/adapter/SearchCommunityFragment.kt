@@ -8,12 +8,12 @@ import androidx.appcompat.widget.SearchView
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.huihe.usercenter.R
-import com.huihe.usercenter.data.protocol.SearchBean
+import com.huihe.boyueentities.protocol.user.SearchBean
 import com.huihe.usercenter.ui.activity.ResultCommunityActivity
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.data.db.MySQLiteDBDao
 import com.kotlin.base.data.db.MySQLiteOpenHelper
-import com.kotlin.base.event.VillageEvent
+import com.kotlin.provider.event.VillageEvent
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.vertical
 import com.kotlin.base.ui.fragment.BaseFragment

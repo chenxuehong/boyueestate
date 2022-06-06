@@ -2,8 +2,8 @@ package com.huihe.customercenter.injection.module
 
 
 import androidx.annotation.IntDef
-import com.huihe.customercenter.service.CustomerService
-import com.huihe.customercenter.service.iml.CustomerServiceIml
+import com.huihe.commonservice.service.customer.CustomerService
+import com.huihe.commonservice.service.customer.iml.CustomerServiceIml
 import dagger.Module
 import dagger.Provides
 import java.lang.annotation.Retention

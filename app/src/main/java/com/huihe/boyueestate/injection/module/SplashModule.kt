@@ -1,7 +1,7 @@
 package com.huihe.boyueestate.injection.module
 
-import com.huihe.usercenter.service.UserService
-import com.huihe.usercenter.service.iml.UserServiceImpl
+import com.huihe.commonservice.service.user.UserService
+import com.huihe.commonservice.service.user.iml.UserServiceImpl
 import dagger.Module
 import dagger.Provides
 

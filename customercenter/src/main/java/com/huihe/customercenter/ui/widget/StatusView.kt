@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.huihe.customercenter.data.protocol.StatusRep
+import com.huihe.boyueentities.protocol.customer.StatusRep
 import com.huihe.customercenter.injection.module.CustomersModule
 import com.huihe.customercenter.ui.adapter.StatusRvAdapter
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter

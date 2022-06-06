@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.CustomerProfileInfo
+import com.huihe.boyueentities.protocol.home.CustomerProfileInfo
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.CustomerProfilePresenter

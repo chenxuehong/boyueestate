@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.usercenter.R
 
-import com.huihe.usercenter.data.protocol.SchoolDistrictRep
+import com.huihe.boyueentities.protocol.user.SchoolDistrictRep
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import kotlinx.android.synthetic.main.layout_district_item.view.*

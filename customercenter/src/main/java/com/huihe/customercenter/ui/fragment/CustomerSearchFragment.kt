@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.gson.Gson
 import com.huihe.customercenter.R
-import com.huihe.customercenter.data.protocol.CustomerSearchReq
+import com.huihe.boyueentities.protocol.customer.CustomerSearchReq
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseFragment

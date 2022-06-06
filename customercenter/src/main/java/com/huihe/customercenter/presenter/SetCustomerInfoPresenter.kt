@@ -1,7 +1,7 @@
 package com.huihe.customercenter.presenter
 
 import com.huihe.customercenter.presenter.view.SetCustomerInfoView
-import com.huihe.customercenter.service.CustomerService
+import com.huihe.commonservice.service.customer.CustomerService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber

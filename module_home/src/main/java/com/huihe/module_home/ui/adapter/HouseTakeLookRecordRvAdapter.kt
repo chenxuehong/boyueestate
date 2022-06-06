@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.HouseTakeLookRep
+import com.huihe.boyueentities.protocol.home.HouseTakeLookRep
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import kotlinx.android.synthetic.main.layout_house_takelookrecord_item.view.*

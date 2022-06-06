@@ -3,7 +3,7 @@ package com.huihe.usercenter.ui.fragment
 import android.view.View
 import com.eightbitlab.rxbus.Bus
 import com.huihe.usercenter.R
-import com.huihe.usercenter.data.protocol.SchoolDistrictRep
+import com.huihe.boyueentities.protocol.user.SchoolDistrictRep
 import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.DistrictPresenter
@@ -13,7 +13,6 @@ import com.huihe.usercenter.ui.adapter.DistrictRvAdapter
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseTitleRefreshFragment
-import com.kotlin.provider.constant.CustomerConstant
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.event.SearchHouseEvent
 import org.jetbrains.anko.support.v4.startActivity

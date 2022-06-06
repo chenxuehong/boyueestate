@@ -1,6 +1,6 @@
 package com.huihe.module_home.ui.widget
 
-import com.huihe.module_home.data.protocol.ISearchResult
+import com.huihe.boyueentities.protocol.home.ISearchResult
 import com.huihe.module_home.ui.adapter.RvAreaDistrictAdapter
 import com.kennyc.view.MultiStateView
 

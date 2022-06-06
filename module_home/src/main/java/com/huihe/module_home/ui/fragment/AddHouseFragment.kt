@@ -9,14 +9,14 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.AddHouseInfoReq
-import com.huihe.module_home.data.protocol.SetHouseInfoRep
+import com.huihe.boyueentities.protocol.home.AddHouseInfoReq
+import com.huihe.boyueentities.protocol.home.SetHouseInfoRep
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.AddHousePresenter
 import com.huihe.module_home.presenter.view.AddHouseView
 import com.kotlin.base.common.BaseConstant
-import com.kotlin.base.event.VillageEvent
+import com.kotlin.provider.event.VillageEvent
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.widgets.NecessaryTitleInputView

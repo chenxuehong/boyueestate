@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.gson.Gson
 import com.huihe.customercenter.R
-import com.huihe.customercenter.data.protocol.CustomerDetailRep
-import com.huihe.customercenter.data.protocol.SetCustomersReq
+import com.huihe.boyueentities.protocol.customer.CustomerDetailRep
+import com.huihe.boyueentities.protocol.customer.SetCustomersReq
 import com.huihe.customercenter.injection.component.DaggerCustomersComponent
 import com.huihe.customercenter.injection.module.CustomersModule
 import com.huihe.customercenter.presenter.CustomerInfoEditPresenter

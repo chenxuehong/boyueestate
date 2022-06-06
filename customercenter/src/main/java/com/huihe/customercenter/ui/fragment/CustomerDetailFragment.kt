@@ -15,8 +15,8 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.example.zhouwei.library.CustomPopWindow
 import com.google.gson.Gson
 import com.huihe.customercenter.R
-import com.huihe.customercenter.data.protocol.CustomerDetailBean
-import com.huihe.customercenter.data.protocol.CustomerDetailRep
+import com.huihe.boyueentities.protocol.customer.CustomerDetailBean
+import com.huihe.boyueentities.protocol.customer.CustomerDetailRep
 import com.huihe.customercenter.injection.component.DaggerCustomersComponent
 import com.huihe.customercenter.injection.module.CustomersModule
 import com.huihe.customercenter.presenter.CustomerDetailPresenter

@@ -1,5 +1,6 @@
 package com.huihe.customercenter.ui.widget
 
+import com.huihe.boyueentities.protocol.customer.ISearchResult
 import com.huihe.customercenter.ui.adapter.DeptUsersRvAdapter
 import com.huihe.customercenter.ui.adapter.StatusRvAdapter
 

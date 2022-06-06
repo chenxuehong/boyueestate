@@ -4,10 +4,10 @@ import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.FloorageReq
-import com.huihe.module_home.data.protocol.MoreReq
-import com.huihe.module_home.data.protocol.MoreSearchBean
-import com.huihe.module_home.data.protocol.RoomNumReq
+import com.huihe.boyueentities.protocol.home.FloorageReq
+import com.huihe.boyueentities.protocol.home.MoreReq
+import com.huihe.boyueentities.protocol.home.MoreSearchBean
+import com.huihe.boyueentities.protocol.home.RoomNumReq
 import com.huihe.module_home.ext.enable
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.ui.adapter.MoreSearchAdapter

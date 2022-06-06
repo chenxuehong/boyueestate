@@ -2,7 +2,7 @@ package com.huihe.module_home.ui.adapter;
 
 import android.content.Context;
 
-import com.huihe.module_home.data.protocol.HouseDetail;
+import com.huihe.boyueentities.protocol.home.HouseDetail;
 import com.kotlin.base.utils.GlideUtils;
 import com.youth.banner.adapter.BannerImageAdapter;
 import com.youth.banner.holder.BannerImageHolder;
@@ -18,7 +18,7 @@ public class ImageAdapter extends BannerImageAdapter<HouseDetail.ImagUrlsBean> {
 
     @Override
     public void onBindView(BannerImageHolder holder, HouseDetail.ImagUrlsBean data, int position, int size) {
-        GlideUtils.INSTANCE.loadImageDefault(context,data.getUrl(),holder.imageView);
+        GlideUtils.INSTANCE.loadImage(context,data.getUrl(),holder.imageView);
 
     }
 }

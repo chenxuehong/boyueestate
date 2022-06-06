@@ -9,7 +9,7 @@ import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 
 import com.huihe.usercenter.R
 import com.kotlin.base.ext.initInflater
-import com.kotlin.provider.data.protocol.District
+import com.huihe.boyueentities.protocol.common.District
 import kotlinx.android.synthetic.main.layout_community_item.view.*
 
 class CityRvAdapter(mContext: Context) :

@@ -1,8 +1,8 @@
 package com.huihe.usercenter.presenter
 
-import com.huihe.usercenter.data.protocol.LookTaskAuditReq
+import com.huihe.boyueentities.protocol.user.LookTaskAuditReq
 import com.huihe.usercenter.presenter.view.LookTaskAuditView
-import com.huihe.usercenter.service.UserService
+import com.huihe.commonservice.service.user.UserService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber

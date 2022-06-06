@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.customercenter.R
-import com.huihe.customercenter.data.protocol.CustomerDetailBean
+import com.huihe.boyueentities.protocol.customer.CustomerDetailBean
 import com.huihe.customercenter.injection.module.CustomersModule
 import com.kotlin.base.ext.vertical
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter

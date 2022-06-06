@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.eightbitlab.rxbus.Bus
 import com.huihe.customercenter.R
-import com.huihe.customercenter.data.protocol.AddCustomerReq
+import com.huihe.boyueentities.protocol.customer.AddCustomerReq
 import com.huihe.customercenter.injection.component.DaggerCustomersComponent
 import com.huihe.customercenter.injection.module.CustomersModule
 import com.huihe.customercenter.presenter.AddCustomerPresenter

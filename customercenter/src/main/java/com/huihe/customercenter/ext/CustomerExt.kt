@@ -3,8 +3,6 @@ package com.huihe.customercenter.ext
 import android.content.Context
 import android.widget.Button
 import com.huihe.customercenter.R
-import com.huihe.customercenter.data.protocol.DeptUserRep
-import com.huihe.customercenter.data.protocol.MoreSearchBean
 
 fun Button.enableList(
     mContext: Context,

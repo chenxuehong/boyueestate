@@ -1,6 +1,6 @@
 package com.huihe.usercenter.presenter.view
 
-import com.huihe.usercenter.data.protocol.LookTaskDetailRep
+import com.huihe.boyueentities.protocol.user.LookTaskDetailRep
 import com.kotlin.base.presenter.view.BaseView
 
 interface MineLookTaskDetailView :BaseView{

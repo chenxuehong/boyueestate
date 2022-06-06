@@ -7,9 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.alibaba.android.arouter.launcher.ARouter
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.ItemHouseDetail
+import com.huihe.boyueentities.protocol.home.ItemHouseDetail
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HouseOwnerInfoPresenter
@@ -18,11 +17,9 @@ import com.huihe.module_home.ui.activity.EntrustUserActivity
 import com.huihe.module_home.ui.activity.HaveKeyUserActivity
 import com.huihe.module_home.ui.activity.SoleUserActivity
 import com.huihe.module_home.ui.adapter.HouseDetailOwnerRvAdapter
-import com.huihe.module_home.ui.adapter.HouseDetailRvItemAdapter
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.vertical
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
-import com.kotlin.base.ui.fragment.BaseFragment
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.constant.UserConstant

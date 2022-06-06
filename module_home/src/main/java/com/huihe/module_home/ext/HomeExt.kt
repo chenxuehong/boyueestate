@@ -4,15 +4,15 @@ import android.content.Context
 import android.text.TextUtils
 import android.widget.Button
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.HouseDetail
-import com.huihe.module_home.data.protocol.ItemHouseDetail
+import com.huihe.boyueentities.protocol.home.HouseDetail
+import com.huihe.boyueentities.protocol.home.ItemHouseDetail
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.ui.adapter.MoreSearchAdapter
 import com.kotlin.base.utils.DateUtils
 import com.kotlin.base.widgets.picker.WheelPicker.entity.City
 import com.kotlin.base.widgets.picker.WheelPicker.entity.County
 import com.kotlin.base.widgets.picker.WheelPicker.entity.Province
-import com.kotlin.provider.data.protocol.District
+import com.huihe.boyueentities.protocol.common.District
 
 
 fun getConvertProvinceList(data: MutableList<District>?): ArrayList<Province> {

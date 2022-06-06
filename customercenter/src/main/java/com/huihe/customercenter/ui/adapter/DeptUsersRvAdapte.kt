@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.customercenter.R
-import com.huihe.customercenter.data.protocol.DeptUserRep
+import com.huihe.boyueentities.protocol.customer.DeptUserRep
 import com.kotlin.base.ext.setVisible
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import kotlinx.android.synthetic.main.layout_deptuser_item.view.*

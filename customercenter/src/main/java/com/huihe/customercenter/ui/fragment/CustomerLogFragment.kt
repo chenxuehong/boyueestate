@@ -1,6 +1,6 @@
 package com.huihe.customercenter.ui.fragment
 
-import com.huihe.customercenter.data.protocol.CustomerLogRep
+import com.huihe.boyueentities.protocol.customer.CustomerLogRep
 import com.huihe.customercenter.injection.component.DaggerCustomersComponent
 import com.huihe.customercenter.injection.module.CustomersModule
 import com.huihe.customercenter.presenter.CustomerLogPresenter

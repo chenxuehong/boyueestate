@@ -1,9 +1,9 @@
 package com.huihe.usercenter.presenter
 
-import com.huihe.usercenter.data.protocol.MineLookTaskRep
+import com.huihe.boyueentities.protocol.user.MineLookTaskRep
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.view.MineLookTaskView
-import com.huihe.usercenter.service.UserService
+import com.huihe.commonservice.service.user.UserService
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter

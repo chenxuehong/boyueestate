@@ -10,9 +10,9 @@ import com.darsh.multipleimageselect.helpers.Constants
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.huihe.usercenter.R
-import com.huihe.usercenter.data.protocol.MeItemBean
-import com.huihe.usercenter.data.protocol.SetUserInfoReq
-import com.huihe.usercenter.data.protocol.UserInfo
+import com.huihe.boyueentities.protocol.user.MeItemBean
+import com.huihe.boyueentities.protocol.user.SetUserInfoReq
+import com.huihe.boyueentities.protocol.user.UserInfo
 import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.MePresenter

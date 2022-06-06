@@ -2,11 +2,10 @@ package com.kotlin.provider.utils
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.huihe.boyueentities.protocol.common.District
+import com.huihe.boyueentities.protocol.common.IMUserInfo
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.utils.AppPrefsUtils
-import com.kotlin.base.utils.DateUtils
-import com.kotlin.provider.data.protocol.District
-import com.kotlin.provider.data.protocol.IMUserInfo
 
 
 object UserPrefsUtils {

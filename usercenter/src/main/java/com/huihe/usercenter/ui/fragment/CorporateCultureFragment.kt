@@ -2,7 +2,7 @@ package com.huihe.usercenter.ui.fragment
 
 import android.view.View
 import com.huihe.usercenter.R
-import com.huihe.usercenter.data.protocol.CorporateCultureRep
+import com.huihe.boyueentities.protocol.user.CorporateCultureRep
 import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.CorporateCulturePresenter

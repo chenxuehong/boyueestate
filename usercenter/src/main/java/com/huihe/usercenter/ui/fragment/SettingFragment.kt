@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.alibaba.android.arouter.launcher.ARouter
-import com.eightbitlab.rxbus.Bus
 import com.huihe.usercenter.R
 import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
@@ -15,7 +14,6 @@ import com.huihe.usercenter.presenter.SettingPresenter
 import com.huihe.usercenter.presenter.view.SettingView
 import com.huihe.usercenter.ui.activity.AboutusActivity
 import com.kotlin.base.common.BaseConstant
-import com.kotlin.base.event.LoginEvent
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseMvpFragment

@@ -11,7 +11,7 @@ import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.google.gson.Gson
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.SearchReq
+import com.huihe.boyueentities.protocol.home.SearchReq
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.onClick

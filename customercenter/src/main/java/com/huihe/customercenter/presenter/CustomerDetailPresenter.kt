@@ -1,9 +1,9 @@
 package com.huihe.customercenter.presenter
 
-import com.huihe.customercenter.data.protocol.CustomerDetailRep
-import com.huihe.customercenter.data.protocol.CustomerMobileRep
+import com.huihe.boyueentities.protocol.customer.CustomerDetailRep
+import com.huihe.boyueentities.protocol.customer.CustomerMobileRep
 import com.huihe.customercenter.presenter.view.CustomerDetailView
-import com.huihe.customercenter.service.CustomerService
+import com.huihe.commonservice.service.customer.CustomerService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber

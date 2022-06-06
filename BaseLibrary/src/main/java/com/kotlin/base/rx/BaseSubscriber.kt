@@ -1,7 +1,7 @@
 package com.kotlin.base.rx
 
 import com.eightbitlab.rxbus.Bus
-import com.kotlin.base.event.LoginEvent
+import com.kotlin.base.event.LogoutEvent
 import com.kotlin.base.presenter.view.BaseView
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
@@ -26,7 +26,7 @@ open class BaseSubscriber<T>(val baseView: BaseView) : Observer<T> {
         when (e) {
             is BaseException -> when (e.msg) {
                 "登录超时" -> {
-                    Bus.send(LoginEvent())
+                    Bus.send(LogoutEvent())
                 }
                 else -> {
                     baseView.onError(e.msg)

@@ -9,8 +9,8 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.HaveKeyUserRep
-import com.huihe.module_home.data.protocol.HaveKeyUserReq
+import com.huihe.boyueentities.protocol.home.HaveKeyUserRep
+import com.huihe.boyueentities.protocol.home.HaveKeyUserReq
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HaveKeyUserPresenter

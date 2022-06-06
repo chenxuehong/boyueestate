@@ -2,7 +2,6 @@ package com.huihe.boyueestate.common
 
 import android.content.Context
 import android.widget.Toast
-import androidx.multidex.MultiDex
 import cn.sharesdk.framework.Platform
 import cn.sharesdk.framework.PlatformActionListener
 import com.alibaba.android.arouter.launcher.ARouter
@@ -16,10 +15,9 @@ import com.huihe.boyueestate.push.MyMobPushCallback
 import com.huihe.boyueestate.push.MyMobPushReceiver
 import com.huihe.boyueestate.share.ShareSdkUtil
 import com.huihe.boyueestate.utils.HotfixManager
-import com.huihe.usercenter.injection.module.UserModule
 import com.kotlin.base.common.AppManager
 import com.kotlin.base.common.BaseConstant
-import com.kotlin.base.event.LoginEvent
+import com.kotlin.base.event.LogoutEvent
 import com.kotlin.base.utils.AppPrefsUtils
 import com.kotlin.provider.event.*
 import com.kotlin.provider.router.RouterPath
@@ -44,13 +42,13 @@ class MainApplication : IMApplication() {
     private var myMobPushReceiver: MyMobPushReceiver? = null
     override fun onCreate() {
         super.onCreate()
-        Bus.observe<LoginEvent>()
+        Bus.observe<LogoutEvent>()
             .subscribe {
                 delayLogin()
             }.registerInBus(this)
         Bus.observe<MessageLoginEvent>()
             .subscribe {
-                imLogin(it)
+                imLogin()
             }.registerInBus(this)
         Bus.observe<ShareEvent>()
             .subscribe {
@@ -77,20 +75,23 @@ class MainApplication : IMApplication() {
         }
     }
 
-    private fun imLogin(messageLoginEvent: MessageLoginEvent) {
-        TUIKit.login(
-            messageLoginEvent.userId,
-            messageLoginEvent.userSign,
-            object : IUIKitCallBack {
-                override fun onSuccess(data: Any) {
-                    Bus.send(ErrorEntity("登录成功", ErrorEntity.TYPE_LOGIN_SUCCESS))
-                }
+    private fun imLogin() {
+        var userInfo = UserPrefsUtils.getUserInfo()
+        if (userInfo!=null) {
+            TUIKit.login(
+                userInfo.uid,
+                userInfo.userSig,
+                object : IUIKitCallBack {
+                    override fun onSuccess(data: Any) {
+                        Bus.send(ErrorEntity("登录成功", ErrorEntity.TYPE_LOGIN_SUCCESS))
+                    }
 
-                override fun onError(module: String, errCode: Int, errMsg: String) {
-                    Bus.send(ErrorEntity(module, errCode))
+                    override fun onError(module: String, errCode: Int, errMsg: String) {
+                        Bus.send(ErrorEntity(module, errCode))
+                    }
                 }
-            }
-        )
+            )
+        }
     }
 
     private fun delayLogin() {

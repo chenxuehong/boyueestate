@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.customercenter.R
 
-import com.huihe.customercenter.data.protocol.CustomerTelLogRep
+import com.huihe.boyueentities.protocol.customer.CustomerTelLogRep
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import kotlinx.android.synthetic.main.layout_customer_phone_log_item.view.*

@@ -1,8 +1,8 @@
 package com.huihe.usercenter.presenter
 
-import com.huihe.usercenter.data.protocol.UserInfo
+import com.huihe.boyueentities.protocol.user.UserInfo
 import com.huihe.usercenter.presenter.view.DeptInfoView
-import com.huihe.usercenter.service.UserService
+import com.huihe.commonservice.service.user.UserService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber

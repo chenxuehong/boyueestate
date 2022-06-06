@@ -2,7 +2,7 @@ package com.huihe.usercenter.presenter
 
 import com.huihe.usercenter.presenter.view.ResultCommunityView
 import com.kotlin.base.presenter.BasePresenter
-import com.kotlin.provider.data.protocol.District
+import com.huihe.boyueentities.protocol.common.District
 import com.kotlin.provider.utils.UserPrefsUtils
 import javax.inject.Inject
 

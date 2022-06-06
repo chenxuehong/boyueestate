@@ -1,6 +1,6 @@
 package com.huihe.customercenter.presenter.view
 
-import com.huihe.customercenter.data.protocol.CustomerDetailRep
+import com.huihe.boyueentities.protocol.customer.CustomerDetailRep
 import com.kotlin.base.presenter.view.BaseView
 
 interface CustomerDetailView :BaseView {

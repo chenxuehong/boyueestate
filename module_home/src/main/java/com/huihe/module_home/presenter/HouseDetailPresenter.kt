@@ -1,8 +1,8 @@
 package com.huihe.module_home.presenter
 
-import com.huihe.module_home.data.protocol.*
+import com.huihe.boyueentities.protocol.home.*
 import com.huihe.module_home.presenter.view.HouseDetailView
-import com.huihe.module_home.service.HouseService
+import com.huihe.commonservice.service.house.HouseService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.module_home.R
 
-import com.huihe.module_home.data.protocol.FollowRep
+import com.huihe.boyueentities.protocol.home.FollowRep
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import kotlinx.android.synthetic.main.layout_house_follow_item.view.*
 

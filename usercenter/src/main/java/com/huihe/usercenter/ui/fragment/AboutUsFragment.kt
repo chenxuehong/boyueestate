@@ -16,7 +16,7 @@ import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.activity.WebViewActivity
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.utils.DeviceUtils
-import com.kotlin.provider.data.protocol.ServerVersionInfo
+import com.huihe.boyueentities.protocol.common.ServerVersionInfo
 import kotlinx.android.synthetic.main.fragment_about_us.*
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast

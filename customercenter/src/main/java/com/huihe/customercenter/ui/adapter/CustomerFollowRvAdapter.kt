@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.customercenter.R
-import com.huihe.customercenter.data.protocol.CustomerFollowRep
+import com.huihe.boyueentities.protocol.customer.CustomerFollowRep
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import kotlinx.android.synthetic.main.layout_house_follow_item.view.*

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.huihe.module_home.R
 
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
-import com.kotlin.provider.data.protocol.District
+import com.huihe.boyueentities.protocol.common.District
 import kotlinx.android.synthetic.main.layout_area_item.view.*
 
 class AreaNameRvAdapter(

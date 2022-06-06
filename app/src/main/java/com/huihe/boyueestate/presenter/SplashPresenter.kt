@@ -1,8 +1,8 @@
 package com.huihe.boyueestate.presenter
 
+import com.huihe.boyueentities.protocol.user.SystemConfigRep
 import com.huihe.boyueestate.presenter.view.SplashView
-import com.huihe.usercenter.data.protocol.SystemConfigRep
-import com.huihe.usercenter.service.UserService
+import com.huihe.commonservice.service.user.UserService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber

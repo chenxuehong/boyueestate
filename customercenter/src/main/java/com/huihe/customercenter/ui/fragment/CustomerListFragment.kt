@@ -13,7 +13,7 @@ import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.google.gson.Gson
 import com.huihe.customercenter.R
-import com.huihe.customercenter.data.protocol.*
+import com.huihe.boyueentities.protocol.customer.*
 import com.huihe.customercenter.injection.component.DaggerCustomersComponent
 import com.huihe.customercenter.injection.module.CustomersModule
 import com.huihe.customercenter.presenter.CustomerListPresenter
@@ -23,11 +23,10 @@ import com.huihe.customercenter.ui.activity.CustomerSearchActivity
 import com.huihe.customercenter.ui.adapter.DeptUsersRvAdapter
 import com.huihe.customercenter.ui.adapter.StatusRvAdapter
 import com.huihe.customercenter.ui.adapter.TransactionRvAdapter
-import com.huihe.customercenter.ui.widget.ISearchResult
 import com.huihe.customercenter.ui.widget.ISearchResultListener
 import com.huihe.customercenter.ui.widget.SearchResultViewController
 import com.kennyc.view.MultiStateView
-import com.kotlin.base.event.LoginEvent
+import com.kotlin.base.event.LogoutEvent
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ext.setVisible
 import com.kotlin.base.ext.startLoading
@@ -37,7 +36,6 @@ import com.kotlin.base.utils.ReflectionUtil
 import com.kotlin.provider.constant.CustomerConstant
 import com.kotlin.provider.event.AddCustomerEvent
 import com.kotlin.provider.event.ResetCustomerEvent
-import com.kotlin.provider.event.ResetEvent
 import kotlinx.android.synthetic.main.layout_fragment_trannsaction.*
 import kotlinx.android.synthetic.main.layout_refresh.view.*
 import org.jetbrains.anko.support.v4.startActivity
@@ -119,7 +117,7 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
             layoutManager = LinearLayoutManager(context)
             adapter = transactionRvAdapter
         }
-        Bus.observe<LoginEvent>()
+        Bus.observe<LogoutEvent>()
             .subscribe {
                 mCurrentPage = 1
                 loadData()

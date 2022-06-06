@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.House
+import com.huihe.boyueentities.protocol.home.House
 import com.kotlin.base.ext.loadUrl
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.utils.DateUtils
@@ -31,7 +31,7 @@ class SecondHandHouseAdapter (context: Context) : BaseRecyclerViewAdapter<House,
         super.onBindViewHolder(holder, position)
 
         var customer = dataList[position]
-        holder.itemView.item_customers_iv_cover.loadUrl(customer?.coverImageUrl,R.drawable.is_empty)
+        holder.itemView.item_customers_iv_cover.loadUrl(customer?.coverImageUrl)
         // 小区名villageName+座栋building+房号hNum组成
         holder.itemView.item_customers_tv_title.text = String.format(
             holder.itemView.item_customers_tv_title.context.resources.getString(R.string.customers_title),

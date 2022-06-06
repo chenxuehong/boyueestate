@@ -19,7 +19,7 @@ import com.baidu.mapapi.search.district.OnGetDistricSearchResultListener
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.*
+import com.huihe.boyueentities.protocol.home.*
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HouseMapPresenter
@@ -33,7 +33,7 @@ import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.utils.LogUtils
 import com.kotlin.base.utils.ReflectionUtil
 import com.kotlin.provider.constant.HomeConstant
-import com.kotlin.provider.data.protocol.District
+import com.huihe.boyueentities.protocol.common.District
 import com.kotlin.provider.event.AddHouseEvent
 import com.kotlin.provider.event.ResetMapEvent
 import com.kotlin.provider.router.RouterPath

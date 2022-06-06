@@ -5,11 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.huihe.module_home.R
-import com.huihe.module_home.data.protocol.ItemHouseDetail
+import com.huihe.boyueentities.protocol.home.ItemHouseDetail
 import com.huihe.module_home.ui.adapter.HouseBasicInfoRvItemAdapter
-import com.huihe.module_home.ui.adapter.HouseDetailRvItemAdapter
 import com.kotlin.base.ext.vertical
 import com.kotlin.base.ui.fragment.BaseFragment
 import com.kotlin.provider.constant.HomeConstant

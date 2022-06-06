@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.customercenter.R
-import com.huihe.customercenter.data.protocol.CustomerRep
+import com.huihe.boyueentities.protocol.customer.CustomerRep
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.utils.DateUtils
 import kotlinx.android.synthetic.main.layout_transaction_item.view.*

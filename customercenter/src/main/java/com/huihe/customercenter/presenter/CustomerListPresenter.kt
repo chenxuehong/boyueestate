@@ -1,11 +1,11 @@
 package com.huihe.customercenter.presenter
 
-import com.huihe.customercenter.data.protocol.CustomerRep
-import com.huihe.customercenter.data.protocol.CustomerReq
-import com.huihe.customercenter.data.protocol.DeptUserRep
-import com.huihe.customercenter.data.protocol.StatusRep
+import com.huihe.boyueentities.protocol.customer.CustomerRep
+import com.huihe.boyueentities.protocol.customer.CustomerReq
+import com.huihe.boyueentities.protocol.customer.DeptUserRep
+import com.huihe.boyueentities.protocol.customer.StatusRep
 import com.huihe.customercenter.presenter.view.TransactionView
-import com.huihe.customercenter.service.CustomerService
+import com.huihe.commonservice.service.customer.CustomerService
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber

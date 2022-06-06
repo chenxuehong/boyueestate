@@ -1,14 +1,14 @@
 package com.huihe.usercenter.presenter
 
 import com.eightbitlab.rxbus.Bus
-import com.huihe.usercenter.data.protocol.SetPushRep
+import com.huihe.boyueentities.protocol.user.SetPushRep
 import com.huihe.usercenter.presenter.view.MainView
-import com.huihe.usercenter.service.UserService
+import com.huihe.commonservice.service.user.UserService
 import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.execute
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.rx.BaseSubscriber
-import com.kotlin.provider.data.protocol.ServerVersionInfo
+import com.huihe.boyueentities.protocol.common.ServerVersionInfo
 import com.kotlin.provider.event.PushIMEvent
 import javax.inject.Inject
 

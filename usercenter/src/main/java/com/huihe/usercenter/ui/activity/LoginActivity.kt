@@ -63,10 +63,15 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
     }
 
     override fun onLoginResult(result: String) {
-        mloginBtn.postDelayed(Runnable {
-            toast("登录成功")
-            ARouter.getInstance().build(RouterPath.UserCenter.PATH_MAIN).navigation()
-        },500)
+        toast("登录成功")
+        ARouter.getInstance().build(RouterPath.UserCenter.PATH_MAIN).navigation()
+        delayFinish()
+    }
+
+    private fun delayFinish() {
+        mloginBtn.postDelayed({
+            finish()
+        }, 3000)
     }
 
     override fun onDestroy() {

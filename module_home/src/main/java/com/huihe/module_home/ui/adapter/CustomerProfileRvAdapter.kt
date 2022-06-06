@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.module_home.R
 
-import com.huihe.module_home.data.protocol.CustomerProfileInfo
+import com.huihe.boyueentities.protocol.home.CustomerProfileInfo
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import kotlinx.android.synthetic.main.layout_customers_profile_info_item.view.*
 

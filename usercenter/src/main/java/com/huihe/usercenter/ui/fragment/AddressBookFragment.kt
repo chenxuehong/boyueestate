@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eightbitlab.rxbus.Bus
 import com.huihe.usercenter.R
-import com.huihe.usercenter.data.protocol.DeptUserRep
+import com.huihe.boyueentities.protocol.user.DeptUserRep
 import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.AddressBookPresenter

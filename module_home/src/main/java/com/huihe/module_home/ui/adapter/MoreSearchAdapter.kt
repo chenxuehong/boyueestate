@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.huihe.module_home.R
 
-import com.huihe.module_home.data.protocol.MoreSearchBean
+import com.huihe.boyueentities.protocol.home.MoreSearchBean
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 
 class MoreSearchAdapter(mContext: Context, var mColumnNum: Int) :

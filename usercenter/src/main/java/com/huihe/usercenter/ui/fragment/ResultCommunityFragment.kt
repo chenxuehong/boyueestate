@@ -10,12 +10,12 @@ import com.huihe.usercenter.presenter.view.ResultCommunityView
 import com.huihe.usercenter.ui.activity.SearchHouseListActivity
 import com.huihe.usercenter.ui.adapter.ResultCommunityRvAdapter
 import com.kotlin.base.common.BaseConstant
-import com.kotlin.base.event.VillageEvent
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseTitleRefreshFragment
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.constant.UserConstant
-import com.kotlin.provider.data.protocol.District
+import com.huihe.boyueentities.protocol.common.District
+import com.kotlin.provider.event.VillageEvent
 import org.jetbrains.anko.support.v4.startActivity
 
 class ResultCommunityFragment :

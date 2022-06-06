@@ -3,7 +3,7 @@ package com.huihe.usercenter.ui.fragment
 import android.view.View
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
-import com.huihe.usercenter.data.protocol.MineLookTaskRep.MineLookTask
+import com.huihe.boyueentities.protocol.user.MineLookTaskRep.MineLookTask
 import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.MineLookTaskPresenter
@@ -24,7 +24,7 @@ class MineLookTaskFragment :
     MineLookTaskView, BaseRecyclerViewAdapter.OnItemClickListener<MineLookTask> {
 
     var status:Int=0
-    var type:Int?=null
+    var curType:Int?=null
     override fun injectComponent() {
         DaggerUserComponent.builder().activityComponent(mActivityComponent).userModule(
             UserModule()
@@ -33,12 +33,12 @@ class MineLookTaskFragment :
     }
 
     override fun initView() {
-        type = null
+        curType = null
         status = arguments?.getInt(BaseConstant.KEY_STATUS, 0) ?: 0
         Bus.observe<LookTaskEvent>()
             .subscribe {
                 it?.apply {
-                    type = it.type
+                    curType = it.type
                 }
                 autoRefresh()
             }.registerInBus(this)
@@ -55,7 +55,7 @@ class MineLookTaskFragment :
     }
 
     override fun loadData(mCurrentPage: Int, mPageSize: Int) {
-        mPresenter?.getLookTaskList(status,type,mCurrentPage,mPageSize)
+        mPresenter?.getLookTaskList(status,curType,mCurrentPage,mPageSize)
     }
 
     override fun addAllData(mRvAdapter: MineLookTaskRvAdapter, list: MutableList<MineLookTask>) {

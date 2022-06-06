@@ -1,8 +1,8 @@
 package com.huihe.customercenter.presenter.view
 
-import com.huihe.customercenter.data.protocol.CustomerRep
-import com.huihe.customercenter.data.protocol.DeptUserRep
-import com.huihe.customercenter.data.protocol.StatusRep
+import com.huihe.boyueentities.protocol.customer.CustomerRep
+import com.huihe.boyueentities.protocol.customer.DeptUserRep
+import com.huihe.boyueentities.protocol.customer.StatusRep
 import com.kotlin.base.presenter.view.BaseView
 
 interface TransactionView :BaseView {

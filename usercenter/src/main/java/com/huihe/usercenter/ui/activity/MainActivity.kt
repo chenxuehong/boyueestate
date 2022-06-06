@@ -12,7 +12,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.huihe.usercenter.R
-import com.huihe.usercenter.data.protocol.SetPushRep
+import com.huihe.boyueentities.protocol.user.SetPushRep
 import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.MainPresenter
@@ -25,7 +25,7 @@ import com.kotlin.base.ui.activity.BaseMvpActivity
 import com.kotlin.base.utils.AppPrefsUtils
 import com.kotlin.base.utils.DeviceUtils
 import com.kotlin.base.utils.LogUtils
-import com.kotlin.provider.data.protocol.ServerVersionInfo
+import com.huihe.boyueentities.protocol.common.ServerVersionInfo
 import com.kotlin.provider.event.MessageBadgeEvent
 import com.kotlin.provider.router.RouterPath
 import com.kotlin.provider.utils.UserPrefsUtils
@@ -147,7 +147,7 @@ class MainActivity : BaseMvpActivity<MainPresenter>(), MainView {
         }
 
         manager.show(mStack[position])
-        manager.commit()
+        manager.commitNowAllowingStateLoss()
     }
 
     /*
