@@ -34,6 +34,7 @@ import com.kotlin.base.utils.LogUtils
 import com.kotlin.base.utils.ReflectionUtil
 import com.kotlin.provider.constant.HomeConstant
 import com.huihe.boyueentities.protocol.common.District
+import com.kotlin.base.common.OnRefreshListener
 import com.kotlin.provider.event.AddHouseEvent
 import com.kotlin.provider.event.ResetMapEvent
 import com.kotlin.provider.router.RouterPath
@@ -43,7 +44,7 @@ import kotlinx.android.synthetic.main.layout_house_map.*
 
 
 class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapView,
-    ISearchResultListener {
+    ISearchResultListener, OnRefreshListener {
 
     val WHAT_ADDOVERLAY = 100
 
@@ -370,6 +371,10 @@ class HouseMapFragment : BaseMvpFragment<HouseMapPresenter>(), FindHouseByMapVie
                 type = type
             )
         )
+    }
+
+    override fun onRefresh() {
+        initData()
     }
 
     fun resetReqData(){

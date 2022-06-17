@@ -13,8 +13,9 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.google.gson.Gson
-import com.huihe.module_home.R
+import com.huihe.boyueentities.protocol.common.District
 import com.huihe.boyueentities.protocol.home.*
+import com.huihe.module_home.R
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.HousePresenter
@@ -27,14 +28,12 @@ import com.huihe.module_home.ui.widget.ISearchResultListener
 import com.huihe.module_home.ui.widget.SearchResultViewController
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.common.BaseConstant
-import com.kotlin.base.ext.onClick
-import com.kotlin.base.ext.setVisible
-import com.kotlin.base.ext.startLoading
+import com.kotlin.base.common.OnRefreshListener
+import com.kotlin.base.ext.*
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.utils.ReflectionUtil
 import com.kotlin.provider.constant.HomeConstant
-import com.huihe.boyueentities.protocol.common.District
 import com.kotlin.provider.event.AddHouseEvent
 import com.kotlin.provider.event.HouseSelectEvent
 import com.kotlin.provider.event.ResetEvent
@@ -46,7 +45,7 @@ import org.jetbrains.anko.support.v4.startActivityForResult
 
 @Route(path = RouterPath.HomeCenter.PATH_HOUSE_FRAGMENT)
 class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
-    ISearchResultListener {
+    ISearchResultListener, OnRefreshListener {
 
     private val TAG: String? = HouseFragment::class.java.simpleName
     private var mCurrentPage: Int = 1
@@ -323,6 +322,14 @@ class HouseFragment : BaseMvpFragment<HousePresenter>(), SecondHandHouseView,
             villageIds = villageIds,
             searchReq = mSearchReq
         )
+    }
+
+    override fun onRefresh() {
+        layoutRefreshContentView?.apply {
+            customers_mBGARefreshLayout?.triggerAutoRefresh {
+                customers_mMultiStateView?.isLoading()?:true
+            }
+        }
     }
 
     override fun onGetAreaBeanListResult(list: MutableList<District>?) {

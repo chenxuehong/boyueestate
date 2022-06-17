@@ -1,0 +1,28 @@
+通常适配方案分为以下几种：
+
+1.基础适配
+
+1.1.写布局时使用 wrap_content、match_content适配宽高，
+1.2.使用RelativeLayout布局适配来控制相对位置
+1.3.9图的应用
+1.3.使用限定符来适配
+可以参考barry老师简书上适配：https://www.jianshu.com/p/0586c7e7e212
+
+2.屏幕适配解决方案
+
+2.1.通过自定义布局组件来完成
+可以参考barry老师简书上适配：https://www.jianshu.com/p/0586c7e7e212
+
+2.2.多套dimen来适配
+2.2.1.dp多套dimen来适配
+怎样生成多套dp呢？步骤如下：
+（1）下载ScreenMatch插件
+    依次点击as左上角 File->Settings->Plugins，搜索ScreenMatch，点击Install下载，需要重启才能生效
+ (2) 在需要生成多dp的module的values下，提供一套dp和sp的dimen.xml
+ (3) 鼠标右击选择ScreenMatch，会弹出对话框选择在对应module模块生成多套dimen.xml,确认即可.
+2.2.2.px多套dimen来适配
+使用谷歌提供的jar包来生成px多套dimen
+
+总结：px多套dimen，虽然解决大多数数手机 但是由于android屏幕多样型 不同的定制导致虚拟键高度不一 ,
+所以本项目中使用2.2.1.dp多套dimen来进行屏幕适配
+

@@ -10,31 +10,32 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.darsh.multipleimageselect.helpers.Constants.REQUEST_CODE
+import com.eightbitlab.rxbus.Bus
 import com.example.zhouwei.library.CustomPopWindow
 import com.huihe.module_home.R
 import com.huihe.module_home.ui.activity.AddHouseActivity
 import com.huihe.module_home.ui.adapter.MoreRvAdapter
-import com.huihe.module_home.ui.inter.RefreshListener
 import com.kotlin.base.common.BaseApplication
+import com.kotlin.base.common.OnRefreshListener
+import com.kotlin.base.ext.doRefreshFragments
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.adapter.BaseFragmentStatePageAdapter
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseFragment
 import com.kotlin.base.utils.DensityUtils
-import com.kotlin.provider.router.RouterPath
-import kotlinx.android.synthetic.main.layout_fragment_home.*
-import kotlinx.android.synthetic.main.layout_tel_dialog.view.*
-import com.darsh.multipleimageselect.helpers.Constants.REQUEST_CODE
-import com.eightbitlab.rxbus.Bus
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.event.ResetEvent
+import com.kotlin.provider.router.RouterPath
 import com.uuzuche.lib_zxing.activity.CaptureActivity
 import com.uuzuche.lib_zxing.activity.CodeUtils
+import kotlinx.android.synthetic.main.layout_fragment_home.*
+import kotlinx.android.synthetic.main.layout_tel_dialog.view.*
 import org.jetbrains.anko.support.v4.toast
 
 
 @Route(path = RouterPath.HomeCenter.PATH_HOME)
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(), OnRefreshListener {
 
     val fragments = ArrayList<Fragment>()
     val data: MutableList<String> = mutableListOf(
@@ -73,6 +74,10 @@ class HomeFragment : BaseFragment() {
         home_fl_add.onClick {
             showPopWindow(home_fl_add)
         }
+    }
+
+    override fun onRefresh() {
+        fragments.doRefreshFragments()
     }
 
     private fun showPopWindow(homeFlAdd: FrameLayout) {

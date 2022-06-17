@@ -15,22 +15,24 @@ import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.AddFollowPresenter
 import com.huihe.module_home.presenter.view.AddFollowView
-import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.provider.constant.HomeConstant
-import kotlinx.android.synthetic.main.fragment_house_add_follow.*
 import org.jetbrains.anko.support.v4.toast
+import com.huihe.module_home.databinding.FragmentHouseAddFollowBinding
+import com.kotlin.base.ext.onClick
 
 class AddFollowFragment : BaseMvpFragment<AddFollowPresenter>(), AddFollowView {
 
     var houseId: String? = null
+    lateinit var binding: FragmentHouseAddFollowBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.fragment_house_add_follow, container, false)
+        binding = FragmentHouseAddFollowBinding.inflate(getLayoutInflater())
+        return binding.root
     }
 
     override fun injectComponent() {
@@ -47,18 +49,18 @@ class AddFollowFragment : BaseMvpFragment<AddFollowPresenter>(), AddFollowView {
     }
 
     private fun initView() {
-        tvAddFollowContent.onClick {
+        binding.tvAddFollowContent.onClick {
             if (checkInput()) {
                 mPresenter?.addFollowContent(
                     houseId,
-                    etHouseFollowContent.text.toString().trim()
+                    binding.etHouseFollowContent.text.toString().trim()
                 )
             }
         }
     }
 
     private fun checkInput(): Boolean {
-        if (TextUtils.isEmpty(etHouseFollowContent.text.toString().trim())) {
+        if (TextUtils.isEmpty(binding.etHouseFollowContent.text.toString().trim())) {
             toast(resources.getString(R.string.follow_content_input))
             return false
         }

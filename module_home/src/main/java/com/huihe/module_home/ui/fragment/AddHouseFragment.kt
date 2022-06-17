@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import com.alibaba.android.arouter.launcher.ARouter
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
-import com.huihe.module_home.R
 import com.huihe.boyueentities.protocol.home.AddHouseInfoReq
 import com.huihe.boyueentities.protocol.home.SetHouseInfoRep
+import com.huihe.module_home.databinding.FragmentAddHouseBinding
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.AddHousePresenter
@@ -24,20 +24,21 @@ import com.kotlin.base.widgets.NecessaryTitleSelectView
 import com.kotlin.base.widgets.picker.WheelPicker.picker.SinglePicker
 import com.kotlin.provider.event.AddHouseEvent
 import com.kotlin.provider.router.RouterPath
-import kotlinx.android.synthetic.main.fragment_add_house.*
 import org.jetbrains.anko.support.v4.toast
 
 class AddHouseFragment : BaseMvpFragment<AddHousePresenter>(), AddHouseView{
 
     var mTransactionTypePicker: SinglePicker<String>?=null
     var req:AddHouseInfoReq?=null
+    lateinit var binding: FragmentAddHouseBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.fragment_add_house, container, false)
+        binding = FragmentAddHouseBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun injectComponent() {
@@ -54,46 +55,53 @@ class AddHouseFragment : BaseMvpFragment<AddHousePresenter>(), AddHouseView{
     }
 
     private fun initView() {
-        tvAddHouse.onClick {
-            if (checkInput()){
-                commit()
+        binding.apply {
+            tvAddHouse.onClick {
+                if (checkInput()){
+                    commit()
+                }
             }
-        }
-        nsvTransaction_type.onClick {
-            selectTransactionType()
-        }
-        nsvVillage.onClick {
-            selectVillage()
+            nsvTransactionType.onClick {
+                selectTransactionType()
+            }
+            nsvVillage.onClick {
+                selectVillage()
+            }
         }
     }
 
     private fun commit() {
-        req?.floorage = nivfloorage.getContent()
-        req?.price = nivSalePrice.getContent()
-        req?.rent = nivrent.getContent()
-        req?.building = nivbuilding.getContent()
-        req?.hNum = nivrNumber.getContent()
-        req?.ownerName = nivName.getContent()
-        req?.floor = nivgroundFloor.getContent()
-        req?.totalFloor = nivtotalFloors.getContent()
-        req?.hShape = "${nivroom.getContent()}室${nivhall.getContent()}厅${nivdefend.getContent()}卫"
-        req?.ownerTel = getTel()
-        mPresenter?.addHouseInfo(
-            req!!
-        )
+        binding.apply {
+            req?.floorage = nivfloorage.getContent()
+            req?.price = nivSalePrice.getContent()
+            req?.rent = nivrent.getContent()
+            req?.building = nivbuilding.getContent()
+            req?.hNum = nivrNumber.getContent()
+            req?.ownerName = nivName.getContent()
+            req?.floor = nivgroundFloor.getContent()
+            req?.totalFloor = nivtotalFloors.getContent()
+            req?.hShape = "${nivroom.getContent()}室${nivhall.getContent()}厅${nivdefend.getContent()}卫"
+            req?.ownerTel = getTel()
+            mPresenter?.addHouseInfo(
+                req!!
+            )
+        }
     }
 
     private fun getTel(): String? {
         var data:MutableList<String> =  mutableListOf()
-        if (!TextUtils.isEmpty(nivPhone.getContent())){
-            data.add(nivPhone.getContent()!!)
+        binding.apply {
+            if (!TextUtils.isEmpty(nivPhone.getContent())){
+                data.add(nivPhone.getContent()!!)
+            }
+            if (!TextUtils.isEmpty(nivPhone1.getContent())){
+                data.add(nivPhone1.getContent()!!)
+            }
+            if (!TextUtils.isEmpty(nivPhone2.getContent())){
+                data.add(nivPhone2.getContent()!!)
+            }
         }
-        if (!TextUtils.isEmpty(nivPhone1.getContent())){
-            data.add(nivPhone1.getContent()!!)
-        }
-        if (!TextUtils.isEmpty(nivPhone2.getContent())){
-            data.add(nivPhone2.getContent()!!)
-        }
+
         var sb = StringBuffer()
         data.forEach { item ->
             sb.append("*").append(item)
@@ -109,7 +117,7 @@ class AddHouseFragment : BaseMvpFragment<AddHousePresenter>(), AddHouseView{
         Bus.observe<VillageEvent>()
             .subscribe {
                 req?.villageId = it.id?:""
-                nsvVillage.setContent("${it.villageName}")
+                binding.nsvVillage.setContent("${it.villageName}")
             }.registerInBus(this)
         ARouter.getInstance().build(RouterPath.UserCenter.PATH_COMMUNITY_MANAGER)
             .withBoolean(BaseConstant.KEY_ISSELECT,true)
@@ -135,15 +143,15 @@ class AddHouseFragment : BaseMvpFragment<AddHousePresenter>(), AddHouseView{
             when (item) {
                 "出售" -> {
                     transactionType = 0
-                    nsvTransaction_type.setContent("出售")
+                    binding.nsvTransactionType.setContent("出售")
                 }
                 "出租" -> {
                     transactionType = 1
-                    nsvTransaction_type.setContent("出租")
+                    binding.nsvTransactionType.setContent("出租")
                 }
                 "租售" -> {
                     transactionType = 2
-                    nsvTransaction_type.setContent("租售")
+                    binding.nsvTransactionType.setContent("租售")
                 }
             }
             showTransactionType(transactionType)
@@ -156,25 +164,25 @@ class AddHouseFragment : BaseMvpFragment<AddHousePresenter>(), AddHouseView{
     private fun showTransactionType(transactionType: Int) {
         when (transactionType) {
             0 -> {
-                nsvTransaction_type.setContent("出售")
+                binding.nsvTransactionType.setContent("出售")
             }
             1 -> {
-                nsvTransaction_type.setContent("出租")
+                binding.nsvTransactionType.setContent("出租")
             }
             2 -> {
-                nsvTransaction_type.setContent("租售")
+                binding.nsvTransactionType.setContent("租售")
             }
         }
     }
 
     private fun checkInput(): Boolean {
-        var childCount = llAddHouse.childCount
-        if (!TextUtils.isEmpty(nivrNumber.getContent()) && nivrNumber.getContent()?.length !=4){
+        var childCount = binding.llAddHouse.childCount
+        if (!TextUtils.isEmpty(binding.nivrNumber.getContent()) && binding.nivrNumber.getContent()?.length !=4){
             toast("房间号长度必须为4")
             return false
         }
         for (i in 0 until childCount) {
-            var childView = llAddHouse.getChildAt(i)
+            var childView = binding.llAddHouse.getChildAt(i)
             if (childView is NecessaryTitleSelectView) {
                 if (childView.isNecessary && TextUtils.isEmpty(childView.getContent())) {
                     var tipContentText = childView.getTipContentText()

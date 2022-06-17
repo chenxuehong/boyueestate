@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
-import com.huihe.module_home.R
 import com.huihe.boyueentities.protocol.home.CustomerProfileInfo
+import com.huihe.module_home.databinding.LayoutFragmentCustomerProfileBinding
 import com.huihe.module_home.injection.component.DaggerCustomersComponent
 import com.huihe.module_home.injection.module.CustomersModule
 import com.huihe.module_home.presenter.CustomerProfilePresenter
@@ -18,7 +18,6 @@ import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.provider.constant.CustomerConstant
 import com.kotlin.provider.constant.HomeConstant
 import com.kotlin.provider.router.RouterPath
-import kotlinx.android.synthetic.main.layout_fragment_customer_profile.*
 import org.jetbrains.anko.support.v4.startActivity
 
 class CustomerProfileFragment : BaseMvpFragment<CustomerProfilePresenter>(), CustomerProfileView,
@@ -37,13 +36,15 @@ class CustomerProfileFragment : BaseMvpFragment<CustomerProfilePresenter>(), Cus
 
     var id: String? = null
     var mCustomerProfileRvAdapter: CustomerProfileRvAdapter? = null
+    lateinit var binding : LayoutFragmentCustomerProfileBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.layout_fragment_customer_profile, container, false)
+        binding = LayoutFragmentCustomerProfileBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun injectComponent() {
@@ -62,8 +63,8 @@ class CustomerProfileFragment : BaseMvpFragment<CustomerProfilePresenter>(), Cus
 
     private fun initAdapter() {
         mCustomerProfileRvAdapter = CustomerProfileRvAdapter(context!!, this)
-        customerProfileExListView.layoutManager = LinearLayoutManager(context)
-        customerProfileExListView?.adapter = mCustomerProfileRvAdapter
+        binding.customerProfileExListView.layoutManager = LinearLayoutManager(context)
+        binding.customerProfileExListView?.adapter = mCustomerProfileRvAdapter
     }
 
     private fun initData() {

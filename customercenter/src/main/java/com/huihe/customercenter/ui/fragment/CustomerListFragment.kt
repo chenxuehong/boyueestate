@@ -26,16 +26,16 @@ import com.huihe.customercenter.ui.adapter.TransactionRvAdapter
 import com.huihe.customercenter.ui.widget.ISearchResultListener
 import com.huihe.customercenter.ui.widget.SearchResultViewController
 import com.kennyc.view.MultiStateView
+import com.kotlin.base.common.OnRefreshListener
 import com.kotlin.base.event.LogoutEvent
-import com.kotlin.base.ext.onClick
-import com.kotlin.base.ext.setVisible
-import com.kotlin.base.ext.startLoading
+import com.kotlin.base.ext.*
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.kotlin.base.utils.ReflectionUtil
 import com.kotlin.provider.constant.CustomerConstant
 import com.kotlin.provider.event.AddCustomerEvent
 import com.kotlin.provider.event.ResetCustomerEvent
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.layout_fragment_trannsaction.*
 import kotlinx.android.synthetic.main.layout_refresh.view.*
 import org.jetbrains.anko.support.v4.startActivity
@@ -43,7 +43,7 @@ import org.jetbrains.anko.support.v4.startActivityForResult
 import org.jetbrains.anko.support.v4.toast
 
 class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), TransactionView,
-    ISearchResultListener {
+    ISearchResultListener, OnRefreshListener {
 
     private var mCurrentPage: Int = 1
     private var mPageSize: Int = 30
@@ -200,6 +200,15 @@ class CustomerListFragment : BaseMvpFragment<CustomerListPresenter>(), Transacti
                 isCornucopia = isCornucopia
             )
         )
+    }
+
+    override fun onRefresh() {
+        mCurrentPage = 1
+        layoutRefreshContentView?.apply {
+            customers_mBGARefreshLayout?.triggerAutoRefresh {
+                customers_mMultiStateView?.isLoading()?:true
+            }
+        }
     }
 
     override fun onSearchResult(iSearchResult: ISearchResult?, showTip: String, type: Int) {

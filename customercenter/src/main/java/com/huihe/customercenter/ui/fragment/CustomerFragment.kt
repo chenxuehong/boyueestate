@@ -9,18 +9,19 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.eightbitlab.rxbus.Bus
 import com.huihe.customercenter.R
 import com.huihe.customercenter.ui.activity.AddCustomerActivity
+import com.kotlin.base.common.OnRefreshListener
+import com.kotlin.base.ext.doRefreshFragments
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.adapter.BaseFragmentStatePageAdapter
 import com.kotlin.base.ui.fragment.BaseFragment
 import com.kotlin.provider.constant.CustomerConstant
 import com.kotlin.provider.event.ResetCustomerEvent
-import com.kotlin.provider.event.ResetEvent
 import com.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.layout_fragment_customer.*
 import org.jetbrains.anko.support.v4.startActivity
 
 @Route(path = RouterPath.CustomerCenter.PATH_CUSTOMER)
-class CustomerFragment : BaseFragment() {
+class CustomerFragment : BaseFragment(), OnRefreshListener {
 
     val fragments = ArrayList<Fragment>()
     override fun onCreateView(
@@ -70,5 +71,9 @@ class CustomerFragment : BaseFragment() {
         }
         customerListFragment.arguments = args
         return customerListFragment
+    }
+
+    override fun onRefresh() {
+        fragments.doRefreshFragments()
     }
 }

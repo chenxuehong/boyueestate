@@ -21,6 +21,7 @@ import com.huihe.usercenter.ui.activity.*
 import com.huihe.usercenter.ui.adapter.MeGroupRvAdapter
 import com.jph.takephoto.model.TResult
 import com.kotlin.base.common.BaseConstant
+import com.kotlin.base.common.OnRefreshListener
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.ext.loadHeadUrl
 import com.kotlin.base.ext.onClick
@@ -40,7 +41,7 @@ import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 
 class MeFragment : BaseTakePhotoFragment<MePresenter>(), MeView,
-    MeGroupRvAdapter.OnChildItemClickListener {
+    MeGroupRvAdapter.OnChildItemClickListener, OnRefreshListener {
 
     var mLocalFilResult: TResult? = null
     var mUploadManager: UploadManager? = null
@@ -223,5 +224,10 @@ class MeFragment : BaseTakePhotoFragment<MePresenter>(), MeView,
         meContentRvAdapter?.onDestory()
         Bus.unregister(this)
         super.onDestroy()
+    }
+
+    override fun onRefresh() {
+        refreshUserInfo()
+        mPresenter.getLookTaskStatic(0)
     }
 }

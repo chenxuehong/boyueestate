@@ -9,9 +9,9 @@ import com.kotlin.base.R
 import com.kotlin.base.ext.initInflater
 import com.kotlin.base.widgets.HeaderBar
 import kotlinx.android.synthetic.main.fragment_title.*
+import java.util.*
 
 abstract class BaseTitleFragment : BaseFragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

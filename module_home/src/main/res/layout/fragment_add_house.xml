@@ -23,7 +23,7 @@
             android:orientation="vertical">
 
             <com.kotlin.base.widgets.NecessaryTitleSelectView
-                android:id="@+id/nsvTransaction_type"
+                android:id="@+id/nsvTransactionType"
                 style="@style/MatchWrap"
                 app:leftTitleText="@string/transaction_type"
                 app:isNecessary="true"

@@ -11,8 +11,9 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
-import com.huihe.usercenter.R
+import com.huihe.boyueentities.protocol.common.ServerVersionInfo
 import com.huihe.boyueentities.protocol.user.SetPushRep
+import com.huihe.usercenter.R
 import com.huihe.usercenter.injection.component.DaggerUserComponent
 import com.huihe.usercenter.injection.module.UserModule
 import com.huihe.usercenter.presenter.MainPresenter
@@ -20,12 +21,13 @@ import com.huihe.usercenter.presenter.view.MainView
 import com.huihe.usercenter.ui.fragment.MeFragment
 import com.kotlin.base.common.AppManager
 import com.kotlin.base.common.BaseConstant
+import com.kotlin.base.ext.doRefreshFragment
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.activity.BaseMvpActivity
 import com.kotlin.base.utils.AppPrefsUtils
 import com.kotlin.base.utils.DeviceUtils
+import com.kotlin.base.utils.FragmentUtils
 import com.kotlin.base.utils.LogUtils
-import com.huihe.boyueentities.protocol.common.ServerVersionInfo
 import com.kotlin.provider.event.MessageBadgeEvent
 import com.kotlin.provider.router.RouterPath
 import com.kotlin.provider.utils.UserPrefsUtils
@@ -35,7 +37,6 @@ import top.limuyang2.ldialog.LDialog
 import top.limuyang2.ldialog.base.BaseLDialog
 import top.limuyang2.ldialog.base.ViewHandlerListener
 import top.limuyang2.ldialog.base.ViewHolder
-import java.util.*
 
 @Route(path = RouterPath.UserCenter.PATH_MAIN)
 class MainActivity : BaseMvpActivity<MainPresenter>(), MainView {
@@ -43,9 +44,6 @@ class MainActivity : BaseMvpActivity<MainPresenter>(), MainView {
     val TAG: String = MainActivity::javaClass.name
     lateinit var mCheckUpdateDialog: LDialog
     private var pressTime: Long = 0
-
-    //Fragment 栈管理
-    private val mStack = Stack<Fragment>()
 
     //首页Fragment
     private val mHomeFragment by lazy {
@@ -81,7 +79,6 @@ class MainActivity : BaseMvpActivity<MainPresenter>(), MainView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        initFragment()
         initBottomNav()
         changeFragment(0)
         initObserve()
@@ -100,30 +97,12 @@ class MainActivity : BaseMvpActivity<MainPresenter>(), MainView {
     }
 
     /*
-      初始化Fragment栈管理
-   */
-    private fun initFragment() {
-        val manager = supportFragmentManager.beginTransaction()
-        manager.add(R.id.mContaier, mHomeFragment)
-        manager.add(R.id.mContaier, mHouseMapTitleFragment)
-        manager.add(R.id.mContaier, mCustomerFragment)
-        manager.add(R.id.mContaier, mMsgFragment)
-        manager.add(R.id.mContaier, mMeFragment)
-        manager.commit()
-
-        mStack.add(mHomeFragment)
-        mStack.add(mHouseMapTitleFragment)
-        mStack.add(mCustomerFragment)
-        mStack.add(mMsgFragment)
-        mStack.add(mMeFragment)
-    }
-
-    /*
         初始化底部导航切换事件
      */
     private fun initBottomNav() {
         mBottomNavBar.setTabSelectedListener(object : BottomNavigationBar.OnTabSelectedListener {
             override fun onTabReselected(position: Int) {
+                FragmentUtils.getFragments(supportFragmentManager).doRefreshFragment(position)
             }
 
             override fun onTabUnselected(position: Int) {
@@ -141,13 +120,10 @@ class MainActivity : BaseMvpActivity<MainPresenter>(), MainView {
         切换Tab，切换对应的Fragment
      */
     private fun changeFragment(position: Int) {
-        val manager = supportFragmentManager.beginTransaction()
-        for (fragment in mStack) {
-            manager.hide(fragment)
-        }
-
-        manager.show(mStack[position])
-        manager.commitNowAllowingStateLoss()
+        FragmentUtils.switchFragment(
+            supportFragmentManager, position, R.id.mContaier,
+            mHomeFragment, mHouseMapTitleFragment, mCustomerFragment, mMsgFragment, mMeFragment
+        )
     }
 
     /*
@@ -201,7 +177,8 @@ class MainActivity : BaseMvpActivity<MainPresenter>(), MainView {
                 override fun convertView(holder: ViewHolder, dialog: BaseLDialog<*>) {
 
                     var log = serverAppVersion?.changelog ?: "暂无更新日志"
-                    holder.getView<TextView>(R.id.dialog_apk_update_tv_title).text = "${resources.getString(R.string.New_version_found)}: ${serverAppVersion?.versionShort}"
+                    holder.getView<TextView>(R.id.dialog_apk_update_tv_title).text =
+                        "${resources.getString(R.string.New_version_found)}: ${serverAppVersion?.versionShort}"
                     holder.getView<TextView>(R.id.dialog_apk_update_tv_versionInfo).text = log
                     holder.getView<TextView>(R.id.dialog_apk_update_iv_close).onClick {
                         dialog.dismiss()
@@ -209,7 +186,10 @@ class MainActivity : BaseMvpActivity<MainPresenter>(), MainView {
                     holder.getView<TextView>(R.id.dialog_apk_update_tv_update).onClick {
                         dialog.dismiss()
                         var intent =
-                            Intent(Intent.ACTION_VIEW, Uri.parse(serverAppVersion?.update_url?:""))
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(serverAppVersion?.update_url ?: "")
+                            )
                         startActivity(intent)
                     }
                 }
